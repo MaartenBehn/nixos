@@ -1,16 +1,16 @@
-# Edit this configuration file to define what should be installed on
+# Lcdit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, system, ... }:
+{ config, pkgs, system, lib, ... }:
 
-{
+{   
   imports = [ 
     ./hardware-configuration.nix 
     ./steam.nix
     ./syncthing.nix
+    ./ssdm.nix
   ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -33,7 +33,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
+  # Select internationalisation properties. 
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -51,6 +51,7 @@
   # Configure console keymap
   console.keyMap = "de";
 
+  
 
   # --- HARDWARE FEATURES ---
   networking.networkmanager.enable = true;
@@ -91,7 +92,7 @@
 
   services.fprintd.enable = true;
 
-
+  
   # --- DESKTOP ----
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -102,7 +103,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-
+  
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "de";

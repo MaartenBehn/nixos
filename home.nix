@@ -12,7 +12,7 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      alias update="sudo nixos-rebuild switch --flake ~/nixos/#default";
+      alias update="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default && cd -";
       alias clean="sudo nix-collect-garbage --delete-older-than 30d" 
       alias upd=update
       alias ls="exa -l -a";
@@ -58,7 +58,6 @@
 
   home.sessionVariables = {
     EDITOR = "lvim";
-  };
-  
+  };  
 }
 
