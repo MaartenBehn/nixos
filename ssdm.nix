@@ -127,7 +127,6 @@ let
 
 in
 {
-  ## This is a override of ssdm.nix
   disabledModules = [ "services/display-managers/ssdm.nix" ];
 
   imports = [
@@ -289,12 +288,12 @@ in
           SDDM requires either services.xserver.enable or services.displayManager.sddm.wayland.enable to be true
         '';
       }
-      #{
-      #  assertion = config.services.displayManager.autoLogin.enable -> autoLoginSessionName != null;
-      #  message = ''
-      #    SDDM auto-login requires that services.displayManager.defaultSession is set.
-      #  '';
-      #}
+      {
+        assertion = config.services.displayManager.autoLogin.enable -> autoLoginSessionName != null;
+        message = ''
+          SDDM auto-login requires that services.displayManager.defaultSession is set.
+        '';
+      }
     ];
 
     services.displayManager = {
