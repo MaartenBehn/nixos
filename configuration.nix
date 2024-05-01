@@ -8,7 +8,7 @@
   imports = [ 
     ./hardware-configuration.nix 
     ./steam.nix
-    ./syncthing/syncthing.nix
+    ./syncthing.nix
   ];
 
   # Bootloader.
