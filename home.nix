@@ -51,7 +51,9 @@
     enable = true;
     userName  = "Maarten Behn";
     userEmail = "maarten.behn@gmail.com";
-    defaultBranch = "main";
+  };
+  programs.git.extraConfig = {
+    init.defaultBranch = "main";
   };
 
   home.sessionVariables = {

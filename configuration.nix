@@ -8,6 +8,7 @@
   imports = [ 
     ./hardware-configuration.nix 
     ./steam.nix
+    ./syncthing/syncthing.nix
   ];
 
   # Bootloader.
@@ -159,7 +160,6 @@
     # Netowork stuff
     gnirehtet
     openconnect
-    syncthing
 
     # Big Apps
     firefox
@@ -176,11 +176,7 @@
   ];
   programs.fish.enable = true;
    
-  # syncthing config
-  services.syncthing.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
-  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
-
+ 
   
   # --- DONT KNOW ---
    environment.variables = {
