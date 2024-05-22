@@ -140,9 +140,7 @@
     grc
     dwt1-shell-color-scripts
     starship
-
     direnv
-    any-nix-shell
 
     # NeoVim
     # lazygit
