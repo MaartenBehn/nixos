@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -12,15 +12,13 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      alias update="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default && cd -";
+      alias update="cd /home/stroby/nixos/ && git add --all && git commit -m "rebuild" && sudo nixos-rebuild switch --flake ~/nixos/#default && cd -";
       alias clean="sudo nix-collect-garbage --delete-older-than 30d" 
       alias upd=update
       alias ls="exa -l -a";
       alias ping="ping -c 5";
 
       alias myip="curl http://ipecho.net/plain; echo";
-
-      alias reload="source ~/.zshrc";
 
       alias vpn-uni="sudo openconnect -b -u behn --authgroup=Tunnel-Uni-Bremen vpn.uni-bremen.de";
       alias vpn-kill="sudo killall openconnect";
@@ -46,18 +44,13 @@
     nix-direnv.enable = true;
   };
 
-
    programs.git = {
     enable = true;
     userName  = "Maarten Behn";
     userEmail = "maarten.behn@gmail.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
-  programs.git.extraConfig = {
-    init.defaultBranch = "main";
-  };
-
-  home.sessionVariables = {
-    EDITOR = "lvim";
-  };  
 }
 

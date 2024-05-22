@@ -9,7 +9,6 @@
     ./hardware-configuration.nix 
     ./steam.nix
     ./syncthing.nix
-    ./ssdm.nix
   ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -91,7 +90,7 @@
   services.printing.enable = true;
 
   services.fprintd.enable = true;
-
+  
   
   # --- DESKTOP ----
   # Enable the X11 windowing system.
@@ -144,19 +143,22 @@
     direnv
 
     # NeoVim
-    lunarvim
-    lazygit
-    xclip
-
+    # lazygit
+    # xclip
+    # neovim
     
     # for open nix config shortcut
-    wmctrl
+    # wmctrl
 
     eza
     btop
     yakuake
     git
-    alacritty
+    # alacritty
+    fd
+    unzip
+    wget
+    python3
     
     # Netowork stuff
     gnirehtet
@@ -168,22 +170,26 @@
     obsidian
     discord
     vscode
+    kate
     
     # jetbrains
     jetbrains.webstorm
     jetbrains.pycharm-professional
     jetbrains.clion
+    jetbrains.idea-ultimate
+
+
+    wineWowPackages.stable
+    winetricks
 
   ];
   programs.fish.enable = true;
    
- 
-  
-  # --- DONT KNOW ---
    environment.variables = {
     PKG_CONFIG_PATH = with pkgs; lib.makeLibraryPath [
       fontconfig
     ];
+    EDITOR = "nvim";
   };
 
 }
