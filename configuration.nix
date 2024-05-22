@@ -158,6 +158,9 @@
     fd
     unzip
     wget
+
+    pkgs.webcamoid
+
     python3
     
     # Netowork stuff
@@ -172,11 +175,10 @@
     kate
     
     # jetbrains
+    jetbrains.clion
     jetbrains.webstorm
     jetbrains.pycharm-professional
-    jetbrains.clion
     jetbrains.idea-ultimate
-    jetbrains.rust-rover
 
 
     wineWowPackages.stable
