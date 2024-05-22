@@ -140,7 +140,9 @@
     grc
     dwt1-shell-color-scripts
     starship
+
     direnv
+    any-nix-shell
 
     # NeoVim
     # lazygit
@@ -169,7 +171,6 @@
     thunderbird
     obsidian
     discord
-    vscode
     kate
     
     # jetbrains
