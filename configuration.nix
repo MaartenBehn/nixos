@@ -176,6 +176,7 @@
     jetbrains.pycharm-professional
     jetbrains.clion
     jetbrains.idea-ultimate
+    jetbrains.rust-rover
 
 
     wineWowPackages.stable
