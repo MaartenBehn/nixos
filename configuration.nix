@@ -159,7 +159,7 @@
     unzip
     wget
 
-    pkgs.webcamoid
+    webcamoid
 
     python3
     
@@ -173,6 +173,7 @@
     obsidian
     discord
     kate
+    vlc
     
     # jetbrains
     jetbrains.clion
