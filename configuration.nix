@@ -150,30 +150,29 @@
     # for open nix config shortcut
     # wmctrl
 
+    # shell programms
     eza
     btop
     yakuake
     git
-    # alacritty
     fd
     unzip
     wget
-
-    webcamoid
-
     python3
-    
+
+
     # Netowork stuff
     gnirehtet
     openconnect
 
-    # Big Apps
+    # Apps
     firefox
     thunderbird
     obsidian
     discord
     kate
     vlc
+    webcamoid
     
     # jetbrains
     jetbrains.clion
@@ -181,7 +180,7 @@
     jetbrains.pycharm-professional
     jetbrains.idea-ultimate
 
-
+    # wine
     wineWowPackages.stable
     winetricks
 
