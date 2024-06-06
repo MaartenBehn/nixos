@@ -160,7 +160,7 @@
     wget
 
     python3
-    python.pkgs.pip
+    pip
 
 
     # Netowork stuff
