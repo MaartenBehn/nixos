@@ -158,7 +158,9 @@
     fd
     unzip
     wget
+
     python3
+    python.pkgs.pip
 
 
     # Netowork stuff
