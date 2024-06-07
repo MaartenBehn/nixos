@@ -160,7 +160,6 @@
     wget
 
     python3
-    pip
 
 
     # Netowork stuff
@@ -193,7 +192,7 @@
     PKG_CONFIG_PATH = with pkgs; lib.makeLibraryPath [
       fontconfig
     ];
-    EDITOR = "nvim";
+    EDITOR = "nano";
   };
 
 }
