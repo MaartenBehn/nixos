@@ -36,7 +36,6 @@
       export DIRENV_LOG_FORMAT= 
 
       starship init fish | source
-
     '';
   };
 
