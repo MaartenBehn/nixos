@@ -50,6 +50,7 @@
     userEmail = "maarten.behn@gmail.com";
     extraConfig = {
       init.defaultBranch = "main";
+      merge.tool = "meld";
     };
   };
 }

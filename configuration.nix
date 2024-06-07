@@ -155,6 +155,7 @@
     btop
     yakuake
     git
+    meld
     fd
     unzip
     wget
