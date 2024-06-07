@@ -174,6 +174,7 @@
     kate
     vlc
     webcamoid
+    spotify
     
     # jetbrains
     jetbrains.clion
