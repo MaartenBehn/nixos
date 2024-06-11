@@ -36,8 +36,6 @@
       export DIRENV_LOG_FORMAT= 
 
       starship init fish | source
-
-
     '';
   };
 
@@ -53,6 +51,12 @@
     extraConfig = {
       init.defaultBranch = "main";
       merge.tool = "meld";
+    };
+  };
+
+  programs.ssh.matchBlocks = {
+    betelgeuse.uberspace.de = {
+       user = "ropelab"
     };
   };
 }
