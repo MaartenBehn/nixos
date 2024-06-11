@@ -54,6 +54,7 @@
     };
   };
 
+  programs.ssh.enable = true;
   programs.ssh.matchBlocks = {
      ropelab = {
       hostname =  "betelgeuse.uberspace.de";
