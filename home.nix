@@ -57,7 +57,7 @@
   programs.ssh.enable = true;
   programs.ssh.matchBlocks = {
      ropelab = {
-      hostname =  "betelgeuse.uberspace.de";
+      hostname = "betelgeuse.uberspace.de";
       user = "ropelab";
     };
   };

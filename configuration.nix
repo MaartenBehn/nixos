@@ -176,7 +176,7 @@
     vlc
     webcamoid
     spotify
-    signald
+    signal-desktop
     
     # jetbrains
     jetbrains.clion
