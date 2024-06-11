@@ -18,8 +18,6 @@
 
 
   # --- USER ----
-  networking.hostName = "stroby-nixos"; # Define your hostname.
-
    users.users.stroby = {
     isNormalUser = true;
     description = "stroby";
