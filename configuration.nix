@@ -23,8 +23,11 @@
     description = "stroby";
     extraGroups = [ "networkmanager" "wheel" ];
   };
-  users.defaultUserShell = pkgs.fish;
   system.stateVersion = "23.11";
+
+  users.defaultUserShell = pkgs.fish;
+  programs.command-not-found.enable = false;
+  programs.nix-index.enable = true;
 
   # --- LOCAL ---
   # Set your time zone.
@@ -130,7 +133,8 @@
     # System
     kdePackages.filelight
     kdePackages.partitionmanager
-    kdePackages.isoimagewriter
+    nix-index
+    nix-index-database
 
     # fish shell
     fish
