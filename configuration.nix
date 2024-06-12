@@ -95,11 +95,11 @@
   services.xserver.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
   
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -127,6 +127,11 @@
 
   environment.systemPackages = with pkgs; [
     
+    # System
+    kdePackages.filelight
+    kdePackages.partitionmanager
+    kdePackages.isoimagewriter
+
     # fish shell
     fish
     fishPlugins.done
@@ -140,14 +145,6 @@
     starship
     direnv
 
-    # NeoVim
-    # lazygit
-    # xclip
-    # neovim
-    
-    # for open nix config shortcut
-    # wmctrl
-
     # shell programms
     eza
     btop
@@ -157,12 +154,6 @@
     fd
     unzip
     wget
-
-    python3
-
-    kdePackages.filelight
-    kdePackages.partitionmanager
-    kdePackages.isoimagewriter
 
 
     # Netowork stuff
@@ -174,13 +165,17 @@
     thunderbird
     obsidian
     discord
-    kate
     vlc
     webcamoid
     spotify
     signal-desktop
     
-    # jetbrains
+    # dev
+    python3
+    gittyup
+
+    # editor
+    kate
     jetbrains.clion
     jetbrains.webstorm
     jetbrains.pycharm-professional

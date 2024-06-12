@@ -12,9 +12,10 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      alias update="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default --impure && cd -";
+      alias rebuild="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default --impure && cd -";
+      alias update="cd /home/stroby/nixos/ && git add --all && nix flake update && cd -"
       alias clean="sudo nix-collect-garbage --delete-older-than 30d" 
-      alias upd=update
+
       alias ls="exa -l -a";
       alias ping="ping -c 5";
 
