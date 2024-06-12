@@ -162,7 +162,7 @@
 
     kdePackages.filelight
     kdePackages.partitionmanager
-    etcher
+    kdePackages.isoimagewriter
 
 
     # Netowork stuff
