@@ -39,6 +39,7 @@
       starship init fish | source
     '';
   };
+  programs.nix-index.enable = true;
 
   programs.direnv = {
     enable = true;

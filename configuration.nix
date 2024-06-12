@@ -134,7 +134,6 @@
     kdePackages.filelight
     kdePackages.partitionmanager
     nix-index
-    nix-index-database
 
     # fish shell
     fish
