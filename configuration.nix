@@ -160,6 +160,9 @@
 
     python3
 
+    kdePackages.filelight
+    kdePackages.partitionmanager
+
 
     # Netowork stuff
     gnirehtet
