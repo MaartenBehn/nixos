@@ -162,6 +162,7 @@
 
     kdePackages.filelight
     kdePackages.partitionmanager
+    etcher
 
 
     # Netowork stuff
