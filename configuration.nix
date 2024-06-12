@@ -161,7 +161,7 @@
     python3
 
     kdePackages.filelight
-    kdePackages.partitionmanager
+    gparted
 
 
     # Netowork stuff
