@@ -186,6 +186,7 @@
     jetbrains.webstorm
     jetbrains.pycharm-professional
     jetbrains.idea-ultimate
+    jetbrains.rust-rover
 
     # wine
     wineWowPackages.stable
