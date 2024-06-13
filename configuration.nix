@@ -25,9 +25,6 @@
   };
   system.stateVersion = "23.11";
 
-  users.defaultUserShell = pkgs.fish;
-  programs.command-not-found.enable = false;
-  programs.nix-index.enable = true;
 
   # --- LOCAL ---
   # Set your time zone.
@@ -56,8 +53,8 @@
   # --- HARDWARE FEATURES ---
   networking.networkmanager.enable = true;
 
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
 
   services.thermald.enable = true;
 
@@ -123,6 +120,12 @@
 
 
   # --- PROGRAMS ---
+
+  # shell
+  users.defaultUserShell = pkgs.fish;
+  programs.command-not-found.enable = false;
+  programs.nix-index.enable = true;
+
   nixpkgs = {
     # Allow unfree packages
     config.allowUnfree = true;
