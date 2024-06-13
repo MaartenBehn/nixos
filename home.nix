@@ -15,6 +15,7 @@
       alias rebuild="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default --impure && cd -";
       alias update="cd /home/stroby/nixos/ && git add --all && nix flake update && cd -"
       alias clean="sudo nix-collect-garbage --delete-older-than 30d" 
+      alias nix-index="sh /home/stroby/nixos/update_nix_index.sh"
 
       alias ls="exa -l -a";
       alias ping="ping -c 5";
