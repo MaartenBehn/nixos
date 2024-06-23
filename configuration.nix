@@ -173,6 +173,7 @@
     webcamoid
     spotify
     signal-desktop
+    gimp
     
     # dev
     python3
