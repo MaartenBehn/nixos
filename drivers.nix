@@ -1,0 +1,1 @@
+/home/stroby/nixos/desktop-drivers.nix
