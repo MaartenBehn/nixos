@@ -48,6 +48,7 @@
   # Configure console keymap
   console.keyMap = "de";
 
+  home-manager.backupFileExtension = "backup";
   
 
   # --- HARDWARE FEATURES ---
@@ -163,6 +164,8 @@
     # Netowork stuff
     gnirehtet
     openconnect
+    networkmanager
+    libreswan
 
     # Apps
     firefox

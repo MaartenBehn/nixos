@@ -63,6 +63,10 @@
       hostname = "betelgeuse.uberspace.de";
       user = "ropelab";
     };
+    behnserver = {
+      hostname = "192.168.178.39";
+      user = "Stroby";
+    };
   };
 }
 
