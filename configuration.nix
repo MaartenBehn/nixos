@@ -137,6 +137,7 @@
     spotify
     signal-desktop
     gimp
+    obs-studio
     
     # dev
     python3
