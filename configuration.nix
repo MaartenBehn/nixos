@@ -77,6 +77,15 @@
     ];
   };
 
+  # --- OPTIMIZE and CLEAN ---
+  nix.optimise.automatic = true;
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
 
   # --- PROGRAMS ---
 
@@ -96,6 +105,7 @@
     kdePackages.filelight
     kdePackages.partitionmanager
     nix-index
+    nix-du
 
     # fish shell
     fish
@@ -123,6 +133,7 @@
 
     # Netowork stuff
     gnirehtet
+    android-tools
     openconnect
     networkmanager
     libreswan
@@ -138,6 +149,8 @@
     signal-desktop
     gimp
     obs-studio
+    telegram-desktop
+    ausweisapp
     
     # dev
     python3
@@ -155,6 +168,8 @@
     wineWowPackages.stable
     winetricks
 
+    #
+    synology-drive-client
   ];
   programs.fish.enable = true;
    

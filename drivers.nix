@@ -1,1 +1,1 @@
-/home/stroby/nixos/desktop-drivers.nix
+/home/stroby/nixos/laptop-drivers.nix

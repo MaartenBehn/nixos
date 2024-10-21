@@ -2,13 +2,10 @@
 
 {   
 
-  # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-  };
-
-  hardware.opengl.extraPackages = with pkgs; [
-    mesa_drivers
+  # Enable Graphics
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa
     vaapiIntel
     vaapiVdpau
     libvdpau-va-gl
@@ -24,7 +21,6 @@
   services.thermald.enable = true;
 
   # Audio
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   # rtkit is optional but recommended
