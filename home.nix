@@ -12,11 +12,12 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      alias rebuild="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default --impure && cd -";
-      alias update="cd /home/stroby/nixos/ && git add --all && nix flake update && cd -"
-      alias clean="sudo nix-collect-garbage --delete-older-than 30d --show-size && nix-store --optimise"
+      alias nix-rebuild="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ~/nixos/#default --impure && cd -";
+      alias nix-update="cd /home/stroby/nixos/ && git add --all && nix flake update && cd -"
+      alias nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise"
       alias nix-index="sh /home/stroby/nixos/update_nix_index.sh"
-      alias store-size="du -BM /nix/store/ | sort -n"
+      alias nix-store-size="du -BM /nix/store/ | sort -n"
+      alias nix-search-local="find /nix -name '$1'"
 
       alias ls="exa -l -a";
       alias ping="ping -c 5";
@@ -38,9 +39,9 @@
       alias load_shell="direnv reload"
       export DIRENV_LOG_FORMAT=""
 
-      alias kill-all-background-jobs="kill -SIGKILL $(jobs -p)"
+      alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"
 
-      alias link-ropelab-db ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de
+      alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
 
       starship init fish | source
     '';

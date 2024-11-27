@@ -22,7 +22,7 @@
    users.users.stroby = {
     isNormalUser = true;
     description = "stroby";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
   system.stateVersion = "23.11";
 
@@ -86,6 +86,13 @@
     options = "--delete-older-than 30d";
   };
 
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "curses";
+    enableSSHSupport = true;
+  };
+
 
   # --- PROGRAMS ---
 
@@ -102,10 +109,11 @@
   environment.systemPackages = with pkgs; [
     
     # System
-    kdePackages.filelight
+    qdirstat
     kdePackages.partitionmanager
     nix-index
     nix-du
+    nix-search-cli
 
     # fish shell
     fish
@@ -130,7 +138,6 @@
     unzip
     wget
 
-
     # Netowork stuff
     gnirehtet
     android-tools
@@ -150,7 +157,6 @@
     gimp
     obs-studio
     telegram-desktop
-    ausweisapp
     
     # dev
     python3
@@ -179,6 +185,9 @@
     ];
     EDITOR = "nano";
   };
+
+  virtualisation.docker.enable = true;
+
 
 }
 
