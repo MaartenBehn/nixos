@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, system, lib, ... }:
-
 {   
   imports = [ 
     ./hardware-configuration.nix 
@@ -11,6 +10,7 @@
     ./steam.nix
     ./syncthing.nix
   ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
