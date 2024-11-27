@@ -101,9 +101,10 @@
   programs.command-not-found.enable = false;
   programs.nix-index.enable = true;
 
-  nixpkgs = {
+  nixpkgs.config = {
     # Allow unfree packages
-    config.allowUnfree = true;
+    allowUnfree = true;
+    allowUnsupportedSystem = true;
   };
 
   environment.systemPackages = with pkgs; [
