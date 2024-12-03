@@ -127,6 +127,7 @@
     dwt1-shell-color-scripts
     starship
     direnv
+    killall
 
     # shell programms
     eza
@@ -176,6 +177,8 @@
 
     #
     synology-drive-client
+
+    gnupg
   ];
   programs.fish.enable = true;
    
@@ -187,6 +190,9 @@
   };
 
   virtualisation.docker.enable = true;
+
+  programs.gnupg.agent.enable = true;
+
 
 
 }
