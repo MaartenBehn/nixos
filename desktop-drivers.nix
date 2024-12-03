@@ -55,7 +55,6 @@
   services.thermald.enable = true;
 
   # Audio
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   # rtkit is optional but recommended
