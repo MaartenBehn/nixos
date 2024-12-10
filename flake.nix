@@ -8,13 +8,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:dc-tec/nixvim";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
-        ./configuration.nix
+        ./hosts/laptop/configuartion.nix
 
         inputs.home-manager.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
@@ -22,7 +24,25 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.stroby = import ./home.nix;
+            home-manager.users.stroby = import ./hosts/laptop/home.nix;
+            # home-manager.extraSpecialArgs = {networking; inherit services;};
+          }
+
+      ];
+    };
+
+    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./hosts/desktop/configuartion.nix
+
+        inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.stroby = import ./hosts/desktop/home.nix;
             # home-manager.extraSpecialArgs = {networking; inherit services;};
           }
 

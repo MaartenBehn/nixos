@@ -1,12 +1,5 @@
-{ config, pkgs, lib, ... }:
-
+{ ... }:
 {
-  programs.home-manager.enable = true;
-
-  home.username = "stroby";
-  home.homeDirectory = "/home/stroby";
-  home.stateVersion = "23.11";
-
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -31,7 +24,7 @@
       alias kill-vpn="vpn-kill";
 
       alias rev-tether="gnirehtet run";
-    
+
       # Nix Shell
       alias nix-shell-init="rm .envrc || true && echo 'use nix' >> .envrc && direnv allow"
       alias init-nix-shell=nix-shell-init
@@ -53,7 +46,7 @@
     nix-direnv.enable = true;
   };
 
-   programs.git = {
+  programs.git = {
     enable = true;
     userName  = "Maarten Behn";
     userEmail = "maarten.behn@gmail.com";
@@ -75,4 +68,3 @@
     };
   };
 }
-
