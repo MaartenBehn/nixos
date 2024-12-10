@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, target, ... }:
 {
   programs.fish.enable = true;
   environment.systemPackages = with pkgs; [
@@ -40,8 +40,9 @@
       fontconfig
     ];
     EDITOR = "nano";
+    TARGET = target;
   };
 
 
-  programs.neovim.enable = true;
+  # programs.neovim.enable = true;
 }

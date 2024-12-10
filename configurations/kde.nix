@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, inputs, ... }:
 {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -66,6 +66,7 @@
     jetbrains.rust-rover
     sublime
     zed-editor
+    inputs.nixvim.packages.x86_64-linux.default
 
     # wine
     wineWowPackages.stable
