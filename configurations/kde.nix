@@ -66,7 +66,10 @@
     jetbrains.rust-rover
     sublime
     zed-editor
+
     inputs.nixvim.packages.x86_64-linux.default
+    xclip
+    lazygit
 
     # wine
     wineWowPackages.stable

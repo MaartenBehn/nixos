@@ -10,7 +10,7 @@
     };
 
     nixvim = {
-      url = "github:dc-tec/nixvim";
+      url = "github:MaartenBehn/nixvim";
     };
   };
 

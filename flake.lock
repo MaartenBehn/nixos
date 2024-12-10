@@ -3,6 +3,8 @@
     "devshell": {
       "inputs": {
         "nixpkgs": [
+          "nixvim",
+          "nixvim",
           "nixpkgs"
         ]
       },
@@ -298,7 +300,7 @@
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1733827720,
+        "lastModified": 1733096140,
         "narHash": "sha256-1qRH7uAUsyQI7R1Uwl4T+XvdNv778H0Nb5njNrqvylY=",
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/5487e69da40cbd611ab2cadee0b4637225f7cfae.tar.gz"
@@ -326,11 +328,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1733759999,
-        "narHash": "sha256-463SNPWmz46iLzJKRzO3Q2b0Aurff3U1n0nYItxq7jU=",
+        "lastModified": 1733581040,
+        "narHash": "sha256-Qn3nPMSopRQJgmvHzVqPcE3I03zJyl8cSbgnnltfFDY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a73246e2eef4c6ed172979932bc80e1404ba2d56",
+        "rev": "22c3f2cf41a0e70184334a958e6b124fb0ce3e01",
         "type": "github"
       },
       "original": {
@@ -380,15 +382,15 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1733756022,
-        "narHash": "sha256-umugcQeyYzVyE2igQFtOJmy5WB7p+outzw+iwry7/aA=",
-        "owner": "dc-tec",
+        "lastModified": 1733870610,
+        "narHash": "sha256-AO/QQkROVtTAIC3vygLtlZhQ6AJEde3HCiiyEIr3k/U=",
+        "owner": "MaartenBehn",
         "repo": "nixvim",
-        "rev": "76a2d9814ca7b3bf1ccc7dcdcd46910d7879d946",
+        "rev": "55538d4e992f729dc4fa73da5c0f3b7ca2e68ca1",
         "type": "github"
       },
       "original": {
-        "owner": "dc-tec",
+        "owner": "MaartenBehn",
         "repo": "nixvim",
         "type": "github"
       }
@@ -406,11 +408,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1733820424,
-        "narHash": "sha256-ci29NFN3iwO2v62uSjegjnOq/JLdjhc/HfMXNKBHPgE=",
+        "lastModified": 1733682617,
+        "narHash": "sha256-8wGQwnWAfPXN1aiGswfofJK0oGZeI2YBSNe4vdW/rGA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "8dfa5fa8a204f0dc14654c07619bb3df132099e0",
+        "rev": "4b5364a66bffd22536e358214b37068b34287a7a",
         "type": "github"
       },
       "original": {

@@ -6,11 +6,14 @@
       set fish_greeting # Disable greeting
 
       alias nix-rebuild="cd /home/stroby/nixos/ && git add --all && sudo nixos-rebuild switch --flake ./#$TARGET --impure && cd -";
+      alias nix-vim-update="cd /home/stroby/nixos/ && git add --all && nix flake update nix-vim && cd -"
+      alias nix-vim-rebuild="cd /home/stroby/nixos/ && git add --all && nix flake update nix-vim && sudo nixos-rebuild switch --flake ./#$TARGET --impure && cd -";
       alias nix-update="cd /home/stroby/nixos/ && git add --all && nix flake update && cd -"
       alias nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise"
       alias nix-index="sh /home/stroby/nixos/update_nix_index.sh"
       alias nix-store-size="du -BM /nix/store/ | sort -n"
       alias nix-search-local="find /nix -name '$1'"
+
 
       alias ls="exa -l -a";
       alias ping="ping -c 5";

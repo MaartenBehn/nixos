@@ -73,4 +73,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Time out fix
+  systemd.tpm2.enable = false;
 }
