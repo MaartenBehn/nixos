@@ -73,7 +73,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.stroby = import ./hosts/wsl/home.nix;
+            home-manager.users.nixos = import ./hosts/wsl/home.nix;
             # home-manager.extraSpecialArgs = {networking; inherit services;};
           }
 
