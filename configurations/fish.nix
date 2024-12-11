@@ -36,13 +36,25 @@
   programs.nix-index.enable = true;
 
   environment.variables = {
-    PKG_CONFIG_PATH = with pkgs; lib.makeLibraryPath [
-      fontconfig
-    ];
+    PKG_CONFIG_PATH =
+      with pkgs;
+      lib.makeLibraryPath [
+        fontconfig
+      ];
     EDITOR = "nano";
     TARGET = target;
   };
 
+  # Fonts
+  # https://nixos.wiki/wiki/Fonts
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      noto-fonts-cjk # Beautiful and free fonts for CJK languages
+      noto-fonts-emoji # Color and Black-and-White emoji fonts
+      nerdfonts
+    ];
+  };
 
   # programs.neovim.enable = true;
 }
