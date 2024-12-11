@@ -1,6 +1,14 @@
-{ config, pkgs, system, lib, ... }:
-
 {
+  config,
+  pkgs,
+  system,
+  lib,
+  ...
+}:
+{
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable Graphics
   hardware.graphics.enable = true;
@@ -11,7 +19,6 @@
     libvdpau-va-gl
     intel-media-driver
   ];
-
 
   networking.networkmanager.enable = true;
 

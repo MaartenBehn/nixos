@@ -18,8 +18,8 @@
   # https://nixos.wiki/wiki/Fonts
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs;[
-      noto-fonts-cjk   # Beautiful and free fonts for CJK languages
+    packages = with pkgs; [
+      noto-fonts-cjk # Beautiful and free fonts for CJK languages
       noto-fonts-emoji # Color and Black-and-White emoji fonts
       nerdfonts
     ];
@@ -66,10 +66,6 @@
     jetbrains.rust-rover
     sublime
     zed-editor
-
-    inputs.nixvim.packages.x86_64-linux.default
-    xclip
-    lazygit
 
     # wine
     wineWowPackages.stable

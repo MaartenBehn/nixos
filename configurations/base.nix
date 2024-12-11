@@ -1,13 +1,11 @@
-
 { ... }:
 {
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -30,12 +28,6 @@
   # Configure console keymap
   console.keyMap = "de";
 
-  users.users.stroby = {
-    isNormalUser = true;
-    description = "stroby";
-    extraGroups = [ "networkmanager" "wheel" ];
-  };
-
   home-manager.backupFileExtension = "backup";
 
   nixpkgs.config = {
@@ -44,5 +36,3 @@
     allowUnsupportedSystem = true;
   };
 }
-
-

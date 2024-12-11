@@ -2,8 +2,7 @@
 {
   imports = [
     ../../home/base.nix
-    ../../home/stroby.nix
+    ../../home/nixos_user.nix
     ../../home/fish.nix
-    ../../home/vscode.nix
   ];
 }

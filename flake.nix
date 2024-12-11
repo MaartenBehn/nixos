@@ -58,5 +58,27 @@
 
         ];
       };
+
+      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          target = "wsl";
+        };
+        modules = [
+          ./hosts/wsl/configuartion.nix
+
+          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.stroby = import ./hosts/wsl/home.nix;
+            # home-manager.extraSpecialArgs = {networking; inherit services;};
+          }
+
+        ];
+      };
+
     };
 }

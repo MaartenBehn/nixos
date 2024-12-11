@@ -1,8 +1,6 @@
 { ... }:
 {
   programs.home-manager.enable = true;
+  home.stateVersion = "24.11";
 
-  home.username = "stroby";
-  home.homeDirectory = "/home/stroby";
-  home.stateVersion = "23.11";
 }
