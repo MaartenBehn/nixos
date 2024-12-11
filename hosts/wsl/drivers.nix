@@ -6,7 +6,7 @@
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = "stroby";
+  wsl.defaultUser = "nixos";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
