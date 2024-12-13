@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -19,8 +19,8 @@
     kdePackages.partitionmanager
     qdirstat
 
-    # Shell
-    yakuake
+    # Console emulator
+    alacritty
 
     # Netowork stuff
     gnirehtet
@@ -53,8 +53,6 @@
     jetbrains.pycharm-professional
     jetbrains.idea-ultimate
     jetbrains.rust-rover
-    sublime
-    zed-editor
 
     # wine
     wineWowPackages.stable

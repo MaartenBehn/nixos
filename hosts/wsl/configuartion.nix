@@ -6,8 +6,7 @@
     ../../configurations/clean.nix
     ./drivers.nix
 
-    ../../configurations/fish.nix
-    ../../configurations/nixvim.nix
-    ../../configurations/tmux.nix
+    ../../configurations/shell
+
   ];
 }
