@@ -1,7 +1,7 @@
 { ... }:
 {
-  import = [
-    ./tmux.nix
+  imports = [
+    ./fish.nix
     ./tmux.nix
     ./nixvim.nix
   ];
