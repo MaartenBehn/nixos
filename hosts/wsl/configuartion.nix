@@ -8,5 +8,6 @@
 
     ../../configurations/fish.nix
     ../../configurations/nixvim.nix
+    ../../configurations/tmux.nix
   ];
 }

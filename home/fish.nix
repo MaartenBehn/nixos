@@ -39,6 +39,8 @@
 
       alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
 
+      test $TERM != "screen"; and exec tmux
+
       starship init fish | source
     '';
   };
