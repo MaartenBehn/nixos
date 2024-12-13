@@ -14,6 +14,7 @@
     # ../../configurations/docker.nix
     ../../configurations/syncthing.nix
     ../../configurations/steam.nix
+    ../../configurations/tmux.nix
 
     ../../configurations/for_isec.nix
   ];
