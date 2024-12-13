@@ -42,7 +42,7 @@
         fontconfig
       ];
     EDITOR = "nano";
-    TARGET = target;
+    NIX_TARGET = target;
   };
 
   # Fonts
