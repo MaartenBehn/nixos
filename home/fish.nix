@@ -14,6 +14,9 @@
       alias nix-store-size="du -BM /nix/store/ | sort -n"
       alias nix-search-local="find /nix -name '$1'"
 
+      # Edit Configs
+      alias nix-config="cd ~/nixos && nvim . && cd -"
+      alias nix-vim-config="cd ~/dev/nixovim && nvim . && cd -"
 
       alias ls="exa -l -a";
       alias ping="ping -c 5";
