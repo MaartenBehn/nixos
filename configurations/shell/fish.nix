@@ -30,10 +30,10 @@
     nix-du
     nix-search-cli
 
-    # VPN 
+    # For uni VPN 
     openconnect
 
-    # reverse thether
+    # reverse thether to phone
     gnirehtet     
     android-tools # needed for gnirehtet
   ];

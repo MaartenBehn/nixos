@@ -22,12 +22,9 @@
     # Console emulator
     alacritty
 
-    # Netowork stuff
-        
+    # Netowork stuff      
     networkmanager
-    networkmanager_strongswan
-    libreswan # For Ipsec VPN
-
+  
     # Without a browser your are fucked! So funcking keep it.
     firefox
   ];
