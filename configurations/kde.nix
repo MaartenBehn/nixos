@@ -29,39 +29,7 @@
     networkmanager
     libreswan
 
-    # Apps
+    # Without a browser your are fucked! So funcking keep it.
     firefox
-    thunderbird
-    obsidian
-    discord
-    vlc
-    webcamoid
-    spotify
-    signal-desktop
-    gimp
-    obs-studio
-    telegram-desktop
-
-    # dev
-    python3
-    gittyup
-
-    # editor
-    kate
-    jetbrains.clion
-    jetbrains.webstorm
-    jetbrains.pycharm-professional
-    jetbrains.idea-ultimate
-    jetbrains.rust-rover
-
-    # wine
-    wineWowPackages.stable
-    winetricks
-
-    rust-analyzer
-
-    synology-drive-client
-
-    gnupg
   ];
 }

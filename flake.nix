@@ -80,5 +80,26 @@
         ];
       };
 
+      nixosConfigurations.asus = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          target = "asus";
+        };
+        modules = [
+          ./hosts/asus/configuartion.nix
+
+          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.stroby = import ./hosts/asus/home.nix;
+            # home-manager.extraSpecialArgs = {networking; inherit services;};
+          }
+
+        ];
+      };
+
     };
 }

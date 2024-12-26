@@ -1,5 +1,4 @@
 { ... }:
-
 {
   imports = [
     ../../hardware-configuration.nix
@@ -9,12 +8,9 @@
     ./drivers.nix
 
     ../../configurations/shell
-
-    ../../configurations/kde.nix
-    ../../configurations/development_programs.nix
-    ../../configurations/apps.nix
     ../../configurations/syncthing.nix
 
-    ../../configurations/for_isec.nix
+    ../../configurations/kde.nix
+
   ];
 }
