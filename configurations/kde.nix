@@ -23,11 +23,10 @@
     alacritty
 
     # Netowork stuff
-    gnirehtet
-    android-tools # needed for gnirehtet
-    openconnect
+        
     networkmanager
-    libreswan
+    networkmanager_strongswan
+    libreswan # For Ipsec VPN
 
     # Without a browser your are fucked! So funcking keep it.
     firefox

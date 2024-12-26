@@ -29,6 +29,13 @@
     nix-index
     nix-du
     nix-search-cli
+
+    # VPN 
+    openconnect
+
+    # reverse thether
+    gnirehtet     
+    android-tools # needed for gnirehtet
   ];
 
   users.defaultUserShell = pkgs.fish;

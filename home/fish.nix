@@ -29,6 +29,9 @@
       alias uni-vpn="vpn-uni";
       alias kill-vpn="vpn-kill";
 
+      alias dont_panic-vpn-start="sudo systemctl start wg-quick-dont_panic.service"
+      alias dont_panic-vpn-stop="sudo systemctl stop wg-quick-dont_panic.service"
+
       alias rev-tether="gnirehtet run";
 
       # Nix Shell

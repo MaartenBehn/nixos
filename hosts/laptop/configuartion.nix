@@ -14,6 +14,8 @@
     ../../configurations/development_programs.nix
     ../../configurations/apps.nix
     ../../configurations/syncthing.nix
+    ../../configurations/wireguard.nix
+
 
     ../../configurations/for_isec.nix
   ];
