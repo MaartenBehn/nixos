@@ -16,7 +16,7 @@
 
       # Edit Configs
       alias nix-config="cd ~/nixos && nvim . && cd -"
-      alias nix-vim-config="cd ~/dev/nixovim && nvim . && cd -"
+      alias nix-vim-config="cd ~/dev/nixvim && nvim . && cd -"
 
       alias ls="exa -l -a";
       alias ping="ping -c 5";
