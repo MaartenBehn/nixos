@@ -36,6 +36,8 @@
     # reverse thether to phone
     gnirehtet     
     android-tools # needed for gnirehtet
+
+    neofetch
   ];
 
   users.defaultUserShell = pkgs.fish;

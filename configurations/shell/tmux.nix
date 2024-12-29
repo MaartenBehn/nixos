@@ -3,7 +3,7 @@
   programs.tmux = {
     enable = true;
     extraConfig = ''
-      bind-key -n S-Up new-window
+      bind-key -n S-Up new-window -c "#{pane_current_path}"
       bind-key -n S-Left select-window -t :-
       bind-key -n S-Right select-window -t :+ 
       bind-key -n S-Down kill-window
