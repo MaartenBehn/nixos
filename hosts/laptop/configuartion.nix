@@ -18,5 +18,6 @@
 
 
     ../../configurations/for_isec.nix
+    ../../configurations/nextcloud.nix
   ];
 }

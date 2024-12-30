@@ -32,6 +32,9 @@
       alias dont_panic-vpn-start="sudo systemctl start wg-quick-dont_panic.service"
       alias dont_panic-vpn-stop="sudo systemctl stop wg-quick-dont_panic.service"
 
+      alias fritz_behns-vpn-start="sudo systemctl start wg-quick-fritz_behns.service"
+      alias fritz_behns-vpn-stop="sudo systemctl stop wg-quick-fritz_behns.service"
+
       alias rev-tether="gnirehtet run";
 
       # Nix Shell
