@@ -55,7 +55,7 @@
       # Note: The private key can also be included inline via the privateKey option,
       # but this makes the private key world-readable; thus, using privateKeyFile is
       # recommended.
-      privateKeyFile = "/etc/fritz_behns-vpn.key";
+      privateKeyFile = "/home/stroby/.config/wireguard/fritz_behns.conf";
       
       autostart = false;
 
