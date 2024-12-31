@@ -9,8 +9,9 @@
 
     ../../configurations/shell
     ../../configurations/syncthing.nix
+    ../../configurations/wireguard.nix
 
     ../../configurations/kde.nix
-
+    
   ];
 }
