@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -16,5 +16,10 @@
     ../../configurations/steam.nix
 
     ../../configurations/for_isec.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    discord
+    obsidian
   ];
 }
