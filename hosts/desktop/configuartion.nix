@@ -11,11 +11,10 @@
     ../../configurations/shell
 
     ../../configurations/kde.nix
-    # ../../configurations/docker.nix
     ../../configurations/syncthing.nix
     ../../configurations/steam.nix
-
-    ../../configurations/for_isec.nix
+    ../../configurations/minecraft.nix
+    ../../configurations/minecraft_server.nix
   ];
 
   environment.systemPackages = with pkgs; [
