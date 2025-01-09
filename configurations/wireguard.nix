@@ -36,7 +36,7 @@
           #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
 
           # Set this to the server IP and port.
-          endpoint = "bhiirysrb1kpua23.myfritz.net:51519";
+          endpoint = "betelgeuse.uberspace.de:44820";
 
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
