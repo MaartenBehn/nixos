@@ -16,5 +16,10 @@
     # wine
     wineWowPackages.stable
     winetricks
+
+    gnupg
+
+    # For telnet
+    inetutils
   ];
 }

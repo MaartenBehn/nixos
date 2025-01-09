@@ -5,7 +5,8 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      alias nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake ./#$NIX_TARGET --impure && cd -";
+      alias nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake . --impure && cd -";
+      alias nix-rebuild-nh="sudo echo 'Got root access' && cd /home/$USER/nixos/ && git add --all && nh os switch . -- --impure && cd -";
       alias nix-vim-update="cd /home/$USER/nixos/ && git add --all && nix flake update nixvim && cd -"
       alias nix-vim-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nix flake update nixvim && sudo nixos-rebuild switch --flake ./#$NIX_TARGET --impure && cd -";
       alias nix-update="cd /home/$USER/nixos/ && git add --all && nix flake update && cd -"

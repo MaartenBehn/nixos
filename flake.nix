@@ -19,10 +19,9 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.stroby-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          target = "laptop";
         };
         modules = [
           ./hosts/laptop/configuartion.nix
@@ -40,10 +39,9 @@
         ];
       };
 
-      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.stroby-desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          target = "desktop";
         };
         modules = [
           ./hosts/desktop/configuartion.nix
@@ -64,7 +62,6 @@
       nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          target = "wsl";
         };
         modules = [
           ./hosts/wsl/configuartion.nix
@@ -82,10 +79,9 @@
         ];
       };
 
-      nixosConfigurations.asus = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.stroby-asus = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          target = "asus";
         };
         modules = [
           ./hosts/asus/configuartion.nix
