@@ -8,9 +8,9 @@
     
     dont_panic = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
-      address = [ "192.168.178.201/24" ];
+      address = [ "192.168.178.201/24" "fd0b:810a:db1f::201/64" ];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this it uses random port numbers)
-      dns = [ "192.168.178.1" "fritz.box" ];
+      dns = [ "192.168.178.1" "fd0b:810a:db1f::2e3a:fdff:feb5:7176" "fritz.box" ];
 
       # Path to the private key file.
       #
@@ -26,17 +26,15 @@
 
         {
           # Public key of the server (not a file path).
-          publicKey = "bUchVNX0sgFDNms1Qx1LXc1GTOlbS05Ypb5iNlbGEi0=";
-          presharedKey = "RyaKh6u7t8TUVeC7yNMfAVa9xOvXjWQbFBUcTK2riM4=";
+          publicKey = "aW27GNpUbW9USp80v5KbMvoFkNvBqgdYgNEFN4EnimU=";
+          presharedKey = "STrYF4g+WG+1kklNPlSqScvUY5oXpPO+gBDvxI1Ls3M=";
 
           # Forward all the traffic via VPN.
-          allowedIPs = [ "192.168.178.0/24" "0.0.0.0/0" ];
-          # Or forward only particular subnets
-          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
-
+          allowedIPs = [ "192.168.178.0/24" "0.0.0.0/0" "fd0b:810a:db1f::/64" "::/0" ];
+          
           # Set this to the server IP and port.
-          endpoint = "ropelab.uber.space:44820";
-
+          endpoint = "bhiirysrb1kpua23.myfritz.net:52328";
+ 
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
         }
