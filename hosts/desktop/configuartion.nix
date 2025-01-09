@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  networking.hostName = "desktop";
+
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix

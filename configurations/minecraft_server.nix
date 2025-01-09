@@ -19,6 +19,8 @@
         enable = true;
         package = pkgs.fabricServers.fabric-1_21_4;
 
+        jvmOpts = "-Djava.net.preferIPV4stack=false -Djava.net.preferIPv6Addresses=true";
+
         serverProperties = {
           gamemode = "survival";
           difficulty = "easy";
