@@ -11,8 +11,7 @@
     ../../configurations/syncthing.nix
     ../../configurations/wireguard.nix
 
-    ../../configurations/kde.nix
-    
+    ../../configurations/kde.nix 
     ../../configurations/minecraft.nix
   ];
 }

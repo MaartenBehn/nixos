@@ -39,7 +39,7 @@
         ];
       };
 
-      nixosConfigurations.stroby-desktop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };

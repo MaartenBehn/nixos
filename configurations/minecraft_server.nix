@@ -7,7 +7,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22565 ];
+    allowedTCPPorts = [ 25565 ];
   };
 
   services.minecraft-servers = {
