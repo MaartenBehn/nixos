@@ -13,5 +13,6 @@
 
     ../../configurations/kde.nix
     
+    ../../configurations/minecraft.nix
   ];
 }
