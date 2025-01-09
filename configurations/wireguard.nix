@@ -68,7 +68,7 @@
           allowedIPs = [ "192.168.178.0/24" "0.0.0.0/0" "fd0b:810a:db1f::/64" "::/0" ];
           
           # Set this to the server IP and port.
-          endpoint = "bhiirysrb1kpua23.myfritz.net:52328";
+          endpoint = "ropelab.uber.space:44820";
  
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
