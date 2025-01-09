@@ -1,6 +1,6 @@
 { ... }:
 {
-  networking.hostName = "stroby-asus";
+  networking.hostName = "asus";
 
   imports = [
     ../../hardware-configuration.nix

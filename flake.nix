@@ -79,7 +79,7 @@
         ];
       };
 
-      nixosConfigurations.stroby-asus = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.asus = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
