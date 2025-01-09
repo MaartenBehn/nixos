@@ -48,6 +48,8 @@
 
       alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
 
+      alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
+
       if status is-interactive
       and not set -q TMUX
           exec tmux new -As0

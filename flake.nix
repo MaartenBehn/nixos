@@ -12,6 +12,8 @@
     nixvim = {
       url = "github:MaartenBehn/nixvim";
     };
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs =
