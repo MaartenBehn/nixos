@@ -33,6 +33,9 @@
       alias dont_panic-vpn-start="sudo systemctl start wg-quick-dont_panic.service"
       alias dont_panic-vpn-stop="sudo systemctl stop wg-quick-dont_panic.service"
 
+      alias dont_panic-vpn-start="sudo systemctl start wg-quick-dont_panic_over_ropelab.service"
+      alias dont_panic-vpn-stop="sudo systemctl stop wg-quick-dont_panic_over_ropelab.service"
+
       alias fritz_behns-vpn-start="sudo systemctl start wg-quick-fritz_behns.service"
       alias fritz_behns-vpn-stop="sudo systemctl stop wg-quick-fritz_behns.service"
 
