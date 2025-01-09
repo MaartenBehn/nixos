@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   networking.hostName = "asus";
 
@@ -15,5 +15,9 @@
 
     ../../configurations/kde.nix 
     ../../configurations/minecraft.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
+    obsidian
   ];
 }
