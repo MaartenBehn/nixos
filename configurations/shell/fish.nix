@@ -51,8 +51,7 @@
       lib.makeLibraryPath [
         fontconfig
       ];
-    EDITOR = "nano";
-    NIX_TARGET = target;
+    EDITOR = "nvim";
   };
 
   # Fonts
@@ -65,6 +64,4 @@
       nerdfonts
     ];
   };
-
-  # programs.neovim.enable = true;
 }

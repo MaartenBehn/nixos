@@ -16,7 +16,7 @@
     ../../configurations/minecraft.nix
     ../../configurations/minecraft_server.nix
   ];
-
+  
   environment.systemPackages = with pkgs; [
     discord
     obsidian

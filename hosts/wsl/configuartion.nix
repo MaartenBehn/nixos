@@ -9,4 +9,5 @@
     ../../configurations/shell
 
   ];
+  networking.hostName = "wsl";
 }
