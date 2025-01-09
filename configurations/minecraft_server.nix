@@ -5,6 +5,11 @@
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22565 ];
+  };
+
   services.minecraft-servers = {
     enable = true;
     eula = true;
