@@ -29,6 +29,7 @@
     nix-index
     nix-du
     nix-search-cli
+    nh
 
     # For uni VPN 
     openconnect
