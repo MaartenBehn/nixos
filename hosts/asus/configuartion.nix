@@ -1,5 +1,7 @@
 { ... }:
 {
+  networking.hostName = "asus";
+
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix
