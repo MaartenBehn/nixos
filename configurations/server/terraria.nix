@@ -1,4 +1,58 @@
-{config, lib, pkgs, ...}: let
+{ 
+  config, 
+  lib, 
+  pkgs,
+  stdenv,
+  fetchurl,
+
+  autoPatchelfHook,
+  unzip,
+  zlib, 
+...}: 
+let   
+  terraria-server = stdenv.mkDerivation rec {
+  pname = "terraria-server";
+  version = "1.4.4.9";
+  urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
+
+  src = fetchurl {
+    url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+    sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
+  };
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    unzip
+  ];
+  buildInputs = [
+    stdenv.cc.cc.libgcc
+    zlib
+  ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    cp -r Linux $out/
+    chmod +x "$out/Linux/TerrariaServer.bin.x86_64"
+    ln -s "$out/Linux/TerrariaServer.bin.x86_64" $out/bin/TerrariaServer
+
+    runHook postInstall
+  '';
+
+  meta = with lib; {
+    homepage = "https://terraria.org";
+    description = "Dedicated server for Terraria, a 2D action-adventure sandbox";
+    platforms = [ "x86_64-linux" ];
+    license = licenses.unfree;
+    mainProgram = "TerrariaServer";
+    maintainers = with maintainers; [
+      ncfavier
+      tomasajt
+    ];
+  };
+  };
+
 	dataDir = "/var/lib/terraria";
 	worldDir = "${dataDir}/worlds";
 
@@ -66,7 +120,7 @@ in {
 		serviceConfig = {
 			User = "terraria";
 			ExecStart = lib.escapeShellArgs [
-				"${pkgs.terraria-server}/bin/TerrariaServer"
+				"${terraria-server}/bin/TerrariaServer"
 				"-config" world.config
 			];
 
