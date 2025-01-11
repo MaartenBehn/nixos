@@ -16,9 +16,11 @@
     ../../configurations/syncthing.nix
     ../../configurations/steam.nix
     ../../configurations/minecraft.nix
-    ../../configurations/minecraft_server.nix
-    ../../configurations/dynv6dns.nix
-    ../../configurations/duckdns.nix
+
+    ../../configurations/server/minecraft_server.nix
+    ../../configurations/server/dynv6dns.nix
+    ../../configurations/server/duckdns.nix
+    ../../configurations/server/static_ip.nix
   ];
   
   environment.systemPackages = with pkgs; [

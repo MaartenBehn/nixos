@@ -1,0 +1,4 @@
+{ ... }:
+{
+  networking.tempAddresses = "disabled";
+}
