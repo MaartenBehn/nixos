@@ -18,6 +18,7 @@
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
     ../../configurations/server/network.nix
+    ../../configurations/server/nextcloud.nix
    
     ../../configurations/server/minecraft_server.nix
   ]; 
