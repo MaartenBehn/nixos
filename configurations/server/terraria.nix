@@ -82,6 +82,11 @@ in {
 		};
 	};
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 7777 ];
+  };
+
   # stroby.backup.terraria.paths = [
   # 	dataDir
   #];
