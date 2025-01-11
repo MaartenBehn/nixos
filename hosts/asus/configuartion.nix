@@ -16,8 +16,7 @@
     ../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
-    ../../configurations/server/debug_tools.nix
-    ../../configurations/server/ssh.nix
+    ../../configurations/server/network.nix
    
     ../../configurations/server/minecraft_server.nix
   ]; 
