@@ -28,7 +28,7 @@
       package = pkgs.nextcloud30;
 
       # Let NixOS install and configure the database automatically.
-      database.createLocally = true;
+      #database.createLocally = true;
 
       # Let NixOS install and configure Redis caching automatically.
       configureRedis = true;
@@ -58,7 +58,7 @@
       };
 
       config = {
-        dbtype = "pgsql";
+        #dbtype = "pgsql";
         adminuser = "admin";
         adminpassFile = "/etc/nextcloud-admin-pass";
       };
