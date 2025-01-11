@@ -1,1 +1,0 @@
-/nix/store/w8dimcdy2fvmm014dac8lkj6ih90jffz-nixos-system-stroby-laptop-24.11.20241018.4c2fcb0

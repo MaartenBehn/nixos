@@ -17,6 +17,8 @@
     ../../configurations/steam.nix
     ../../configurations/minecraft.nix
     ../../configurations/minecraft_server.nix
+    ../../configurations/dynv6dns.nix
+    ../../configurations/duckdns.nix
   ];
   
   environment.systemPackages = with pkgs; [
