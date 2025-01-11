@@ -83,9 +83,12 @@ in {
 	};
 
   networking.firewall = {
-    enable = true;
     allowedTCPPorts = [ 7777 ];
   };
+
+  environment.systemPackages = with pkgs; [
+    _6tunnel
+  ];
 
   # stroby.backup.terraria.paths = [
   # 	dataDir

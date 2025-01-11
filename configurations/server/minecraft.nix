@@ -6,7 +6,6 @@
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
   networking.firewall = {
-    enable = true;
     allowedTCPPorts = [ 25565 ];
   };
 
