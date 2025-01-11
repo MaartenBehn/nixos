@@ -20,7 +20,8 @@
     ../../configurations/server/network.nix
     ../../configurations/server/nextcloud.nix
    
-    ../../configurations/server/minecraft_server.nix
+    ../../configurations/server/minecraft.nix
+    ../../configurations/server/terraria.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";
