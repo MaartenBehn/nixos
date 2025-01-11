@@ -14,10 +14,10 @@
         enableACME = true;
       };
 
-      "onlyoffice.stroby.duckdns.org" = {
-        forceSSL = true;
-        enableACME = true;
-      };
+      #"onlyoffice.stroby.duckdns.org" = {
+      #  forceSSL = true;
+      #  enableACME = true;
+      #};
     };
 
     nextcloud = {
@@ -64,10 +64,10 @@
       };
     };
 
-    onlyoffice = {
-      enable = true;
-      hostname = "onlyoffice.stroby.duckdns.org";
-    };
+    #onlyoffice = {
+    #  enable = true;
+    #  hostname = "onlyoffice.stroby.duckdns.org";
+    #};
   };
 
   networking.firewall = {
