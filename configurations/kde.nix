@@ -28,4 +28,6 @@
     # Without a browser your are fucked! So funcking keep it.
     firefox
   ];
+  
+  networking.firewall.enable = true;
 }
