@@ -82,7 +82,7 @@ in {
 		};
 	};
 
-	stroby.backup.terraria.paths = [
-		dataDir
-	];
+  # stroby.backup.terraria.paths = [
+  # 	dataDir
+  #];
 }
