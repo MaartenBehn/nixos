@@ -1,16 +1,14 @@
 {config, lib, pkgs, ...}: let 
+  inherit (pkgs) fetchurl;
+  
   version = "1.4.4.9";
   urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
 
-  inherit (pkgs) fetchurl;
-
-  new_src = fetchurl {
-    url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
-    sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
-  };
-
   terraria-server = pkgs.terraria-server.overrideAttrs(old: {
-    src = new_src; 
+    src = fetchurl {
+      url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+      sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
+    }; 
   });
  
 	dataDir = "/var/lib/terraria";
