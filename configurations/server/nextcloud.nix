@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 {
-  environment.etc."nextcloud-admin-pass".text = "NextCloud+240803";
+  environment.etc."nextcloud-admin-pass".text = "Nextcloud+240803";
 
   security.acme = {
     acceptTerms = true;   
@@ -26,8 +26,7 @@
 
        # Need to manually increment with every major upgrade.
       package = pkgs.nextcloud30;
-
-     
+      
       # Let NixOS install and configure Redis caching automatically.
       configureRedis = true;
 
