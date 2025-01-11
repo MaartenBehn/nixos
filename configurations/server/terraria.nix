@@ -38,14 +38,12 @@
 	world = worlds.my-first-world;
 in {
 
-  nixpkgs.overlays = [ (final: prev: {
-    terraria-server= prev.terraria-server.override {
-      src = fetchurl {
-        url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
-        sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
-      };
+  pkgs.terraria-server.override = {
+    src = fetchurl {
+      url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+      sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
     };
-  })];
+  }; 
  
 	users.users.terraria = {
     isSystemUser = true;
