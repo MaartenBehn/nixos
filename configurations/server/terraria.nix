@@ -7,7 +7,7 @@
   terraria-server = pkgs.terraria-server.overrideAttrs(old: {
     src = fetchurl {
       url = "https://github.com/tModLoader/tModLoader/releases/download/${version}/tModLoader.zip";
-      sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
+      sha256 = "sha256-yFDQh40n5wtwdvER1Wuc04UpB6e6XG/W/cIYHaugEBo=";
     }; 
   });
  
