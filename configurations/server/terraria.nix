@@ -34,9 +34,7 @@
 	};
 
 	world = worlds.my-first-world;
-in {
-
-   
+in { 
 	users.users.terraria = {
     isSystemUser = true;
 		group = "terraria";
@@ -91,10 +89,17 @@ in {
       7778
     ];
   };
-
+ 
   environment.systemPackages = with pkgs; [
     _6tunnel
   ];
+
+  systemd.user.services.terraria-server-6tunnel = {
+    wantedBy = [ "multi-user.target" ];
+		after = [ "network.target" ];
+		
+    script = "6tunnel -d -6 -f 7778 0.0.0.0 7777";
+  };
 
   # stroby.backup.terraria.paths = [
   # 	dataDir
