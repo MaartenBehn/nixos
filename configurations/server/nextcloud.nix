@@ -4,9 +4,7 @@
 
   security.acme = {
     acceptTerms = true;   
-    certs = { 
-      ${config.services.nextcloud.hostName}.email = "stroby241@gmail.com"; 
-    }; 
+    defaults.email = "stroby241@gmail.com";
   };
  
   services = {
