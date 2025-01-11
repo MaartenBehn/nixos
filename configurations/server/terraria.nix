@@ -1,16 +1,5 @@
 {config, lib, pkgs, ...}: let 
-  inherit (pkgs) fetchurl;
-  
-  version = "v2024.10.3.0";
-  urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
 
-  terraria-server = pkgs.terraria-server.overrideAttrs(old: {
-    src = fetchurl {
-      url = "https://github.com/tModLoader/tModLoader/releases/download/${version}/tModLoader.zip";
-      sha256 = "sha256-yFDQh40n5wtwdvER1Wuc04UpB6e6XG/W/cIYHaugEBo=";
-    }; 
-  });
- 
 	dataDir = "/var/lib/terraria";
 	worldDir = "${dataDir}/worlds";
 
@@ -80,7 +69,7 @@ in {
 		serviceConfig = {
 			User = "terraria";
 			ExecStart = lib.escapeShellArgs [
-				"${terraria-server}/bin/TerrariaServer"
+				"${pkgs.terraria-server}/bin/TerrariaServer"
 				"-config" world.config
 			];
 
