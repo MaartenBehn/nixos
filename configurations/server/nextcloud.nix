@@ -30,7 +30,6 @@
      
       # Let NixOS install and configure Redis caching automatically.
       configureRedis = true;
-      database.createLocally = true;
 
       # Increase the maximum file upload size to avoid problems uploading videos.
       maxUploadSize = "16G";
@@ -57,7 +56,6 @@
       };
 
       config = {
-        dbtype = "pgsql";
         adminpassFile = "/etc/nextcloud-admin-pass";
       };
     };
