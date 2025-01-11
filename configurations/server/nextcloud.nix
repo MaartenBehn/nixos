@@ -53,11 +53,11 @@
       #};
 
       config = {
-        overwriteProtocol = "https";
-        defaultPhoneRegion = "DE";
+        overwriteprotocol = "https";
+        default_phone_region = "DE";
         dbtype = "pgsql";
         adminuser = "admin";
-        adminpassFile = "/path/to/nextcloud-admin-pass";
+        adminpassFile = "/etc/nextcloud-admin-pass";
       };
     };
 
