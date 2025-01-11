@@ -94,7 +94,7 @@ in {
     _6tunnel
   ];
 
-  systemd.user.services.terraria-server-6tunnel = {
+  systemd.services.terraria-server-6tunnel = {
     wantedBy = [ "multi-user.target" ];
 		after = [ "network.target" ];
 		
