@@ -20,4 +20,6 @@
    
     ../../configurations/server/minecraft_server.nix
   ]; 
+
+  services.logind.lidSwitch = "ignore";
 }

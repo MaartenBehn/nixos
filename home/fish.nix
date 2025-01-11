@@ -89,5 +89,10 @@
       hostname = "192.168.178.39";
       user = "Stroby";
     };
+
+    asus = {
+      hostname = "192.168.178.39";
+      user = "Stroby";
+    };
   };
 }
