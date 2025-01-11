@@ -15,6 +15,7 @@
 
     ../../configurations/kde.nix 
     ../../configurations/minecraft.nix
+    ../../configurations/server/debug_tools.nix
   ];
 
   environment.systemPackages = with pkgs; [

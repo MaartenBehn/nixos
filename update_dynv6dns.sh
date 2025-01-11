@@ -5,6 +5,8 @@ device=
 file=$HOME/.dynv6.addr6
 bin="curl -fsS"
 
+sleep 10
+
 [ -e $file ] && old=`cat $file`
 
 if [ -z "$hostname" -o -z "$token" ]; then

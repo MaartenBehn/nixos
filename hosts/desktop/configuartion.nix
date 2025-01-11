@@ -21,6 +21,7 @@
     ../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
+    ../../configurations/server/debug_tools.nix
   ];
   
   environment.systemPackages = with pkgs; [

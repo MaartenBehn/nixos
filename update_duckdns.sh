@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sleep 10
+
 IP=$(curl "http://ipecho.net/plain")
 
 if [[ $IP =~ .*:.* ]]
