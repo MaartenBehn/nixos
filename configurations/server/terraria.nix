@@ -2,13 +2,15 @@
   version = "1.4.4.9";
   urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
 
-  terraria-server = pkgs.hello.overrideAttrs (final: previous: {
-    src = fetchurl {
-      url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
-      sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
-    };
-  });
+  new_src = fetchurl {
+    url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+    sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
+  };
 
+  terraria-server = pkgs.terraria-server.overrideAttrs(old: {
+    src = new_src; 
+  });
+ 
 	dataDir = "/var/lib/terraria";
 	worldDir = "${dataDir}/worlds";
 
@@ -44,7 +46,8 @@
 
 	world = worlds.my-first-world;
 in {
- 
+
+   
 	users.users.terraria = {
     isSystemUser = true;
 		group = "terraria";
