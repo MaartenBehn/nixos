@@ -18,8 +18,5 @@
     winetricks
 
     gnupg
-
-    # For telnet
-    inetutils
   ];
 }
