@@ -53,7 +53,7 @@
       #};
 
       config = {
-        overwriteprotocol = "https";
+        overwriteProtocol = "https";
         defaultPhoneRegion = "DE";
         dbtype = "pgsql";
         adminuser = "admin";
