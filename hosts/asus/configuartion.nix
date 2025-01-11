@@ -13,7 +13,6 @@
     ../../configurations/shell/nixvim.nix
 
     ../../configurations/syncthing.nix
-    ../../configurations/wireguard.nix
 
     ../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
