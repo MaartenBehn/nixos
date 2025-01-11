@@ -1,12 +1,12 @@
 {config, lib, pkgs, ...}: let 
   inherit (pkgs) fetchurl;
   
-  version = "1.4.4.9";
+  version = "v2024.10.3.0";
   urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
 
   terraria-server = pkgs.terraria-server.overrideAttrs(old: {
     src = fetchurl {
-      url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
+      url = "https://github.com/tModLoader/tModLoader/releases/download/${version}/tModLoader.zip";
       sha256 = "sha256-Mk+5s9OlkyTLXZYVT0+8Qcjy2Sb5uy2hcC8CML0biNY=";
     }; 
   });
