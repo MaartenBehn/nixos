@@ -83,7 +83,10 @@ in {
 	};
 
   networking.firewall = {
-    allowedTCPPorts = [ 7777 ];
+    allowedTCPPorts = [ 
+      7777
+      7778
+    ];
   };
 
   environment.systemPackages = with pkgs; [
