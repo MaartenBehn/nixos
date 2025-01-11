@@ -1,7 +1,14 @@
 { pkgs, config, ... }:
 {
   environment.etc."nextcloud-admin-pass".text = "NextCloud+240803";
-  
+
+  security.acme = {
+    acceptTerms = true;   
+    certs = { 
+      ${config.services.nextcloud.cloud.stroby.duckdns.org}.email = "stroby241@gmail.com"; 
+    }; 
+  };
+ 
   services = {
     nginx.virtualHosts = {
       "cloud.stroby.duckdns.org" = {
@@ -49,7 +56,7 @@
 
       config = {
         overwriteProtocol = "https";
-        defaultPhoneRegion = "PT";
+        defaultPhoneRegion = "DE";
         dbtype = "pgsql";
         adminuser = "admin";
         adminpassFile = "/path/to/nextcloud-admin-pass";
@@ -58,9 +65,10 @@
 
     onlyoffice = {
       enable = true;
-      hostname = "onlyoffice.example.com";
+      hostname = "onlyoffice.stroby.duckdns.org";
     };
   };
 
+ 
   
 }
