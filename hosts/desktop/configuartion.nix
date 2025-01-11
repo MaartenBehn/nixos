@@ -10,7 +10,9 @@
     ../../configurations/clean.nix
     ./drivers.nix
 
-    ../../configurations/shell
+    ../../configurations/shell/fish.nix
+    ../../configurations/shell/nixvim.nix
+    ../../configurations/shell/tmux.nix
 
     ../../configurations/kde.nix
     ../../configurations/syncthing.nix

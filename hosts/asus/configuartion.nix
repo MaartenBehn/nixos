@@ -9,7 +9,9 @@
     ../../configurations/clean.nix
     ./drivers.nix
 
-    ../../configurations/shell
+    ../../configurations/shell/fish.nix
+    ../../configurations/shell/nixvim.nix
+
     ../../configurations/syncthing.nix
     ../../configurations/wireguard.nix
 
