@@ -97,6 +97,10 @@ in {
   systemd.services.terraria-server-6tunnel = {
     wantedBy = [ "multi-user.target" ];
 		after = [ "network.target" ];
+
+    path = [
+      pkgs._6tunnel
+    ];
 		
     script = "6tunnel -d -6 -f 7778 0.0.0.0 7777";
   };
