@@ -4,8 +4,6 @@
     "./ssh.nix"
     "./static_ip.nix"
   ];
-
-  environment.systemPackages = with pkgs; [
-    networkmanager
-  ];
+  
+  networking.networkmanager.enable = true;
 }
