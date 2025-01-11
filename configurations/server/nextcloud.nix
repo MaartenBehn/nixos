@@ -5,7 +5,7 @@
   security.acme = {
     acceptTerms = true;   
     certs = { 
-      ${config.services.nextcloud.cloud.stroby.duckdns.org}.email = "stroby241@gmail.com"; 
+      ${config.services.nextcloud.hostName}.email = "stroby241@gmail.com"; 
     }; 
   };
  
