@@ -54,7 +54,7 @@
 
       config = {
         overwriteprotocol = "https";
-        default_phone_region = "DE";
+        defaultPhoneRegion = "DE";
         dbtype = "pgsql";
         adminuser = "admin";
         adminpassFile = "/etc/nextcloud-admin-pass";
