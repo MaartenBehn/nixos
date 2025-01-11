@@ -14,7 +14,6 @@
     ../../configurations/wireguard.nix
 
     ../../configurations/kde.nix 
-    ../../configurations/minecraft.nix
     ../../configurations/server/debug_tools.nix
   ];
 
