@@ -22,9 +22,9 @@
 
         serverProperties = {
           gamemode = "survival";
-          difficulty = "easy";
+          difficulty = "normal";
           simulation-distance = 10;
-          level-seed = "4";
+          level-seed = "7644964991330705060"; #https://www.rockpapershotgun.com/best-minecraft-seeds-java-survival-seeds#cherry-valley
         };
         whitelist = {
           Stroby_MC = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032";
