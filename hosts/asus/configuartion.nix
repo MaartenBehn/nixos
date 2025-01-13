@@ -18,7 +18,9 @@
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
     ../../configurations/server/network.nix
+
     ../../configurations/server/nextcloud.nix
+    ../../configurations/server/vscode.nix
    
     ../../configurations/server/minecraft.nix
     ../../configurations/server/terraria.nix
