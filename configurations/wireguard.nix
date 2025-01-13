@@ -41,41 +41,6 @@
       ];
     };
 
-    dont_panic_over_ropelab = {
-      # Determines the IP address and subnet of the client's end of the tunnel interface.
-      address = [ "192.168.178.201/24" "fd0b:810a:db1f::201/64" ];
-      listenPort = 51820; # to match firewall allowedUDPPorts (without this it uses random port numbers)
-      dns = [ "192.168.178.1" "fd0b:810a:db1f::2e3a:fdff:feb5:7176" "fritz.box" ];
-
-      # Path to the private key file.
-      #
-      # Note: The private key can also be included inline via the privateKey option,
-      # but this makes the private key world-readable; thus, using privateKeyFile is
-      # recommended.
-      privateKeyFile = "/home/stroby/.config/wireguard/dont_panic.conf";
-      
-      autostart = false;
-
-      peers = [
-        # For a client configuration, one peer entry for the server will suffice.
-
-        {
-          # Public key of the server (not a file path).
-          publicKey = "aW27GNpUbW9USp80v5KbMvoFkNvBqgdYgNEFN4EnimU=";
-          presharedKey = "STrYF4g+WG+1kklNPlSqScvUY5oXpPO+gBDvxI1Ls3M=";
-
-          # Forward all the traffic via VPN.
-          allowedIPs = [ "192.168.178.0/24" "0.0.0.0/0" "fd0b:810a:db1f::/64" "::/0" ];
-          
-          # Set this to the server IP and port.
-          endpoint = "ropelab.uber.space:44820";
- 
-          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-
     fritz_behns = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
       address = [ "192.168.178.201/24" ];
