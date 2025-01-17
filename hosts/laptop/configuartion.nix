@@ -21,5 +21,6 @@
 
     ../../configurations/for_isec.nix
     # ../../configurations/nextcloud.nix
+    ../../configurations/server/vscode.nix
   ];
 }
