@@ -9,7 +9,8 @@
       openvscode-server
       nix
     ];
-    script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --impure --command 'openvscode-server --without-connection-token --host ::'";
+    ##script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --impure --command 'openvscode-server --without-connection-token --host ::'";
+    script = "cd /home/stroby/dev/embedded_systems/ && openvscode-server --without-connection-token --host ::";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   };
