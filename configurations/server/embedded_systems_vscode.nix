@@ -7,7 +7,7 @@
   systemd.services.embedded_systems_vscode = {
     path = with pkgs; [
       openvscode-server
-      nix-shell
+      nix
     ];
     script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --command 'openvscode-server --without-connection-token --host ::'";
     wantedBy = [ "network-online.target" ];
