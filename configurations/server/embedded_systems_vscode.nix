@@ -4,7 +4,7 @@
     allowedTCPPorts = [ 3000 ];
   }; 
 
-  systemd.stroby.services.vscode = {
+  systemd.services.vscode = {
     path = with pkgs; [
       openvscode-server
       nix
@@ -13,6 +13,7 @@
     script = "openvscode-server --without-connection-token --host ::";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
+    serviceConfig.User = "stroby";
   };
 }
 
