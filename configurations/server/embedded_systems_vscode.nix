@@ -9,7 +9,7 @@
       openvscode-server
       nix
     ];
-    script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --command 'openvscode-server --without-connection-token --host ::'";
+    script = "export NIX_PATH='nixpkgs=flake nixpkgs /nix/var/nix/profiles/per-user/root/channels' && cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --command 'openvscode-server --without-connection-token --host ::'";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   };
