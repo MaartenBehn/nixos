@@ -4,7 +4,7 @@
     allowedTCPPorts = [ 3000 ];
   }; 
 
-  systemd.services.vscode = {
+  systemd.stroby.services.vscode = {
     path = with pkgs; [
       openvscode-server
       nix
