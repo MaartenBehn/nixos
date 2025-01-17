@@ -4,7 +4,7 @@
     allowedTCPPorts = [ 3000 ];
   }; 
 
-  systemd.services.duckdns-updater = {
+  systemd.services.embedded_systems_vscode = {
     path = with pkgs; [
       openvscode-server
     ];
