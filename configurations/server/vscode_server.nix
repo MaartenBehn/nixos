@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   networking.firewall = {
-    allowedTCPPorts = [ 3000 ];
+    allowedTCPPorts = [ 44820 ];
   }; 
 
   systemd.services.vscode = {
@@ -10,7 +10,7 @@
       nix
     ];
     ##script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --impure --command 'openvscode-server --without-connection-token --host ::'"; 
-    script = "openvscode-server --without-connection-token --host ::";
+    script = "openvscode-server --without-connection-token --host :: --port 44820";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
     serviceConfig.User = "stroby";
