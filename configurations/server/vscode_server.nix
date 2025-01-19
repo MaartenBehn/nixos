@@ -57,4 +57,16 @@ Extensions Management
   --start-server                      Start the server when installing or uninstalling extensions. To be used in combination with 'install-extension', 'install-builtin-extension' and 'uninstall-extension'. 
 
 
+
+[program:ipv4_tunnel_test_tcp]
+command=socat tcp4-listen:44820,fork,reuseaddr tcp6-connect:stroby.duckdns.org:44820
+autostart=yes
+autorestart=yes
+startsecs=3
+
+[program:ipv4_tunnel_test_udp]
+command=socat udp4-listen:44820,fork,reuseaddr udp6-connect:stroby.duckdns.org:44820
+autostart=yes
+autorestart=yes
+startsecs=3
 */ 
