@@ -19,10 +19,6 @@
     ../../configurations/wireguard.nix
     ../../configurations/steam.nix
     ../../configurations/minecraft.nix 
-  ];
-  
-  environment.systemPackages = with pkgs; [
-    discord
-    obsidian
-  ];
+    ../../configurations/apps.nix 
+  ]; 
 }
