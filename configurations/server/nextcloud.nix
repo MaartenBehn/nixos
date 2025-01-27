@@ -58,6 +58,7 @@
         adminpassFile = "/etc/nextcloud-admin-pass";
         adminuser = "root";
         dbtype = "sqlite";
+      };
     };
 
     #onlyoffice = {
