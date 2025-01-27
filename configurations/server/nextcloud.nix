@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   environment.etc."nextcloud-admin-pass".text = "Nextcloud+240803";
+  environment.etc."nextcloud-stroby-pass".text = "Nextcloud+240803";
 
   security.acme = {
     acceptTerms = true;   
@@ -58,6 +59,13 @@
         adminpassFile = "/etc/nextcloud-admin-pass";
         adminuser = "root";
         dbtype = "sqlite";
+      };
+
+      ensureUsers = {
+        stroby = {
+          email = "maarten.behn@gmail.com";
+          passwordFile = "/etc/nextcloud-stroby-pass";
+      } ;
       };
     };
 
