@@ -8,21 +8,21 @@
   };
  
   services = {
-    # nginx.virtualHosts = {
-    #   "cloud.stroby.duckdns.org" = {
-    #     forceSSL = true;
-    #     enableACME = true;
-    #   };
+    nginx.virtualHosts = {
+       "cloud.stroby.duckdns.org" = {
+         forceSSL = true;
+         enableACME = true;
+       };
 
       #"onlyoffice.stroby.duckdns.org" = {
       #  forceSSL = true;
       #  enableACME = true;
       #};
-  # };
+    };
 
     nextcloud = {
       enable = true;
-      hostName = "stroby.duckdns.org";
+      hostName = "cloud.stroby.duckdns.org";
 
        # Need to manually increment with every major upgrade.
       package = pkgs.nextcloud30;
