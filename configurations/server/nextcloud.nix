@@ -1,7 +1,5 @@
 { pkgs, config, ... }:
 {
-  environment.etc."nextcloud-admin-pass".text = "Nextcloud+240803";
-
   security.acme = {
     acceptTerms = true;   
     defaults.email = "stroby241@gmail.com";
@@ -55,7 +53,8 @@
       };
 
       config = {
-        adminpassFile = "/etc/nextcloud-admin-pass";
+        adminpass = "Nextcloud+240803";
+        adminuser = "root";
       };
     };
 
