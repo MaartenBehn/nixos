@@ -32,7 +32,7 @@
       hostName = "cloud.stroby.duckdns.org";
 
        # Need to manually increment with every major upgrade.
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud28;
       
       # Let NixOS install and configure Redis caching automatically.
       configureRedis = true;
