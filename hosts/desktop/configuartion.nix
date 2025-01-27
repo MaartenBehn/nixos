@@ -20,5 +20,7 @@
     ../../configurations/steam.nix
     ../../configurations/minecraft.nix 
     ../../configurations/apps.nix 
+    
+    ../../configurations/server/filebrowser.nix 
   ]; 
 }
