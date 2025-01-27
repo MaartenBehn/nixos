@@ -51,7 +51,7 @@
 
       settings = {
         overwriteprotocol = "https";
-        default_phone_region = "DE";
+        default_phone_region = "de";
       };
 
       config = {
