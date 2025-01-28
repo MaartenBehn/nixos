@@ -14,6 +14,7 @@
     443
   ];
 
+  services.nginx.enable = true;
   services.nginx.virtualHosts = let
     SSL = {
       enableACME = true;
