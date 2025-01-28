@@ -9,26 +9,7 @@
 		after = [ "network.target" ];
   };
 
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
-
-  services.nginx.enable = true;
-  services.nginx.virtualHosts = let
-    SSL = {
-      enableACME = true;
-      forceSSL = true;
-    }; in {
-      "files.stroby.duckdns.org" = (SSL // {
-        locations."/".proxyPass = "http://127.0.0.1:8080/";
-
-        serverAliases = [
-          "www.files.stroby.duckdns.org"
-        ];
-      });
-
-    };
+  
 }
 
 

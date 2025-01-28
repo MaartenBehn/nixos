@@ -10,7 +10,7 @@
       nix
     ];
     ##script = "cd /home/stroby/dev/embedded_systems/ && nix-shell ./shell.nix --impure --command 'openvscode-server --without-connection-token --host ::'"; 
-    script = "openvscode-server --connection-token voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6 --host 0.0.0.0 --port 44820 --accept-server-license-terms";
+    script = "openvscode-server --connection-token voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6 --host 127.0.0.1 --port 8081 --accept-server-license-terms";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
     serviceConfig.User = "stroby";
