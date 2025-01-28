@@ -6,7 +6,7 @@
       user = "stroby";
       dataDir = "/home/stroby/";    # Default folder for new synced folders
       configDir = "/home/stroby/.config/syncthing";   # Folder for Syncthing's settings and keys
-      guiAddress = "127.0.0.0:8384";
+      guiAddress = "127.0.0.1:8384";
       settings.gui = {
         user = "stroby";
         password = "Syncthing+240803";
