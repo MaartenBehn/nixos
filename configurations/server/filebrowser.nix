@@ -4,7 +4,7 @@
       filebrowser
       getent
     ];
-    script = "filebrowser --address 127.0.0.1:8080 --database /home/stroby/filebrowser.db";
+    script = "filebrowser --address 127.0.0.1 --database /home/stroby/filebrowser.db";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   };
