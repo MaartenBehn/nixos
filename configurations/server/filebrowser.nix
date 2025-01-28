@@ -4,13 +4,36 @@
       filebrowser
       getent
     ];
-    script = "filebrowser --address 0.0.0.0 --database /home/stroby/filebrowser.db";
+    script = "filebrowser --address 127.0.0.1:8080 --database /home/stroby/filebrowser.db";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [ 8080 ];
-    allowedUDPPorts = [ 8080 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
+  security.acme = {
+    acceptTerms = true;
+
+    email = "stroby241@gmail.com";
   };
+
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+      "filebrowser.stroby.duckdns.org" = (SSL // {
+        locations."/".proxyPass = "http://127.0.0.1:8080/";
+
+        serverAliases = [
+          "www.filebrowser.stroby.duckdns.org
+        ];
+      });
+
+    };
 }
+
+
