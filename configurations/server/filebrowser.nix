@@ -2,6 +2,7 @@
   systemd.services.filebrowser = {
     path = with pkgs; [
       filebrowser
+      getent
     ];
     script = "filebrowser --address 0.0.0.0 --database /home/stroby/filebrowser.db";
     wantedBy = [ "network-online.target" ];
