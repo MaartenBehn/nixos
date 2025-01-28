@@ -14,12 +14,6 @@
     443
   ];
 
-  security.acme = {
-    acceptTerms = true;
-
-    email = "stroby241@gmail.com";
-  };
-
   services.nginx.virtualHosts = let
     SSL = {
       enableACME = true;

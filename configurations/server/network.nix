@@ -7,4 +7,10 @@
   
   networking.firewall.enable = true;
   networking.networkmanager.enable = true;
+
+  # SSL 
+  security.acme = {
+    acceptTerms = true;
+    email = "stroby241@gmail.com";
+  };
 }
