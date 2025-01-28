@@ -12,7 +12,14 @@
     443
   ];
 
-  services.nginx.enable = true;
+  services.nginx = {
+    enable = true;
+     recommendedGzipSettings = true;
+     recommendedOptimisation = true;
+     recommendedProxySettings = true;
+     recommendedTlsSettings = true;
+  };
+
   services.nginx.virtualHosts = let
     SSL = {
       enableACME = true;
@@ -35,7 +42,10 @@
       });
 
       "code.stroby.duckdns.org" = (SSL // {
-        locations."/".proxyPass = "http://127.0.0.1:8081/";
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8081/";
+          proxyWebsockets = true;
+        };
 
         serverAliases = [
           "www.code.stroby.duckdns.org"
