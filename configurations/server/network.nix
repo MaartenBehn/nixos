@@ -11,6 +11,6 @@
   # SSL 
   security.acme = {
     acceptTerms = true;
-    email = "stroby241@gmail.com";
+    defaults.email = "stroby241@gmail.com";
   };
 }
