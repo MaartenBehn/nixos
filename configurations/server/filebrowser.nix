@@ -8,4 +8,9 @@
 		after = [ "network.target" ];
     serviceConfig.User = "stroby";
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 8080 ];
+    allowedUDPPorts = [ 8080 ];
+  };
 }
