@@ -20,11 +20,11 @@
       enableACME = true;
       forceSSL = true;
     }; in {
-      "filebrowser.stroby.duckdns.org" = (SSL // {
+      "files.stroby.duckdns.org" = (SSL // {
         locations."/".proxyPass = "http://127.0.0.1:8080/";
 
         serverAliases = [
-          "www.filebrowser.stroby.duckdns.org"
+          "www.files.stroby.duckdns.org"
         ];
       });
 
