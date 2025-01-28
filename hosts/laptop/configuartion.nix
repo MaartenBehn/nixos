@@ -22,5 +22,7 @@
     ../../configurations/for_isec.nix
     # ../../configurations/nextcloud.nix
     ../../configurations/server/debug_tools.nix
+    
+    ../../configurations/server/filebrowser.nix 
   ];
 }

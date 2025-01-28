@@ -21,6 +21,7 @@
 
     #../../configurations/server/nextcloud.nix
     ../../configurations/server/vscode_server.nix
+    ../../configurations/server/filebrowser.nix
    
     ../../configurations/server/minecraft.nix
     ##../../configurations/server/terraria.nix
