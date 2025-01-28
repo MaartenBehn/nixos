@@ -29,7 +29,7 @@
         locations."/".proxyPass = "http://127.0.0.1:8080/";
 
         serverAliases = [
-          "www.filebrowser.stroby.duckdns.org
+          "www.filebrowser.stroby.duckdns.org"
         ];
       });
 
