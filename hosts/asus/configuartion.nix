@@ -12,13 +12,11 @@
     ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix
 
-    ../../configurations/syncthing.nix
-
     ##../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
     ../../configurations/server/network.nix
-    ../../configurations/server/syncthing_external_access.nix
+    ../../configurations/server/syncthing.nix
 
     #../../configurations/server/nextcloud.nix
     ../../configurations/server/vscode_server.nix
