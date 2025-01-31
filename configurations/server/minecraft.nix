@@ -34,16 +34,15 @@
           Stroby_MC = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032";
         };
 
+
         files."ops.json" = {
-          value = [ ''
-            [
-              {     
-                "uuid": "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032",   
-                "name": "Stroby_MC", 
-                "level": 4   
-              } 
-            ]
-            ''];
+          value = [
+            {     
+              uuid = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032"; 
+              name = "Stroby_MC";
+              level = 4;
+            }
+          ];
         };
 
        
