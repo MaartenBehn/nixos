@@ -23,15 +23,18 @@
         serverProperties = {
           gamemode = "survival";
           difficulty = "normal";
-          level-seed = "7644964991330705060"; #https://www.rockpapershotgun.com/best-minecraft-seeds-java-survival-seeds#cherry-valley
+          # level-seed = "7644964991330705060"; #https://www.rockpapershotgun.com/best-minecraft-seeds-java-survival-seeds#cherry-valley
 
           enforce-secure-profile = false;
           simulation-distance = 10;
           view-distance = 32;
           motd = "Strobys Server";
+          white-list = true;
         };
+
         whitelist = {
           Stroby_MC = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032";
+          EineBekannte = "c4aff99a-fd96-48e1-a3de-78a007c33318";
         };
 
 

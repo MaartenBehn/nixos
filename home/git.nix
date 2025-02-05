@@ -6,6 +6,7 @@
     extraConfig = {
       init.defaultBranch = "main";
       merge.tool = "meld";
+      pull.rebase = false;
     };
   };
 }
