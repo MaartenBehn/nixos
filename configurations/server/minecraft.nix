@@ -29,7 +29,8 @@
           simulation-distance = 10;
           view-distance = 32;
           motd = "Strobys Server";
-          #white-list = true;
+          spawn-protection = 0;
+          white-list = true;
         };
 
         whitelist = {
