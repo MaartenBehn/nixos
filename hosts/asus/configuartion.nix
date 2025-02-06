@@ -24,6 +24,10 @@
    
     ../../configurations/server/minecraft.nix
     ##../../configurations/server/terraria.nix
+ 
+    ../../configurations/shell/tmux.nix
+    ../../configurations/kde.nix
+    ../../configurations/apps.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";
