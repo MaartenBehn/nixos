@@ -34,7 +34,7 @@
         };
 
         whitelist = {
-          Stroby_MC = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032";
+          #Stroby_MC = "aad8a1da-f616-4dbb-a76c-d2c8ff8ca032";
           EineBekannte = "c4aff99a-fd96-48e1-a3de-78a007c33318";
         };
 
