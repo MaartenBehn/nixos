@@ -28,7 +28,7 @@
           enforce-secure-profile = false;
           simulation-distance = 10;
           view-distance = 32;
-          motd = "Strobys Server";
+          motd = "Stroby's und Lisa's Server";
           spawn-protection = 0;
           white-list = true;
           enforce-white-list = true;
