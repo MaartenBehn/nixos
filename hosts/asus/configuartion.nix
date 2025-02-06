@@ -27,7 +27,7 @@
  
     ../../configurations/shell/tmux.nix
     ../../configurations/kde.nix
-    #../../configurations/apps.nix
+    ../../configurations/apps.nix
     ../../configurations/virtualbox.nix
   ]; 
 
