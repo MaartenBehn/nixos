@@ -27,6 +27,8 @@
   
     # Without a browser your are fucked! So funcking keep it.
     firefox
+
+    python3
   ];
   
   networking.firewall.enable = true;

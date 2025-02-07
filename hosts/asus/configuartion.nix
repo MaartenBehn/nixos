@@ -29,6 +29,8 @@
     ../../configurations/kde.nix
     ../../configurations/apps.nix
     ../../configurations/virtualbox.nix
+    
+    ../../configurations/for_isec.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";
