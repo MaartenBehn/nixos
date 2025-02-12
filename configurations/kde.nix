@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./apps.nix
+    ./shell/fish.nix
+    ./shell/nixvim.nix
+    ./shell/tmux.nix
+    
+  ]; 
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.libinput.enable = true;
@@ -25,9 +33,6 @@
     # Netowork stuff      
     networkmanager
   
-    # Without a browser your are fucked! So funcking keep it.
-    firefox
-
     python3
   ];
   

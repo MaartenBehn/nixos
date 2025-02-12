@@ -16,6 +16,25 @@
       key = "Meta+Space";
       command = "sh /home/stroby/nixos/trigger_alacritty.sh";
     };
+    
+    window-rules = [
+      {
+        description = "Alacritty Fullscreen";
+        match = {
+          window-class = {
+            value = "alacritty";
+            type = "substring";
+          };
+          window-types = [ "normal" ];
+        };
+        apply = {
+          fullscreen = {
+            value = true;
+            apply = "force";
+          };
+        };
+      }
+    ];
 
     # cat /proc/bus/input/devices 
     input.touchpads = [
@@ -45,24 +64,8 @@ B: LED=1
       }
     ];
 
-    window-rules = [
-      {
-        description = "Alacritty Fullscreen";
-        match = {
-          window-class = {
-            value = "alacritty";
-            type = "substring";
-          };
-          window-types = [ "normal" ];
-        };
-        apply = {
-          fullscreen = {
-            value = true;
-            apply = "force";
-          };
-        };
-      }
-    ];
+    # find /nix -name plasmoids
+    # ls /nix/store/zk0050nbaf8cmr33n80i64lv6i6dprq7-plasma-workspace-6.2.1.1/share/plasma/plasmoids
 
     panels = [
       {
@@ -103,6 +106,17 @@ B: LED=1
               ];
             };
           }
+
+          {
+            name = "org.kde.plasma.systemmonitor.cpu";
+          }
+          {
+            name = "org.kde.plasma.systemmonitor.memory";
+          }
+          {
+            name = "org.kde.plasma.systemmonitor.net";
+          }
+
           # Or you can do it manually, for example:
           #{
           #  name = "org.kde.plasma.icontasks";

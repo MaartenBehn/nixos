@@ -7,5 +7,6 @@
     ../../home/ssh.nix
     ../../home/fish.nix
     ../../home/vscode.nix
+    ../../home/plasma.nix
   ];
 }
