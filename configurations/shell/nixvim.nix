@@ -5,5 +5,7 @@
     xclip
     lazygit
     lldb
+    nodePackages.prettier
+    terraform
   ];
 }

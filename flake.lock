@@ -452,11 +452,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1738685810,
-        "narHash": "sha256-E217UBB/iVTq29w7/UoTP38YsSN0UbaPVGhzTCtFvEQ=",
+        "lastModified": 1739270198,
+        "narHash": "sha256-cs3PJ05OGzOs+37FepExnKoriUR8y74lNABIT0x8u+E=",
         "owner": "MaartenBehn",
         "repo": "nixvim",
-        "rev": "442b3b80be6fbfdf4d22c9b8e98c2350f3941638",
+        "rev": "19e2a2fed579d0923c338610162cf4e76aa30e61",
         "type": "github"
       },
       "original": {
@@ -515,6 +515,29 @@
         "type": "github"
       }
     },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736549395,
+        "narHash": "sha256-XzwkB62Tt5UYoL1jXiHzgk/qz2fUpGHExcSIbyGTtI0=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "a53af7f1514ef4cce8620a9d6a50f238cdedec8b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -541,7 +564,8 @@
         "home-manager": "home-manager",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_2",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "plasma-manager": "plasma-manager"
       }
     },
     "systems": {

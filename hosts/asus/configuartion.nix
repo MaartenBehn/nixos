@@ -30,7 +30,6 @@
     ../../configurations/apps.nix
     ../../configurations/virtualbox.nix
     
-    ../../configurations/for_isec.nix
     ../../configurations/minecraft.nix
   ]; 
 

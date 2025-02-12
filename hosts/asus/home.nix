@@ -7,6 +7,7 @@
     ../../home/git.nix
     ../../home/ssh.nix
     ../../home/alacritty.nix
+    ../../home/plasma.nix
   ];
 
   programs.alacritty.settings.font.size = 7;
