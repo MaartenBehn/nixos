@@ -22,10 +22,10 @@
     }; 
   };
 
-  outputs =
-    { self, nixpkgs, plasma-manager, ... }@inputs:
-    {
-      nixosConfigurations.stroby-laptop = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, plasma-manager, ... }@inputs:
+  {
+    nixosConfigurations = {
+      laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
@@ -45,7 +45,7 @@
         ];
       };
 
-      nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
@@ -65,7 +65,7 @@
         ];
       };
 
-      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+      wsl = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
@@ -84,7 +84,7 @@
         ];
       };
 
-      nixosConfigurations.asus = nixpkgs.lib.nixosSystem {
+      asus = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
@@ -104,5 +104,26 @@
         ];
       };
 
+      iso = nixpkgs.lib.nixosSystem {
+        specialArgs = { 
+          inherit inputs; 
+        };
+        modules = [
+          ./hosts/iso/configuration.nix
+
+          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+            home-manager.users.stroby = import ./hosts/iso/home.nix;
+            # home-manager.extraSpecialArgs = {networking; inherit services;};
+          }
+        ];
+      };
+
     };
+  };
 }

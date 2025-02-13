@@ -16,7 +16,5 @@
     # wine
     wineWowPackages.stable
     winetricks
-
-    gnupg
   ];
 }

@@ -1,13 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./apps.nix
-    ./shell/fish.nix
-    ./shell/nixvim.nix
-    ./shell/tmux.nix
-    
-  ]; 
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.libinput.enable = true;
@@ -33,6 +25,8 @@
     # Netowork stuff      
     networkmanager
   
+    firefox
+
     python3
   ];
   

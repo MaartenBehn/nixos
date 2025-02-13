@@ -6,7 +6,7 @@
     ../../configurations/clean.nix
     ./drivers.nix
 
-    .../../configurations/shell/fish.nix
+    ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix
     ../../configurations/shell/tmux.nix
   ];
