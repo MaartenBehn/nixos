@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    "./gnupg.nix"
+    ./gnupg.nix
   ];
 
   # Open port for revshell
