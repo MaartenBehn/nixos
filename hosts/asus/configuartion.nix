@@ -34,4 +34,10 @@
   ]; 
 
   services.logind.lidSwitch = "ignore";
+
+  networking.firewall = {
+    allowedTCPPorts = [ 9001 ];
+  };
+
+
 }
