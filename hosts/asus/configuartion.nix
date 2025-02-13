@@ -30,13 +30,9 @@
     ../../configurations/virtualbox.nix
     
     ../../configurations/minecraft.nix
+
+    ../../configurations/for_isec.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";
-
-  networking.firewall = {
-    allowedTCPPorts = [ 9001 ];
-  };
-
-
 }
