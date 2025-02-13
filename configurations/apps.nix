@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # Apps
+    firefox
     thunderbird
     obsidian
     discord

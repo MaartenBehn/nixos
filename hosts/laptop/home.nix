@@ -8,7 +8,6 @@
     ../../home/ssh.nix   
     ../../home/vscode.nix
     ../../home/alacritty.nix
-
-    #../../home/plasma.nix
+    ../../home/plasma.nix
   ];
 }

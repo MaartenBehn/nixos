@@ -11,7 +11,8 @@
 
     ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix
-
+    ../../configurations/shell/tmux.nix
+    
     ##../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
@@ -25,9 +26,7 @@
     ../../configurations/server/minecraft.nix
     ##../../configurations/server/terraria.nix
  
-    ../../configurations/shell/tmux.nix
     ../../configurations/kde.nix
-    ../../configurations/apps.nix
     ../../configurations/virtualbox.nix
     
     ../../configurations/minecraft.nix
