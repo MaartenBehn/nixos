@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, username, ... }: 
 {
   #Dynamic-DNS
   systemd.services.duckdns-updater = {
@@ -6,7 +6,7 @@
       bash
       curl
     ];
-    script = "sh /home/stroby/nixos/update_duckdns.sh";
+    script = "sh /home/${username}/nixos/update_duckdns.sh";
     startAt = "hourly";  
     wantedBy = [ "network-online.target" ];
   };

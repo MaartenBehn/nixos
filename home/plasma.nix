@@ -3,6 +3,25 @@
   programs.plasma = {
     enable = true;
 
+    # Spectacle
+    shortcuts = {
+      "org.kde.spectacle.desktop"."ActiveWindowScreenShot" = [ ];
+      "org.kde.spectacle.desktop"."CurrentMonitorScreenShot" = [ ];
+      "org.kde.spectacle.desktop"."FullScreenScreenShot" = [ ];
+      "org.kde.spectacle.desktop"."OpenWithoutScreenshot" = [ ];
+      "org.kde.spectacle.desktop"."RectangularRegionScreenShot" = "Print";
+      "org.kde.spectacle.desktop"."WindowUnderCursorScreenShot" = [];
+      "org.kde.spectacle.desktop"."_launch" = [];
+    };
+    configFile = {
+      "spectaclerc"."General"."clipboardGroup" = "PostScreenshotCopyImage";
+    };
+
+    kscreenlocker = {
+      autoLock = false;
+    };
+    session.general.askForConfirmationOnLogout = false;
+
     workspace = {
       clickItemTo = "select";
       lookAndFeel = "org.kde.breezedark.desktop";

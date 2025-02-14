@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ username, ... }:
 
 {
-  networking.hostName = "stroby-desktop";
+  networking.hostName = "${username}-desktop";
 
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix
-    ../../configurations/stroby.nix
+    ../../configurations/user.nix
     ../../configurations/clean.nix
     ./drivers.nix
 

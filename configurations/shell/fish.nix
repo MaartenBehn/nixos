@@ -59,7 +59,7 @@
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
-      noto-fonts-cjk # Beautiful and free fonts for CJK languages
+      noto-fonts-cjk-sans # Beautiful and free fonts for CJK languages
       noto-fonts-emoji # Color and Black-and-White emoji fonts
       nerdfonts
     ];

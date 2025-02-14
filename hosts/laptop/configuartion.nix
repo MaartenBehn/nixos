@@ -1,12 +1,12 @@
-{ ... }:
+{ username, ... }:
 
 {
-  networking.hostName = "stroby-laptop";
+  networking.hostName = "${username}-laptop";
   
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix
-    ../../configurations/stroby.nix
+    ../../configurations/user.nix
     ../../configurations/clean.nix
     ./drivers.nix
 

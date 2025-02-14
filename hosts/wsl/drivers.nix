@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, username, system, ... }:
 
 {
   imports = [
@@ -6,9 +6,9 @@
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = username;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault system;
 
   wsl.wslConf.network.generateResolvConf = false;
   networking.nameservers = [ "8.8.8.8" ];

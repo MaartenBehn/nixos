@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, ... }: {
+{ pkgs, modulesPath, username, system, ... }: {
 
   networking.hostName = "iso";
   
@@ -7,7 +7,7 @@
     
     ../../configurations/base.nix
     ../../configurations/clean.nix
-    ../../configurations/stroby.nix
+    ../../configurations/user.nix
 
     ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix
@@ -17,11 +17,11 @@
 
   isoImage.edition = "plasma5";
 
-  nixpkgs.hostPlatform = "x86_64-linux"; 
+  nixpkgs.hostPlatform = system; 
 
   services.displayManager.autoLogin = {
     enable = true;
-    user = "stroby";
+    user = username;
   };
 
   system.activationScripts.installerDesktop =
@@ -30,7 +30,7 @@
       # Comes from documentation.nix when xserver and nixos.enable are true.
       manualDesktopFile = "/run/current-system/sw/share/applications/nixos-manual.desktop";
 
-      homeDir = "/home/stroby/";
+      homeDir = "/home/${username}/";
       desktopDir = homeDir + "Desktop/";
 
     in

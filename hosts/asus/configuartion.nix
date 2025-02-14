@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ ... }:
 {
   networking.hostName = "asus";
 
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix
-    ../../configurations/stroby.nix
+    ../../configurations/user.nix
     ../../configurations/clean.nix
     ./drivers.nix
 

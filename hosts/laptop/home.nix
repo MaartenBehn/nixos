@@ -11,5 +11,5 @@
     ../../home/plasma.nix
   ];
 
-  programs.alacritty.settings.font.size = 7;
+  #programs.alacritty.settings.font.size = 7;
 }

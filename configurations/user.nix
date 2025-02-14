@@ -1,8 +1,8 @@
-{ ... }:
+{ username, ... }:
 {
-  users.users.stroby = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "stroby";
+    description = username;
     extraGroups = [
       "networkmanager"
       "wheel"
