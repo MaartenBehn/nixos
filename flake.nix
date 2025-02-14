@@ -25,16 +25,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     }; 
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, hyprland, hyprland-plugins, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, ... }@inputs:
   let 
     system = "x86_64-linux";
     lib = nixpkgs.lib;
