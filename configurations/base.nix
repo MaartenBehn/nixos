@@ -33,5 +33,9 @@
   
   home-manager.backupFileExtension = "backup";
 
-  console.keyMap = "de"; 
+  console = {
+    keyMap = "de";
+    font = "ter-v32n";
+    packages = with pkgs; [ terminus_font ];
+  };
 }
