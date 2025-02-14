@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   nix.settings.experimental-features = [
     "nix-command"
@@ -24,15 +24,14 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-
-  # Configure console keymap
-  console.keyMap = "de";
-
-  home-manager.backupFileExtension = "backup";
-
+  
   nixpkgs.config = {
     # Allow unfree packages
     allowUnfree = true;
     allowUnsupportedSystem = true;
   };
+  
+  home-manager.backupFileExtension = "backup";
+
+  console.keyMap = "de"; 
 }
