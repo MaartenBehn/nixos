@@ -1,11 +1,11 @@
-{ ... }:
+{ lib, ... }:
 {
   programs.fish = {
     enable = true;
-    interactiveShellInit = ''
-      source ~/nixos/home/init.fish
-
+    interactiveShellInit = lib.concatStrings [ 
+      (builtins.readFile ./init.fish) 
+    ''
       starship init fish | source
-    '';
+    ''];
   };   
 }

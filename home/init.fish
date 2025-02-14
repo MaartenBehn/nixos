@@ -3,6 +3,7 @@ set fish_greeting # Disable greeting
 alias nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake . --impure && cd -";
 alias nix-rebuild-nh="sudo echo 'Got root access' && cd /home/$USER/nixos/ && git add --all && nh os switch . -- --impure && cd -";
 alias nix-rebuild-pull="cd /home/$USER/nixos/ && git pull && sudo nixos-rebuild switch --flake . --impure && cd -";
+alias iso-nix-build="nix build .#nixosConfigurations.iso.config.system.build.isoImage";
       
 alias nix-vim-update="cd /home/$USER/nixos/ && git add --all && nix flake update nixvim && cd -"
 alias nix-vim-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nix flake update nixvim && sudo nixos-rebuild switch --flake ./#$NIX_TARGET --impure && cd -";
@@ -11,7 +12,9 @@ alias nix-update="cd /home/$USER/nixos/ && git add --all && nix flake update && 
 alias nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise"
 alias nix-index="sh /home/$USER/nixos/update_nix_index.sh"
 alias nix-store-size="du -BM /nix/store/ | sort -n"
-alias nix-search-local="find /nix -name '$1'"
+function nix-search-local -d "find /nix -name <NAME>"
+  find /nix -name $argv[1]
+end
 
 # Edit Configs
 alias nix-config="cd ~/nixos && nvim . && cd -"
@@ -49,4 +52,10 @@ alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.d
 
 alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
 
+# Stuff for creating ISO 
+alias iso-find-drive="sudo fdisk -l";
 
+function iso-write-to-drive -d "iso-write-to-drive <sdx> <.iso file>"
+  du -BM $argv[2]
+  sudo dd bs=4M if=$argv[2] of=/dev/$argv[1] status=progress oflag=sync
+end
