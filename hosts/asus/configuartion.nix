@@ -30,6 +30,7 @@
     #../../configurations/minecraft.nix
 
     #../../configurations/for_isec.nix
+    ../../configurations/hyperland.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";

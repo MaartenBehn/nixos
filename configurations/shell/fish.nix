@@ -55,17 +55,10 @@
       (nerdfonts.override { 
         fonts = [ "JetBrainsMono" ]; 
       })
+      jetbrains-mono
     ];
   };
   
-  console = {
-    keyMap = "de";
-    font = "ter-124b";
-    packages = with pkgs; [
-      terminus_font
-    ];
-  };
-
   environment.variables = {
     PKG_CONFIG_PATH =
       with pkgs;
