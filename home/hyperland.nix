@@ -7,7 +7,7 @@
   
       sleep 1
   
-      ${pkgs.swww}/bin/swww img ${./wallpaper.png} &
+      ${pkgs.swww}/bin/swww img ${../wallpapers/life-is-strange.jpeg} &
     '';
 in
 {
