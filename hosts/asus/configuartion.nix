@@ -18,6 +18,7 @@
     ../../configurations/server/network.nix
     ../../configurations/server/syncthing.nix
     ../../configurations/server/auto_vpn.nix
+    ../../configurations/wireguard.nix
 
     ../../configurations/server/vscode_server.nix
     ../../configurations/server/filebrowser.nix
