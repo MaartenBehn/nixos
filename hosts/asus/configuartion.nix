@@ -1,6 +1,6 @@
-{ ... }:
+{ username, ... }:
 {
-  networking.hostName = "asus";
+  networking.hostName = "${username}-asus";
 
   imports = [
     ../../hardware-configuration.nix
@@ -13,25 +13,23 @@
     ../../configurations/shell/nixvim.nix
     ../../configurations/shell/tmux.nix
     
-    ##../../configurations/server/dynv6dns.nix
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix
     ../../configurations/server/network.nix
     ../../configurations/server/syncthing.nix
 
-    #../../configurations/server/nextcloud.nix
     ../../configurations/server/vscode_server.nix
     ../../configurations/server/filebrowser.nix
    
     ../../configurations/server/minecraft.nix
     ##../../configurations/server/terraria.nix
  
-    ../../configurations/kde.nix
-    ../../configurations/virtualbox.nix
+    #../../configurations/kde.nix
+    #../../configurations/virtualbox.nix
     
-    ../../configurations/minecraft.nix
+    #../../configurations/minecraft.nix
 
-    ../../configurations/for_isec.nix
+    #../../configurations/for_isec.nix
   ]; 
 
   services.logind.lidSwitch = "ignore";
