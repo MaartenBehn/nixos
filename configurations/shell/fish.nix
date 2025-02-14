@@ -53,18 +53,16 @@
       noto-fonts-cjk-sans # Beautiful and free fonts for CJK languages
       noto-fonts-emoji # Color and Black-and-White emoji fonts
       (nerdfonts.override { 
-        fonts = [ "JetBrains Mono Nerd Font" ]; 
+        fonts = [ "JetBrainsMono" ]; 
       })
     ];
   };
   
   console = {
     keyMap = "de";
-    font = "JetBrains Mono Nerd Font";
+    font = "ter-124b";
     packages = with pkgs; [
-      (nerdfonts.override { 
-        fonts = [ "JetBrains Mono Nerd Font" ]; 
-      })
+      terminus_font
     ];
   };
 

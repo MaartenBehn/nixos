@@ -5,9 +5,9 @@ function nix-rebuild
   cd /home/$USER/nixos/
   git add --all
   if count $argv > /dev/null
-    sudo nixos-rebuild switch --flake . --impure
+    sudo nixos-rebuild switch --flake --impure . 
   else
-    sudo nixos-rebuild switch --flake ./#$argv --impure
+    sudo nixos-rebuild switch --flake --impure ./#$argv  
   end
   cd -
 end
