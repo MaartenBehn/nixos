@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  systemd.services.terraria-server-6tunnel = {
+  systemd.services.auto_vpn = {
     wantedBy = [ "multi-user.target" ];
 		after = [ "network.target" ];
 
