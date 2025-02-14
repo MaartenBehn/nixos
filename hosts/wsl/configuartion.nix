@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  networking.hostName = "wsl";
+  
   imports = [
     ../../configurations/base.nix
     ../../configurations/clean.nix
@@ -10,5 +12,4 @@
     ../../configurations/shell/nixvim.nix
     ../../configurations/shell/tmux.nix
   ];
-  networking.hostName = "wsl";
 }

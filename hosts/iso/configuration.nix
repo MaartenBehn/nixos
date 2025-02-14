@@ -1,5 +1,7 @@
 { pkgs, modulesPath, ... }: {
 
+  networking.hostName = "iso";
+  
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-calamares.nix"
     
@@ -16,7 +18,6 @@
   isoImage.edition = "plasma5";
 
   nixpkgs.hostPlatform = "x86_64-linux"; 
-  networking.hostName = "iso";
 
   services.displayManager.autoLogin = {
     enable = true;

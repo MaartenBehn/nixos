@@ -10,4 +10,6 @@
     ../../home/alacritty.nix
     ../../home/plasma.nix
   ];
+
+  programs.alacritty.settings.font.size = 7;
 }

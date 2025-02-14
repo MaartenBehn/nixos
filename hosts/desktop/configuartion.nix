@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  networking.hostName = "desktop";
+  networking.hostName = "stroby-desktop";
 
   imports = [
     ../../hardware-configuration.nix
@@ -20,6 +20,5 @@
     ../../configurations/steam.nix
     ../../configurations/minecraft.nix 
     ../../configurations/apps.nix 
-    
   ]; 
 }

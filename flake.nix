@@ -25,7 +25,7 @@
   outputs = { self, nixpkgs, plasma-manager, ... }@inputs:
   {
     nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
+      stroby-laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
@@ -45,7 +45,7 @@
         ];
       };
 
-      desktop = nixpkgs.lib.nixosSystem {
+      stroby-desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };

@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  networking.hostName = "stroby-laptop";
+  
   imports = [
     ../../hardware-configuration.nix
     ../../configurations/base.nix
