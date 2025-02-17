@@ -45,15 +45,6 @@
   programs.command-not-found.enable = false;
   programs.nix-index.enable = true;
 
-  environment.variables = {
-    PKG_CONFIG_PATH =
-      with pkgs;
-      lib.makeLibraryPath [
-        fontconfig
-      ];
-    EDITOR = "nvim";
-  };
-
   # Fonts
   # https://nixos.wiki/wiki/Fonts
   fonts = {
@@ -61,7 +52,19 @@
     packages = with pkgs; [
       noto-fonts-cjk-sans # Beautiful and free fonts for CJK languages
       noto-fonts-emoji # Color and Black-and-White emoji fonts
-      nerdfonts
+      (nerdfonts.override { 
+        fonts = [ "JetBrainsMono" ]; 
+      })
+      jetbrains-mono
     ];
+  };
+  
+  environment.variables = {
+    PKG_CONFIG_PATH =
+      with pkgs;
+      lib.makeLibraryPath [
+        fontconfig
+      ];
+    EDITOR = "nvim";
   };
 }

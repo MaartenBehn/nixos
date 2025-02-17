@@ -37,7 +37,7 @@
   in   
   {
     nixosConfigurations = {
-      stroby-laptop = nixpkgs.lib.nixosSystem {
+        "${username}-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit inputs;
@@ -60,7 +60,7 @@
         ];
       };
 
-      stroby-desktop = nixpkgs.lib.nixosSystem {
+      "${username}-desktop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit inputs;
@@ -106,7 +106,7 @@
         ];
       };
 
-      asus = nixpkgs.lib.nixosSystem {
+      "${username}-asus" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit inputs;
