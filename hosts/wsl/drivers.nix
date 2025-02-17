@@ -1,5 +1,4 @@
 { lib, username, system, ... }:
-
 {
   imports = [
     <nixos-wsl/modules>

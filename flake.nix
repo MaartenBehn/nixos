@@ -86,6 +86,7 @@
       wsl = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           username = "nixos";
           inherit pkgs-unstable;        
