@@ -4,6 +4,7 @@
     # dev
     python3
     gittyup
+    lazygit
 
     # editor
     kate
