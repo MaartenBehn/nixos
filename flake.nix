@@ -40,6 +40,7 @@
         "${username}-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           inherit username;
           inherit pkgs-unstable;        
@@ -63,6 +64,7 @@
       "${username}-desktop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           inherit username;
           inherit pkgs-unstable;        
@@ -86,6 +88,7 @@
       wsl = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           username = "nixos";
           inherit pkgs-unstable;        
@@ -108,6 +111,7 @@
       "${username}-asus" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           inherit username;
           inherit pkgs-unstable;        
@@ -131,6 +135,7 @@
       iso = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          inherit system;
           inherit inputs;
           inherit username;
           inherit pkgs-unstable;        
