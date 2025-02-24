@@ -34,6 +34,9 @@ alias nix-vim-config="cd ~/dev/nixvim && nvim . && cd -"
 alias ls="exa -l -a";
 alias ping="ping -c 5";
 
+alias lgit="lazygit";
+alias lg="lazygit";
+
 alias myip="curl http://ipecho.net/plain; echo";
 
 alias vpn-uni="sudo openconnect -b -u behn --authgroup=Tunnel-Uni-Bremen vpn.uni-bremen.de";
