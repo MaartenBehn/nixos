@@ -11,7 +11,7 @@ set fish_greeting # Disable greeting
 #  cd -
 #end
 
-alias nix-rebuild-="cd /home/$USER/nixos/ && git add -all && sudo nixos-rebuild switch --flake . --impure && cd -";
+alias nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake . --impure && cd -";
 alias nix-rebuild-nh="sudo echo 'Got root access' && cd /home/$USER/nixos/ && git add --all && nh os switch . -- --impure && cd -";
 alias nix-rebuild-pull="cd /home/$USER/nixos/ && git pull && sudo nixos-rebuild switch --flake . --impure && cd -";
 alias iso-nix-build="nix build .#nixosConfigurations.iso.config.system.build.isoImage";
