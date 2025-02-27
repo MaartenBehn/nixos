@@ -9,8 +9,10 @@
   systemd.services.obsidian_export-updater = {
     path = with pkgs; [
       bash
+      rustup
+      nodejs
     ];
-    script = "nix-shell /home/stroby/dev/obsidian_export/shell.nix --command 'cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh'";
+    script = "cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh";
     startAt = "hourly";  
     wantedBy = [ "network-online.target" ];
   };
