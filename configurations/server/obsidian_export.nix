@@ -11,6 +11,7 @@
       bash
       rustup
       nodejs
+      git
     ];
     script = "cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh";
     startAt = "hourly";  
