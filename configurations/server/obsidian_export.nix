@@ -12,7 +12,7 @@
       rustup
       nodejs
       git
-      clang
+      gcc
     ];
     script = "cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh";
     startAt = "hourly";  
