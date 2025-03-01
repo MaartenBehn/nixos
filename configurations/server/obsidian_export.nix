@@ -15,7 +15,7 @@
       gcc
     ];
     script = "cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh";
-    startAt = "dayly";  
+    startAt = "hourly";  
     wantedBy = [ "network-online.target" ];
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
