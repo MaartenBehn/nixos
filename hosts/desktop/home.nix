@@ -28,7 +28,6 @@
     ../../home/rofi.nix                        # launcher
     ../../home/scripts/scripts.nix             # personal scripts
     ../../home/starship.nix                    # shell prompt
-    ../../home/swaylock.nix                    # lock screen
     ../../home/swayosd.nix                     # brightness / volume wiget
     ../../home/swaync/swaync.nix               # notification deamon
     ../../home/viewnior.nix                    # image viewer
