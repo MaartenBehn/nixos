@@ -37,7 +37,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland.url = "github:hyprwm/Hyprland";
- 
+  
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,145 +62,77 @@
 
     nvf.url = "github:notashelf/nvf";
   };
+  
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, hyprland, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, ... }@inputs:
+
   let 
     system = "x86_64-linux";
     lib = nixpkgs.lib;
     pkgs = nixpkgs.legacyPackages.${system};
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-    username = "stroby";
+
+    configs = [
+      {
+        host = "laptop";
+        username = "stroby"; 
+      }
+      {
+        host = "desktop";
+        username = "stroby"; 
+      }
+      {
+        host = "asus";
+        username = "stroby"; 
+      }
+      {
+        host = "wsl";
+        username = "nixos"; 
+      }
+      {
+        host = "iso";
+        username = "stroby"; 
+      }
+    ];
   in   
   {
-    nixosConfigurations = {
-        "${username}-laptop" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          inherit username;
-          inherit pkgs-unstable;        
-          host = "laptop";
-        };
-        modules = [
-          ./hosts/laptop/configuartion.nix
+    # Generate configs
+    nixosConfigurations = builtins.listToAttrs (builtins.map (config: 
+      { 
+        # Name of the config
+        name = "${config.username}-${config.host}"; 
 
-          inputs.home-manager.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ 
-                plasma-manager.homeManagerModules.plasma-manager  
-            ];
+        # Content of the config
+        value = nixpkgs.lib.nixosSystem {
+          inherit system; # system = system
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+            inherit pkgs-unstable;   
+            username = config.username;
+            host = config.host;
+          };
+          modules = [
+            ./hosts/${config.host}/configuartion.nix
 
-            home-manager.users.stroby = import ./hosts/laptop/home.nix;
-            home-manager.extraSpecialArgs = { 
+            inputs.home-manager.nixosModules.default
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+              home-manager.users.stroby = import ./hosts/${config.host}/home.nix;
+              home-manager.extraSpecialArgs = { 
                 inherit system;
                 inherit inputs;
-                inherit username;
                 inherit pkgs-unstable;
-                host = "laptop";
+                username = config.username;
+                host = config.host;
               };
-          }
-        ];
-      };
-
-      "${username}-desktop" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          inherit username;
-          inherit pkgs-unstable;        
+            }
+          ];
         };
-        modules = [
-          ./hosts/desktop/configuartion.nix
-
-          inputs.home-manager.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-
-            home-manager.users.stroby = import ./hosts/desktop/home.nix;
-            # home-manager.extraSpecialArgs = {networking; inherit services;};
-          }
-        ];
-      };
-
-      wsl = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          username = "nixos";
-          inherit pkgs-unstable;        
-        };
-        modules = [
-          ./hosts/wsl/configuartion.nix
-
-          inputs.home-manager.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.nixos = import ./hosts/wsl/home.nix;
-            # home-manager.extraSpecialArgs = {networking; inherit services;};
-          }
-        ];
-      };
-
-      "${username}-asus" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          inherit username;
-          inherit pkgs-unstable;        
-        };
-        modules = [
-          ./hosts/asus/configuartion.nix
-
-          inputs.home-manager.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-
-            home-manager.users.stroby = import ./hosts/asus/home.nix;
-            # home-manager.extraSpecialArgs = {networking; inherit services;};
-          }
-        ];
-      };
-
-      iso = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-          inherit username;
-          inherit pkgs-unstable;        
-        };
-        modules = [
-          ./hosts/iso/configuration.nix
-
-          inputs.home-manager.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-
-            home-manager.users.stroby = import ./hosts/iso/home.nix;
-            # home-manager.extraSpecialArgs = {networking; inherit services;};
-          }
-        ];
-      };
-
-    };
+      } ) configs);
   };
 }

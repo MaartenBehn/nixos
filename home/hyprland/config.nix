@@ -1,4 +1,4 @@
-{ ... }:
+{ host, ... }:
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -382,7 +382,13 @@
     };
 
     extraConfig = "
-      monitor=,preferred,auto,1
+      ${if host == "laptop" then "
+        monitor=eDP-1,preferred,auto,1
+        monitor=DP-5,1920x1080,-1920x0,1
+        monitor=DP-6,1920x1080,-3840x0,1
+      " else "
+        monitor=,preferred,auto,1
+      "}
 
       xwayland {
         force_zero_scaling = true

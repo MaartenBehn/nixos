@@ -63,10 +63,20 @@ in
     cbonsai                           # terminal screensaver
     cmatrix
     pipes                             # terminal screensaver
-    sl
+    #sl
     tty-clock                         # cli clock
 
     ## GUI Apps
+    firefox
+    thunderbird
+    vlc
+    webcamoid
+    spotify
+    signal-desktop
+    gimp
+    obs-studio
+    telegram-desktop
+ 
     audacity
     bleachbit                         # cache cleaner
     filezilla
@@ -80,7 +90,6 @@ in
     pavucontrol                       # pulseaudio volume controle (GUI)
     pitivi                            # video editing
     gnome-calculator                  # calculator
-    mission-center                    # GUI resources monitor
     soundwireserver
     thunderbird
     vlc

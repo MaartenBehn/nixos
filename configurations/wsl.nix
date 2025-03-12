@@ -10,5 +10,4 @@
   nixpkgs.hostPlatform = lib.mkDefault system;
 
   wsl.wslConf.network.generateResolvConf = false;
-  networking.nameservers = [ "8.8.8.8" ];
 }

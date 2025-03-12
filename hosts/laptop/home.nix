@@ -2,12 +2,12 @@
 {
   imports = [
     ../../home/base.nix
-    ../../home/stroby.nix
+    ../../home/user.nix
     ../../home/fish.nix
     ../../home/ssh.nix   
     ../../home/vscode.nix
     ../../home/alacritty.nix
-    ../../home/plasma.nix
+    #../../home/plasma.nix
 
     #../../home/aseprite/aseprite.nix           # pixel art editor
     ../../home/audacious.nix                   # music player
@@ -15,10 +15,10 @@
     #../../home/browser.nix                     # firefox based browser
     ../../home/btop.nix                        # resouces monitor 
     ../../home/cava.nix                        # audio visualizer
-    #../../home/discord/discord.nix             # discord with gruvbox
+    ../../home/discord/discord.nix             # discord with gruvbox
     #../../home/fastfetch.nix                   # fetch tool
     ../../home/fzf.nix                         # fuzzy finder
-    ../../home/gaming.nix                      # packages related to gaming
+    #../../home/gaming.nix                      # packages related to gaming
     #../../home/ghostty.nix                     # terminal
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps

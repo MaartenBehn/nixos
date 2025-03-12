@@ -1,6 +1,6 @@
-{pkgs, ...}: {
+{ username, host, ...}: {
   networking = {
-    # hostName = ""; Should be defined host/<name>/configuartion.nix
+    hostName = "${username}-${host}";
     networkmanager.enable = true;
     nameservers = [
       "8.8.8.8"

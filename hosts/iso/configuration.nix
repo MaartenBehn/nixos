@@ -4,15 +4,32 @@
   
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-calamares.nix"
-    
-    ../../configurations/base.nix
-    ../../configurations/clean.nix
+   
+    # Base
+    ../../configurations/bootloader.nix
+    ../../configurations/nix_stuff.nix
+    ../../configurations/local.nix
     ../../configurations/user.nix
+    ../../configurations/clean.nix
 
+    # Drivers
+    ../../configurations/graphics.nix
+    ../../configurations/nvidia.nix
+    ../../configurations/networking.nix
+    ../../configurations/monitor_cpu_temp.nix
+    ../../configurations/networking.nix
+    ../../configurations/bluetooh.nix
+    ../../configurations/audio.nix
+ 
+    # Shell
     ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix
     ../../configurations/shell/tmux.nix
-    ../../configurations/kde.nix
+    
+    # OS
+    ../../configurations/display_manager.nix
+    ../../configurations/hyperland.nix
+
   ];
 
   isoImage.edition = "plasma5";
