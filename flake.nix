@@ -24,10 +24,46 @@
       url = github:nix-community/plasma-manager;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-    }; 
+    };
+
+    # https://github.com/Frost-Phoenix/nixos-config/blob/main/flake.nix
+    nur.url = "github:nix-community/NUR";
+
+    hypr-contrib.url = "github:hyprwm/contrib";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+ 
+    spicetify-nix = {
+      url = "github:gerg-l/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprmag.url = "github:SIMULATAN/hyprmag";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    yazi-plugins = {
+      url = "github:yazi-rs/plugins";
+      flake = false;
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
+
+    zig.url = "github:mitchellh/zig-overlay";
+
+    nvf.url = "github:notashelf/nvf";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, hyprland, ... }@inputs:
   let 
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -44,6 +80,7 @@
           inherit inputs;
           inherit username;
           inherit pkgs-unstable;        
+          host = "laptop";
         };
         modules = [
           ./hosts/laptop/configuartion.nix
@@ -53,10 +90,18 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [ 
+                plasma-manager.homeManagerModules.plasma-manager  
+            ];
 
             home-manager.users.stroby = import ./hosts/laptop/home.nix;
-            # home-manager.extraSpecialArgs = {networking; inherit services;};
+            home-manager.extraSpecialArgs = { 
+                inherit system;
+                inherit inputs;
+                inherit username;
+                inherit pkgs-unstable;
+                host = "laptop";
+              };
           }
         ];
       };

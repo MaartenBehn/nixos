@@ -4,7 +4,7 @@
   networking.hostName = "${username}-desktop";
 
   imports = [
-    ../../hardware-configuration.nix
+    ../../configurations/bootloader.nix
     ../../configurations/base.nix
     ../../configurations/user.nix
     ../../configurations/clean.nix

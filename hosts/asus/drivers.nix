@@ -22,9 +22,6 @@
 
   networking.networkmanager.enable = true;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = false;
-
   services.thermald.enable = true;
 
   # Audio
@@ -46,6 +43,4 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  services.fprintd.enable = true;
 }

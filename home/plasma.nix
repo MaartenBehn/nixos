@@ -30,6 +30,8 @@
       wallpaper = "/home/stroby/nixos/wallpapers/life-is-strange.jpeg";
     };
 
+
+
     hotkeys.commands."trigger-alacritty" = {
       name = "Trigger Alacritty";
       key = "Meta+Space";
