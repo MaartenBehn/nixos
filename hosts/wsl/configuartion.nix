@@ -4,7 +4,8 @@
   networking.hostName = "wsl";
   
   imports = [
-    ../../configurations/base.nix
+    ../../configurations/nix_stuff.nix
+    ../../configurations/local.nix
     ../../configurations/clean.nix
     ./drivers.nix
 
