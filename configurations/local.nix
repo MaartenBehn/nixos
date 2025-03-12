@@ -20,7 +20,7 @@
   
   console = {
     keyMap = "de";
-    font = "ter-124b";
-    packages = with pkgs; [ terminus_font ];
+    #font = "ter-124b";
+    #packages = with pkgs; [ terminus_font ];
   };
 }

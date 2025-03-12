@@ -35,8 +35,8 @@
     wf-recorder
     glib
     wayland
+
     networkmanagerapplet
+    seahorse
   ];
-
-
 }

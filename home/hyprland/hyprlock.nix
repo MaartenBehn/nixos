@@ -1,10 +1,21 @@
-{ pkgs, host, ... }:
+{ pkgs-unstable, host, ... }:
 let
   text = "rgb(251, 241, 199)";
 in
 {
-  home.packages = [ pkgs.hyprlock ];
+  home.packages = [ pkgs-unstable.hyprlock ];
   xdg.configFile."hypr/hyprlock.conf".text = ''
+    auth {
+      fingerprint {
+        enabled = true
+        ready_message = or scan fingerprint
+        present_message = scanning ...
+      }
+      pam {
+        enabled = true
+      }
+    }
+
     # BACKGROUND
     background {
       monitor =
@@ -34,7 +45,7 @@ in
       font_size = 115
       font_family = JetBrains Mono Bold
       shadow_passes = 3
-      position = 0, ${if (host == "laptop") then "-25" else "-150"}
+      position = 0, -25
       halign = center
       valign = top
     }
@@ -47,12 +58,12 @@ in
       font_size = 18
       font_family = JetBrains Mono
       shadow_passes = 3
-      position = 0, ${if (host == "laptop") then "-225" else "-350"}
+      position = 0, -225
       halign = center
       valign = top
     }
 
-
+    
     # USER-BOX
     shape {
       monitor =
@@ -63,7 +74,7 @@ in
       border_color = rgba(255, 255, 255, 0)
       rotate = 0
 
-      position = 0, ${if (host == "laptop") then "120" else "270"}
+      position = 0, 270
       halign = center
       valign = bottom
     }
@@ -75,7 +86,7 @@ in
       color = rgba(235, 219, 178, 1)
       font_size = 15
       font_family = JetBrains Mono Bold
-      position = 0, ${if (host == "laptop") then "131" else "281"}
+      position = 0, 281
       halign = center
       valign = bottom
     }
@@ -91,14 +102,27 @@ in
       dots_center = true
       outer_color = rgba(102, 92, 84, .33)
       inner_color = rgba(102, 92, 84, .33)
+      fail_color = rgba(102, 92, 84, .33)
       color = rgba(235, 219, 178, .9)
       font_color = rgba(235, 219, 178, .9)
-      font_size = 14
+      font_size = 15
       font_family = JetBrains Mono Bold
       fade_on_empty = false
       placeholder_text = <i><span foreground="##fbf1c7">Enter Password</span></i>
       hide_input = false
-      position = 0, ${if (host == "laptop") then "50" else "200"}
+      position = 0, 200
+      halign = center
+      valign = bottom
+    }
+
+    # Fingerprint
+    label {
+      monitor =
+      text = $FPRINTPROMPT
+      color = rgba(235, 219, 178, 1)
+      font_size = 13
+      font_family = JetBrains Mono Bold
+      position = 0, 160
       halign = center
       valign = bottom
     }
