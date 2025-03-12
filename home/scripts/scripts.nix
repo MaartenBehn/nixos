@@ -1,5 +1,9 @@
 { pkgs, ... }:
 let
+  trigger_alacritty_hyprland = pkgs.writeShellScriptBin "trigger_alacritty_hyprland" (
+    builtins.readFile ./trigger_alacritty_hyprland.sh
+  );
+
   vpn_to_behns = pkgs.writeShellScriptBin "vpn_to_behns" (
     builtins.readFile ./vpn_to_behns.sh
   );
@@ -68,6 +72,8 @@ let
 in
 {
   home.packages = with pkgs; [
+    trigger_alacritty_hyprland
+
     vpn_to_behns
     
     wall-change

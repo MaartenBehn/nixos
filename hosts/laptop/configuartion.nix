@@ -34,7 +34,7 @@
 
     # Apps
     #../../configurations/development_programs.nix
-    #../../configurations/apps.nix
+    ../../configurations/apps.nix
     ../../configurations/syncthing.nix
     ../../configurations/wireguard.nix
 

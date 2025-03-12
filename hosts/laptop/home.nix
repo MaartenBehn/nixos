@@ -7,24 +7,24 @@
     ../../home/ssh.nix   
     ../../home/vscode.nix
     ../../home/alacritty.nix
-    #../../home/plasma.nix
+    ../../home/plasma.nix
 
     #../../home/aseprite/aseprite.nix           # pixel art editor
     ../../home/audacious.nix                   # music player
     ../../home/bat.nix                         # better cat command
-    ../../home/browser.nix                     # firefox based browser
+    #../../home/browser.nix                     # firefox based browser
     ../../home/btop.nix                        # resouces monitor 
     ../../home/cava.nix                        # audio visualizer
-    ../../home/discord/discord.nix             # discord with gruvbox
-    ../../home/fastfetch.nix                   # fetch tool
+    #../../home/discord/discord.nix             # discord with gruvbox
+    #../../home/fastfetch.nix                   # fetch tool
     ../../home/fzf.nix                         # fuzzy finder
     ../../home/gaming.nix                      # packages related to gaming
-    ../../home/ghostty.nix                     # terminal
+    #../../home/ghostty.nix                     # terminal
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps
-     ../../home/gtk.nix                         # gtk theme
+    ../../home/gtk.nix                         # gtk theme
     ../../home/hyprland                        # window manager
-    ../../home/kitty.nix                       # terminal
+    #../../home/kitty.nix                       # terminal
     ../../home/lazygit.nix
     ../../home/micro.nix                       # nano replacement
     ../../home/nemo.nix                        # file manager
@@ -45,8 +45,7 @@
     ../../home/waypaper.nix                    # GUI wallpaper picker
     ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
-    ../../home/zsh                             # shell
+    #../../home/zsh                             # shell
   ];
 
-  #programs.alacritty.settings.font.size = 7;
 }

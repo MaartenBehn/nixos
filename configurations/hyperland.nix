@@ -1,22 +1,18 @@
-{ pkgs, inputs,  ... }: {
+{ pkgs, inputs, username, ... }: {
   
-  programs.hyprland = {
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.autoLogin = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.default;
-    #portalPackage =
-    #  inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    user = "${username}";
   };
 
-  environment.systemPackages = with pkgs; [
-    # System Tools
-    qdirstat
+  programs.hyprland = {
+    enable = true;
 
-    # Console emulator
-    alacritty
-
-    # eduroam installer    
-    python3
-  ];
+    package = inputs.hyprland.packages.${pkgs.system}.default;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+  };
 
   xdg.portal = {
     enable = true;

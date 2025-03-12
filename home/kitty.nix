@@ -6,15 +6,15 @@
     themeFile = "gruvbox-dark-hard";
 
     font = {
-      name = "Maple Mono";
+      name = "JetBrains Mono";
       size = if (host == "laptop") then 15 else 16;
     };
 
     extraConfig = ''
-      font_features MapleMono-Regular +ss01 +ss02 +ss04
-      font_features MapleMono-Bold +ss01 +ss02 +ss04
-      font_features MapleMono-Italic +ss01 +ss02 +ss04
-      font_features MapleMono-Light +ss01 +ss02 +ss04
+      font_features JetBrainsMono-Regular +ss01 +ss02 +ss04
+      font_features JetBrainsMono-Bold +ss01 +ss02 +ss04
+      font_features JetBrainsMono-Italic +ss01 +ss02 +ss04
+      font_features JetBrainsMono-Light +ss01 +ss02 +ss04
     '';
 
     settings = {

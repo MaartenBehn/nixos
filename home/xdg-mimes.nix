@@ -2,7 +2,7 @@
 with lib;
 let
   defaultApps = {
-    browser = [ "zen-beta.desktop" ];
+    browser = [ "firefox.desktop" ];
     text = [ "org.gnome.TextEditor.desktop" ];
     image = [ "imv-dir.desktop" ];
     audio = [ "mpv.desktop" ];
@@ -10,9 +10,9 @@ let
     directory = [ "nemo.desktop" ];
     office = [ "libreoffice.desktop" ];
     pdf = [ "org.gnome.Evince.desktop" ];
-    terminal = [ "ghostty.desktop" ];
+    terminal = [ "alacritty.desktop" ];
     archive = [ "org.gnome.FileRoller.desktop" ];
-    discord = [ "webcord.desktop" ];
+    discord = [ "discord.desktop" ];
   };
 
   mimeMap = {

@@ -1,7 +1,7 @@
 { host, ... }:
 let
   custom = {
-    font = "Maple Mono";
+    font = "JetBrains Mono";
     font_size = "18px";
     font_weight = "bold";
     text_color = "#FBF1C7";
@@ -31,17 +31,16 @@ in
     modules-left = [
       "custom/launcher"
       "hyprland/workspaces"
-      "tray"
     ];
-    modules-center = [ "clock" ];
+    modules-center = [ ];
     modules-right = [
       "cpu"
       "memory"
       (if (host == "desktop") then "disk" else "")
       "pulseaudio"
-      "network"
       "battery"
-      "hyprland/language"
+      "tray"
+      "clock"
       "custom/notification"
     ];
     clock = {
@@ -83,21 +82,19 @@ in
     };
     cpu = {
       format = "<span foreground='${green}'> </span> {usage}%";
-      format-alt = "<span foreground='${green}'> </span> {avg_frequency} GHz";
       interval = 2;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'";
+      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
     };
     memory = {
-      format = "<span foreground='${cyan}'>󰟜 </span>{}%";
-      format-alt = "<span foreground='${cyan}'>󰟜 </span>{used} GiB"; # 
+      format = "<span foreground='${cyan}'> </span>{}%";
       interval = 2;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'";
+      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
     };
     disk = {
       # path = "/";
       format = "<span foreground='${orange}'>󰋊 </span>{percentage_used}%";
       interval = 60;
-      on-click-right = "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'";
+      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
     };
     network = {
       format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";
@@ -147,10 +144,7 @@ in
     };
     "custom/launcher" = {
       format = "";
-      on-click = "random-wallpaper";
-      on-click-right = "rofi -show drun";
-      tooltip = "true";
-      tooltip-format = "Random Wallpaper";
+      on-click = "rofi -show drun";
     };
     "custom/notification" = {
       tooltip = false;

@@ -7,6 +7,7 @@
       env.WINIT_X11_SCALE_FACTOR = "1";
       scrolling.history = 1000;
       font = {
+        #size = 7;
         normal = {
           family = "JetBrains Mono Nerd Font";
           style = "Regular";

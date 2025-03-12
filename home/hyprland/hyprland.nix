@@ -1,21 +1,5 @@
 { inputs, pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    swww
-    #inputs.hypr-contrib.packages.${pkgs.system}.grimblast
-    grimblast
-    hyprpicker
-    #inputs.hyprmag.packages.${pkgs.system}.hyprmag
-    #hyprmag
-    grim
-    slurp
-    wl-clip-persist
-    cliphist
-    wf-recorder
-    glib
-    wayland
-    direnv
-  ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
   ];
@@ -31,4 +15,28 @@
     # enableNvidiaPatches = false;
     systemd.enable = true;
   };
+
+  home.packages = with pkgs; [
+    # eduroam installer    
+    python3
+    
+    alacritty
+
+    swww
+    #inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+    grimblast
+    hyprpicker
+    #inputs.hyprmag.packages.${pkgs.system}.hyprmag
+    #hyprmag
+    grim
+    slurp
+    wl-clip-persist
+    cliphist
+    wf-recorder
+    glib
+    wayland
+    networkmanagerapplet
+  ];
+
+
 }

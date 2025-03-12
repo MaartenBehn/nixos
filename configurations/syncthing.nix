@@ -7,8 +7,8 @@
       user = "stroby";
       dataDir = "/home/stroby/";    # Default folder for new synced folders
       configDir = "/home/stroby/.config/syncthing";   # Folder for Syncthing's settings and keys
-      declarative.overrideDevices = false;
-      declarative.overrideFolders = false;
+      overrideDevices = false;
+      overrideFolders = false;
     };
   };
 }

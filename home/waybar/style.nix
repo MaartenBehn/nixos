@@ -1,7 +1,7 @@
 { ... }:
 let
   custom = {
-    font = "Maple Mono";
+    font = "JetBrains Mono";
     font_size = "18px";
     font_weight = "bold";
     text_color = "#FBF1C7";
@@ -69,6 +69,7 @@ in
 
     #tray {
       margin-left: 10px;
+      margin-right: 10px;
       color: ${text_color};
     }
     #tray menu {
@@ -77,18 +78,12 @@ in
       padding: 8px;
     }
     #tray menuitem {
-      padding: 1px;
     }
 
     #pulseaudio, #network, #cpu, #memory, #disk, #battery, #language, #custom-notification {
-      padding-left: 5px;
-      padding-right: 5px;
       margin-right: 10px;
+      margin-left: 10px;
       color: ${text_color};
-    }
-
-    #pulseaudio, #language {
-      margin-left: 15px;
     }
 
     #custom-notification {
