@@ -63,7 +63,7 @@
       };
 
       nix_shell = {
-        format = "[ via nix $name ]($style)";
+        format = "[via nix $name ]($style)";
         style = "bg:color_blue bold fg:color_fg0";
       };
 
@@ -88,8 +88,8 @@
 
       character = {
         disabled = false;
-        success_symbol = "[  ](bold fg:color_green)";
-        error_symbol = "[  ](bold fg:color_red)";
+        success_symbol = "[ ](bold fg:color_green)";
+        error_symbol = "[ ](bold fg:color_red)";
       };
     };
   };

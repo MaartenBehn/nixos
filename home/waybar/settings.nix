@@ -39,6 +39,7 @@ in
       (if (host == "desktop") then "disk" else "")
       "pulseaudio"
       "battery"
+      "bluetooth"
       "tray"
       "clock"
       "custom/notification"
@@ -80,6 +81,12 @@ in
         "5" = [ ];
       };
     };
+    bluetooth = {
+      format = "<span foreground='${blue}'>󰂯</span>";
+      interval = 2;
+      on-click = "hyprctl dispatch exec 'blueberry'";
+    };
+
     cpu = {
       format = "<span foreground='${green}'> </span> {usage}%";
       interval = 2;

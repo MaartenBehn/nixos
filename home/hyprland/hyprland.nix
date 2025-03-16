@@ -38,5 +38,6 @@
 
     networkmanagerapplet
     seahorse
+    blueberry
   ];
 }
