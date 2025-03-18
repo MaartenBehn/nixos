@@ -171,23 +171,23 @@
         "$mainMod SHIFT, Print, exec, screenshot --swappy"
 
         # switch focus
-        "$mainMod, left,  movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up,    movefocus, u"
-        "$mainMod, down,  movefocus, d"
-        "$mainMod, h, movefocus, l"
-        "$mainMod, j, movefocus, d"
-        "$mainMod, k, movefocus, u"
-        "$mainMod, l, movefocus, r"
+        #"$mainMod, left,  movefocus, l"
+        #"$mainMod, right, movefocus, r"
+        #"$mainMod, up,    movefocus, u"
+        #"$mainMod, down,  movefocus, d"
+        #"$mainMod, h, movefocus, l"
+        #"$mainMod, j, movefocus, d"
+        #"$mainMod, k, movefocus, u"
+        #"$mainMod, l, movefocus, r"
 
-        "$mainMod, left,  alterzorder, top"
-        "$mainMod, right, alterzorder, top"
-        "$mainMod, up,    alterzorder, top"
-        "$mainMod, down,  alterzorder, top"
-        "$mainMod, h, alterzorder, top"
-        "$mainMod, j, alterzorder, top"
-        "$mainMod, k, alterzorder, top"
-        "$mainMod, l, alterzorder, top"
+        #"$mainMod, left,  alterzorder, top"
+        #"$mainMod, right, alterzorder, top"
+        #"$mainMod, up,    alterzorder, top"
+        #"$mainMod, down,  alterzorder, top"
+        #"$mainMod, h, alterzorder, top"
+        #"$mainMod, j, alterzorder, top"
+        #"$mainMod, k, alterzorder, top"
+        #"$mainMod, l, alterzorder, top"
 
         "CTRL ALT, up, exec, hyprctl dispatch focuswindow floating"
         "CTRL ALT, down, exec, hyprctl dispatch focuswindow tiled"
@@ -306,16 +306,17 @@
 
       # windowrulev2
       windowrulev2 = [
-        "float, class:.*"
-        #"float, title:^(Picture-in-Picture)$"
+        #"float, class:.*"
+        "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
+        
         "opacity 1.0 override 1.0 override, title:^(.*imv.*)$"
         "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
         "opacity 1.0 override 1.0 override, class:(Aseprite)"
-        #"opacity 1.0 override 1.0 override, class:(Unity)"
-        #"opacity 1.0 override 1.0 override, class:(zen)"
-        #"opacity 1.0 override 1.0 override, class:(evince)"
+        "opacity 1.0 override 1.0 override, class:(Unity)"
+        "opacity 1.0 override 1.0 override, class:(zen)"
+        "opacity 1.0 override 1.0 override, class:(evince)"
         #"workspace 1, class:^(zen)$"
         #"workspace 3, class:^(evince)$"
         #"workspace 4, class:^(Gimp-2.10)$"
@@ -327,27 +328,27 @@
         #"workspace 10, class:^(WebCord)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
-        #"float,class:^(org.gnome.Calculator)$"
-        #"float,class:^(waypaper)$"
-        #"float,class:^(zenity)$"
+        "float,class:^(org.gnome.Calculator)$"
+        "float,class:^(waypaper)$"
+        "float,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
         "size 725 330,class:^(SoundWireServer)$"
-        #"float,class:^(org.gnome.FileRoller)$"
-        #"float,class:^(org.pulseaudio.pavucontrol)$"
-        #"float,class:^(SoundWireServer)$"
-        #"float,class:^(.sameboy-wrapped)$"
-        #"float,class:^(file_progress)$"
-        #"float,class:^(confirm)$"
-        #"float,class:^(dialog)$"
-        #"float,class:^(download)$"
-        #"float,class:^(notification)$"
-        #"float,class:^(error)$"
-        #"float,class:^(confirmreset)$"
-        #"float,title:^(Open File)$"
-        #"float,title:^(File Upload)$"
-        #"float,title:^(branchdialog)$"
-        #"float,title:^(Confirm to replace files)$"
-        #"float,title:^(File Operation Progress)$"
+        "float,class:^(org.gnome.FileRoller)$"
+        "float,class:^(org.pulseaudio.pavucontrol)$"
+        "float,class:^(SoundWireServer)$"
+        "float,class:^(.sameboy-wrapped)$"
+        "float,class:^(file_progress)$"
+        "float,class:^(confirm)$"
+        "float,class:^(dialog)$"
+        "float,class:^(download)$"
+        "float,class:^(notification)$"
+        "float,class:^(error)$"
+        "float,class:^(confirmreset)$"
+        "float,title:^(Open File)$"
+        "float,title:^(File Upload)$"
+        "float,title:^(branchdialog)$"
+        "float,title:^(Confirm to replace files)$"
+        "float,title:^(File Operation Progress)$"
 
         "opacity 0.0 override,class:^(xwaylandvideobridge)$"
         "noanim,class:^(xwaylandvideobridge)$"
@@ -372,20 +373,51 @@
         "noblur,class:^()$,title:^()$"
       ];
 
-      # No gaps when only
       workspace = [
+        # No gaps when only
         "w[t1], gapsout:0, gapsin:0"
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
-      ];
+
+                  
+      ] ++ (if host == "laptop" then [ 
+        "1, monitor:DP-5, default:true" 
+        "2, monitor:DP-5"
+        "3, monitor:DP-5"
+        "4, monitor:DP-5"
+        "5, monitor:DP-5"
+
+        "6, monitor:DP-6, default:true"
+        "7, monitor:DP-6"
+        "8, monitor:DP-6"
+        "9, monitor:DP-6"
+        "10, monitor:eDP-1"
+      ]
+      else if host == "desktop" then [ 
+        "1, monitor:HDMI-A-1, default:true"
+        "2, monitor:HDMI-A-1"
+        "3, monitor:HDMI-A-1"
+        "4, monitor:HDMI-A-1"
+        "5, monitor:HDMI-A-1"
+
+        "6, monitor:HDMI-A-2, default:true"
+        "7, monitor:HDMI-A-2"
+        "8, monitor:HDMI-A-2"
+        "9, monitor:HDMI-A-2"
+        "10, monitor:HDMI-A-2"
+      ]
+      else []);
     };
 
     extraConfig = "
       ${if host == "laptop" then "
-        monitor=eDP-1,preferred,auto,1
+        monitor=eDP-1,preferred,0x0,1
         monitor=DP-5,1920x1080,-1920x0,1
         monitor=DP-6,1920x1080,-3840x0,1
-      " else "
+      " else if host == "desktop" then "
+        monitor=HDMI-A-1,1920x1080,0x0,1
+        monitor=HDMI-A-2,1920x1080,1920x0,1
+      "else "
         monitor=,preferred,auto,1
       "}
 
