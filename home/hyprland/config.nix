@@ -381,17 +381,23 @@
 
                   
       ] ++ (if host == "laptop" then [ 
-        "1, monitor:DP-5, default:true" 
-        "2, monitor:DP-5"
-        "3, monitor:DP-5"
-        "4, monitor:DP-5"
-        "5, monitor:DP-5"
+        "1, monitor:eDP-1, default:true" 
+        "2, monitor:eDP-1"
+        "3, monitor:eDP-1"
+        "4, monitor:eDP-1"
+        "5, monitor:eDP-1"
 
-        "6, monitor:DP-6, default:true"
-        "7, monitor:DP-6"
-        "8, monitor:DP-6"
-        "9, monitor:DP-6"
-        "10, monitor:eDP-1"
+        "6, monitor:DP-5, default:true"
+        "7, monitor:DP-5"
+        "8, monitor:DP-5"
+        "9, monitor:DP-5"
+        "10, monitor:DP-5"
+        
+        "11, monitor:DP-6, default:true"
+        "12, monitor:DP-6"
+        "13, monitor:DP-6"
+        "14, monitor:DP-6"
+        "15, monitor:DP-6"
       ]
       else if host == "desktop" then [ 
         "1, monitor:HDMI-A-1, default:true"

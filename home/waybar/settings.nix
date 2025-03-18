@@ -71,6 +71,11 @@ in
         "8" = "VIII";
         "9" = "IX";
         "10" = "X";
+        "11" = "XI";
+        "12" = "XII";
+        "13" = "XIII";
+        "14" = "XIV";
+        "15" = "XV";
         sort-by-number = true;
       };
       persistent-workspaces = {
