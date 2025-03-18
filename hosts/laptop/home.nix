@@ -6,7 +6,6 @@
     ../../home/fish.nix
     ../../home/ssh.nix   
     ../../home/vscode.nix
-    ../../home/alacritty.nix
     #../../home/plasma.nix
 
     #../../home/aseprite/aseprite.nix           # pixel art editor
@@ -19,7 +18,7 @@
     #../../home/fastfetch.nix                   # fetch tool
     ../../home/fzf.nix                         # fuzzy finder
     #../../home/gaming.nix                      # packages related to gaming
-    #../../home/ghostty.nix                     # terminal
+    ../../home/ghostty.nix                     # terminal
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps
     ../../home/gtk.nix                         # gtk theme
