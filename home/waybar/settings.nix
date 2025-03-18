@@ -180,6 +180,8 @@ in
       escape = true;
     };
     "custom/tmux" = {
+      #format = "{}";
+      #exec = "tmux lsw -F '<span foreground=#{?window_active,${orange},${yellow}}>#{window_name}#{?window_bell_flag,!,}</span>' | tr -d '\n@'";
       exec = "tmux lsw -F '#{?window_active,[, }#{window_name}#{?window_bell_flag,!,}#{?window_active,], }' | tr -d '\n@'";
       #interval = 1;
       signal = 8;
