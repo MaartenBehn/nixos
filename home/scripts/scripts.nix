@@ -4,6 +4,10 @@ let
     builtins.readFile ./trigger_alacritty_hyprland.sh
   );
 
+  trigger_ghostty_hyprland = pkgs.writeShellScriptBin "trigger_ghostty_hyprland" (
+    builtins.readFile ./trigger_ghostty_hyprland.sh
+  );
+
   vpn_to_behns = pkgs.writeShellScriptBin "vpn_to_behns" (
     builtins.readFile ./vpn_to_behns.sh
   );
@@ -72,6 +76,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    trigger_ghostty_hyprland
     trigger_alacritty_hyprland
 
     vpn_to_behns

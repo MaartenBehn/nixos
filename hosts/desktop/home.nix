@@ -6,7 +6,6 @@
     ../../home/fish.nix
     ../../home/ssh.nix   
     ../../home/vscode.nix
-    ../../home/alacritty.nix
 
     ../../home/audacious.nix                   # music player
     ../../home/bat.nix                         # better cat command
@@ -35,5 +34,6 @@
     ../../home/waypaper.nix                    # GUI wallpaper picker
     ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
+    ../../home/ghostty.nix                     # terminal
   ];
 }

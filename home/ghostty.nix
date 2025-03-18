@@ -13,7 +13,7 @@ in
   xdg.configFile."ghostty/config".text = ''
     # Font
     font-family = "JetBrains Mono"
-    font-size = ${if (host == "laptop") then "16" else "17"}
+    font-size = 12
     font-thicken = true
     font-feature = ss01
     font-feature = ss04
@@ -23,9 +23,9 @@ in
 
     # Theme
     theme = "gruvbox"
-    background-opacity = 0.66
+    background-opacity = 0.80
 
-    cursor-style = bar
+    #cursor-style = bar
     cursor-style-blink = false
     adjust-cursor-thickness = 1
 
@@ -35,8 +35,8 @@ in
     mouse-hide-while-typing = true
 
     window-theme = ghostty
-    window-padding-x = 4
-    window-padding-y = 6
+    window-padding-x = 0
+    window-padding-y = 0
     window-padding-balance = true
     window-padding-color = background
     window-inherit-working-directory = true

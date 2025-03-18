@@ -140,7 +140,7 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, trigger_alacritty_hyprland"
+        "$mainMod, Space, exec, trigger_ghostty_hyprland"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"

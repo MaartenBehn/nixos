@@ -31,12 +31,13 @@ in
     modules-left = [
       "custom/launcher"
       "hyprland/workspaces"
+      "custom/tmux"
     ];
     modules-center = [ ];
     modules-right = [
       "cpu"
       "memory"
-      (if (host == "desktop") then "disk" else "")
+      #(if (host == "desktop") then "disk" else "")
       "pulseaudio"
       "battery"
       "bluetooth"
@@ -95,18 +96,18 @@ in
     cpu = {
       format = "<span foreground='${green}'> </span> {usage}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
+      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
     };
     memory = {
       format = "<span foreground='${cyan}'> </span>{}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
+      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
     };
     disk = {
       # path = "/";
       format = "<span foreground='${orange}'>󰋊 </span>{percentage_used}%";
       interval = 60;
-      on-click = "hyprctl dispatch exec '[fullscreen] alacritty -e btop'";
+      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
     };
     network = {
       format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";
@@ -162,13 +163,13 @@ in
       tooltip = false;
       format = "{icon} ";
       format-icons = {
-        notification = "<span foreground='red'><sup></sup></span>  <span foreground='${red}'></span>";
+        notification = "<span foreground='red'><sup></sup></span> <span foreground='${red}'></span>";
         none = "  <span foreground='${red}'></span>";
-        dnd-notification = "<span foreground='red'><sup></sup></span>  <span foreground='${red}'></span>";
+        dnd-notification = "<span foreground='red'><sup></sup></span> <span foreground='${red}'></span>";
         dnd-none = "  <span foreground='${red}'></span>";
-        inhibited-notification = "<span foreground='red'><sup></sup></span>  <span foreground='${red}'></span>";
+        inhibited-notification = "<span foreground='red'><sup></sup></span> <span foreground='${red}'></span>";
         inhibited-none = "  <span foreground='${red}'></span>";
-        dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>  <span foreground='${red}'></span>";
+        dnd-inhibited-notification = "<span foreground='red'><sup></sup></span> <span foreground='${red}'></span>";
         dnd-inhibited-none = "  <span foreground='${red}'></span>";
       };
       return-type = "json";
@@ -177,6 +178,11 @@ in
       on-click = "swaync-client -t -sw";
       on-click-right = "swaync-client -d -sw";
       escape = true;
+    };
+    "custom/tmux" = {
+      exec = "tmux lsw -F '#{?window_active,[, }#{window_name}#{?window_bell_flag,!,}#{?window_active,], }' | tr -d '\n@'";
+      #interval = 1;
+      signal = 8;
     };
   };
 }

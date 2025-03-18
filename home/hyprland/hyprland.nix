@@ -19,9 +19,9 @@
   home.packages = with pkgs; [
     # eduroam installer    
     python3
-    
-    alacritty
 
+    killall
+    
     swww
     #inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     grimblast
