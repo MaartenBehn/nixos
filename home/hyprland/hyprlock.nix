@@ -29,7 +29,7 @@ in
 
     # GENERAL
     general {
-      hide_cursor = true
+      hide_cursor = false
       no_fade_in = false
       grace = 0
       disable_loading_bar = false
