@@ -4,9 +4,12 @@
     ../../home/base.nix
     ../../home/user.nix
     ../../home/fish.nix
+    ../../home/tmux.nix
+    ../../home/starship.nix
+    ../../home/nixvim.nix
     ../../home/ssh.nix   
+    
     ../../home/vscode.nix
-
     ../../home/audacious.nix                   # music player
     ../../home/bat.nix                         # better cat command
     ../../home/btop.nix                        # resouces monitor 
@@ -35,5 +38,6 @@
     ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
     ../../home/ghostty.nix                     # terminal
+    ../../home/fastfetch.nix                     # terminal
   ];
 }

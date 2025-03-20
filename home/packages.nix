@@ -14,7 +14,6 @@ in
     caligula                          # User-friendly, lightweight TUI for disk imaging
     dconf-editor
     docfd                             # TUI multiline fuzzy document finder
-    eza                               # ls replacement
     entr                              # perform action when file change
     fd                                # find replacement
     ffmpeg
@@ -25,15 +24,14 @@ in
     hexdump
     imv                               # image viewer
     jq                                # JSON processor
-    killall
     libnotify
     man-pages                         # extra man pages
     mimeo
     mpv                               # video player
     ncdu                              # disk space
     nitch                             # systhem fetch util
-    nixd                              # nix lsp
-    nixfmt-rfc-style                  # nix formatter
+    #nixd                              # nix lsp
+    #nixfmt-rfc-style                  # nix formatter
     openssl
     onefetch                          # fetch utility for git repo
     pamixer                           # pulseaudio command line mixer
@@ -58,6 +56,7 @@ in
     yt-dlp-light
     xdg-utils
     xxd
+    unzip
 
     ## CLI 
     cbonsai                           # terminal screensaver
@@ -65,6 +64,7 @@ in
     pipes                             # terminal screensaver
     #sl
     tty-clock                         # cli clock
+    btop
 
     ## GUI Apps
     firefox

@@ -3,7 +3,7 @@
   imports = [
     ../../home/base.nix
     ../../home/user.nix
-    ../../home/fish-no-tmux.nix
+    ../../home/fish.nix
     ../../home/git.nix
     ../../home/ssh.nix
   ];
