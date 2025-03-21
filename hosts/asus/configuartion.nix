@@ -13,12 +13,7 @@
     ../../configurations/graphics.nix
     ../../configurations/monitor_cpu_temp.nix
     ../../configurations/networking.nix
-
-    # Shell
-    ../../configurations/shell/fish.nix
-    ../../configurations/shell/nixvim.nix
-    ../../configurations/shell/tmux.nix
-   
+  
     # Server
     ../../configurations/server/duckdns.nix
     ../../configurations/server/static_ip.nix

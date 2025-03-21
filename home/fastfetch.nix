@@ -1,18 +1,23 @@
 { pkgs, ... }:
 {
-  home.packages = (with pkgs; [ fastfetch ]);
+  home.packages = (with pkgs; [
+    fastfetch
+    chafa
+  ]);
 
   xdg.configFile."fastfetch/config.jsonc".text = ''
     {
       "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+      /*
       "logo": {
         "source": "${../assets/nixos-logo.png}",
-        "type": "kitty-direct",
+        "type": "chafa",
         "width": 33,
         "padding": {
           "top": 2
         }
       },
+      */
       "display": {
         "separator": "",
         "size": {
@@ -62,6 +67,12 @@
           "keyColor": "32"
         },
         {
+          "type": "terminal",
+          "key": "├─ ",
+          "format": "{3}",
+          "keyColor": "32"
+        },
+        {
           "type": "packages",
           "key": "├─ ",
           "keyColor": "32"
@@ -72,7 +83,7 @@
           "keyColor": "32"
         },
         "break",
-       /* {
+        {
           "type": "cpu",
           "key": "╭─ ",
           "keyColor": "34",
@@ -81,13 +92,7 @@
         {
           "type": "gpu",
           "key": "├─󰢮 ",
-          "format": "{1} {2} ({3})",
-          "keyColor": "34"
-        },
-        {
-          "type": "sound",
-          "key": "├─󰓃 ",
-          "format": "{2}",
+          "format": "{1} {2}",
           "keyColor": "34"
         },
         {
@@ -97,7 +102,7 @@
         },
         {
           "type": "memory",
-          "key": "├─ ",
+          "key": "├─ ",
           "keyColor": "34"
         },
         {
@@ -106,27 +111,15 @@
           "keyColor": "34"
         },
         {
-          "type": "localip",
-          "key": "╰─󱦂 ",
-          "keyColor": "34",
-          "showIpv4": true,
-          "compact": true
-        },
-        "break", */
-        {
           "type": "display",
-          "key": "╭─󰹑 ",
-          "keyColor": "33",
+          "key": "╰─󰹑 ",
+          "keyColor": "34",
           "compactType": "original"
         },
-        {
-          "type": "de",
-          "key": "├─󰧨 ",
-          "keyColor": "33"
-        },
+        "break", 
         {
           "type": "wm",
-          "key": "├─ ",
+          "key": "╭─ ",
           "keyColor": "33"
         },
         {
@@ -146,14 +139,8 @@
         },
         {
           "type": "font",
-          "key": "├─ ",
+          "key": "╰─ ",
           "format": "{2}",
-          "keyColor": "33"
-        },
-        {
-          "type": "terminal",
-          "key": "╰─ ",
-          "format": "{3}",
           "keyColor": "33"
         },
         "break",

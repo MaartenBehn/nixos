@@ -18,11 +18,6 @@
     ../../configurations/bluetooh.nix
     ../../configurations/audio.nix
     ../../configurations/printing.nix
-  
-    # Shell
-    ../../configurations/shell/fish.nix
-    ../../configurations/shell/nixvim.nix
-    ../../configurations/shell/tmux.nix
 
     # Windows
     ../../configurations/display_manager.nix

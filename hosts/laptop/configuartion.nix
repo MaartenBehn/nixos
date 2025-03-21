@@ -18,12 +18,7 @@
     ../../configurations/audio.nix
     ../../configurations/printing.nix
     ../../configurations/fingerprint.nix
-    
-    # Shell
-    ../../configurations/shell/fish.nix
-    ../../configurations/shell/nixvim.nix
-    ../../configurations/shell/tmux.nix
-
+     
     # OS
     ../../configurations/display_manager.nix
     ../../configurations/hyperland.nix

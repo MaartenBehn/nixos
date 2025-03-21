@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env fish
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)

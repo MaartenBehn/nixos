@@ -4,10 +4,12 @@
     ../../home/base.nix
     ../../home/user.nix
     ../../home/fish.nix
-    ../../home/ssh.nix   
-    ../../home/vscode.nix
-    #../../home/plasma.nix
+    ../../home/tmux.nix
+    ../../home/starship.nix
+    ../../home/nixvim.nix
+    ../../home/ssh.nix       
 
+    ../../home/vscode.nix
     #../../home/aseprite/aseprite.nix           # pixel art editor
     ../../home/audacious.nix                   # music player
     ../../home/bat.nix                         # better cat command
@@ -15,7 +17,7 @@
     ../../home/btop.nix                        # resouces monitor 
     ../../home/cava.nix                        # audio visualizer
     ../../home/discord/discord.nix             # discord with gruvbox
-    #../../home/fastfetch.nix                   # fetch tool
+    ../../home/fastfetch.nix                   # fetch tool
     ../../home/fzf.nix                         # fuzzy finder
     #../../home/gaming.nix                      # packages related to gaming
     ../../home/ghostty.nix                     # terminal
