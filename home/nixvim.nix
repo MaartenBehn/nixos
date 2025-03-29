@@ -8,5 +8,6 @@
     nodePackages.prettier
     terraform
     cargo
+    rustc
   ];
 }
