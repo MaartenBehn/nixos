@@ -46,6 +46,14 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
+      ${if host != "asus" then ''
+      if status is-interactive 
+      and not set -q TMUX 
+        exec tmux new -As0
+      end
+        '' else ""}
+      set -gx TERM ghostty
+
       #function nix-rebuild 
       #  cd /home/$USER/nixos/
       #  command git add --all
@@ -122,13 +130,6 @@
         du -BM $argv[2]
         sudo dd bs=4M if=$argv[2] of=/dev/$argv[1] status=progress oflag=sync
       end
- 
-      ${if host != "asus" then ''
-      if status is-interactive 
-      and not set -q TMUX 
-        exec tmux new -As0
-      end
-        '' else ""}
 
       starship init fish | source
     '';
