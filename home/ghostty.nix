@@ -13,7 +13,7 @@ in
   xdg.configFile."ghostty/config".text = ''
     # Font
     font-family = "JetBrains Mono"
-    font-size = 12
+    font-size = ${if host == "desktop" then "10" else "12"}
     font-thicken = true
     font-feature = ss01
     font-feature = ss04

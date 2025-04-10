@@ -4,7 +4,7 @@
   
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-calamares.nix"
-   
+       
     # Base
     ../../configurations/bootloader.nix
     ../../configurations/nix_stuff.nix
@@ -20,7 +20,7 @@
     ../../configurations/networking.nix
     ../../configurations/bluetooh.nix
     ../../configurations/audio.nix
- 
+  
     # Shell
     ../../configurations/shell/fish.nix
     ../../configurations/shell/nixvim.nix

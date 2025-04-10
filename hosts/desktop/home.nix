@@ -14,7 +14,6 @@
     ../../home/bat.nix                         # better cat command
     ../../home/btop.nix                        # resouces monitor 
     ../../home/cava.nix                        # audio visualizer
-    ../../home/discord/discord.nix             # discord with gruvbox
     ../../home/fzf.nix                         # fuzzy finder
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps

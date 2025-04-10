@@ -59,7 +59,7 @@
         ]
       },
       "menu#screenshot": {
-        "label": "  ",
+        "label": " 󰹑 ",
         "position": "left",
         "actions": [
           {

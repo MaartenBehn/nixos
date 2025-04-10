@@ -156,7 +156,7 @@
         "$mainMod, T, exec, toggle_oppacity"
         "$mainMod, E, exec, nemo"
         "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
-        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] alacritty -e yazi'"
+        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ghostty -e yazi'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
         "$mainMod, W,exec, wallpaper-picker"
@@ -301,8 +301,8 @@
         "float,title:^(Volume Control)$"
         "float,title:^(Firefox — Sharing Indicator)$"
         "move 0 0,title:^(Firefox — Sharing Indicator)$"
-        "size 40% 40%,title:^(Volume Control)$"
-        "move 55% 55%,title:^(Volume Control)$"
+        "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
+        "${if host == "laptop" then "move 55% 55%,title:^(Volume Control)$" else "move 35% 35%,title:^(Volume Control)$"}"
       ];
 
       # windowrulev2
