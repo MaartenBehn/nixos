@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  home.packages = (with pkgs; [ nemo ]);
+  home.packages = (with pkgs; [ 
+    nemo
+    nemo-fileroller
+  ]);
 
   dconf.settings = {
     "org/nemo/preferences" = {
