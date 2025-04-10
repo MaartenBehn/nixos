@@ -47,6 +47,7 @@
     ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
     #../../home/zsh                             # shell
+    ../../home/r.nix                            # R and R Studio 
   ];
 
 }
