@@ -19,7 +19,7 @@
       #set-option -g focus-events on
 
       set -g default-terminal 'tmux-256color'
-      set -as terminal-overrides ",ghostty*:Tc"
+      set -as terminal-overrides ",*-256color*:Tc"
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
       set-option -sg escape-time 10

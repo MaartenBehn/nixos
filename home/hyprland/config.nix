@@ -1,4 +1,4 @@
-{ host, ... }:
+{ host, terminal, ... }:
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -140,7 +140,7 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, trigger_ghostty_hyprland"
+  "$mainMod, Space, exec, ${if terminal == "ghostty" then "trigger_ghostty_hyprland" else (if terminal == "alacritty" then "trigger_alacritty_hyprland" else "trigger_kitty_hyprland")}"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
@@ -156,7 +156,7 @@
         "$mainMod, T, exec, toggle_oppacity"
         "$mainMod, E, exec, nemo"
         "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
-        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ghostty -e yazi'"
+        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
         "$mainMod, W,exec, wallpaper-picker"

@@ -3,5 +3,5 @@
 if pgrep -x "alacritty" > /dev/null
   then killall alacritty
 else
-  hyprctl dispatch -- exec [fullscreen] alacritty
+  hyprctl dispatch -- exec [maximize] alacritty
 fi

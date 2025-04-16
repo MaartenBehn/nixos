@@ -1,4 +1,4 @@
-{ host, ... }:
+{ host, terminal, ... }:
 let
   custom = {
     font = "JetBrains Mono";
@@ -96,18 +96,18 @@ in
     cpu = {
       format = "<span foreground='${green}'> </span> {usage}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
+      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
     memory = {
       format = "<span foreground='${cyan}'> </span>{}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
+      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
     disk = {
       # path = "/";
       format = "<span foreground='${orange}'>󰋊 </span>{percentage_used}%";
       interval = 60;
-      on-click = "hyprctl dispatch exec 'ghostty -e btop'";
+      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
     network = {
       format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";
