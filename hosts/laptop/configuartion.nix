@@ -31,5 +31,7 @@
     ../../configurations/server/debug_tools.nix 
     ../../configurations/server/hotspot.nix 
     #../../configurations/server/kuka_horizon_dev.nix 
+    
+    ../../configurations/steam.nix
   ];
 }
