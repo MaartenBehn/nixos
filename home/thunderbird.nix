@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
   gmail_configs = [
@@ -137,6 +137,34 @@ in
         };
       }) rope_lab_configs)
   );
+
+  accounts.calendar.accounts = builtins.listToAttrs ( 
+    (builtins.map (config: 
+      { 
+        name = config.mail; 
+        value = {
+          primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
+          remote.url = "gmail.com";
+          remote.userName = config.mail;
+        };
+      }) gmail_configs)
+  );
+
+  programs.thunderbird.settings =
+    let
+      cal = map (calendar: 
+      let
+        safeName = builtins.replaceStrings [ "." ] [ "-" ] calendar.name;
+      in {
+        "calendar.registry.${safeName}.cache.enabled" = true;
+        "calendar.registry.${safeName}.calendar-main-default" = calendar.primary;
+        "calendar.registry.${safeName}.calendar-main-in-composite" = calendar.primary;
+        "calendar.registry.${safeName}.name" = calendar.name;
+        "calendar.registry.${safeName}.type" = "caldav";
+        "calendar.registry.${safeName}.uri" = calendar.remote.url;
+        "calendar.registry.${safeName}.username" = calendar.remote.userName;
+      }) (builtins.attrValues config.accounts.calendar.accounts);
+    in builtins.foldl' lib.recursiveUpdate { } cal;
 }
 
 
