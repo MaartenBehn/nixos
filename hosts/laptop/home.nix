@@ -10,6 +10,7 @@
     ../../home/ssh.nix       
     ../../home/terminal
 
+    ../../home/thunderbird.nix
     ../../home/vscode.nix
     #../../home/aseprite/aseprite.nix          # pixel art editor
     ../../home/audacious.nix                   # music player

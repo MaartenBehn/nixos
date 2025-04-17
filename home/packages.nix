@@ -68,7 +68,6 @@ in
 
     ## GUI Apps
     firefox
-    thunderbird
     vlc
     webcamoid
     spotify

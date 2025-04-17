@@ -29,6 +29,10 @@
       set-hook -g session-window-changed 'run-shell "pkill -SIGRTMIN+8 waybar"'
       set-hook -g alert-bell 'run-shell "pkill -SIGRTMIN+8 waybar"' 
       set-hook -g client-attached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g client-detached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g window-renamed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g session-created 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g session-closed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
       
       # Hiding default status
       set -g status off

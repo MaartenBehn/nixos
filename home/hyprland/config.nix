@@ -155,6 +155,7 @@
         "$mainMod, X, togglesplit,"
         "$mainMod, T, exec, toggle_oppacity"
         "$mainMod, E, exec, nemo"
+        "$mainMod, M, exec, thunderbird"
         "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
         "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
