@@ -8,7 +8,8 @@
     ../../home/starship.nix
     ../../home/nixvim.nix
     ../../home/ssh.nix   
-    
+    ../../home/terminal
+
     ../../home/vscode.nix
     ../../home/audacious.nix                   # music player
     ../../home/bat.nix                         # better cat command
@@ -36,7 +37,6 @@
     ../../home/waypaper.nix                    # GUI wallpaper picker
     ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
-    ../../home/ghostty.nix                     # terminal
     ../../home/fastfetch.nix                     # terminal
 
     #../../home/minecraft.nix

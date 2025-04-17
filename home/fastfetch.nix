@@ -8,16 +8,16 @@
   xdg.configFile."fastfetch/config.jsonc".text = ''
     {
       "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-      /*
+      
       "logo": {
-        "source": "${../assets/nixos-logo.png}",
-        "type": "chafa",
-        "width": 33,
+        "source": "${../assets/nix.sixel}",
+        "type": "raw",
+        "width": 50,
         "padding": {
           "top": 2
         }
       },
-      */
+
       "display": {
         "separator": "",
         "size": {

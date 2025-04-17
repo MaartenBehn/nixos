@@ -19,7 +19,7 @@
       #set-option -g focus-events on
 
       set -g default-terminal 'tmux-256color'
-      set -as terminal-overrides ",ghostty*:Tc"
+      set -as terminal-overrides ",*-256color*:Tc"
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
       set-option -sg escape-time 10
@@ -29,6 +29,10 @@
       set-hook -g session-window-changed 'run-shell "pkill -SIGRTMIN+8 waybar"'
       set-hook -g alert-bell 'run-shell "pkill -SIGRTMIN+8 waybar"' 
       set-hook -g client-attached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g client-detached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g window-renamed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g session-created 'run-shell "pkill -SIGRTMIN+8 waybar"' 
+      set-hook -g session-closed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
       
       # Hiding default status
       set -g status off

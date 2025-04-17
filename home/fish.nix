@@ -1,4 +1,4 @@
-{ lib, pkgs, host, ... }:
+{ lib, pkgs, host, terminal, ... }:
 {
    home.packages = with pkgs; [
     # shell env programms
@@ -52,7 +52,7 @@
         exec tmux new -As0
       end
         '' else ""}
-      set -gx TERM ghostty
+      set -gx TERM ${terminal}
 
       #function nix-rebuild 
       #  cd /home/$USER/nixos/
@@ -122,6 +122,8 @@
       alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
 
       alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
+      
+      alias neofetch="fastfetch"
 
       # Stuff for creating ISO 
       alias iso-find-drive="sudo fdisk -l";

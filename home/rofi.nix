@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, terminal, ... }:
 {
   home.packages = (with pkgs; [ rofi-wayland ]);
 
@@ -24,7 +24,7 @@
       font: "JetBrains Mono Bold 16";
       show-icons: true;
       icon-theme: "Papirus-dark";
-      terminal: "ghostty";
+      terminal: "${terminal}";
       drun-display-format: "{icon} {name}";
       location: 0;
       disable-history: true;

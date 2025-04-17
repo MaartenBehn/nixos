@@ -21,7 +21,7 @@
     };
 
     plasma-manager = {
-      url = github:nix-community/plasma-manager;
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
@@ -76,22 +76,27 @@
       {
         host = "laptop";
         username = "stroby"; 
+        terminal = "kitty";
       }
       {
         host = "desktop";
-        username = "stroby"; 
+        username = "stroby";
+        terminal = "ghostty";
       }
       {
         host = "asus";
         username = "stroby"; 
+        terminal = "ghostty";
       }
       {
         host = "wsl";
         username = "nixos"; 
+        terminal = "ghostty";
       }
       {
         host = "iso";
         username = "stroby"; 
+        terminal = "ghostty";
       }
     ];
   in   
@@ -111,6 +116,7 @@
             inherit pkgs-unstable;   
             username = config.username;
             host = config.host;
+            terminal = config.terminal;
           };
           modules = [
             ./hosts/${config.host}/configuartion.nix
@@ -129,6 +135,7 @@
                 inherit pkgs-unstable;
                 username = config.username;
                 host = config.host;
+                terminal = config.terminal;
               };
             }
           ];
