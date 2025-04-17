@@ -38,5 +38,7 @@
     ../../home/yazi.nix                        # terminal file manager
     ../../home/ghostty.nix                     # terminal
     ../../home/fastfetch.nix                     # terminal
+
+    #../../home/minecraft.nix
   ];
 }
