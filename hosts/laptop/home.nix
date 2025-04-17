@@ -9,6 +9,7 @@
     ../../home/nixvim.nix
     ../../home/ssh.nix       
     ../../home/terminal
+    ../../home/window_manager
 
     ../../home/thunderbird.nix
     ../../home/vscode.nix
@@ -25,29 +26,21 @@
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps
     ../../home/gtk.nix                         # gtk theme
-    ../../home/hyprland                        # window manager
     ../../home/lazygit.nix
-    ../../home/micro.nix                       # nano replacement
     ../../home/nemo.nix                        # file manager
     ../../home/obsidian.nix
     ../../home/p10k/p10k.nix
     ../../home/packages.nix                    # other packages
     ../../home/retroarch.nix  
-    ../../home/rofi.nix                        # launcher
     ../../home/scripts/scripts.nix             # personal scripts
     #../../home/spicetify.nix                   # spotify client
     ../../home/starship.nix                    # shell prompt
     #../../home/swaylock.nix                    # lock screen
     ../../home/swayosd.nix                     # brightness / volume wiget
-    ../../home/swaync/swaync.nix               # notification deamon
     ../../home/viewnior.nix                    # image viewer
     #../../home/vscodium.nix                    # vscode forck
-    ../../home/waybar                          # status bar
-    ../../home/waypaper.nix                    # GUI wallpaper picker
-    ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
     #../../home/zsh                             # shell
     ../../home/r.nix                            # R and R Studio  
   ];
-
 }

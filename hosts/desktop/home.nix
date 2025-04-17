@@ -9,6 +9,7 @@
     ../../home/nixvim.nix
     ../../home/ssh.nix   
     ../../home/terminal
+    ../../home/window_manager
 
     ../../home/vscode.nix
     ../../home/audacious.nix                   # music player
@@ -19,7 +20,6 @@
     ../../home/git.nix                         # version control
     ../../home/gnome.nix                       # gnome apps
     ../../home/gtk.nix                         # gtk theme
-    ../../home/hyprland                        # window manager
     ../../home/lazygit.nix
     ../../home/micro.nix                       # nano replacement
     ../../home/nemo.nix                        # file manager
@@ -27,15 +27,10 @@
     ../../home/p10k/p10k.nix
     ../../home/packages.nix                    # other packages
     ../../home/retroarch.nix  
-    ../../home/rofi.nix                        # launcher
     ../../home/scripts/scripts.nix             # personal scripts
     ../../home/starship.nix                    # shell prompt
     ../../home/swayosd.nix                     # brightness / volume wiget
-    ../../home/swaync/swaync.nix               # notification deamon
     ../../home/viewnior.nix                    # image viewer
-    ../../home/waybar                          # status bar
-    ../../home/waypaper.nix                    # GUI wallpaper picker
-    ../../home/xdg-mimes.nix                   # xdg config
     ../../home/yazi.nix                        # terminal file manager
     ../../home/fastfetch.nix                     # terminal
 

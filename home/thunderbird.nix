@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, add_optional, ... }:
 
 let 
   gmail_configs = [
@@ -85,7 +85,7 @@ in
           userName = config.mail;
           flavor = "gmail.com";
 
-          primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
+          primary = add_optional "primary" config;
         };
       }) gmail_configs)
     ++ (builtins.map (config: 
@@ -109,7 +109,7 @@ in
             port = 465; 
           };
 
-          primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
+          primary = add_optional "primary" config;
         };
       }) imap_configs)
     ++ (builtins.map (config: 
@@ -133,7 +133,7 @@ in
             port = 465; 
           };
 
-          primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
+          primary = add_optional "primary" config;
         };
       }) rope_lab_configs)
   );

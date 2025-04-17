@@ -11,6 +11,14 @@ let
   trigger_kitty_hyprland = pkgs.writeShellScriptBin "trigger_kitty_hyprland" (
     builtins.readFile ./trigger_kitty_hyprland.sh
   );
+  
+  trigger_alacritty_kde = pkgs.writeShellScriptBin "trigger_alacritty_kde" (
+    builtins.readFile ./trigger_alacritty_kde.sh
+  );
+  
+  trigger_kitty_kde = pkgs.writeShellScriptBin "trigger_kitty_kde" (
+    builtins.readFile ./trigger_kitty_kde.sh
+  );
 
   vpn_to_behns = pkgs.writeShellScriptBin "vpn_to_behns" (
     builtins.readFile ./vpn_to_behns.sh
@@ -83,6 +91,8 @@ in
     trigger_ghostty_hyprland
     trigger_alacritty_hyprland
     trigger_kitty_hyprland
+    trigger_alacritty_kde
+    trigger_kitty_kde
 
     vpn_to_behns
     
