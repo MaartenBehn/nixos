@@ -21,7 +21,7 @@
 
     # Windows
     ../../configurations/display_manager.nix
-    ../../configurations/hyperland.nix
+    ../../configurations/window_manager
 
     # Apps
     ../../configurations/syncthing.nix

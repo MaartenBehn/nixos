@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, desktop, ... }:
 {
   programs.tmux = {
     enable = true;
@@ -23,8 +23,8 @@
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
       set-option -sg escape-time 10
-
-
+    '' 
+    + (if desktop == "hyprland" then ''
       # Waybar signal
       set-hook -g session-window-changed 'run-shell "pkill -SIGRTMIN+8 waybar"'
       set-hook -g alert-bell 'run-shell "pkill -SIGRTMIN+8 waybar"' 
@@ -36,11 +36,12 @@
       
       # Hiding default status
       set -g status off
-     
-      # Old status bar
-      # set -g status-right '#[fg=color15,bg=color234]  #{ram_fg_color}#{ram_percentage}#[fg=color15]  #{cpu_fg_color}#{cpu_percentage}#[fg=color15] #[fg=color15] %H:%M '
-      # run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
-    '';
+    '' else ''
+      # Status bar
+      set -g status-right '#[fg=color15,bg=color234]  #{ram_fg_color}#{ram_percentage}#[fg=color15]  #{cpu_fg_color}#{cpu_percentage}#[fg=color15] #[fg=color15] %H:%M '
+      run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
+    '');
+
 
   };
 }

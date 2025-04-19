@@ -1,4 +1,4 @@
-{ lib, pkgs, host, terminal, ... }:
+{ lib, pkgs, host, ... }:
 {
    home.packages = with pkgs; [
     # shell env programms
@@ -52,7 +52,6 @@
         exec tmux new -As0
       end
         '' else ""}
-      set -gx TERM ${terminal}
 
       #function nix-rebuild 
       #  cd /home/$USER/nixos/

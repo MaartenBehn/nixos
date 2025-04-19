@@ -77,28 +77,31 @@
         host = "laptop";
         username = "stroby"; 
         terminal = "kitty";
+        desktop = "hyprland";
       }
       {
         host = "desktop";
         username = "stroby";
-        terminal = "ghostty";
+        terminal = "kitty";
+        desktop = "plasma5";
       }
       {
         host = "asus";
         username = "stroby"; 
-        terminal = "ghostty";
       }
       {
         host = "wsl";
         username = "nixos"; 
-        terminal = "ghostty";
       }
       {
         host = "iso";
         username = "stroby"; 
-        terminal = "ghostty";
+        terminal = "kitty";
+        desktop = "hyprland";
       }
     ];
+
+    add_optional = name: (val: if (builtins.hasAttr name val) then val."${name}" else null); 
   in   
   {
     # Generate configs
@@ -116,7 +119,10 @@
             inherit pkgs-unstable;   
             username = config.username;
             host = config.host;
-            terminal = config.terminal;
+            terminal = (add_optional "terminal" config);
+            desktop = (add_optional "desktop" config);
+
+            add_optional = add_optional;
           };
           modules = [
             ./hosts/${config.host}/configuartion.nix
@@ -135,7 +141,10 @@
                 inherit pkgs-unstable;
                 username = config.username;
                 host = config.host;
-                terminal = config.terminal;
+                terminal = (add_optional "terminal" config);
+                desktop = (add_optional "desktop" config);
+                
+                add_optional = add_optional;
               };
             }
           ];

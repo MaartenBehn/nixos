@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ terminal, ... }:
 {
   programs.plasma = {
     enable = true;
@@ -31,11 +31,11 @@
     };
 
 
-
-    hotkeys.commands."trigger-alacritty" = {
-      name = "Trigger Alacritty";
+    
+    hotkeys.commands."trigger-terminal" = {
+      name = "Trigger Terminal";
       key = "Meta+Space";
-      command = "sh /home/stroby/nixos/trigger_alacritty.sh";
+      command = (if terminal == "kitty" then "trigger_kitty_kde" else "trigger_alacritty_kde");
     };
     
     window-rules = [
@@ -55,6 +55,23 @@
           };
         };
       }
+      {
+        description = "Kitty Fullscreen";
+        match = {
+          window-class = {
+            value = "kitty";
+            type = "substring";
+          };
+          window-types = [ "normal" ];
+        };
+        apply = {
+          fullscreen = {
+            value = true;
+            apply = "force";
+          };
+        };
+      }
+
     ];
 
     # cat /proc/bus/input/devices 
