@@ -6,6 +6,7 @@ let
       mail = "maarten.behn@gmail.com";
       name = "Maarten Behn";
       primary = true; # Can be undefined 
+      calender_url = "https://apidata.googleusercontent.com/caldav/v2/maarten.behn%40gmail.com/events/";
     }
     {
       mail = "stroby241@gmail.com";
@@ -144,10 +145,12 @@ in
         name = config.mail; 
         value = {
           primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
-          remote.url = "gmail.com";
+          remote.url = config.calender_url;
           remote.userName = config.mail;
         };
-      }) gmail_configs)
+      }) 
+      (builtins.filter (config: builtins.hasAttr "calender_url" config) gmail_configs)
+    )
   );
 
   programs.thunderbird.settings =
