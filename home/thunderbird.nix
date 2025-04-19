@@ -86,7 +86,7 @@ in
           userName = config.mail;
           flavor = "gmail.com";
 
-          primary = add_optional "primary" config;
+          primary = add_optional "primary" config false;
         };
       }) gmail_configs)
     ++ (builtins.map (config: 
@@ -110,7 +110,7 @@ in
             port = 465; 
           };
 
-          primary = add_optional "primary" config;
+          primary = add_optional "primary" config false;
         };
       }) imap_configs)
     ++ (builtins.map (config: 
@@ -134,7 +134,7 @@ in
             port = 465; 
           };
 
-          primary = add_optional "primary" config;
+          primary = add_optional "primary" config false;
         };
       }) rope_lab_configs)
   );
@@ -144,7 +144,7 @@ in
       { 
         name = config.mail; 
         value = {
-          primary = lib.mkIf (builtins.hasAttr "primary" config) config.primary;
+          primary = add_optional "primary" config false;
           remote.url = config.calender_url;
           remote.userName = config.mail;
         };

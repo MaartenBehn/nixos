@@ -101,7 +101,7 @@
       }
     ];
 
-    add_optional = name: (val: if (builtins.hasAttr name val) then val."${name}" else null); 
+    add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val)); 
   in   
   {
     # Generate configs
@@ -119,8 +119,8 @@
             inherit pkgs-unstable;   
             username = config.username;
             host = config.host;
-            terminal = (add_optional "terminal" config);
-            desktop = (add_optional "desktop" config);
+            terminal = (add_optional "terminal" config null);
+            desktop = (add_optional "desktop" config null);
 
             add_optional = add_optional;
           };
@@ -141,8 +141,8 @@
                 inherit pkgs-unstable;
                 username = config.username;
                 host = config.host;
-                terminal = (add_optional "terminal" config);
-                desktop = (add_optional "desktop" config);
+                terminal = (add_optional "terminal" config null);
+                desktop = (add_optional "desktop" config null);
                 
                 add_optional = add_optional;
               };
