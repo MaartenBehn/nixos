@@ -10,6 +10,7 @@
     ../../home/ssh.nix       
     ../../home/terminal
     ../../home/window_manager
+    ../../home/pix2tex.nix
 
     ../../home/thunderbird.nix
     ../../home/vscode.nix

@@ -87,7 +87,7 @@ let
   );
 in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     trigger_ghostty_hyprland
     trigger_alacritty_hyprland
     trigger_kitty_hyprland

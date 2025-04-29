@@ -8,6 +8,8 @@
   
   # Open http and https ports
   networking.firewall.allowedTCPPorts = [
+    3000
+    3001
     3002
   ];
 }

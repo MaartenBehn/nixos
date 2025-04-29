@@ -37,7 +37,7 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland.url = "github:hyprwm/Hyprland";
-  
+
     spicetify-nix = {
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,10 +61,21 @@
     zig.url = "github:mitchellh/zig-overlay";
 
     nvf.url = "github:notashelf/nvf";
+
+    solaar = {
+      url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz"; # For latest stable version
+      #url = "https://flakehub.com/f/Svenum/Solaar-Flake/0.1.1.tar.gz"; # uncomment line for solaar version 1.1.13
+      #url = "github:Svenum/Solaar-Flake/main"; # Uncomment line for latest unstable version
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pix2tex = {
+      url = "github:SimonYde/pix2tex.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
-
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, ... }@inputs:
 
   let 
     system = "x86_64-linux";
@@ -147,6 +158,8 @@
                 add_optional = add_optional;
               };
             }
+
+            solaar.nixosModules.default
           ];
         };
       } ) configs);

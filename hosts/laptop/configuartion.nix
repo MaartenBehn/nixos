@@ -18,6 +18,7 @@
     ../../configurations/audio.nix
     ../../configurations/printing.nix
     ../../configurations/fingerprint.nix
+    ../../configurations/logitech.nix
      
     # Windows
     ../../configurations/display_manager.nix
