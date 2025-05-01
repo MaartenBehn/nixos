@@ -12,6 +12,7 @@
     ../../home/window_manager
     ../../home/pix2tex.nix
     ../../home/solaar.nix
+    ../../home/slang.nix
 
     ../../home/thunderbird.nix
     ../../home/vscode.nix
