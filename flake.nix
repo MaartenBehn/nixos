@@ -12,7 +12,7 @@
 
     nixvim = {
       url = "github:MaartenBehn/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nix-minecraft = {
