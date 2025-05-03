@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ host, desktop, ... }:
 {
   programs.kitty = {
     enable = true;
@@ -7,7 +7,7 @@
 
     font = {
       name = "JetBrains Mono";
-      size = (if host == "desktop" then 10 else 12);
+      size = 12;
     };
 
     extraConfig = ''
@@ -19,7 +19,7 @@
 
     settings = {
       confirm_os_window_close = 0;
-      background_opacity = "0.66";
+      background_opacity = (if desktop == "hyprland" then "0.66" else "1.0");
       scrollback_lines = 10000;
       enable_audio_bell = false;
       mouse_hide_wait = 60;
