@@ -1,5 +1,9 @@
 { host, terminal, ... }:
-{
+
+let 
+  monitor_dlr_large = "Dell Inc. DELL U2724D 9XBZBP3";
+  monitor_dlr_asus = "Ancor Communications Inc ASUS VP239 FALMTJ009911";
+in {
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
@@ -389,6 +393,12 @@
         "4, monitor:eDP-1"
         "5, monitor:eDP-1"
 
+        "1, monitor:DP-3, default:true" 
+        "2, monitor:DP-3"
+        "3, monitor:DP-3"
+        "4, monitor:DP-3"
+        "5, monitor:DP-3"
+
         "6, monitor:DP-5, default:true"
         "7, monitor:DP-5"
         "8, monitor:DP-5"
@@ -399,7 +409,13 @@
         "12, monitor:DP-6"
         "13, monitor:DP-6"
         "14, monitor:DP-6"
-        "15, monitor:DP-6"
+        "15, monitor:DP-7"
+
+        "11, monitor:DP-7, default:true"
+        "12, monitor:DP-7"
+        "13, monitor:DP-7"
+        "14, monitor:DP-7"
+        "15, monitor:DP-7"
       ]
       else if host == "desktop" then [ 
         "1, monitor:HDMI-A-1, default:true"
@@ -419,15 +435,21 @@
 
     extraConfig = "
       ${if host == "laptop" then "
-        monitor=eDP-1,preferred,0x0,1
+            
+        monitor=desc:${monitor_dlr_large},2560x1440,2256x0,1
+        monitor=desc:${monitor_dlr_asus},1920x1080,4816x0,1
+        
         monitor=DP-5,1920x1080,-1920x0,1
         monitor=DP-6,1920x1080,-3840x0,1
-      " else if host == "desktop" then "
+        
+        monitor=DP-3,preferred,auto,1
+        monitor=eDP-1,2256x1504,0x0,1, mirror, DP-3
+      " else (if host == "desktop" then "
         monitor=HDMI-A-1,1920x1080,0x0,1
         monitor=HDMI-A-2,1920x1080,1920x0,1
       "else "
         monitor=,preferred,auto,1
-      "}
+      ")}
 
       xwayland {
         force_zero_scaling = true
