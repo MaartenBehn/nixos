@@ -21,6 +21,7 @@ let
 in
 {
   programs.waybar.settings.mainBar = with custom; {
+    #output = (if host == "laptop" then [ "eDP-1" "DP-5" "DP-6" "DP-7" "DP-8" "DP-9" "DP-10" "DP-11" ] else [ "all" ]);
     position = "bottom";
     layer = "top";
     height = 28;

@@ -40,6 +40,28 @@
       "button-text": " Clear All "
     },
     "menubar#desktop": {
+      "menu#monitors": {
+        "label": " 󰹑 ",
+        "position": "left",
+        "actions": [
+          {
+            "label": "Home",
+            "command": "set-monitors home"
+          },
+          {
+            "label": "DLR",
+            "command": "set-monitors dlr"
+          },
+          {
+            "label": "Present",
+            "command": "set-monitors present"
+          },
+          {
+            "label": "Mirror",
+            "command": "set-monitors mirror-all"
+          }
+        ]
+      },
       "menu#powermode-buttons": {
         "label": " 󰌪 ",
         "position": "left",
@@ -59,7 +81,7 @@
         ]
       },
       "menu#screenshot": {
-        "label": " 󰹑 ",
+        "label": " 󰩭 ",
         "position": "left",
         "actions": [
           {

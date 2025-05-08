@@ -4,98 +4,82 @@ let
 in
 {
   home.packages = (with pkgs; [
-    #_2048
-
+    
     ## CLI utility
-    ani-cli
-    aoc-cli                           # Advent of Code command-line tool
-    binsider
-    bitwise                           # cli tool for bit / hex manipulation
     caligula                          # User-friendly, lightweight TUI for disk imaging
-    dconf-editor
-    docfd                             # TUI multiline fuzzy document finder
-    entr                              # perform action when file change
     fd                                # find replacement
     ffmpeg
     file                              # Show file information 
-    gtt                               # google translate TUI
-    gifsicle                          # gif utility
     gtrash                            # rm replacement, put deleted files in system trash
     hexdump
     imv                               # image viewer
     jq                                # JSON processor
-    libnotify
+    libnotify                         # notify-send used to send desktop notifications
+    
     man-pages                         # extra man pages
-    mimeo
+    tldr                              # Better man
+    
     mpv                               # video player
     ncdu                              # disk space
-    nitch                             # systhem fetch util
-    #nixd                              # nix lsp
-    #nixfmt-rfc-style                  # nix formatter
     openssl
-    onefetch                          # fetch utility for git repo
-    pamixer                           # pulseaudio command line mixer
-    playerctl                         # controller for media players
-    poweralertd
-    programmer-calculator
+    poweralertd                       # Battery notifications    
+    #upower                            # Needed for poweralertd
+
+    nix-prefetch-github
+    programmer-calculator             # to show bits of calculations (pcalc)
     ripgrep                           # grep replacement
-    shfmt                             # bash formatter
+    # shfmt                             # bash formatter
     swappy                            # snapshot editing tool
     tdf                               # cli pdf viewer
-    treefmt2                          # project formatter
-    tldr
-    todo                              # cli todo list
-    toipe                             # typing test in the terminal
-    ttyper                            # cli typing test
     unzip
     valgrind                          # c memory analyzer
     wavemon                           # monitoring for wireless network devices
     wl-clipboard                      # clipboard utils for wayland (wl-copy, wl-paste)
     wget
     woomer
-    yt-dlp-light
+    yt-dlp-light                      # Youtube
     xdg-utils
-    xxd
-    unzip
+    # xxd
 
     ## CLI 
     cbonsai                           # terminal screensaver
     cmatrix
     pipes                             # terminal screensaver
     #sl
-    tty-clock                         # cli clock
+    # tty-clock                         # cli clock
     btop
 
-    ## GUI Apps
+    # Fetch tools
+    onefetch                          # fetch utility for git repo
+
+    # GUI Apps
     firefox
-    vlc
+    vlc                               # video player 
+    libreoffice
+    
     webcamoid
+    obs-studio
+    
     spotify
     signal-desktop
-    gimp
     obs-studio
     telegram-desktop
- 
-    audacity
-    bleachbit                         # cache cleaner
-    filezilla
-    gimp
-    gnome-disk-utility
-    ldtk                              # 2D level editor
-    tiled                             # tile map editor
-    libreoffice
-    nix-prefetch-github
-    obs-studio
-    pavucontrol                       # pulseaudio volume controle (GUI)
+    
+    filezilla        
+    gimp                              # image editing
     pitivi                            # video editing
+    audacity                          # Audio editing
+    
+    gnome-disk-utility
+    bleachbit                         # cache cleaner
+    pavucontrol                       # pulseaudio volume controle (GUI)
     gnome-calculator                  # calculator
-    soundwireserver
-    thunderbird
-    vlc
+    # soundwireserver
+    
     winetricks
     wineWowPackages.wayland
-    zenity
-
+    zenity                            # Gui Dialogs (used in scripts) 
+    
     # C / C++
     gcc
     gdb
@@ -109,6 +93,28 @@ in
     python3
     python312Packages.ipython
 
-    inputs.alejandra.defaultPackage.${system}
+    # Nix tools
+    # inputs.alejandra.defaultPackage.${system}
+    # nitch                             # systhem fetch util
+    # nixd                              # nix lsp
+    # nixfmt-rfc-style                  # nix formatter
+
+    #_2048
+    # ani-cli                           # Anime Name
+    # aoc-cli                           # Advent of Code command-line tool
+    # binsider                          # static and dynamic analysis tools for ELF libaries
+    # bitwise                           # cli tool for bit / hex manipulation
+    # dconf-editor                      
+    # docfd                             # TUI multiline fuzzy document finder
+    # entr                              # perform action when file change
+    # gtt                               # google translate TUI
+    # gifsicle                          # gif utility
+    # treefmt2                          # project formatter
+    # todo                              # cli todo list
+    # toipe                             # typing test in the terminal
+    # ttyper                            # cli typing test
+    # mimeo
+    # pamixer                           # pulseaudio command line mixer
+    # playerctl                         # controller for media players 
   ]);
 }

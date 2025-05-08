@@ -1,9 +1,5 @@
 { host, terminal, ... }:
-
-let 
-  monitor_dlr_large = "Dell Inc. DELL U2724D 9XBZBP3";
-  monitor_dlr_asus = "Ancor Communications Inc ASUS VP239 FALMTJ009911";
-in {
+{
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
@@ -11,7 +7,8 @@ in {
         # "hash dbus-update-activation-environment 2>/dev/null"
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-
+        
+        ( if host == "laptop" then "set-monitors home & poweralertd -s &" else "")
         "nm-applet &"
         "poweralertd &"
         "wl-clip-persist --clipboard both &"
@@ -144,7 +141,7 @@ in {
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-  "$mainMod, Space, exec, ${if terminal == "ghostty" then "trigger_ghostty_hyprland" else (if terminal == "alacritty" then "trigger_alacritty_hyprland" else "trigger_kitty_hyprland")}"
+        "$mainMod, Space, exec, ${if terminal == "ghostty" then "trigger_ghostty_hyprland" else (if terminal == "alacritty" then "trigger_alacritty_hyprland" else "trigger_kitty_hyprland")}"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
@@ -164,9 +161,9 @@ in {
         "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C ,exec, hyprpicker -a"
-        "$mainMod, W,exec, wallpaper-picker"
-        "$mainMod SHIFT, W,exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
+        "$mainMod, W,exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "$mainMod, N, exec, swaync-client -t -sw"
+        "$mainMod, Z, exec, woomer"
         #"CTRL SHIFT, Escape, exec, hyprctl dispatch exec '[workspace 9] missioncenter'"
         #"$mainMod, equal, exec, woomer"
         # "$mainMod SHIFT, W, exec, vm-start"
@@ -385,37 +382,12 @@ in {
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
 
-                  
       ] ++ (if host == "laptop" then [ 
         "1, monitor:eDP-1, default:true" 
         "2, monitor:eDP-1"
         "3, monitor:eDP-1"
         "4, monitor:eDP-1"
         "5, monitor:eDP-1"
-
-        "1, monitor:DP-3, default:true" 
-        "2, monitor:DP-3"
-        "3, monitor:DP-3"
-        "4, monitor:DP-3"
-        "5, monitor:DP-3"
-
-        "6, monitor:DP-5, default:true"
-        "7, monitor:DP-5"
-        "8, monitor:DP-5"
-        "9, monitor:DP-5"
-        "10, monitor:DP-5"
-        
-        "11, monitor:DP-6, default:true"
-        "12, monitor:DP-6"
-        "13, monitor:DP-6"
-        "14, monitor:DP-6"
-        "15, monitor:DP-7"
-
-        "11, monitor:DP-7, default:true"
-        "12, monitor:DP-7"
-        "13, monitor:DP-7"
-        "14, monitor:DP-7"
-        "15, monitor:DP-7"
       ]
       else if host == "desktop" then [ 
         "1, monitor:HDMI-A-1, default:true"
@@ -435,15 +407,7 @@ in {
 
     extraConfig = "
       ${if host == "laptop" then "
-            
-        monitor=desc:${monitor_dlr_large},2560x1440,2256x0,1
-        monitor=desc:${monitor_dlr_asus},1920x1080,4816x0,1
-        
-        monitor=DP-5,1920x1080,-1920x0,1
-        monitor=DP-6,1920x1080,-3840x0,1
-        
-        monitor=DP-3,preferred,auto,1
-        monitor=eDP-1,2256x1504,0x0,1, mirror, DP-3
+        monitor=eDP-1,2256x1504,0x0,1
       " else (if host == "desktop" then "
         monitor=HDMI-A-1,1920x1080,0x0,1
         monitor=HDMI-A-2,1920x1080,1920x0,1
