@@ -13,5 +13,5 @@
     allowUnsupportedSystem = true;
   };
 
-  home-manager.backupFileExtension = "backup";
+  home-manager.backupFileExtension = "backup-1";
 }
