@@ -41,6 +41,7 @@
     nix-direnv.enable = true;
   };
 
+  
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -77,18 +78,24 @@
       alias nix-index="sh /home/$USER/nixos/update_nix_index.sh"
       alias nix-store-size="du -BM /nix/store/ | sort -n"
       function nix-search-local -d "find /nix -name <NAME>"
-      find /nix -name $argv[1]
+        fd /nix -name $argv[1]
       end
 
       # Edit Configs
       alias nix-config="cd ~/nixos && nvim . && cd -"
       alias nix-vim-config="cd ~/dev/nixvim && nvim . && cd -"
 
+      # Better command line tools 
       alias ls="exa -l -a";
       alias ping="ping -c 5";
 
       alias lgit="lazygit";
       alias lg="lazygit";
+
+      alias rm="gtrash put"
+      alias fd="find"
+      alias grep="rg"
+
 
       alias myip="curl http://ipecho.net/plain; echo";
 

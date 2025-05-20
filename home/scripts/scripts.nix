@@ -85,9 +85,14 @@ let
   power-menu = pkgs.writeScriptBin "power-menu" (
     builtins.readFile ./power-menu.sh
   );
+  set-monitors = pkgs.writeScriptBin "set-monitors" (
+    builtins.readFile ./set-monitors.sh
+  );
 in
 {
   home.packages = [
+    set-monitors
+
     trigger_ghostty_hyprland
     trigger_alacritty_hyprland
     trigger_kitty_hyprland

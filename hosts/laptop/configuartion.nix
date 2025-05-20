@@ -9,6 +9,7 @@
     ../../configurations/local.nix
     ../../configurations/user.nix
     ../../configurations/clean.nix
+    ../../configurations/battery.nix
 
     # Drivers
     ../../configurations/graphics.nix
