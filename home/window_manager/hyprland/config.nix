@@ -8,9 +8,8 @@
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         
-        ( if host == "laptop" then "set-monitors home & poweralertd -s &" else "")
         "nm-applet &"
-        "poweralertd &"
+        "poweralertd -s &"
         "wl-clip-persist --clipboard both &"
         "wl-paste --watch cliphist store &"
         "waybar &"
@@ -170,8 +169,7 @@
 
         # screenshot
         ",Print, exec, screenshot --copy"
-        "$mainMod, Print, exec, screenshot --save"
-        "$mainMod SHIFT, Print, exec, screenshot --swappy"
+        "$mainMod, Print, exec, clip-latex"
 
         # switch focus
         #"$mainMod, left,  movefocus, l"
@@ -382,13 +380,22 @@
         "w[tg1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
 
-      ] ++ (if host == "laptop" then [ 
+      ] ++ (if host == "laptop" then [  
         "1, monitor:eDP-1, default:true" 
-        "2, monitor:eDP-1"
-        "3, monitor:eDP-1"
-        "4, monitor:eDP-1"
-        "5, monitor:eDP-1"
-      ]
+        "r[2-5], monitor:eDP-1"
+
+        "6, monitor:DP-5, default:true"
+        "r[7-10], monitor:DP-5"
+        
+        "6, monitor:DP-7, default:true"
+        "r[7-10], monitor:DP-7"
+
+        "11, monitor:DP-6, default:true"
+        "r[12-15], monitor:DP-6"
+
+        "11, monitor:DP-8, default:true"
+        "r[12-15], monitor:DP-8"
+     ]
       else if host == "desktop" then [ 
         "1, monitor:HDMI-A-1, default:true"
         "2, monitor:HDMI-A-1"
@@ -408,6 +415,14 @@
     extraConfig = "
       ${if host == "laptop" then "
         monitor=eDP-1,2256x1504,0x0,1
+
+        monitor=DP-5,1920x1080,-1920x0,1
+        monitor=DP-6,1920x1080,-3840x0,1
+        monitor=DP-7,1920x1080,-1920x0,1
+        monitor=DP-8,1920x1080,-3840x0,1
+
+        monitor=DP-3,highres,auto,1,mirror,eDP-1
+ 
       " else (if host == "desktop" then "
         monitor=HDMI-A-1,1920x1080,0x0,1
         monitor=HDMI-A-2,1920x1080,1920x0,1
