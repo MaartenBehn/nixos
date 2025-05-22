@@ -10,6 +10,8 @@
     ../../home/ssh.nix   
     ../../home/terminal
     ../../home/window_manager
+    ../../home/solaar.nix
+    ../../home/slang.nix
 
     ../../home/vscode.nix
     ../../home/audacious.nix                   # music player

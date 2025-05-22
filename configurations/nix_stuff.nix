@@ -13,8 +13,5 @@
     allowUnsupportedSystem = true;
   };
 
-  home-manager.backupFileExtension = "backup";
-
-  # To fix long nix build times
-  documentation.man.generateCaches = false;
+  home-manager.backupFileExtension = "backup-1";
 }
