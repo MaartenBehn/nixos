@@ -1,6 +1,6 @@
-{ pkgs, username, host, ...}: {
+{ username, host, ...}: {
   networking = {
-    hostName = "${username}-${host}";
+    hostName = (if host == "iso" then "iso" else "${username}-${host}");
     networkmanager.enable = true;
     nameservers = [
       "8.8.8.8"

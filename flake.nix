@@ -119,7 +119,7 @@
     nixosConfigurations = builtins.listToAttrs (builtins.map (config: 
       { 
         # Name of the config
-        name = "${config.username}-${config.host}"; 
+        name = (if config.host == "iso" then "iso" else "${config.username}-${config.host}"); 
 
         # Content of the config
         value = nixpkgs.lib.nixosSystem {
@@ -136,7 +136,7 @@
             add_optional = add_optional;
           };
           modules = [
-            ./hosts/${config.host}/configuartion.nix
+            ./configurations
 
             inputs.home-manager.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
@@ -145,7 +145,7 @@
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
-              home-manager.users.stroby = import ./hosts/${config.host}/home.nix;
+              home-manager.users.stroby = import ./home;
               home-manager.extraSpecialArgs = { 
                 inherit system;
                 inherit inputs;

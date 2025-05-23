@@ -131,5 +131,7 @@ in
 
     rofi-power-menu
     power-menu
+    
+    pkgs.zenity                            # Gui Dialogs (used in scripts) 
   ];
 }
