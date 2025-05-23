@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 IP=$(curl http://ipecho.net/plain)
 if [[ $IP =~ .*:.* ]]

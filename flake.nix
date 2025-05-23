@@ -94,7 +94,7 @@
         host = "desktop";
         username = "stroby";
         terminal = "kitty";
-        desktop = "plasma5";
+        desktop = "hyprland";
       }
       {
         host = "asus";
@@ -106,7 +106,7 @@
       }
       {
         host = "iso";
-        username = "stroby"; 
+        username = "nixos"; 
         terminal = "kitty";
         desktop = "hyprland";
       }

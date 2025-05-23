@@ -88,9 +88,20 @@ let
   set-monitors = pkgs.writeScriptBin "set-monitors" (
     builtins.readFile ./set-monitors.sh
   );
+
+  update_duckdns = pkgs.writeScriptBin "update_duckdns" (
+    builtins.readFile ./update_duckdns.sh
+  );
+
+  update_nix_index = pkgs.writeScriptBin "update_nix_index" (
+    builtins.readFile ./update_nix_index.sh
+  );
 in
 {
   home.packages = [
+    update_nix_index
+    update_duckdns
+
     set-monitors
 
     trigger_ghostty_hyprland

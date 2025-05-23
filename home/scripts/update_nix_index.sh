@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 download_nixpkgs_cache_index () {
     filename="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr A-Z a-z)"

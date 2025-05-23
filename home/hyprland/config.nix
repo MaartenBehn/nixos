@@ -15,9 +15,9 @@
         "waybar &"
         "swaync &"
         "hyprctl setcursor Bibata-Modern-Ice 24 &"
-        "swww-daemon"
+        "swww-daemon &"
 
-        (if host != "iso" then "& hyprlock" else "")
+        (if host != "iso" then "hyprlock" else "echo done")
       ];
 
       input = {

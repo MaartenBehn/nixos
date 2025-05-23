@@ -40,7 +40,7 @@
       ] else [])
     ++ (if host == "desktop" then
       [
-    ../hardware-configuration.nix
+        ../hardware-configuration.nix
         # Drivers
         ./graphics.nix
         ./monitor_cpu_temp.nix
