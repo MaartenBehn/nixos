@@ -37,6 +37,8 @@
   ++ (if host == "iso" then
     [
         ./cli/minimal.nix
+        ./cli/terminal
+        ./cli/tmux.nix
     ] else [])
   ++ (if host == "asus" then
     [

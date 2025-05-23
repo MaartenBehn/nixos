@@ -14,4 +14,5 @@
   };
 
   home-manager.backupFileExtension = "backup-1";
+  documentation.man.generateCaches = false; 
 }

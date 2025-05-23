@@ -9,7 +9,6 @@
     ./nixvim.nix
 
     ./ssh.nix   
-    ./man.nix
     ./git.nix
   ];
 }

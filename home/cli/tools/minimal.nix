@@ -31,7 +31,5 @@
     rm = "gtrash put";
     find = "fd";
     grep = "rg";
-
-    du = "dust";
   };
 }

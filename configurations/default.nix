@@ -1,4 +1,4 @@
-{ host, modulesPath, ... }: {
+{ host, ... }: {
   imports = [
     # Base
     ./bootloader.nix
@@ -21,6 +21,7 @@
         ./printing.nix
         ./bluetooh.nix
         ./fingerprint.nix
+        ./usb_auto_mount.nix
 
         # Windows
         ./display_manager.nix
@@ -48,6 +49,8 @@
         ./networking.nix
         ./audio.nix
         ./printing.nix
+        ./usb_auto_mount.nix
+        ./dual_boot.nix
 
         # Windows
         ./display_manager.nix
@@ -77,6 +80,7 @@
         ./bluetooh.nix
         ./fingerprint.nix
         ./logitech.nix
+        ./usb_auto_mount.nix
 
         # Windows
         ./display_manager.nix

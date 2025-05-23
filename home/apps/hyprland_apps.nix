@@ -31,7 +31,6 @@
     pitivi                            # video editing
     audacity                          # Audio editing
     
-    gnome-disk-utility
     bleachbit                         # cache cleaner
     gnome-calculator                  # calculator
     
