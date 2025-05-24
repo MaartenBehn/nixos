@@ -27,7 +27,6 @@
       ./driver/solaar.nix
       ./programming_languages/all.nix
       ./cli
-        #./apps/calamares.nix
     ] else [])
   ++ (if host == "desktop" then
     [
@@ -40,9 +39,6 @@
         ./cli/minimal.nix
         ./cli/terminal
         ./cli/tmux.nix
-
-        ./driver/iso.nix
-        #./apps/calamares.nix
     ] else [])
   ++ (if host == "asus" then
     [
