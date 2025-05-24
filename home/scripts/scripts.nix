@@ -96,10 +96,17 @@ let
   update_nix_index = pkgs.writeScriptBin "update_nix_index" (
     builtins.readFile ./update_nix_index.sh
   );
+ 
+  make_install_partitions = pkgs.writeScriptBin "make_install_partitions" (
+    builtins.readFile ./make_install_partitions.sh
+  );
 
-  
-  nixos_install = pkgs.writeScriptBin "nixos_install" (
-    builtins.readFile ./nixos_install.sh
+  install_config = pkgs.writeScriptBin "install_config" (
+    builtins.readFile ./install_config.sh
+  );
+
+  after_install = pkgs.writeScriptBin "after_install" (
+    builtins.readFile ./after_install.sh
   );
 in
 {
@@ -147,8 +154,13 @@ in
 
     rofi-power-menu
     power-menu
+
+    after_install
     
     pkgs.zenity                            # Gui Dialogs (used in scripts) 
   ]
-  ++ (if host == "iso" then [nixos_install] else []);
+  ++ (if host == "iso" then [
+      make_install_partitions
+      install_config
+  ] else []);
 }
