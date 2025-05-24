@@ -52,7 +52,7 @@
         ./audio.nix
         ./printing.nix
         ./usb_auto_mount.nix
-        ./dual_boot.nix
+        #./dual_boot.nix
         ./fix_stuck_on_tpmrm0.nix
 
         # Windows
@@ -64,7 +64,7 @@
         ./wireguard.nix
 
         # Gaming
-        ./steam.nix
+        #./steam.nix
 
       ] else [])
     ++ (if host == "iso" then
