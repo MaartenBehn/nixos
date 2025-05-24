@@ -2,17 +2,17 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
       url = "github:MaartenBehn/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-minecraft = {
@@ -82,6 +82,7 @@
     lib = nixpkgs.lib;
     pkgs = nixpkgs.legacyPackages.${system};
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+    nix-version = "25.05";
 
     configs = [
       {
@@ -106,7 +107,7 @@
       }
       {
         host = "iso";
-        username = "nixos"; 
+        username = "stroby"; 
         terminal = "kitty";
         desktop = "hyprland";
       }
@@ -125,6 +126,7 @@
         value = nixpkgs.lib.nixosSystem {
           inherit system; # system = system
           specialArgs = {
+            inherit nix-version;
             inherit system;
             inherit inputs;
             inherit pkgs-unstable;   
@@ -145,8 +147,9 @@
               home-manager.useUserPackages = true;
               home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
 
-              home-manager.users.stroby = import ./home;
+              home-manager.users."${config.username}" = import ./home;
               home-manager.extraSpecialArgs = { 
+                inherit nix-version;
                 inherit system;
                 inherit inputs;
                 inherit pkgs-unstable;

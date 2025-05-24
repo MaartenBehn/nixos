@@ -1,4 +1,4 @@
-{ pkgs, config, pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   monolisa = pkgs.callPackage ../../pkgs/monolisa/monolisa.nix { };
   monolisa-nerd = pkgs.callPackage ../../pkgs/monolisa/monolisa-nerd.nix {
@@ -10,12 +10,12 @@ in
   home.packages = with pkgs; [
     jetbrains-mono
     fira-code
-    pkgs-unstable.nerd-fonts.caskaydia-cove
-    pkgs-unstable.nerd-fonts.symbols-only
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.symbols-only
     twemoji-color-font
     noto-fonts-emoji
     fantasque-sans-mono
-    maple-mono
+    # maple-mono
     # monolisa
     # monolisa-nerd
   ];

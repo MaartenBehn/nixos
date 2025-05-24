@@ -37,6 +37,8 @@
         # Other
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
+
+        #./calamares.nix
       ] else [])
     ++ (if host == "desktop" then
       [
@@ -85,6 +87,8 @@
         # Windows
         ./display_manager.nix
         ./window_manager
+
+        #./calamares.nix
       ] else [])
     ++ (if host == "asus" then
       [

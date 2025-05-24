@@ -1,7 +1,7 @@
 { username, host, ...}: {
   networking = {
     hostName = (if host == "iso" then "iso" else "${username}-${host}");
-    networkmanager.enable = true;
+    networkmanager.enable = (host != "iso");
     nameservers = [
       "8.8.8.8"
       "8.8.4.4"

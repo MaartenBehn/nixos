@@ -28,7 +28,7 @@
     ls = "exa -l -a";
     ping = "ping -c 5";
 
-    rm = "gtrash put";
+    #rm = "gtrash put";
     find = "fd";
     grep = "rg";
   };

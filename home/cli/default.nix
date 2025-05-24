@@ -14,6 +14,6 @@
     ./minimal.nix
     ./terminal
     ./tmux.nix
-    ./man.nix
+    #./man.nix
   ];
 }

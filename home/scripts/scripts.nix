@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 let
   trigger_alacritty_hyprland = pkgs.writeShellScriptBin "trigger_alacritty_hyprland" (
     builtins.readFile ./trigger_alacritty_hyprland.sh
@@ -96,6 +96,11 @@ let
   update_nix_index = pkgs.writeScriptBin "update_nix_index" (
     builtins.readFile ./update_nix_index.sh
   );
+
+  
+  nixos_install = pkgs.writeScriptBin "nixos_install" (
+    builtins.readFile ./nixos_install.sh
+  );
 in
 {
   home.packages = [
@@ -144,5 +149,6 @@ in
     power-menu
     
     pkgs.zenity                            # Gui Dialogs (used in scripts) 
-  ];
+  ]
+  ++ (if host == "iso" then [nixos_install] else []);
 }

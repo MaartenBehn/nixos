@@ -1,4 +1,4 @@
-{ pkgs, inputs, pkgs-unstable, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     inputs.nixvim.packages.x86_64-linux.default
@@ -9,7 +9,7 @@
     terraform
     cargo
     rustc
-    pkgs-unstable.shader-slang
+    shader-slang
   ];
 
   home.shellAliases = {

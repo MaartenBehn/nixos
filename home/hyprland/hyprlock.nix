@@ -1,9 +1,9 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   text = "rgb(251, 241, 199)";
 in
 {
-  home.packages = [ pkgs-unstable.hyprlock ];
+  home.packages = [ pkgs.hyprlock ];
   xdg.configFile."hypr/hyprlock.conf".text = ''
     auth {
       fingerprint {

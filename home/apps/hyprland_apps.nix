@@ -4,7 +4,7 @@
     ./cava.nix
     ./gonme-text-editor.nix
     ./obsidian.nix
-    ./thunderbird.nix
+    # ./thunderbird.nix
     ./viewnior.nix
  ];
 

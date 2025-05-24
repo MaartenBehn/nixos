@@ -1,6 +1,6 @@
-{ desktop, username, host, ... }: {
+{ desktop, username, host, nix-version, ... }: {
   programs.home-manager.enable = true;
-  home.stateVersion = "24.11";
+  home.stateVersion = nix-version;
 
   home.username = username;
   home.homeDirectory = "/home/${username}";
@@ -27,6 +27,7 @@
       ./driver/solaar.nix
       ./programming_languages/all.nix
       ./cli
+        #./apps/calamares.nix
     ] else [])
   ++ (if host == "desktop" then
     [
@@ -39,6 +40,9 @@
         ./cli/minimal.nix
         ./cli/terminal
         ./cli/tmux.nix
+
+        ./driver/iso.nix
+        #./apps/calamares.nix
     ] else [])
   ++ (if host == "asus" then
     [

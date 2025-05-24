@@ -3,9 +3,10 @@
     caligula                          # User-friendly, lightweight TUI for disk imaging
     ventoy                            # USD multi iso boot
   ]);
-
+  
   home.shellAliases = { 
     iso-find-drive="sudo fdisk -l";
+    find-drive="sudo fdisk -l";
   };
 
   programs.fish.functions = {

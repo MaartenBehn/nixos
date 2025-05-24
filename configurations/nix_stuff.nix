@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ nix-version, ... }:
 {
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = nix-version;
 
   nixpkgs.config = {
     # Allow unfree packages
@@ -14,5 +14,12 @@
   };
 
   home-manager.backupFileExtension = "backup-1";
-  documentation.man.generateCaches = false; 
+
+  documentation.nixos.enable = false;
+  documentation.man.generateCaches = false;
+
+  
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-1.1.05"
+  ];
 }
