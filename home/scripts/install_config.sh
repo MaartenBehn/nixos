@@ -22,7 +22,6 @@ echo "--- swapfile ---"
 sudo dd if=/dev/zero of=/mnt/.swapfile bs=1024 count=2097152 # 2GB size
 sudo chmod 600 /mnt/.swapfile
 sudo mkswap /mnt/.swapfile
-sudo swapon /mnt/.swapfile
 
 echo "--- nixos-generate-config ---"
 sudo nixos-generate-config --root /mnt

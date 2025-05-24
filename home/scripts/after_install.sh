@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo swapon /.swapfile
+
 ssk-keygen
 cat ~/.ssh/id_ed25519.pub
 
