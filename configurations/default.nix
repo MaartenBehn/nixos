@@ -53,6 +53,7 @@
         ./printing.nix
         ./usb_auto_mount.nix
         ./dual_boot.nix
+        ./fix_stuck_on_tpmrm0.nix
 
         # Windows
         ./display_manager.nix
@@ -83,6 +84,7 @@
         ./fingerprint.nix
         ./logitech.nix
         ./usb_auto_mount.nix
+        ./fix_stuck_on_tpmrm0.nix
 
         # Windows
         ./display_manager.nix
@@ -114,8 +116,4 @@
         ./wsl.nix
         ./networking.nix
       ] else []);
-
-
-  # Desktop fix
-  #   systemd.tpm2.enable = false;
 }
