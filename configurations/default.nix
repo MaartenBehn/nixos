@@ -64,7 +64,7 @@
         ./wireguard.nix
 
         # Gaming
-        #./steam.nix
+        ./steam.nix
 
       ] else [])
     ++ (if host == "iso" then

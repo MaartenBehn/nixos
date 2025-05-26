@@ -1,30 +1,27 @@
 #!/usr/bin/env bash
 
-echo "Installing $1"
-
-sudo -E gnome-disks
-
-lsblk -o name,FSTYPE,label,size,uuid
+echo config: $1
+echo root: dev/$2
+echo boot: dev/$3
 
 while true; do
     read -p "Do you wish to continue? " yn
     case $yn in
-        [Yy]* ) make install; break;;
+        [Yy]* ) break;;
         [Nn]* ) exit;;
         * ) echo "Please answer yes or no.";;
     esac
 done
 
 echo "--- mounting ---"
-sudo mount /dev/disk/by-label/NIXROOT /mnt
+sudo mount /dev/$2 /mnt
 sudo mkdir -p /mnt/boot
-sudo mount /dev/disk/by-label/NIXBOOT /mnt/boot
+sudo mount /dev/$3 /mnt/boot
 
 echo "--- swapfile ---"
 sudo dd if=/dev/zero of=/mnt/.swapfile bs=1024 count=2097152 # 2GB size
 sudo chmod 600 /mnt/.swapfile
 sudo mkswap /mnt/.swapfile
-sudo swapon /mnt/.swapfile
 
 echo "--- nixos-generate-config ---"
 sudo nixos-generate-config --root /mnt

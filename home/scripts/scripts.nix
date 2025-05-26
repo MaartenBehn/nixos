@@ -96,6 +96,10 @@ let
   update_nix_index = pkgs.writeScriptBin "update_nix_index" (
     builtins.readFile ./update_nix_index.sh
   );
+ 
+  make_install_partitions = pkgs.writeScriptBin "make_install_partitions" (
+    builtins.readFile ./make_install_partitions.sh
+  );
 
   
   install_config = pkgs.writeScriptBin "install_config" (
@@ -147,6 +151,8 @@ in
 
     rofi-power-menu
     power-menu
+
+    after_install
     
     pkgs.zenity                            # Gui Dialogs (used in scripts) 
   ]

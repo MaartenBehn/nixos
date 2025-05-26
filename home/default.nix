@@ -31,7 +31,7 @@
   ++ (if host == "desktop" then
     [
       ./driver/solaar.nix
-        #./programming_languages/all.nix
+      #./programming_languages/all.nix
       ./cli
     ] else [])
   ++ (if host == "iso" then
