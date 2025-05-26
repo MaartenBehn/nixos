@@ -9,7 +9,10 @@
  ];
 
   home.packages = (with pkgs; [
-    mpv                               # video player
+    # default apps 
+    mpv                               # simple video player
+    evince                            # simple pdf viewer
+    imv                               # simple image viewer
 
     xdg-utils
 

@@ -98,8 +98,8 @@ let
   );
 
   
-  nixos_install = pkgs.writeScriptBin "nixos_install" (
-    builtins.readFile ./nixos_install.sh
+  install_config = pkgs.writeScriptBin "install_config" (
+    builtins.readFile ./install_config.sh
   );
 in
 {
@@ -150,5 +150,5 @@ in
     
     pkgs.zenity                            # Gui Dialogs (used in scripts) 
   ]
-  ++ (if host == "iso" then [nixos_install] else []);
+  ++ (if host == "iso" then [install_config] else []);
 }

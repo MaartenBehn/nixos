@@ -58,12 +58,13 @@
       alias fritz_behns_asus-vpn-stop="sudo systemctl stop wg-quick-fritz_behns_asus.service"
 
       alias rev-tether="gnirehtet run";
- 
+
       alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"
 
       alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
 
       alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
+      
       starship init fish | source
     '';
   };   

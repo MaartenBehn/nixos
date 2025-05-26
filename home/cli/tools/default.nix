@@ -8,7 +8,6 @@
     
     ## CLI utility
     ffmpeg
-    imv                               # image viewer
     jq                                # JSON processor
     libnotify                         # notify-send used to send desktop notifications
     yt-dlp-light                      # Youtube

@@ -9,12 +9,12 @@
     ./swaync/swaync.nix
     ./waybar
     ./waypaper.nix
-    ./xdg-mimes.nix
     ./gtk.nix
     ./rofi.nix
     ./swayosd.nix                     # brightness / volume wiget
     ./pix2tex.nix
     
+    ./default_apps.nix
     #inputs.hyprland.homeManagerModules.default
   ] 
   ++ (if host != "iso" then [

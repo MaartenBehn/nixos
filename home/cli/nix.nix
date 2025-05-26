@@ -20,6 +20,7 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+    silent = true;
   };
   
   home.shellAliases = {
@@ -37,12 +38,9 @@
     nix-config="cd ~/nixos && nvim . && cd -";
 
     nix-shell-init="rm .envrc || true && echo 'use nix' >> .envrc && direnv allow";
+    nix-devshell-init="rm .envrc || true && echo 'use flake' >> .envrc && direnv allow";
     init-nix-shell="nix-shell-init";
     init-shell="nix-shell-init";
     load_shell="direnv reload";
-  };
-
-  home.sessionVariables = {
-    DIRENV_LOG_FORMAT="";
   };
 }
