@@ -16,6 +16,7 @@
     wavemon                           # monitoring for wireless network devices
     wget
     unzip
+    speedtest-cli
     
     eza
     gtrash                            # rm replacement, put deleted files in system trash
