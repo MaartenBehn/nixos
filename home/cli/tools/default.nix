@@ -2,6 +2,7 @@
   imports = [
     ./minimal.nix
     ./create_iso.nix
+    ./create_wsl.nix
   ];
 
   home.packages = (with pkgs; [

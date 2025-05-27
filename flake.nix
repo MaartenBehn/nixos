@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:MaartenBehn/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,7 +78,8 @@
       url = "github:SimonYde/pix2tex.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
+
+      };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, ... }@inputs:
 
@@ -111,15 +117,19 @@
       }
     ];
 
-    add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val)); 
+    add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val));
+    mkSystemName = config: 
+        (if config.host == "iso" then "iso" else   
+        (if config.host == "wsl" then "wsl" else   
+        "${config.username}-${config.host}")); 
+
   in   
   {
     # Generate configs
     nixosConfigurations = builtins.listToAttrs (builtins.map (config: 
       { 
         # Name of the config
-        name = (if config.host == "iso" then "iso" else "${config.username}-${config.host}"); 
-
+        name = mkSystemName config; 
         # Content of the config
         value = nixpkgs.lib.nixosSystem {
           inherit system; # system = system
@@ -130,6 +140,7 @@
             inherit pkgs-unstable;   
             username = config.username;
             host = config.host;
+            system_name = mkSystemName config;
             terminal = (add_optional "terminal" config null);
             desktop = (add_optional "desktop" config null);
 
@@ -153,6 +164,7 @@
                 inherit pkgs-unstable;
                 username = config.username;
                 host = config.host;
+                system_name = mkSystemName config;
                 terminal = (add_optional "terminal" config null);
                 desktop = (add_optional "desktop" config null);
                 

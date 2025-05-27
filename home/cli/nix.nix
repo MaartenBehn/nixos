@@ -27,7 +27,6 @@
     nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake . --impure && cd -";
     nix-rebuild-nh="sudo echo 'Got root access' && cd /home/$USER/nixos/ && git add --all && nh os switch . -- --impure && cd -";
     nix-rebuild-pull="cd /home/$USER/nixos/ && git pull && sudo nixos-rebuild switch --flake . --impure && cd -";
-    iso-nix-build="cd /home/$USER/nixos/ && nix build .#nixosConfigurations.iso.config.system.build.isoImage && cd -";
 
     nix-update="cd /home/$USER/nixos/ && git add --all && nix flake update && cd -";
     nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise";

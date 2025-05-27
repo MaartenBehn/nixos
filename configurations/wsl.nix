@@ -1,7 +1,7 @@
-{ lib, username, system, ... }:
+{ lib, username, system, inputs, ... }:
 {
   imports = [
-    <nixos-wsl/modules>
+    inputs.nixos-wsl.nixosModules.default
   ];
 
   wsl.enable = true;

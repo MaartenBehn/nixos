@@ -105,6 +105,11 @@ let
   install_config = pkgs.writeScriptBin "install_config" (
     builtins.readFile ./install_config.sh
   );
+
+  after_install = pkgs.writeScriptBin "after_install" (
+    builtins.readFile ./after_install.sh
+  );
+
 in
 {
   home.packages = [
@@ -156,5 +161,8 @@ in
     
     pkgs.zenity                            # Gui Dialogs (used in scripts) 
   ]
-  ++ (if host == "iso" then [install_config] else []);
+  ++ (if host == "iso" then [
+      make_install_partitions
+      install_config
+    ] else []);
 }

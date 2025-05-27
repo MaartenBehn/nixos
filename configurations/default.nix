@@ -1,7 +1,6 @@
 { host, ... }: {
   imports = [
     # Base
-    ./bootloader.nix
     ./nix_stuff.nix
     ./local.nix
     ./user.nix
@@ -9,10 +8,10 @@
   ] 
     ++ (if host == "laptop" then
       [
-    ../hardware-configuration.nix
-        ./battery.nix
+        ../hardware-configuration.nix
         
         # Drivers
+        ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./networking.nix
@@ -22,6 +21,7 @@
         ./bluetooh.nix
         ./fingerprint.nix
         ./usb_auto_mount.nix
+        ./battery.nix
 
         # Windows
         ./display_manager.nix
@@ -43,7 +43,9 @@
     ++ (if host == "desktop" then
       [
         ../hardware-configuration.nix
+        
         # Drivers
+        ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./networking.nix
@@ -52,7 +54,6 @@
         ./audio.nix
         ./printing.nix
         ./usb_auto_mount.nix
-        #./dual_boot.nix
         ./fix_stuck_on_tpmrm0.nix
 
         # Windows
@@ -70,9 +71,9 @@
     ++ (if host == "iso" then
       [
         ./iso.nix
-        ./battery.nix
         
         # Drivers
+        ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./networking.nix
@@ -85,6 +86,7 @@
         ./logitech.nix
         ./usb_auto_mount.nix
         ./fix_stuck_on_tpmrm0.nix
+        ./battery.nix
 
         # Windows
         ./display_manager.nix
@@ -94,11 +96,14 @@
       ] else [])
     ++ (if host == "asus" then
       [
-    ../hardware-configuration.nix
+        ../hardware-configuration.nix
+        
         # Drive
+        ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./networking.nix
+        ./battery.nix
 
         # Server
         ./server/duckdns.nix
