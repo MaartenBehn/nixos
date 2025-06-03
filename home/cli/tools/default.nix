@@ -20,5 +20,7 @@
     cbonsai                           # terminal screensaver
     cmatrix
     pipes                             # terminal screensaver
+
+    presenterm                        # Terminal presentation tool
   ]);
 }

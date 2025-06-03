@@ -38,7 +38,7 @@
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
 
-        #./calamares.nix
+        ./dlr_eden_postgress.nix
       ] else [])
     ++ (if host == "desktop" then
       [

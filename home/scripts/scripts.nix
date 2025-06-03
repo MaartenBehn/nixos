@@ -1,5 +1,9 @@
 { pkgs, host, ... }:
 let
+  mkScript = name: pkgs.writeShellScriptBin "${name}" (
+    builtins.readFile ./${name}.sh
+  );
+
   trigger_alacritty_hyprland = pkgs.writeShellScriptBin "trigger_alacritty_hyprland" (
     builtins.readFile ./trigger_alacritty_hyprland.sh
   );
@@ -112,57 +116,58 @@ let
 
 in
 {
-  home.packages = [
-    update_nix_index
-    update_duckdns
+  home.packages = (map mkScript [
+    "update_nix_index"
+    "update_duckdns"
+    "set-monitors"
 
-    set-monitors
+    "trigger_ghostty_hyprland"
+    "trigger_alacritty_hyprland"
+    "trigger_kitty_hyprland"
+    "trigger_alacritty_kde"
+    "trigger_kitty_kde"
 
-    trigger_ghostty_hyprland
-    trigger_alacritty_hyprland
-    trigger_kitty_hyprland
-    trigger_alacritty_kde
-    trigger_kitty_kde
-
-    vpn_to_behns
+    "vpn_to_behns"
     
-    wall-change
-    wallpaper-picker
-    random-wallpaper
+    "wall-change"
+    "wallpaper-picker"
+    "random-wallpaper"
 
-    runbg
-    music
-    lofi
+    "runbg"
+    "music"
+    "lofi"
 
-    toggle_blur
-    toggle_oppacity
-    toggle_waybar
-    toggle_float
+    "toggle_blur"
+    "toggle_oppacity"
+    "toggle_waybar"
+    "toggle_float"
 
-    maxfetch
+    "maxfetch"
 
-    compress
-    extract
+    "compress"
+    "extract"
 
-    show-keybinds
+    "show-keybinds"
 
-    vm-start
+    "vm-start"
 
-    ascii
+    "ascii"
 
-    record
+    "record"
 
-    screenshot
+    "screenshot"
 
-    rofi-power-menu
-    power-menu
+    "rofi-power-menu"
+    "power-menu"
 
-    after_install
-    
-    pkgs.zenity                            # Gui Dialogs (used in scripts) 
+    "after_install"
+    "open_vim_cheat_sheet"
   ]
   ++ (if host == "iso" then [
-      make_install_partitions
-      install_config
-    ] else []);
+    "make_install_partitions"
+    "install_config"
+  ] else []))
+  ++ [
+    pkgs.zenity                            # Gui Dialogs (used in scripts) 
+  ];
 }

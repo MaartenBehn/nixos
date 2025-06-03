@@ -5,9 +5,11 @@
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    #package = inputs.hyprland.packages.${pkgs.system}.default;
-    #portalPackage =
-    #  inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    
+    # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
+    package = null;
+    portalPackage = null;
+
     xwayland = {
       enable = true;
       # hidpi = true;

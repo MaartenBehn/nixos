@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-if pgrep -x ".kitty-wrapped" > /dev/null
-  then killall .kitty-wrapped
+PID=$(hyprctl clients -j | jq '.[] | select(.class=="kitty_main") | .pid')
+
+if [ -z "${PID}" ];
+then 
+  hyprctl dispatch -- exec [maximize] 'kitty --class kitty_main' 
 else
-  hyprctl dispatch -- exec [maximize] kitty
+  kill $PID
 fi
