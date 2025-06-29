@@ -32,7 +32,7 @@
     nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise";
     nix-index="sh /home/$USER/nixos/update_nix_index.sh";
     nix-store-size="du -BM /nix/store/ | sort -n";
-    nix-search-local = "fd /nix -name";
+    nix-search-local = "fd /nix";
 
     nix-config="cd ~/nixos && nvim . && cd -";
 

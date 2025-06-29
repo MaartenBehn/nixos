@@ -76,10 +76,9 @@
 
     pix2tex = {
       url = "github:SimonYde/pix2tex.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-      };
+  };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, ... }@inputs:
 

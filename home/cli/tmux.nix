@@ -11,6 +11,7 @@
       # Enable scrolling
       set -g mouse on
       set -ga terminal-overrides ',*256color*:smcup@:rmcup@'
+      set-option -g history-limit 20000
 
       # For nvim 
       #set-option -sg escape-time 10
@@ -23,6 +24,11 @@
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
       set-option -sg escape-time 10
+
+      # For nvim images
+      set -gq allow-passthrough on
+      set -g visual-activity off
+      set-option -g focus-events on
     '' 
     + (if desktop == "hyprland" then ''
       # Waybar signal
