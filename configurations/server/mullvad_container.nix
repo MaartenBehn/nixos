@@ -2,7 +2,7 @@
 # skim this blog post:
 # https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
 networking.nat.enable = true;
-networking.nat.internalInterfaces = [ "ve-mullvad-vpn" ];
+networking.nat.internalInterfaces = [ "ve-*" ];
 
 # change this to your actual network interface (run ifconfig or ip a)
 networking.nat.externalInterface = "enp3s0f3u1";
