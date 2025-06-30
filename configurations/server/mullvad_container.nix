@@ -81,20 +81,5 @@ containers.mullvad-vpn = {
         ${pkgs.mullvad}/bin/mullvad connect
       '';
     };
-};
-
-# create a socks proxy on host port 1337
-services.autossh.sessions = [
-  {
-    name = "mullvad-socks-proxy";
-    user = "ubuntu";
-    extraArguments = "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -D 1337 -nNT root@192.168.100.11";
-  }
-];
-
-# hack to wait for mullvad-daemon to be ready before starting autossh
-systemd.services.autossh-mullvad-socks-proxy = {
-  serviceConfig.ExecStartPre = lib.mkBefore [
-    "+${pkgs.bash}/bin/bash -c 'until ${pkgs.openssh}/bin/ssh -i /home/ubuntu/.ssh/id_ed25519 -o ConnectTimeout=10 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@192.168.100.11 ping -c1 google.com; do ${pkgs.coreutils}/bin/sleep 1; done'"
-  ];
-};}
+  };
+}
