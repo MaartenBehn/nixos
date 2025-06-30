@@ -22,7 +22,7 @@ containers.mullvad-vpn = {
   privateNetwork = true;
 
   # these IP choices are arbitrary, copied from https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
-  hostAddress = "192.168.100.2";
+  hostAddress = "192.168.100.10";
   localAddress = "192.168.100.11";
 
   bindMounts = {
@@ -38,6 +38,7 @@ containers.mullvad-vpn = {
       hostPath = "/var/log/mullvad-vpn";
       isReadOnly = false;
     };
+
     "/media" = {
       hostPath = "/media";
       isReadOnly = false;
@@ -45,18 +46,9 @@ containers.mullvad-vpn = {
   };
 
   config =
-    { pkgs, ... }:
+    { pkgs, nix-version, ... }:
     {
-
-      # apparently need this for DNS to work
-      networking.useHostResolvConf = false;
-      services.resolved.enable = true;
-
-      services.openssh.enable = true;
-      users.users.root.openssh.authorizedKeys.keys = [
-        # replace with your actual public key
-        "ssh-ed25519 ...."
-      ];
+      system.stateVersion = nix-version;
 
       services.mullvad-vpn.enable = true;
       # each mullvad account login will generate a new "device" (wireguard key)
