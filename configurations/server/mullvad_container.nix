@@ -5,7 +5,7 @@ networking.nat.enable = true;
 networking.nat.internalInterfaces = [ "ve-mullvad-vpn" ];
 
 # change this to your actual network interface (run ifconfig or ip a)
-networking.nat.externalInterface = "enp3s0f3u";
+networking.nat.externalInterface = "enp3s0f3u1";
 
 # critical fix for mullvad-daemon to run in container, otherwise errors with: "EPERM: Operation not permitted"
 # It seems net_cls API filesystem is deprecated as it's part of cgroup v1. So it's not available by default on hosts using cgroup v2.
@@ -43,18 +43,22 @@ containers.mullvad-vpn = {
       hostPath = "/media";
       isReadOnly = false;
     };
-  };
+    };
 
-  config =
-    { pkgs, ... }:
-    {
-      system.stateVersion = nix-version;
+    config =
+      { pkgs, ... }:
+      {
+        system.stateVersion = nix-version;
 
-      services.mullvad-vpn.enable = true;
-      # each mullvad account login will generate a new "device" (wireguard key)
-      # and you're limited to 5 devices per account
-      # go to https://mullvad.net/en/account/devices to clear out old devices
-      systemd.services."mullvad-daemon".postStart = ''
+        # apparently need this for DNS to work
+        networking.useHostResolvConf = false;
+        services.resolved.enable = true;
+
+        services.mullvad-vpn.enable = true;
+        # each mullvad account login will generate a new "device" (wireguard key)
+        # and you're limited to 5 devices per account
+        # go to https://mullvad.net/en/account/devices to clear out old devices
+        systemd.services."mullvad-daemon".postStart = ''
         while ! ${pkgs.mullvad}/bin/mullvad status >/dev/null; do sleep 1; done
 
         # REPLACE with your actual mullvad account number
@@ -63,7 +67,7 @@ containers.mullvad-vpn = {
         # only login if we're not already logged in otherwise we'll get a new device
         current_account="$(${pkgs.mullvad}/bin/mullvad account get | grep "account:" | sed 's/.* //')"
         if [[ "$current_account" != "$account" ]]; then
-          ${pkgs.mullvad}/bin/mullvad account login "$account"
+        ${pkgs.mullvad}/bin/mullvad account login "$account"
         fi
 
         ${pkgs.mullvad}/bin/mullvad lan set allow
@@ -75,7 +79,9 @@ containers.mullvad-vpn = {
         ${pkgs.mullvad}/bin/mullvad disconnect
         sleep 0.1
         ${pkgs.mullvad}/bin/mullvad connect
-      '';
-    };
+        '';
+
+        };
+      };
   };
 }
