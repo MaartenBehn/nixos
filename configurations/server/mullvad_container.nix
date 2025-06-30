@@ -39,7 +39,15 @@
         isReadOnly = false;
       };
       "/.config/qBittorrent" = {
-        hostPath = "/etc/qBittorrent";
+        hostPath = "/etc/qBittorrent/config";
+        isReadOnly = false;
+      };
+      "/.local/share/qBittorrent/" = {
+        hostPath = "/etc/qBittorrent/local";
+        isReadOnly = false;
+      };
+      "/.cache/qBittorrent/" = {
+        hostPath = "/etc/qBittorrent/cache";
         isReadOnly = false;
       };
 
@@ -113,7 +121,12 @@
 
   system.activationScripts = {
     qbittorrent_conf_folder = {
-      text = "if [ ! -d /etc/qBittorrent ] ; then mkdir /etc/qBittorrent; fi";
+      text = ''
+        if [ ! -d /etc/qBittorrent ] ; then mkdir /etc/qBittorrent; fi
+        if [ ! -d /etc/qBittorrent/config ] ; then mkdir /etc/qBittorrent/config; fi
+        if [ ! -d /etc/qBittorrent/local ] ; then mkdir /etc/qBittorrent/local; fi
+        if [ ! -d /etc/qBittorrent/cache ] ; then mkdir /etc/qBittorrent/cache; fi
+      '';
       deps = [];
     };
   };
