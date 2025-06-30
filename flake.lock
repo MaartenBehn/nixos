@@ -1378,11 +1378,11 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1751059574,
-        "narHash": "sha256-IsAWpGYetqfBHyDsw1WhnBzMLRiuT4T18tdLBh0gVGw=",
+        "lastModified": 1751222307,
+        "narHash": "sha256-/KvDrGRuHo/s5Svp5WBd9VS5qW8doHwelSaajFWjJb0=",
         "owner": "MaartenBehn",
         "repo": "nixvim",
-        "rev": "6f7f7a877e0baec3444b85568c00c90d9ceb650e",
+        "rev": "78c4d693e86e60676ab2caf860efe1c8cdeb0824",
         "type": "github"
       },
       "original": {

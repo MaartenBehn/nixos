@@ -5,7 +5,6 @@
     ./gonme-text-editor.nix
     ./obsidian.nix
     ./thunderbird.nix
-    ./viewnior.nix
     ./unity.nix
     ./blender.nix
  ];
@@ -15,6 +14,7 @@
     mpv                               # simple video player
     evince                            # simple pdf viewer
     imv                               # simple image viewer
+    f3d                               # simple 3d model viewer
 
     xdg-utils
 
