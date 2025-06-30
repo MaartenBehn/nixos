@@ -38,6 +38,10 @@ fileSystems."/tmp/net_cls" = {
         hostPath = "/var/log/mullvad-vpn";
         isReadOnly = false;
       };
+      "/.config/qBittorrent" = {
+        hostPath = "/etc/qBittorrent";
+        isReadOnly = false;
+      };
 
       "/media" = {
         hostPath = "/media";
@@ -67,8 +71,7 @@ fileSystems."/tmp/net_cls" = {
         fi
 
         ${pkgs.mullvad}/bin/mullvad lan set allow
-        ${pkgs.mullvad}/bin/mullvad relay set location us sjc
-        ${pkgs.mullvad}/bin/mullvad lockdown-mode set on
+        #${pkgs.mullvad}/bin/mullvad relay set location us sjc
         ${pkgs.mullvad}/bin/mullvad auto-connect set on
 
         # disconnect/reconnect is dirty hack to fix mullvad-daemon not reconnecting after a suspend
