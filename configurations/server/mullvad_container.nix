@@ -103,4 +103,8 @@ fileSystems."/tmp/net_cls" = {
       }
     ];
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 8083 ];
+  }; 
 }
