@@ -59,6 +59,7 @@ fileSystems."/tmp/net_cls" = {
         # and you're limited to 5 devices per account
         # go to https://mullvad.net/en/account/devices to clear out old devices
         systemd.services."mullvad-daemon".postStart = ''
+        exit
         while ! ${pkgs.mullvad}/bin/mullvad status >/dev/null; do sleep 1; done
 
         # REPLACE with your actual mullvad account number
