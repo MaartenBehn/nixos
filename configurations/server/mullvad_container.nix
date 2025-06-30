@@ -81,6 +81,18 @@ containers.mullvad-vpn = {
         ${pkgs.mullvad}/bin/mullvad connect
         '';
 
+
+        systemd.services.qbittorrent-nox = {
+          path = with pkgs; [
+            qbittorrent-nox
+          ];
+          script = "qbittorrent-nox";
+          wantedBy = [ "network-online.target" ];
+		      after = [ "network.target" ];
+          serviceConfig.User = "stroby";
+        };
+
+
       };
   };
 }
