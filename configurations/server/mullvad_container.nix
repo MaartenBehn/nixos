@@ -89,7 +89,6 @@ containers.mullvad-vpn = {
           script = "qbittorrent-nox";
           wantedBy = [ "network-online.target" ];
 		      after = [ "network.target" ];
-          serviceConfig.User = "stroby";
         };
 
 
