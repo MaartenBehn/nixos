@@ -11,8 +11,8 @@
         user = "stroby";
         password = "Syncthing+240803";
       };
-      declarative.overrideDevices = false;
-      declarative.overrideFolders = false;
+      overrideDevices = false;
+      overrideFolders = false;
     };
   };
 
