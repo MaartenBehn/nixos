@@ -92,7 +92,6 @@ fileSystems."/tmp/net_cls" = {
         networking.defaultGateway.address = "192.168.10.1";
         networking.nameservers = [ "8.8.8.8" ];
         networking.firewall.allowedTCPPorts = [ 8080 ];
-        networking.useDHCP = false;      
 
         # apparently need this for DNS to work
         networking.useHostResolvConf = false;
