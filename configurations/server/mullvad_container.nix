@@ -81,7 +81,6 @@ containers.mullvad-vpn = {
         ${pkgs.mullvad}/bin/mullvad connect
         '';
 
-        };
       };
   };
 }
