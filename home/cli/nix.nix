@@ -30,7 +30,7 @@
 
     nix-update="cd /home/$USER/nixos/ && git add --all && nix flake update && cd -";
     nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise";
-    nix-index="sh /home/$USER/nixos/update_nix_index.sh";
+    nix-index="update_nix_index";
     nix-store-size="du -BM /nix/store/ | sort -n";
     nix-search-local = "fd /nix";
 
