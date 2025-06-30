@@ -40,7 +40,7 @@
 
         ./dlr_eden_postgress.nix
 
-        ./mullvad.nix
+        ./mullvad_gui.nix
       ] else [])
     ++ (if host == "desktop" then
       [
@@ -118,7 +118,7 @@
         ./server/filebrowser.nix
         ./server/minecraft.nix
         ./server/jellyfin.nix
-        ./mullvad.nix
+        ./mullvad_cli.nix
 
       ] else [])
     ++ (if host == "wsl" then
