@@ -115,6 +115,7 @@
         #./server/vscode_server.nix
         ./server/filebrowser.nix
         ./server/minecraft.nix
+        ./server/jellyfin.nix
       ] else [])
     ++ (if host == "wsl" then
       [
