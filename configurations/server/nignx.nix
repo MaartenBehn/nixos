@@ -62,5 +62,13 @@
           "www.notes.stroby.duckdns.org"
         ];
       });
+
+      "media.stroby.duckdns.org" = (SSL // {
+        locations."/".proxyPass = "http://127.0.0.1:8096/";
+
+        serverAliases = [
+          "www.media.stroby.duckdns.org"
+        ];
+      });
     };
 }
