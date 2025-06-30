@@ -1,20 +1,20 @@
 { pkgs, lib, nix-version, ... }: {
-# skim this blog post:
-# https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
-networking.nat.enable = true;
-networking.nat.internalInterfaces = [ "ve-mullvad-vpn" ];
+  # skim this blog post:
+  # https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
+  networking.nat.enable = true;
+  networking.nat.internalInterfaces = [ "ve-mullvad-vpn" ];
 
-# change this to your actual network interface (run ifconfig or ip a)
-networking.nat.externalInterface = "enp3s0f3u1";
+  # change this to your actual network interface (run ifconfig or ip a)
+  networking.nat.externalInterface = "enp3s0f3u1";
 
-# critical fix for mullvad-daemon to run in container, otherwise errors with: "EPERM: Operation not permitted"
-# It seems net_cls API filesystem is deprecated as it's part of cgroup v1. So it's not available by default on hosts using cgroup v2.
-# https://github.com/mullvad/mullvadvpn-app/issues/5408#issuecomment-1805189128
-fileSystems."/tmp/net_cls" = {
-  device = "net_cls";
-  fsType = "cgroup";
-  options = [ "net_cls" ];
-};
+  # critical fix for mullvad-daemon to run in container, otherwise errors with: "EPERM: Operation not permitted"
+  # It seems net_cls API filesystem is deprecated as it's part of cgroup v1. So it's not available by default on hosts using cgroup v2.
+  # https://github.com/mullvad/mullvadvpn-app/issues/5408#issuecomment-1805189128
+  fileSystems."/tmp/net_cls" = {
+    device = "net_cls";
+    fsType = "cgroup";
+    options = [ "net_cls" ];
+  };
 
   containers.mullvad-vpn = {
     ephemeral = true;
@@ -110,4 +110,11 @@ fileSystems."/tmp/net_cls" = {
   };
 
   networking.firewall.allowedTCPPorts = [ 8083 ];
+
+  system.activationScripts = {
+    qbittorrent_conf_folder = {
+      text = "if [ ! -d /etc/qBittorrent ] ; then mkdir /etc/qBittorrent; fi";
+      deps = [];
+    };
+  };
 }
