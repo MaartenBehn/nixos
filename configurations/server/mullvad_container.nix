@@ -22,8 +22,8 @@ fileSystems."/tmp/net_cls" = {
     privateNetwork = true;
 
     # these IP choices are arbitrary, copied from https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
-    hostAddress = "192.168.100.10";
-    localAddress = "192.168.100.11";
+    hostAddress = "192.168.10.1";
+    localAddress = "192.168.10.2";
 
     bindMounts = {
       "/etc/mullvad-vpn" = {
@@ -49,10 +49,6 @@ fileSystems."/tmp/net_cls" = {
       { pkgs, ... }:
       {
         system.stateVersion = nix-version;
-
-        # apparently need this for DNS to work
-        networking.useHostResolvConf = false;
-        services.resolved.enable = true;
 
         services.mullvad-vpn.enable = true;
         # each mullvad account login will generate a new "device" (wireguard key)
@@ -93,7 +89,14 @@ fileSystems."/tmp/net_cls" = {
         };
 
 
+        networking.defaultGateway.address = "192.168.10.1";
+        networking.nameservers = [ "8.8.8.8" ];
         networking.firewall.allowedTCPPorts = [ 8080 ];
+        networking.useDHCP = false;      
+
+        # apparently need this for DNS to work
+        networking.useHostResolvConf = false;
+        services.resolved.enable = true;
       };
 
     forwardPorts = [
