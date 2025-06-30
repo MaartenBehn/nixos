@@ -74,7 +74,7 @@
             proxy_set_header X-Forwarded-Protocol $scheme;
             proxy_set_header X-Forwarded-Host $http_host;
 
-            proxy_buffering = off;
+            proxy_buffering off;
           '';
         };
 
