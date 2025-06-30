@@ -16,33 +16,33 @@ fileSystems."/tmp/net_cls" = {
   options = [ "net_cls" ];
 };
 
-containers.mullvad-vpn = {
-  ephemeral = true;
-  autoStart = true;
-  privateNetwork = true;
+  containers.mullvad-vpn = {
+    ephemeral = true;
+    autoStart = true;
+    privateNetwork = true;
 
-  # these IP choices are arbitrary, copied from https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
-  hostAddress = "192.168.100.10";
-  localAddress = "192.168.100.11";
+    # these IP choices are arbitrary, copied from https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
+    hostAddress = "192.168.100.10";
+    localAddress = "192.168.100.11";
 
-  bindMounts = {
-    "/etc/mullvad-vpn" = {
-      hostPath = "/etc/mullvad-vpn";
-      isReadOnly = false;
-    };
-    "/var/cache/mullvad-vpn" = {
-      hostPath = "/var/cache/mullvad-vpn";
-      isReadOnly = false;
-    };
-    "/var/log/mullvad-vpn" = {
-      hostPath = "/var/log/mullvad-vpn";
-      isReadOnly = false;
-    };
+    bindMounts = {
+      "/etc/mullvad-vpn" = {
+        hostPath = "/etc/mullvad-vpn";
+        isReadOnly = false;
+      };
+      "/var/cache/mullvad-vpn" = {
+        hostPath = "/var/cache/mullvad-vpn";
+        isReadOnly = false;
+      };
+      "/var/log/mullvad-vpn" = {
+        hostPath = "/var/log/mullvad-vpn";
+        isReadOnly = false;
+      };
 
-    "/media" = {
-      hostPath = "/media";
-      isReadOnly = false;
-    };
+      "/media" = {
+        hostPath = "/media";
+        isReadOnly = false;
+      };
     };
 
     config =
@@ -88,10 +88,19 @@ containers.mullvad-vpn = {
           ];
           script = "qbittorrent-nox";
           wantedBy = [ "network-online.target" ];
-		      after = [ "network.target" ];
+          after = [ "network.target" ];
         };
 
 
+
       };
+
+    forwardPorts = [
+      {
+        containerPort = 8083;
+        hostPort = 8080;
+        protocol = "tcp";
+      }
+    ];
   };
 }
