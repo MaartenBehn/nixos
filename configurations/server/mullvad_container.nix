@@ -26,6 +26,18 @@ containers.mullvad-vpn = {
   localAddress = "192.168.100.11";
 
   bindMounts = {
+    "/etc/mullvad-vpn" = {
+      hostPath = "/etc/mullvad-vpn";
+      isReadOnly = false;
+    };
+    "/var/cache/mullvad-vpn" = {
+      hostPath = "/var/cache/mullvad-vpn";
+      isReadOnly = false;
+    };
+    "/var/log/mullvad-vpn" = {
+      hostPath = "/var/log/mullvad-vpn";
+      isReadOnly = false;
+    };
     "/media" = {
       hostPath = "/media";
       isReadOnly = false;
