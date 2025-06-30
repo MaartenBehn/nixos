@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  systemd.services.vscode = {
+  systemd.services.qbittorrent-nox = {
     path = with pkgs; [
       qbittorrent-nox
     ];

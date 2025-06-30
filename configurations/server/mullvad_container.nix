@@ -26,16 +26,8 @@ containers.mullvad-vpn = {
   localAddress = "192.168.100.11";
 
   bindMounts = {
-    "/etc/mullvad-vpn" = {
-      hostPath = "/persist/etc/mullvad-vpn";
-      isReadOnly = false;
-    };
-    "/var/cache/mullvad-vpn" = {
-      hostPath = "/persist/var/cache/mullvad-vpn";
-      isReadOnly = false;
-    };
-    "/var/log/mullvad-vpn" = {
-      hostPath = "/persist/var/log/mullvad-vpn";
+    "/media" = {
+      hostPath = "/media";
       isReadOnly = false;
     };
   };
@@ -79,6 +71,8 @@ containers.mullvad-vpn = {
         ${pkgs.mullvad}/bin/mullvad disconnect
         sleep 0.1
         ${pkgs.mullvad}/bin/mullvad connect
+
+        ls "/media"
       '';
     };
   };
