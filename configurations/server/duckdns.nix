@@ -29,8 +29,9 @@ in {
     path = with pkgs; [
       bash
       curl
+      update_duckdns
     ];
-    script = update_duckdns;
+    script = "update_duckdns";
     startAt = "hourly";  
     wantedBy = [ "network-online.target" ];
   };
