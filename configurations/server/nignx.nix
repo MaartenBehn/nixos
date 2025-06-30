@@ -26,55 +26,66 @@
       enableACME = true;
       forceSSL = true;
     }; in {
-      "files.stroby.duckdns.org" = (SSL // {
-        locations."/".proxyPass = "http://127.0.0.1:8080/";
+    "files.stroby.duckdns.org" = (SSL // {
+      locations."/".proxyPass = "http://127.0.0.1:8080/";
 
-        serverAliases = [
-          "www.files.stroby.duckdns.org"
-        ];
-      });
+      serverAliases = [
+        "www.files.stroby.duckdns.org"
+      ];
+    });
 
-      "syncthing.stroby.duckdns.org" = (SSL // {
-        locations."/".proxyPass = "http://127.0.0.1:8384/";
+    "syncthing.stroby.duckdns.org" = (SSL // {
+      locations."/".proxyPass = "http://127.0.0.1:8384/";
 
-        serverAliases = [
-          "www.syncthing.stroby.duckdns.org"
-        ];
-      });
+      serverAliases = [
+        "www.syncthing.stroby.duckdns.org"
+      ];
+    });
 
-      "code.stroby.duckdns.org" = (SSL // {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8081/";
-          proxyWebsockets = true;
-        };
+    "code.stroby.duckdns.org" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8081/";
+        proxyWebsockets = true;
+      };
 
-        serverAliases = [
-          "www.code.stroby.duckdns.org"
-        ];
-      });
+      serverAliases = [
+        "www.code.stroby.duckdns.org"
+      ];
+    });
 
-      "notes.stroby.duckdns.org" = (SSL // {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8082/";
-        };
+    "notes.stroby.duckdns.org" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8082/";
+      };
 
-        serverAliases = [
-          "www.notes.stroby.duckdns.org"
-        ];
-      });
+      serverAliases = [
+        "www.notes.stroby.duckdns.org"
+      ];
+    });
 
-      "media.stroby.duckdns.org" = (SSL // {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:8096/";
-        };
+    "media.stroby.duckdns.org" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8096/";
+      };
 
-        locations."/socket" = {
-          proxyPass = "http://127.0.0.1:8096/";
-        };
+      locations."/socket" = {
+        proxyPass = "http://127.0.0.1:8096/";
+      };
 
-        serverAliases = [
-          "www.media.stroby.duckdns.org"
-        ];
-      });
-    };
+      serverAliases = [
+        "www.media.stroby.duckdns.org"
+      ];
+    });
+
+    "qbittorrent.stroby.duckdns.org" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://192.168.100.11:8080/";
+      };
+
+      serverAliases = [
+        "www.qbittorrent.stroby.duckdns.org"
+      ];
+    });
+
+  };
 }
