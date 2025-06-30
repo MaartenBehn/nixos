@@ -104,6 +104,7 @@
         ./monitor_cpu_temp.nix
         ./networking.nix
         ./battery.nix
+        ./keep_on_with_closed_lid.nix
 
         # Server
         ./server/duckdns.nix

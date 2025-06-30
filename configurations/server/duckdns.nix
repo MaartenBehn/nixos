@@ -22,9 +22,10 @@ then
 else
   echo "No IPV6: $IP6"
 fi
-  ''; 
+  '';
+
+
 in {
-  #Dynamic-DNS
   systemd.services.duckdns-updater = {
     path = with pkgs; [
       bash
