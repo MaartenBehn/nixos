@@ -119,7 +119,7 @@
         ./server/minecraft.nix
         ./server/jellyfin.nix
         
-        ./server/mullvad_cli.nix
+        ./server/mullvad_container.nix
         ./server/qbittorrent_nox.nix
 
       ] else [])
