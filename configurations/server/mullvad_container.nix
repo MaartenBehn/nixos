@@ -86,7 +86,7 @@ fileSystems."/tmp/net_cls" = {
           path = with pkgs; [
             qbittorrent-nox
           ];
-          script = "qbittorrent-nox";
+          script = "qbittorrent-nox --confirm-legal-notice";
           wantedBy = [ "network-online.target" ];
           after = [ "network.target" ];
         };
@@ -97,8 +97,8 @@ fileSystems."/tmp/net_cls" = {
 
     forwardPorts = [
       {
-        containerPort = 8083;
-        hostPort = 8080;
+        containerPort = 8080;
+        hostPort = 8083;
         protocol = "tcp";
       }
     ];
