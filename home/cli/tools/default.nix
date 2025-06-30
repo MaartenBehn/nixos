@@ -24,5 +24,6 @@
     presenterm                        # Terminal presentation tool
 
     qbittorrent
+    nft
   ]);
 }

@@ -118,7 +118,9 @@
         ./server/filebrowser.nix
         ./server/minecraft.nix
         ./server/jellyfin.nix
-        ./mullvad_cli.nix
+        
+        ./server/mullvad_cli.nix
+        ./server/qbittorrent_nox.nix
 
       ] else [])
     ++ (if host == "wsl" then
