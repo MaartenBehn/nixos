@@ -92,7 +92,7 @@ fileSystems."/tmp/net_cls" = {
         };
 
 
-
+        networking.firewall.allowedTCPPorts = [ 8080 ];
       };
 
     forwardPorts = [
@@ -104,7 +104,5 @@ fileSystems."/tmp/net_cls" = {
     ];
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [ 8083 ];
-  }; 
+  networking.firewall.allowedTCPPorts = [ 8083 ];
 }
