@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, nix-version, ... }: {
 # skim this blog post:
 # https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
 networking.nat.enable = true;
@@ -46,7 +46,7 @@ containers.mullvad-vpn = {
   };
 
   config =
-    { pkgs, nix-version, ... }:
+    { pkgs, ... }:
     {
       system.stateVersion = nix-version;
 
