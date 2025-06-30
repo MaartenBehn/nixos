@@ -39,6 +39,8 @@
         ./server/hotspot.nix 
 
         ./dlr_eden_postgress.nix
+
+        ./mullvad.nix
       ] else [])
     ++ (if host == "desktop" then
       [
@@ -116,6 +118,8 @@
         ./server/filebrowser.nix
         ./server/minecraft.nix
         ./server/jellyfin.nix
+        ./mullvad.nix
+
       ] else [])
     ++ (if host == "wsl" then
       [

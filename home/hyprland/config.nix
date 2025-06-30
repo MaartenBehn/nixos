@@ -9,6 +9,7 @@
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         
         "nm-applet &"
+        "mullvad-vpn &"
         "poweralertd -s &"
         "wl-clip-persist --clipboard both &"
         "wl-paste --watch cliphist store &"
@@ -303,6 +304,7 @@
         "move 0 0,title:^(Firefox — Sharing Indicator)$"
         "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
         "${if host == "laptop" then "move 55% 55%,title:^(Volume Control)$" else "move 35% 35%,title:^(Volume Control)$"}"
+        "move 100%-w-10 100%-h-10,title:^(Mullvad VPN)$"
       ];
 
       # windowrulev2

@@ -22,5 +22,7 @@
     pipes                             # terminal screensaver
 
     presenterm                        # Terminal presentation tool
+
+    qbittorrent
   ]);
 }

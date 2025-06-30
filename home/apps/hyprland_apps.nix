@@ -7,6 +7,7 @@
     ./thunderbird.nix
     ./unity.nix
     ./blender.nix
+    ./blender.nix
  ];
 
   home.packages = (with pkgs; [
