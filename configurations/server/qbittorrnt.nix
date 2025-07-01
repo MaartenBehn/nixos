@@ -22,8 +22,11 @@
   };
 
   systemd.services.qbittorrent-nox = {
-    enable = true;
-    vpnNamespace = "wg";
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "wg";
+    };
+
     path = with pkgs; [
       qbittorrent-nox
     ];
