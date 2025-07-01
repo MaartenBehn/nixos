@@ -88,16 +88,10 @@
         ${pkgs.mullvad}/bin/mullvad connect
         '';
 
-
-        systemd.services.qbittorrent-nox = {
-          path = with pkgs; [
-            qbittorrent-nox
-          ];
-          script = "qbittorrent-nox --confirm-legal-notice";
-          wantedBy = [ "network-online.target" ];
-          after = [ "network.target" ];
+        services.deluge = {
+          enable = true;
+          web.enable = true;
         };
-
 
         networking.defaultGateway.address = "192.168.10.1";
         networking.nameservers = [ "8.8.8.8" ];
