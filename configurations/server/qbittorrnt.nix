@@ -11,7 +11,7 @@
     ];
     portMappings = [
       { 
-        from = 8080;
+        from = 8083;
         to = 8083;
       }
     ];
