@@ -79,9 +79,7 @@
 
     "qbittorrent.stroby.duckdns.org" = (SSL // {
       locations."/" = {
-        proxyPass = "http://192.168.10.1:8083/";
-        proxyWebsockets = true;
-        
+        proxyPass = "http://192.168.10.1:8083/"; 
       };
 
       serverAliases = [

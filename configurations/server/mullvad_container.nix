@@ -86,14 +86,18 @@
         ${pkgs.mullvad}/bin/mullvad disconnect
         sleep 0.1
         ${pkgs.mullvad}/bin/mullvad connect
-
-        qbittorrent-nox -d
         '';
 
-        environment.systemPackages = with pkgs; [
-          qbittorrent-nox
-          btop
-        ]; 
+
+        systemd.services.qbittorrent-nox = {
+          path = with pkgs; [
+            qbittorrent-nox
+          ];
+          script = "qbittorrent-nox --confirm-legal-notice";
+          wantedBy = [ "network-online.target" ];
+          after = [ "network.target" ];
+        };
+
 
         networking.defaultGateway.address = "192.168.10.1";
         networking.nameservers = [ "8.8.8.8" ];
