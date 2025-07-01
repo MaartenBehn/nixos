@@ -6,6 +6,23 @@
 
   # change this to your actual network interface (run ifconfig or ip a)
   networking.nat.externalInterface = "enp3s0f3u1";
+  networking.nat.enableIPv6 = true;
+
+  networking = {
+    bridges.br0.interfaces = [ "eth0s31f6" ]; # Adjust interface accordingly
+
+    # Get bridge-ip with DHCP
+    useDHCP = false;
+    interfaces."br0".useDHCP = true;
+
+    # Set bridge-ip static
+    interfaces."br0".ipv4.addresses = [{
+      address = "192.168.100.3";
+      prefixLength = 24;
+    }];
+    defaultGateway = "192.168.100.1";
+    nameservers = [ "192.168.100.1" ];
+  };
 
   # critical fix for mullvad-daemon to run in container, otherwise errors with: "EPERM: Operation not permitted"
   # It seems net_cls API filesystem is deprecated as it's part of cgroup v1. So it's not available by default on hosts using cgroup v2.
@@ -17,13 +34,11 @@
   };
 
   containers.mullvad-vpn = {
-    ephemeral = true;
     autoStart = true;
     privateNetwork = true;
 
-    # these IP choices are arbitrary, copied from https://blog.beardhatcode.be/2020/12/Declarative-Nixos-Containers.html
-    hostAddress = "192.168.10.1";
-    localAddress = "192.168.10.2";
+    hostBridge = "br0";
+    localAddress = "192.168.100.5/24";
 
     bindMounts = {
       "/etc/mullvad-vpn" = {
@@ -97,22 +112,12 @@
           after = [ "network.target" ];
         };
 
-        networking.defaultGateway.address = "192.168.10.1";
-        networking.nameservers = [ "8.8.8.8" ];
         networking.firewall.allowedTCPPorts = [ 8080 ];
 
         # apparently need this for DNS to work
         networking.useHostResolvConf = false;
         services.resolved.enable = true;
       };
-
-    forwardPorts = [
-      {
-        containerPort = 8080;
-        hostPort = 8083;
-        protocol = "tcp";
-      }
-    ];
   };
 
   networking.firewall.allowedTCPPorts = [ 8083 ];
