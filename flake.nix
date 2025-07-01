@@ -74,10 +74,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pix2tex = {
-      url = "github:SimonYde/pix2tex.nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, ... }@inputs:

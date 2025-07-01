@@ -119,7 +119,8 @@
         ./server/minecraft.nix
         ./server/jellyfin.nix
         
-        ./server/mullvad_container.nix
+        #./server/mullvad_container.nix
+        ./server/qbittorrnt.nix
 
       ] else [])
     ++ (if host == "wsl" then
