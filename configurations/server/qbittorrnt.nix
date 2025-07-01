@@ -15,10 +15,10 @@
         to = 8083;
       }
     ];
-    openVPNPorts = [{
+    #openVPNPorts = [{
       #port = 60729;
       #protocol = "both";
-    }];
+    #}];
   };
 
   systemd.services.qbittorrent-nox = {
@@ -33,6 +33,7 @@
     script = "qbittorrent-nox --confirm-legal-notice";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
+    serviceConfig.User = "stroby";
   };
 
 }
