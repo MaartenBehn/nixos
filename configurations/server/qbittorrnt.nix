@@ -15,10 +15,10 @@
         to = 8083;
       }
     ];
-    #openVPNPorts = [{
-      #port = 60729;
-      #protocol = "both";
-    #}];
+    openVPNPorts = [{
+      port = 6758;
+      protocol = "both";
+    }];
   };
 
   systemd.services.qbittorrent-nox = {
