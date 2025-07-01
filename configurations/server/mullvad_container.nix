@@ -86,6 +86,8 @@
         ${pkgs.mullvad}/bin/mullvad disconnect
         sleep 0.1
         ${pkgs.mullvad}/bin/mullvad connect
+
+        qbittorrent-nox -d
         '';
 
         environment.systemPackages = with pkgs; [
