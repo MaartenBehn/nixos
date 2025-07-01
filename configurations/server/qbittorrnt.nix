@@ -1,6 +1,5 @@
 { pkgs, lib, config, vpn-confinement, ... }: {
   imports = [
-    vpn-confinement.nixosModules.default
   ];
  
   # Define VPN network namespace
