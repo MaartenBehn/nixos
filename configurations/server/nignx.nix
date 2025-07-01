@@ -81,11 +81,7 @@
       locations."/" = {
         proxyPass = "http://192.168.10.1:8083/";
         proxyWebsockets = true;
-        extraConfig = ''
-          proxy_set_header   Host               $proxy_host;
-          proxy_set_header   X-Forwarded-Host   $http_host;
-          proxy_set_header   X-Forwarded-Proto  $scheme;
-          '';
+        
       };
 
       serverAliases = [
