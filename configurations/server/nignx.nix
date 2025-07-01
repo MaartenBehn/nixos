@@ -85,7 +85,6 @@
           proxy_set_header   Host               $proxy_host;
           proxy_set_header   X-Forwarded-Host   $http_host;
           proxy_set_header   X-Forwarded-Proto  $scheme;
-          proxy_cookie_path  /                  "/; Secure";
           '';
       };
 
