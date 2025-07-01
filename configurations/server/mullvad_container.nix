@@ -93,7 +93,7 @@
           path = with pkgs; [
             qbittorrent-nox
           ];
-          script = "qbittorrent-nox --confirm-legal-notice";
+          script = "qbittorrent-nox -d --confirm-legal-notice";
           wantedBy = [ "network-online.target" ];
           after = [ "network.target" ];
         };
