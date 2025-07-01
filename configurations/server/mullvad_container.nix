@@ -88,14 +88,18 @@
         ${pkgs.mullvad}/bin/mullvad connect
         '';
 
-        services.deluge = {
-          enable = true;
-          web.enable = true;
+        systemd.services.qbittorrent-nox = {
+          path = with pkgs; [
+            qbittorrent-nox
+          ];
+          script = "qbittorrent-nox --confirm-legal-notice";
+          wantedBy = [ "network-online.target" ];
+          after = [ "network.target" ];
         };
 
         networking.defaultGateway.address = "192.168.10.1";
         networking.nameservers = [ "8.8.8.8" ];
-        networking.firewall.allowedTCPPorts = [ 8112 ];
+        networking.firewall.allowedTCPPorts = [ 8080 ];
 
         # apparently need this for DNS to work
         networking.useHostResolvConf = false;
@@ -104,7 +108,7 @@
 
     forwardPorts = [
       {
-        containerPort = 8112;
+        containerPort = 8080;
         hostPort = 8083;
         protocol = "tcp";
       }
