@@ -95,7 +95,7 @@
 
         networking.defaultGateway.address = "192.168.10.1";
         networking.nameservers = [ "8.8.8.8" ];
-        networking.firewall.allowedTCPPorts = [ 8080 ];
+        networking.firewall.allowedTCPPorts = [ 8112 ];
 
         # apparently need this for DNS to work
         networking.useHostResolvConf = false;
@@ -104,7 +104,7 @@
 
     forwardPorts = [
       {
-        containerPort = 8080;
+        containerPort = 8112;
         hostPort = 8083;
         protocol = "tcp";
       }
