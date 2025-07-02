@@ -9,7 +9,6 @@
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         
         "nm-applet &"
-        "mullvad-vpn &"
         "poweralertd -s &"
         "wl-clip-persist --clipboard both &"
         "wl-paste --watch cliphist store &"
