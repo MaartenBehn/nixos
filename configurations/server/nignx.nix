@@ -87,5 +87,14 @@
       ];
     });
 
+    "jackett.stroby.duckdns.org" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:9117/"; 
+      };
+
+      serverAliases = [
+        "www.jackett.stroby.duckdns.org"
+      ];
+    });
   };
 }

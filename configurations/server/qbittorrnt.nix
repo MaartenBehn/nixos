@@ -14,6 +14,10 @@
         from = 8083;
         to = 8083;
       }
+      { 
+        from = 9117;
+        to = 9117;
+      }
     ];
     openVPNPorts = [{
       port = 6758;
