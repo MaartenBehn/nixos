@@ -38,7 +38,7 @@
     ];
     script = "
     curl curl ipinfo.io;
-    jackett &;
+    & jackett;
     qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "network-online.target" ];
