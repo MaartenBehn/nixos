@@ -13,7 +13,7 @@
     allowUnsupportedSystem = true;
   };
 
-  home-manager.backupFileExtension = "backup-1";
+  home-manager.backupFileExtension = "backup-2";
 
   documentation.nixos.enable = false;
   documentation.man.generateCaches = false;
