@@ -1,6 +1,6 @@
-{ user, ... }: {
+{ username, ... }: {
   home.file = { 
-    "/home/${user}/.local/share/qBittorrent/nova3/engines/jackett.json" = { 
+    "/home/${username}/.local/share/qBittorrent/nova3/engines/jackett.json" = { 
       text = ''
 {
   "api_key": "mgikmiiem80zmtyecv8xusz9twqxsmzl",
@@ -12,7 +12,7 @@
       executable = false; 
     };
 
-    "/home/${user}/.config/qBittorrent/qBittorrent.conf" = { 
+    "/home/${username}/.config/qBittorrent/qBittorrent.conf" = { 
       text = ''
 [Application]
 FileLogger\Age=1
