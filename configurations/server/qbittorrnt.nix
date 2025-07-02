@@ -29,8 +29,12 @@
 
     path = with pkgs; [
       qbittorrent-nox
+      curl
     ];
-    script = "qbittorrent-nox --confirm-legal-notice";
+    script = "
+    curl http://ipecho.net/plain; 
+    qbittorrent-nox --confirm-legal-notice;
+    ";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
     serviceConfig.User = "stroby";
