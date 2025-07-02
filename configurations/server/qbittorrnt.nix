@@ -32,7 +32,7 @@
       curl
     ];
     script = "
-    curl http://ipecho.net/plain; 
+    curl curl ipinfo.io; 
     qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "network-online.target" ];
