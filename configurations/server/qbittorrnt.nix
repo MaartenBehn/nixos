@@ -33,12 +33,10 @@
 
     path = with pkgs; [
       qbittorrent-nox
-      jackett
       curl
     ];
     script = "
     curl curl ipinfo.io;
-    & jackett;
     qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "network-online.target" ];
