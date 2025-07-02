@@ -66,10 +66,12 @@
     "media.stroby.duckdns.org" = (SSL // {
       locations."/" = {
         proxyPass = "http://127.0.0.1:8096/";
+        proxyWebsockets = true;
       };
 
       locations."/socket" = {
         proxyPass = "http://127.0.0.1:8096/";
+        proxyWebsockets = true;
       };
 
       serverAliases = [
