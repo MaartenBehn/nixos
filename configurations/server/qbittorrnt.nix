@@ -44,4 +44,24 @@
     serviceConfig.User = "stroby";
   };
 
+  systemd.services.jackett = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "wg";
+    };
+
+    path = with pkgs; [
+      curl
+      jackett
+    ];
+    script = "
+    curl curl ipinfo.io;
+    jackett;
+    ";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
+    serviceConfig.User = "stroby";
+  };
+
+
 }
