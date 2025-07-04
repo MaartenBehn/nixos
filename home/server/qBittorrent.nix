@@ -13,6 +13,7 @@
     };
 
     "/home/${username}/.config/qBittorrent/qBittorrent.conf" = { 
+      force = true;
       text = ''
 [Application]
 FileLogger\Age=1
