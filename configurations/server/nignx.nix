@@ -68,7 +68,6 @@
         proxyPass = "http://127.0.0.1:8096/";
         proxyWebsockets = true;
         
-        recommendedGzipSettings = false;
         recommendedOptimisation = false;
         recommendedProxySettings = false;
         recommendedTlsSettings = false;
@@ -90,13 +89,11 @@
         proxyPass = "http://127.0.0.1:8096/";
         proxyWebsockets = true;
 
-        recommendedGzipSettings = false;
         recommendedOptimisation = false;
         recommendedProxySettings = false;
         recommendedTlsSettings = false;
 
         extraConfig = ''
-          proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "upgrade";
           proxy_set_header Host $host;
