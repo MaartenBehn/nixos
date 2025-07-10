@@ -87,7 +87,7 @@
       };
 
       locations."/socket" = {
-        proxyPass = "ws://127.0.0.1:8096/";
+        proxyPass = "http://127.0.0.1:8096/";
         proxyWebsockets = true;
 
         recommendedProxySettings = false;
