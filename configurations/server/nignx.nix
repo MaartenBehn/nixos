@@ -79,6 +79,23 @@
       ];
     });
 
+    "media_port" = (SSL // {
+      serverName = "0.0.0.0:8096";
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8096/";
+        proxyWebsockets = true;
+      };
+
+      locations."/socket" = {
+        proxyPass = "http://127.0.0.1:8096/";
+        proxyWebsockets = true;
+      };
+
+      serverAliases = [
+        "www.media.stroby.duckdns.org"
+      ];
+    });
+
     "qbittorrent.stroby.duckdns.org" = (SSL // {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8083/"; 

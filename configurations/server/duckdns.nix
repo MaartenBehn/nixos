@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: 
+{ pkgs, ... }: 
 let 
   update_duckdns = pkgs.writeShellScriptBin "update_duckdns" ''
 #!/usr/bin/env bash
