@@ -20,5 +20,4 @@
     wantedBy = [ "network-online.target" ];
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
-
 }
