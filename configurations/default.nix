@@ -121,6 +121,8 @@
         
         #./server/mullvad_container.nix
         ./server/qbittorrnt.nix
+        
+        ./server/gallery_demo.nix
 
       ] else [])
     ++ (if host == "wsl" then

@@ -107,9 +107,8 @@
       serverAliases = [
         "www.media.stroby.duckdns.org"
       ];
+    });
 
-          });
- 
     "qbittorrent.stroby.duckdns.org" = (SSL // {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8083/"; 
@@ -137,6 +136,14 @@
 
       serverAliases = [
         "www.jackett.stroby.duckdns.org"
+      ];
+    });
+
+    "gallery.stroby.duckdns.org" = (SSL // {
+      locations."/".proxyPass = "http://127.0.0.1:3003/";
+
+      serverAliases = [
+        "www.gallery.stroby.duckdns.org"
       ];
     });
   };
