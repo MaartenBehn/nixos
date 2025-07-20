@@ -141,7 +141,7 @@
 
     "gallery.stroby.duckdns.org" = (SSL // {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:3003/"; 
+        proxyPass = "http://127.0.0.1:8084/"; 
       };
 
       serverAliases = [
