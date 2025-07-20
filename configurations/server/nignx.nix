@@ -140,7 +140,7 @@
     });
 
     "gallery.stroby.duckdns.org" = (SSL // {
-      locations."/".proxyPass = "http://127.0.0.1:3003/";
+      root = "/home/stroby/dev/Gallery/Build";
 
       serverAliases = [
         "www.gallery.stroby.duckdns.org"
