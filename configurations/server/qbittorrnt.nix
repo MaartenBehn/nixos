@@ -1,7 +1,7 @@
-{ pkgs, vpn-confinement, ... }: { 
+{ pkgs, inputs, ... }: { 
   containers.private.config = {
     import = [
-      vpn-confinement.nixosModules.default
+      inputs.vpn-confinement.nixosModules.default
     ];
 
     # Define VPN network namespace
