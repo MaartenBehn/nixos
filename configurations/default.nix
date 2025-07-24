@@ -122,7 +122,7 @@
         ./server/gallery_demo.nix
          
         #./server/public_container.nix
-        ./server/qbittorrnt.nix
+        #./server/qbittorrnt.nix
         
       ] else [])
     ++ (if host == "wsl" then
