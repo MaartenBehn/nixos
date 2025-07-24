@@ -66,10 +66,10 @@
   };
 
   # Add systemd service to VPN network namespace
-  systemd.services.flaresolverr.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "wg";
-  };
+  #systemd.services.flaresolverr.vpnConfinement = {
+  #  enable = true;
+  #  vpnNamespace = "wg";
+  #};
 
   services.flaresolverr = {
     enable = true;
