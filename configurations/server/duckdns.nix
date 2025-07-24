@@ -26,15 +26,17 @@ fi
 
 
 in {
-  systemd.services.duckdns-updater = {
-    path = with pkgs; [
-      bash
-      curl
-      update_duckdns
-    ];
-    script = "update_duckdns";
-    startAt = "hourly";  
-    wantedBy = [ "network-online.target" ];
+  containers.public.config = {
+    systemd.services.duckdns-updater = {
+      path = with pkgs; [
+        bash
+        curl
+        update_duckdns
+      ];
+      script = "update_duckdns";
+      startAt = "hourly";  
+      wantedBy = [ "network-online.target" ];
+    };
+    systemd.timers.duckdns-updater.timerConfig.RandomizedDelaySec = "15m";
   };
-  systemd.timers.duckdns-updater.timerConfig.RandomizedDelaySec = "15m";
 }
