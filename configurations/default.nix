@@ -120,8 +120,8 @@
         #./server/jellyfin.nix
         
         
-        ./server/gallery_demo.nix
-        ./server/private_container.nix
+        ./server/public_containe.nix
+        ./server/qbittorrnt.nix
         
       ] else [])
     ++ (if host == "wsl" then

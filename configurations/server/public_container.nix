@@ -19,8 +19,7 @@
       system.stateVersion = nix-version;
 
       imports = [
-        inputs.vpn-confinement.nixosModules.default
-        ./qbittorrnt.nix
+        ./server/gallery_demo.nix
       ];
 
       environment.systemPackages = with pkgs; [
