@@ -90,7 +90,6 @@
         username = "stroby"; 
         terminal = "kitty";
         desktop = "hyprland";
-        domain = "stroby.ipv64.de";
       }
       {
         host = "desktop";
@@ -101,6 +100,7 @@
       {
         host = "asus";
         username = "stroby"; 
+        domains = [ "stroby.duckdns.org" "stroby.ipv64.de" ];
       }
       {
         host = "wsl";
@@ -111,7 +111,6 @@
         username = "stroby"; 
         terminal = "kitty";
         desktop = "hyprland";
-        domain = "stroby.duckdns.org";
       }
     ];
 
@@ -120,7 +119,6 @@
         (if config.host == "iso" then "iso" else   
         (if config.host == "wsl" then "wsl" else   
         "${config.username}-${config.host}")); 
-
   in   
   {
     # Generate configs

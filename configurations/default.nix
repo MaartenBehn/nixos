@@ -109,18 +109,18 @@
         ./keep_on_with_closed_lid.nix
 
         # Server
+        ./server/network.nix
         ./server/duckdns.nix
         ./server/ipv64.nix
-        ./server/network.nix
-        ./server/syncthing.nix
+        #./server/syncthing.nix
         #./server/obsidian_export.nix
         #./server/vscode_server.nix
-        ./server/filebrowser.nix
-        ./server/minecraft.nix
-        ./server/jellyfin.nix
+        #./server/filebrowser.nix
+        #./server/minecraft.nix
+        #./server/jellyfin.nix
         
         #./server/mullvad_container.nix
-        ./server/qbittorrnt.nix
+        #./server/qbittorrnt.nix
         
         ./server/gallery_demo.nix
         

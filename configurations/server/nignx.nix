@@ -1,4 +1,4 @@
-{ domain, ... }:
+{ ... }:
 {
   # SSL 
   security.acme = {

@@ -1,4 +1,4 @@
-{ domain, ... }:
+{ domains, ... }:
 {
   services.static-web-server = {
     enable = true;
@@ -6,13 +6,11 @@
     listen = "127.0.0.1:8084";
   };
 
-  services.nginx.virtualHosts = let
-    SSL = {
+  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
+    name = "gallery"; 
+    value = {
       enableACME = true;
       forceSSL = true;
-    }; in {
- 
-    "gallery.${domain}" = (SSL // {
       locations."/" = {
         proxyPass = "http://127.0.0.1:8084/"; 
       };
@@ -20,6 +18,6 @@
       serverAliases = [
         "www.gallery.${domain}"
       ];
-    });
-  };
+    };
+  }) domains);
 }
