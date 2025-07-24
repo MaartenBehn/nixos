@@ -26,6 +26,15 @@
           kids-ipad = ["ads" "adult"];
         };
       };
+
+      customDNS = {
+        customTTL = "1h";
+        mapping = {
+          "home" = [ "192.168.178.3" "2a00:1f:ef04:7301:3e59:650b:4c40:f405" ];
+          "stroby.duckdns.org" = [ "192.168.178.3" "2a00:1f:ef04:7301:3e59:650b:4c40:f405" ];
+          "stroby.ipv64.de" = [ "192.168.178.3" "2a00:1f:ef04:7301:3e59:650b:4c40:f405" ];
+        };
+      };
     };
   };
 }
