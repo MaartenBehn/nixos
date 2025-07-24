@@ -1,4 +1,4 @@
-{ pkgs, domain, ... }:
+{ pkgs, domains, ... }:
 {
   services.static-web-server = {
     enable = true;
@@ -21,20 +21,18 @@
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
 
-  services.nginx.virtualHosts = let
-    SSL = {
+  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
+    name = "notes.${domain}"; 
+    value = {
       enableACME = true;
       forceSSL = true;
-    }; in {
-      
-    "notes.${domain}" = (SSL // {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8082/";
+        proxyPass = "http://127.0.0.1:8082/"; 
       };
 
       serverAliases = [
         "www.notes.${domain}"
       ];
-    });
-  };
+    };
+  }) domains);
 }

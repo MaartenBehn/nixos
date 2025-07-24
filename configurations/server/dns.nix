@@ -1,6 +1,4 @@
 { domains, ... }: {
-  networking.nameservers = [ "127.0.0.1" "1.1.1.1" ];
-
   services.dnsmasq = {
     enable = true;
     alwaysKeepRunning = true;
