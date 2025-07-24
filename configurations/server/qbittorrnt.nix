@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }: { 
   containers.private.config = {
-    import = [
+    imports = [
       inputs.vpn-confinement.nixosModules.default
     ];
 
