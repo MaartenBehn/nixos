@@ -90,6 +90,7 @@
         username = "stroby"; 
         terminal = "kitty";
         desktop = "hyprland";
+        domain = "stroby.ipv64.de";
       }
       {
         host = "desktop";
@@ -110,6 +111,7 @@
         username = "stroby"; 
         terminal = "kitty";
         desktop = "hyprland";
+        domain = "stroby.duckdns.org";
       }
     ];
 
@@ -139,6 +141,7 @@
             system_name = mkSystemName config;
             terminal = (add_optional "terminal" config null);
             desktop = (add_optional "desktop" config null);
+            domain = (add_optional "domain" config null);
 
             add_optional = add_optional;
           };
@@ -163,6 +166,7 @@
                 system_name = mkSystemName config;
                 terminal = (add_optional "terminal" config null);
                 desktop = (add_optional "desktop" config null);
+                domain = (add_optional "domain" config null);
                 
                 add_optional = add_optional;
               };

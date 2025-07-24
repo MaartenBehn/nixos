@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, domain, ... }: {
   systemd.services.filebrowser = {
     path = with pkgs; [
       filebrowser
@@ -9,7 +9,19 @@
 		after = [ "network.target" ];
   };
 
-  
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+    "files.${domain}" = (SSL // {
+      locations."/".proxyPass = "http://127.0.0.1:8080/";
+
+      serverAliases = [
+        "www.files.${domain}"
+      ];
+    });
+  };
 }
 
 

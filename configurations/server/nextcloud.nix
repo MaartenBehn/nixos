@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, domain, ... }:
 {
   imports = [
   "${fetchTarball {
@@ -16,12 +16,12 @@
  
   services = {
     nginx.virtualHosts = {
-       "cloud.stroby.duckdns.org" = {
+       "cloud.${domain}" = {
          forceSSL = true;
          enableACME = true;
        };
 
-      #"onlyoffice.stroby.duckdns.org" = {
+      #"onlyoffice.${domain}" = {
       #  forceSSL = true;
       #  enableACME = true;
       #};
@@ -29,7 +29,7 @@
 
     nextcloud = {
       enable = true;
-      hostName = "cloud.stroby.duckdns.org";
+      hostName = "cloud.${domain}";
 
        # Need to manually increment with every major upgrade.
       package = pkgs.nextcloud30;
@@ -77,7 +77,7 @@
 
     #onlyoffice = {
     #  enable = true;
-    #  hostname = "onlyoffice.stroby.duckdns.org";
+    #  hostname = "onlyoffice.${domain}";
     #};
   };
 

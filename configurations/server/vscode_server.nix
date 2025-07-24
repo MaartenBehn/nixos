@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, domain, ... }: {
 
   networking.firewall = {
     allowedTCPPorts = [ 44820 ];
@@ -15,6 +15,24 @@
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
     serviceConfig.User = "stroby";
+  };
+
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+     
+    "code.${domain}" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8081/";
+        proxyWebsockets = true;
+      };
+
+      serverAliases = [
+        "www.code.${domain}"
+      ];
+    });
   };
 }
 

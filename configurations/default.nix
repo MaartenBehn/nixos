@@ -110,7 +110,7 @@
 
         # Server
         ./server/duckdns.nix
-        ./server/static_ip.nix
+        ./server/ipv64.nix
         ./server/network.nix
         ./server/syncthing.nix
         #./server/obsidian_export.nix

@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, domain, ... }:
 {
   services.static-web-server = {
     enable = true;
@@ -20,4 +20,21 @@
     wantedBy = [ "network-online.target" ];
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
+
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+      
+    "notes.${domain}" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8082/";
+      };
+
+      serverAliases = [
+        "www.notes.${domain}"
+      ];
+    });
+  };
 }

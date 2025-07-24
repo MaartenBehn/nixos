@@ -1,4 +1,4 @@
-{ pkgs, lib, config, vpn-confinement, ... }: {
+{ pkgs, domain, ... }: {
   imports = [
   ];
  
@@ -75,5 +75,42 @@
 
   services.flaresolverr = {
     enable = true;
+  };
+
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+
+    "qbittorrent.${domain}" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:8083/"; 
+      };
+
+      serverAliases = [
+        "www.qbittorrent.${domain}"
+      ];
+    });
+
+    "jackett.${domain}" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:9117/"; 
+      };
+
+      serverAliases = [
+        "www.jackett.${domain}"
+      ];
+    });
+
+    "flaresolverr.${domain}" = (SSL // {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:8191/"; 
+      };
+
+      serverAliases = [
+        "www.jackett.${domain}"
+      ];
+    });
   };
 }

@@ -1,4 +1,4 @@
-{ ... }:
+{ domain, ... }:
 {
   services = {
     syncthing = {
@@ -22,4 +22,19 @@
    # source: https://docs.syncthing.net/users/firewall.html
    networking.firewall.allowedTCPPorts = [ 22000 ];
    networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+
+  services.nginx.virtualHosts = let
+    SSL = {
+      enableACME = true;
+      forceSSL = true;
+    }; in {
+    
+    "syncthing.${domain}" = (SSL // {
+      locations."/".proxyPass = "http://127.0.0.1:8384/";
+
+      serverAliases = [
+        "www.syncthing.${domain}"
+      ];
+    });
+  };
 }
