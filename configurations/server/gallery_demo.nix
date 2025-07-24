@@ -7,7 +7,7 @@
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "gallery"; 
+    name = "gallery.${domain}"; 
     value = {
       enableACME = true;
       forceSSL = true;
