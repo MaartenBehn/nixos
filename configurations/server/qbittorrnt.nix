@@ -41,8 +41,8 @@
     curl curl ipinfo.io;
     qbittorrent-nox --confirm-legal-notice;
     ";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
     serviceConfig.User = "stroby";
   };
 
@@ -60,8 +60,8 @@
     curl curl ipinfo.io;
     jackett;
     ";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
     serviceConfig.User = "stroby";
   };
 
