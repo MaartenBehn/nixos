@@ -1,11 +1,5 @@
 { pkgs, vpn-confinement, ... }: {
- ... }: {
-  containers.private.config = {
-    import = [
-      vpn-confinement.nixosModules.default
-    ];
-
-    # Define VPN network namespace
+  # Define VPN network namespace
     vpnNamespaces.wg = {
       enable = true;
       wireguardConfigFile = /home/stroby/.config/wireguard/mullvad.conf;
@@ -32,6 +26,7 @@
       }];
     };
 
+  containers.private.config = {
     systemd.services.qbittorrent-nox = {
       vpnConfinement = {
         enable = true;

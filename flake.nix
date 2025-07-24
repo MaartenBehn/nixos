@@ -171,6 +171,7 @@
             }
 
             solaar.nixosModules.default
+            vpn-confinement.nixosModules.default
           ];
         };
       } ) configs);
