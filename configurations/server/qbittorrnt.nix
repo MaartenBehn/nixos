@@ -1,5 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, vpn-confinement, ... }: {
+ ... }: {
   containers.private.config = {
+    import = [
+      vpn-confinement.nixosModules.default
+    ];
+
     # Define VPN network namespace
     vpnNamespaces.wg = {
       enable = true;
