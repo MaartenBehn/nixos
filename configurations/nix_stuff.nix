@@ -17,8 +17,7 @@
 
   documentation.nixos.enable = false;
   documentation.man.generateCaches = false;
-
-  
+ 
   nixpkgs.config.permittedInsecurePackages = [
     "ventoy-1.1.05"
   ];
