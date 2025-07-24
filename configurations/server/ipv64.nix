@@ -2,6 +2,7 @@
 let 
   update_ipv64 = pkgs.writeShellScriptBin "update_ipv64" ''
 #!/usr/bin/env bash
+sleep 10
 curl "https://ipv64.net/nic/update?key=RP256hHTkX7nSozZsjq4LlIxvbGdOyfJ"
 '';
 
