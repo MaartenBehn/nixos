@@ -1,4 +1,4 @@
-{ username, domain, ... }: {
+{ username, ... }: {
   home.file = { 
     "/home/${username}/.local/share/qBittorrent/nova3/engines/jackett.json" = { 
       text = ''
@@ -6,7 +6,7 @@
   "api_key": "mgikmiiem80zmtyecv8xusz9twqxsmzl",
   "thread_count": 20,
   "tracker_first": false,
-  "url": "https://jackett.${domain}"
+  "url": "http://jackett.home"
 }
       ''; 
       executable = false; 
