@@ -5,7 +5,8 @@
     settings = {
       interface="enp3s0f3u1";
       listen-address = [ "127.0.0.1" ];
-
+      no-resolv = true;
+      no-hosts = true;
       server = [ 
         "1.1.1.1" 
         "8.8.8.8" 
