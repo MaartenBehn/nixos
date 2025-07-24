@@ -172,8 +172,6 @@
 
             solaar.nixosModules.default
             vpn-confinement.nixosModules.default
-            linger.nixosModules.${system}.default
-            pihole.nixosModules.${system}.default
           ];
         };
       } ) configs);
