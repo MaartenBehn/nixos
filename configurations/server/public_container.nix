@@ -19,7 +19,7 @@
       system.stateVersion = nix-version;
 
       imports = [
-        ./server/gallery_demo.nix
+        ./gallery_demo.nix
       ];
 
       environment.systemPackages = with pkgs; [
