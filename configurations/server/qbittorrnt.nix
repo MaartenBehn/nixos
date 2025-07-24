@@ -75,13 +75,9 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts = let
-    SSL = {
-      enableACME = false;
-      forceSSL = false;
-    }; in {
+  services.nginx.virtualHosts = {
 
-    "qbittorrent.home" = (SSL // {
+    "qbittorrent.home" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8083/"; 
       };
@@ -89,9 +85,9 @@
       serverAliases = [
         "www.qbittorrent.home"
       ];
-    });
+    };
 
-    "jackett.home" = (SSL // {
+    "jackett.home" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:9117/"; 
       };
@@ -99,9 +95,9 @@
       serverAliases = [
         "www.jackett.home"
       ];
-    });
+    };
 
-    "flaresolverr.home" = (SSL // {
+    "flaresolverr.home" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8191/"; 
       };
@@ -109,6 +105,6 @@
       serverAliases = [
         "www.jackett.home"
       ];
-    });
+    };
   };
 }
