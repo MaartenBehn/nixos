@@ -9,6 +9,7 @@
       ];
       address = (builtins.map (domain: "/${domain}/192.168.172.2") domains) ++ [
         "/fritz.box/192.168.172.1"
+        "/media.stroby.ipv64.de/192.168.172.2"
       ];
     };
   };
