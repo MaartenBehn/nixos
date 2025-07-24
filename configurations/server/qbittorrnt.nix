@@ -3,11 +3,7 @@
     imports = [
       inputs.vpn-confinement.nixosModules.default
     ];
-
-    environment.systemPackages = with pkgs; [
-      btop 
-    ];
-
+ 
     # Define VPN network namespace
     vpnNamespaces.wg = {
       enable = true;

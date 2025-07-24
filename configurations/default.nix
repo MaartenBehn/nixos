@@ -119,9 +119,9 @@
         #./server/minecraft.nix
         #./server/jellyfin.nix
         
-        ./server/qbittorrnt.nix
         
         ./server/gallery_demo.nix
+        ./server/private_container.nix
         
       ] else [])
     ++ (if host == "wsl" then
