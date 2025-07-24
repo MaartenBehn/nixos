@@ -39,14 +39,21 @@
       networking.interfaces.mv-eth1 = {
         ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
       };
-    };
- 
-    services.nginx = {
-      enable = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
+
+      # SSL 
+      security.acme = {
+        acceptTerms = true;
+        defaults.email = "stroby241@gmail.com";
+      };
+
+      services.nginx = {
+        enable = true;
+        recommendedGzipSettings = true;
+        recommendedOptimisation = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+      };
+
     };
   };
 }
