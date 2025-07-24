@@ -41,6 +41,8 @@
         ./dlr_eden_postgress.nix
 
         ./mullvad_gui.nix
+        ./server/qbittorrnt.nix
+
       ] else [])
     ++ (if host == "desktop" then
       [
