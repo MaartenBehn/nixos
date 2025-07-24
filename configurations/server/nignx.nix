@@ -28,7 +28,7 @@
   };
   networking.interfaces.eth1.ipv4.addresses = lib.mkForce [];
   networking.interfaces.mv-eth1-host = {
-    ipv4.addresses = [ { address = "192.168.178.2"; prefixLength = 24; } ];
+    ipv4.addresses = [ { address = "192.168.178.3"; prefixLength = 24; } ];
   };
 
   containers.public-nginx = {
@@ -37,7 +37,7 @@
 
     config = {
       networking.interfaces.mv-eth1 = {
-        ipv4.addresses = [ { address = "192.168.178.3"; prefixLength = 24; } ];
+        ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
       };
     };
   };
