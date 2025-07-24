@@ -1,4 +1,4 @@
-{ pkgs, domain, ... }: {
+{ pkgs, domains, ... }: {
 
   networking.firewall = {
     allowedTCPPorts = [ 44820 ];
@@ -17,23 +17,20 @@
     serviceConfig.User = "stroby";
   };
 
-  services.nginx.virtualHosts = let
-    SSL = {
+  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
+    name = "code.${domain}"; 
+    value = {
       enableACME = true;
       forceSSL = true;
-    }; in {
-     
-    "code.${domain}" = (SSL // {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8081/";
-        proxyWebsockets = true;
+        proxyPass = "http://127.0.0.1:8081/"; 
       };
 
       serverAliases = [
         "www.code.${domain}"
       ];
-    });
-  };
+    };
+  }) domains);
 }
 
 /*
