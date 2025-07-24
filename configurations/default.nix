@@ -116,7 +116,7 @@
         ./server/ipv64.nix
         #./server/dns.nix
         ./server/syncthing.nix
-        ./server/obsidian_export.nix
+        #./server/obsidian_export.nix
         ./server/vscode_server.nix
         ./server/filebrowser.nix
         ./server/minecraft.nix
