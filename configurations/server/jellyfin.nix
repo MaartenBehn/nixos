@@ -7,7 +7,10 @@
   networking.firewall.allowedTCPPorts = [ 8096 ];
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "media.${domain}"; 
-    value = {
+    value = { 
+      enableACME = true;
+      forceSSL = true;
+
       locations."/" = {
         proxyPass = "http://127.0.0.1:8096/";
         #proxyWebsockets = true;
