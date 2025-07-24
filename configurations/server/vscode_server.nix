@@ -1,13 +1,11 @@
-{ pkgs, domains, ... }: {
+{ pkgs-2405, domains, ... }: {
 
   networking.firewall = {
     allowedTCPPorts = [ 44820 ];
   }; 
   
-  nixpkgs.config.allowBroken = true;
-  
   systemd.services.vscode = {
-    path = with pkgs; [
+    path = with pkgs-2405; [
       openvscode-server
       nix
     ];

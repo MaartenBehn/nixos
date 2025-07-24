@@ -2,6 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
+    nixpkgs-2405.url = "github:nixos/nixpkgs/release-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -77,10 +78,11 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };
   
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, vpn-confinement, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, plasma-manager, solaar, vpn-confinement, ... }@inputs:
 
   let 
     system = "x86_64-linux";
+    pkgs-2405 = nixpkgs-2405.legacyPackages.${system};
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     nix-version = "25.05";
 
@@ -133,6 +135,7 @@
             inherit nix-version;
             inherit system;
             inherit inputs;
+            inherit pkgs-2405;
             inherit pkgs-unstable;   
             username = config.username;
             host = config.host;
@@ -158,6 +161,7 @@
                 inherit nix-version;
                 inherit system;
                 inherit inputs;
+                inherit pkgs-2405;
                 inherit pkgs-unstable;
                 username = config.username;
                 host = config.host;
