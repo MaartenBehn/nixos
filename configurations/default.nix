@@ -112,6 +112,7 @@
         ./server/network.nix
         ./server/duckdns.nix
         ./server/ipv64.nix
+        ./server/dns.nix
         #./server/syncthing.nix
         #./server/obsidian_export.nix
         #./server/vscode_server.nix
