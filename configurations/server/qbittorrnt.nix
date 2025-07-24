@@ -41,8 +41,6 @@
     curl curl ipinfo.io;
     qbittorrent-nox --confirm-legal-notice;
     ";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "multi-user.target" ];
     serviceConfig.User = "stroby";
   };
 
