@@ -112,7 +112,7 @@
         ./server/network.nix
         ./server/duckdns.nix
         ./server/ipv64.nix
-        ./server/dns.nix
+        #./server/dns.nix
         ./server/syncthing.nix
         #./server/obsidian_export.nix
         #./server/vscode_server.nix
@@ -120,6 +120,7 @@
         ./server/minecraft.nix
         ./server/jellyfin.nix
         ./server/gallery_demo.nix
+        ./server/piehole.nix
          
         #./server/public_container.nix
         #./server/qbittorrnt.nix
