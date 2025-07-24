@@ -1,4 +1,4 @@
-{ lib, pkgs, nix-version, ... }:
+{ lib, pkgs, nix-version, inputs, ... }:
 { 
   # To be able to ping containers from the host, it is necessary
   # to create a macvlan on the host on the VLAN 1 network.
@@ -19,6 +19,7 @@
       system.stateVersion = nix-version;
 
       imports = [
+        inputs.vpn-confinement.nixosModules.default
         ./qbittorrnt.nix
       ];
 

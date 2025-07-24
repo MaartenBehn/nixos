@@ -1,8 +1,4 @@
-{ pkgs, inputs, ... }: { 
-  imports = [
-    inputs.vpn-confinement.nixosModules.default
-  ];
-
+{ pkgs, ... }: {  
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
