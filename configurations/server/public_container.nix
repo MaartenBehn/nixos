@@ -1,4 +1,4 @@
-{ lib, pkgs, nix-version, ... }:
+{ lib, pkgs, nix-version, domains, ... }:
 { 
   # To be able to ping containers from the host, it is necessary
   # to create a macvlan on the host on the VLAN 1 network.
@@ -15,7 +15,7 @@
     autoStart = true;
     macvlans = [ "enp3s0f3u1" ];
 
-    config = {...}: {
+    config = { domains, ... }: {
       system.stateVersion = nix-version;
 
       imports = [
