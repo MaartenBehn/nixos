@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  containers.private = {
+  containers.private.config = {
     # Define VPN network namespace
     vpnNamespaces.wg = {
       enable = true;
