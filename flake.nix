@@ -139,7 +139,7 @@
             system_name = mkSystemName config;
             terminal = (add_optional "terminal" config null);
             desktop = (add_optional "desktop" config null);
-            domain = (add_optional "domain" config null);
+            domains = (add_optional "domains" config null);
 
             add_optional = add_optional;
           };
@@ -164,7 +164,7 @@
                 system_name = mkSystemName config;
                 terminal = (add_optional "terminal" config null);
                 desktop = (add_optional "desktop" config null);
-                domain = (add_optional "domain" config null);
+                domains = (add_optional "domains" config null);
                 
                 add_optional = add_optional;
               };
