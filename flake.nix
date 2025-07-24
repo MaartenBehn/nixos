@@ -75,6 +75,22 @@
     };
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
+
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    # Required for making sure that Pi-hole continues running if the executing user has no active session.
+    linger = {
+      url = "github:mindsbackyard/linger-flake";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    pihole = {
+      url = "github:mindsbackyard/pihole-flake";
+      inputs.nixpkgs.follow = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.linger.follows = "linger";
+    };
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, vpn-confinement, ... }@inputs:
