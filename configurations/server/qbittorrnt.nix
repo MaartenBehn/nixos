@@ -74,37 +74,4 @@
   services.flaresolverr = {
     enable = true;
   };
-
-  services.nginx.virtualHosts = {
-
-    "qbittorrent.home" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8083/"; 
-      };
-
-      serverAliases = [
-        "www.qbittorrent.home"
-      ];
-    };
-
-    "jackett.home" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:9117/"; 
-      };
-
-      serverAliases = [
-        "www.jackett.home"
-      ];
-    };
-
-    "flaresolverr.home" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8191/"; 
-      };
-
-      serverAliases = [
-        "www.jackett.home"
-      ];
-    };
-  };
 }
