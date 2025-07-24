@@ -1,4 +1,4 @@
-{ lib, system, ... }:
+{ lib, nix-version, ... }:
 {
   # SSL 
   security.acme = {
@@ -36,7 +36,7 @@
     macvlans = [ "enp3s0f3u1" ];
 
     config = {
-      system.stateVersion = system;
+      system.stateVersion = nix-version;
       networking.interfaces.private-host = {
         ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
       };
