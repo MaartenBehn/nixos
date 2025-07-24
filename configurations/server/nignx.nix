@@ -20,9 +20,6 @@
     recommendedTlsSettings = true;
   };
 
-  virtualisation.memorySize = 256;
-  virtualisation.vlans = [ 1 ];
-
   # To be able to ping containers from the host, it is necessary
   # to create a macvlan on the host on the VLAN 1 network.
   networking.macvlans.mv-eth1-host = {
