@@ -119,8 +119,7 @@
         #./server/minecraft.nix
         #./server/jellyfin.nix
         
-        #./server/mullvad_container.nix
-        #./server/qbittorrnt.nix
+        ./server/qbittorrnt.nix
         
         ./server/gallery_demo.nix
         
