@@ -123,6 +123,7 @@
         ./server/jellyfin.nix
         ./server/gallery_demo.nix 
         ./server/qbittorrnt.nix
+        ./server/blocky.nix
         
       ] else [])
     ++ (if host == "wsl" then
