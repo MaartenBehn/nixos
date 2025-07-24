@@ -1,4 +1,4 @@
-{ ... }: {
+{ domains, ... }: {
   networking.nameservers = [ "127.0.0.1" ];
 
   services.dnsmasq = {
@@ -9,8 +9,7 @@
         "1.1.1.1" 
         "8.8.8.8" 
       ];
-      address = [
-        "/stroby.ipv64.de/192.168.172.21"
+      address = (builtins.map (domain: "/${domain}/192.168.172.2") domains) ++ [
         "/fritz.box/192.168.172.1"
       ];
     };
