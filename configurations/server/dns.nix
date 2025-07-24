@@ -16,7 +16,6 @@
         "/fritz.box/192.168.172.1"
       ];
       domain = [ "home" ];
-      local = [ "home" ];
     };
   };
   networking.firewall.allowedTCPPorts = [ 53 ];
