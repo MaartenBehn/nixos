@@ -109,9 +109,9 @@
         ./keep_on_with_closed_lid.nix
 
         # Server
-        #./server/network.nix
-        #./server/duckdns.nix
-        #./server/ipv64.nix
+        ./server/network.nix
+        ./server/duckdns.nix
+        ./server/ipv64.nix
         #./server/dns.nix
         #./server/syncthing.nix
         #./server/obsidian_export.nix
