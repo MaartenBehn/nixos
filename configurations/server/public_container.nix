@@ -21,6 +21,7 @@
       system.stateVersion = nix-version;
 
       imports = [
+        ./nignx.nix
         ./gallery_demo.nix
       ];
 
@@ -30,22 +31,7 @@
       
       networking.interfaces.private-host = {
         ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
-      };
-
-      # SSL 
-      security.acme = {
-        acceptTerms = true;
-        defaults.email = "stroby241@gmail.com";
-      };
-
-      services.nginx = {
-        enable = true;
-        recommendedGzipSettings = true;
-        recommendedOptimisation = true;
-        recommendedProxySettings = true;
-        recommendedTlsSettings = true;
-      };
-
+      }; 
     };
   };
 }

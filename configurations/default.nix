@@ -117,10 +117,11 @@
         #./server/vscode_server.nix
         #./server/filebrowser.nix
         #./server/minecraft.nix
-        #./server/jellyfin.nix
+        ./server/jellyfin.nix
+        ./server/gallery_demo.nix
         
         
-        ./server/public_container.nix
+        #./server/public_container.nix
         ./server/qbittorrnt.nix
         
       ] else [])
