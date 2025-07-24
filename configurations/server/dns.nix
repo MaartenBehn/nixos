@@ -7,6 +7,7 @@
       listen-address = [ "127.0.0.1" ];
       no-resolv = true;
       no-hosts = true;
+      expand-hosts = true;
       server = [ 
         "1.1.1.1" 
         "8.8.8.8" 
@@ -14,7 +15,8 @@
       address = (builtins.map (domain: "/${domain}/192.168.172.2") domains) ++ [
         "/fritz.box/192.168.172.1"
       ];
-      expand-hosts = true;
+      domain = [ "home" ];
+      local = [ "home" ];
     };
   };
   networking.firewall.allowedTCPPorts = [ 53 ];
