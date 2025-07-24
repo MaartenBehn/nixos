@@ -24,7 +24,7 @@
       # check the option description & the FTLDNS documentation for more information
       LOCAL_IPV4 = "192.168.178.2";
     };
-    piholeCOnfig.web = {
+    piholeConfig.web = {
       virtualHost = "pi.hole";
       password = "password";
     };
