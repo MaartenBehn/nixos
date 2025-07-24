@@ -1,116 +1,115 @@
-{ pkgs, domain, ... }: {
-  imports = [
-  ];
- 
-  # Define VPN network namespace
-  vpnNamespaces.wg = {
-    enable = true;
-    wireguardConfigFile = /home/stroby/.config/wireguard/mullvad.conf;
-    accessibleFrom = [
-      "192.168.0.0/24"
-    ];
-    portMappings = [
-      { 
-        from = 8083;
-        to = 8083;
-      }
-      { 
-        from = 9117;
-        to = 9117;
-      }
-      { 
-        from = 8191;
-        to = 8191;
-      }
-    ];
-    openVPNPorts = [{
-      port = 6758;
-      protocol = "both";
-    }];
-  };
-
-  systemd.services.qbittorrent-nox = {
-    vpnConfinement = {
+{ pkgs, ... }: {
+  containers.private = {
+    # Define VPN network namespace
+    vpnNamespaces.wg = {
       enable = true;
-      vpnNamespace = "wg";
+      wireguardConfigFile = /home/stroby/.config/wireguard/mullvad.conf;
+      accessibleFrom = [
+        "192.168.0.0/24"
+      ];
+      portMappings = [
+        { 
+          from = 8083;
+          to = 8083;
+        }
+        { 
+          from = 9117;
+          to = 9117;
+        }
+        { 
+          from = 8191;
+          to = 8191;
+        }
+      ];
+      openVPNPorts = [{
+        port = 6758;
+        protocol = "both";
+      }];
     };
 
-    path = with pkgs; [
-      qbittorrent-nox
-      curl
-    ];
-    script = "
+    systemd.services.qbittorrent-nox = {
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "wg";
+      };
+
+      path = with pkgs; [
+        qbittorrent-nox
+        curl
+      ];
+      script = "
     curl curl ipinfo.io;
     qbittorrent-nox --confirm-legal-notice;
     ";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
-    serviceConfig.User = "stroby";
-  };
+      wantedBy = [ "network-online.target" ];
+      after = [ "network.target" ];
+      serviceConfig.User = "stroby";
+    };
 
-  systemd.services.jackett = {
-    vpnConfinement = {
+    systemd.services.jackett = {
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "wg";
+      };
+
+      path = with pkgs; [
+        curl
+        jackett
+      ];
+      script = "
+    curl curl ipinfo.io;
+    jackett;
+    ";
+      wantedBy = [ "network-online.target" ];
+      after = [ "network.target" ];
+      serviceConfig.User = "stroby";
+    };
+
+    # Add systemd service to VPN network namespace
+    systemd.services.flaresolverr.vpnConfinement = {
       enable = true;
       vpnNamespace = "wg";
     };
 
-    path = with pkgs; [
-      curl
-      jackett
-    ];
-    script = "
-    curl curl ipinfo.io;
-    jackett;
-    ";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
-    serviceConfig.User = "stroby";
-  };
+    services.flaresolverr = {
+      enable = true;
+    };
 
-  # Add systemd service to VPN network namespace
-  systemd.services.flaresolverr.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "wg";
-  };
+    services.nginx.virtualHosts = let
+      SSL = {
+        enableACME = true;
+        forceSSL = true;
+      }; in {
 
-  services.flaresolverr = {
-    enable = true;
-  };
+      "qbittorrent.home" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://192.168.15.1:8083/"; 
+        };
 
-  services.nginx.virtualHosts = let
-    SSL = {
-      enableACME = true;
-      forceSSL = true;
-    }; in {
+        serverAliases = [
+          "www.qbittorrent.home"
+        ];
+      });
 
-    "qbittorrent.${domain}" = (SSL // {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8083/"; 
-      };
+      "jackett.home" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://192.168.15.1:9117/"; 
+        };
 
-      serverAliases = [
-        "www.qbittorrent.${domain}"
-      ];
-    });
+        serverAliases = [
+          "www.jackett.home"
+        ];
+      });
 
-    "jackett.${domain}" = (SSL // {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:9117/"; 
-      };
+      "flaresolverr.home" = (SSL // {
+        locations."/" = {
+          proxyPass = "http://192.168.15.1:8191/"; 
+        };
 
-      serverAliases = [
-        "www.jackett.${domain}"
-      ];
-    });
-
-    "flaresolverr.${domain}" = (SSL // {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8191/"; 
-      };
-
-      serverAliases = [
-        "www.jackett.${domain}"
-      ];
-    });
+        serverAliases = [
+          "www.jackett.home"
+        ];
+      });
+    };
   };
 }

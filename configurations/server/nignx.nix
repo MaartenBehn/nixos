@@ -13,7 +13,7 @@
   ];
 
   services.nginx = {
-    enable = false;
+    enable = true;
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
@@ -27,16 +27,16 @@
     mode = "bridge";
   };
   networking.interfaces.eth1.ipv4.addresses = lib.mkForce [];
-  networking.interfaces.mv-eth1-host = {
+  networking.interfaces.private-host = {
     ipv4.addresses = [ { address = "192.168.178.3"; prefixLength = 24; } ];
   };
 
-  containers.public = {
+  containers.private = {
     autoStart = true;
     macvlans = [ "enp3s0f3u1" ];
 
     config = {
-      networking.interfaces.mv-eth1 = {
+      networking.interfaces.private-host = {
         ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
       };
 
