@@ -14,8 +14,10 @@
   containers.public = {
     autoStart = true;
     macvlans = [ "enp3s0f3u1" ];
-
-    config = { domains, ... }: {
+    specialArgs = {
+      inherit domains;
+    };
+    config = {
       system.stateVersion = nix-version;
 
       imports = [
