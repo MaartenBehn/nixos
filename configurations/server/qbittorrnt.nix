@@ -77,8 +77,8 @@
 
   services.nginx.virtualHosts = let
     SSL = {
-      enableACME = true;
-      forceSSL = true;
+      enableACME = false;
+      forceSSL = false;
     }; in {
 
     "qbittorrent.home" = (SSL // {
