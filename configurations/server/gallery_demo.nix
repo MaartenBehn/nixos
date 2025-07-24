@@ -21,9 +21,8 @@
     };
   }) domains);
 
-  containers.public-nginx = {
+  containers.public-nginx.config = {
     
-
     services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
       name = "gallery.${domain}"; 
       value = {
