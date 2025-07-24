@@ -77,7 +77,7 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };
   
-  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, vpn-confinement, linger, pihole, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, plasma-manager, solaar, vpn-confinement, ... }@inputs:
 
   let 
     system = "x86_64-linux";
