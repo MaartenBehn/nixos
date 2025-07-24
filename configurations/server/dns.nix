@@ -9,7 +9,7 @@
         "1.1.1.1" 
         "8.8.8.8" 
       ];
-      address = (builtins.map (domain: "/${domain}/192.168.172.3") domains) ++ [
+      address = (builtins.map (domain: "/${domain}/192.168.172.2") domains) ++ [
         "/fritz.box/192.168.172.1"
       ];
     };
