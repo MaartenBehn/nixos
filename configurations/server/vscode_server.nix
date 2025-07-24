@@ -3,7 +3,9 @@
   networking.firewall = {
     allowedTCPPorts = [ 44820 ];
   }; 
-
+  
+  nixpkgs.config.allowBroken = true;
+  
   systemd.services.vscode = {
     path = with pkgs; [
       openvscode-server
