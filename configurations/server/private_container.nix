@@ -15,7 +15,7 @@
     autoStart = true;
     macvlans = [ "enp3s0f3u1" ];
 
-    config = {
+    config = { ... }: {
       system.stateVersion = nix-version;
 
       imports = [
