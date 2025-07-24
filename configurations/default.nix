@@ -120,7 +120,7 @@
         ./server/minecraft.nix
         ./server/jellyfin.nix
         ./server/gallery_demo.nix
-        ./server/piehole.nix
+        #./server/piehole.nix
          
         #./server/public_container.nix
         #./server/qbittorrnt.nix
