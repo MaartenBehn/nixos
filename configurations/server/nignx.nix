@@ -1,4 +1,4 @@
-{ lib, nix-version, ... }:
+{ lib, nix-version, pkgs, ... }:
 {
   # SSL 
   security.acme = {
@@ -37,6 +37,10 @@
 
     config = {
       system.stateVersion = nix-version;
+      environment.systemPackages = with pkgs; [
+        btop 
+      ];
+
       networking.interfaces.private-host = {
         ipv4.addresses = [ { address = "192.168.178.254"; prefixLength = 24; } ];
       };
