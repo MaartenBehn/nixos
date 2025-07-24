@@ -28,10 +28,10 @@
 
 
   systemd.services.qbittorrent-nox = {
-    vpnConfinement = {
-      enable = true;
-      vpnNamespace = "wg";
-    };
+    #vpnConfinement = {
+    #  enable = true;
+    #  vpnNamespace = "wg";
+    #};
 
     path = with pkgs; [
       qbittorrent-nox
@@ -41,14 +41,16 @@
     curl curl ipinfo.io;
     qbittorrent-nox --confirm-legal-notice;
     ";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
     serviceConfig.User = "stroby";
   };
 
   systemd.services.jackett = {
-    vpnConfinement = {
-      enable = true;
-      vpnNamespace = "wg";
-    };
+    #vpnConfinement = {
+    #  enable = true;
+    #  vpnNamespace = "wg";
+    #};
 
     path = with pkgs; [
       curl
@@ -58,14 +60,16 @@
     curl curl ipinfo.io;
     jackett;
     ";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
     serviceConfig.User = "stroby";
   };
 
   # Add systemd service to VPN network namespace
-  systemd.services.flaresolverr.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "wg";
-  };
+  #systemd.services.flaresolverr.vpnConfinement = {
+  #  enable = true;
+  #  vpnNamespace = "wg";
+  #};
 
   services.flaresolverr = {
     enable = true;
