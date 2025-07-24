@@ -11,7 +11,7 @@
     ipv4.addresses = [ { address = "192.168.178.3"; prefixLength = 24; } ];
   };
 
-  containers.private = {
+  containers.public = {
     autoStart = true;
     macvlans = [ "enp3s0f3u1" ];
 

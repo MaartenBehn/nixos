@@ -120,7 +120,7 @@
         #./server/jellyfin.nix
         
         
-        ./server/public_containe.nix
+        ./server/public_container.nix
         ./server/qbittorrnt.nix
         
       ] else [])
