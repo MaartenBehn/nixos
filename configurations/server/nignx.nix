@@ -23,7 +23,7 @@
   # To be able to ping containers from the host, it is necessary
   # to create a macvlan on the host on the VLAN 1 network.
   networking.macvlans.mv-eth1-host = {
-    interface = "eth1";
+    interface = "enp3s0f3u1";
     mode = "bridge";
   };
   networking.interfaces.eth1.ipv4.addresses = lib.mkForce [];
@@ -33,7 +33,7 @@
 
   containers.public-nginx = {
     autoStart = true;
-    macvlans = [ "eth1" ];
+    macvlans = [ "enp3s0f3u1" ];
 
     config = {
       networking.interfaces.mv-eth1 = {
