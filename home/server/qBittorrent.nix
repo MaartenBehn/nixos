@@ -6,7 +6,7 @@
   "api_key": "mgikmiiem80zmtyecv8xusz9twqxsmzl",
   "thread_count": 20,
   "tracker_first": false,
-  "url": "http://127.0.0.1:9117"
+  "url": "http://jackett.home"
 }
       ''; 
       executable = false; 
