@@ -6,7 +6,7 @@
     };
 
     enable = true;
-    openFirewall = true;
+    openFirewall = false;
   };
 
   services.nginx.virtualHosts = {

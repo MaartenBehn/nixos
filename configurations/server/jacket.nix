@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, local_domain, ... }: {
   systemd.services.jackett = {
     vpnConfinement = {
       enable = true;
@@ -27,6 +27,27 @@
     enable = true;
   };
 
+  services.nginx.virtualHosts = { 
+    "jackett.${local_domain}" = {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:9117/"; 
+      };
+
+      serverAliases = [
+        "www.jackett.${local_domain}"
+      ];
+    };
+
+    "flaresolverr.${local_domain}" = {
+      locations."/" = {
+        proxyPass = "http://192.168.15.1:8191/"; 
+      };
+
+      serverAliases = [
+        "www.jackett.${local_domain}"
+      ];
+    };
+  };
 
 
 }
