@@ -29,7 +29,7 @@
 
   systemd.services.qbittorrent-nox = {
     vpnConfinement = {
-      enable = true;
+      enable = false;
       vpnNamespace = "wg";
     };
 
