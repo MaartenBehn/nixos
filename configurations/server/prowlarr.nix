@@ -9,6 +9,15 @@
     vpnNamespace = "wg";
   };
 
+  vpnNamespaces.wg = {
+    portMappings = [
+      { 
+        from = 9696;
+        to = 9696;
+      }
+    ];
+  };
+
   services.nginx.virtualHosts = {
 
     "prowlarr.${local_domain}" = {

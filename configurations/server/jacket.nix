@@ -26,6 +26,19 @@
     enable = true;
   };
 
+  vpnNamespaces.wg = {
+    portMappings = [
+      { 
+        from = 9117;
+        to = 9117;
+      }
+      { 
+        from = 8191;
+        to = 8191;
+      }
+    ];
+  };
+
   services.nginx.virtualHosts = { 
     "jackett.${local_domain}" = {
       locations."/" = {

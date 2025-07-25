@@ -16,14 +16,6 @@
         from = 8083;
         to = 8083;
       }
-      { 
-        from = 9117;
-        to = 9117;
-      }
-      { 
-        from = 8191;
-        to = 8191;
-      }
     ];
     openVPNPorts = [{
       port = 11429;
@@ -64,26 +56,6 @@
 
       serverAliases = [
         "www.qbittorrent.${local_domain}"
-      ];
-    };
-
-    "jackett.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:9117/"; 
-      };
-
-      serverAliases = [
-        "www.jackett.${local_domain}"
-      ];
-    };
-
-    "flaresolverr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8191/"; 
-      };
-
-      serverAliases = [
-        "www.jackett.${local_domain}"
       ];
     };
   };
