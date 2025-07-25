@@ -34,5 +34,5 @@
         "www.notes.${domain}"
       ];
     };
-  }) domains ++ [ local_domain ]);
+  }) (domains ++ [ local_domain ]));
 }

@@ -36,5 +36,5 @@
         "www.syncthing.${domain}"
       ];
     };
-  }) domains ++ [ local_domain ]);
+  }) (domains ++ [ local_domain ]));
 }

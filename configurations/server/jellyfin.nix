@@ -20,5 +20,5 @@
         "www.media.${domain}"
       ];
     };
-  }) domains ++ [ local_domain ]);
+  }) (domains ++ [ local_domain ]));
 }

@@ -30,7 +30,7 @@
         "www.code.${domain}"
       ];
     };
-  }) domains ++ [ local_domain ]);
+  }) (domains ++ [ local_domain ]));
 }
 
 /*
