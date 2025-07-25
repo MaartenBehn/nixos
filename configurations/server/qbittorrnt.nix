@@ -21,7 +21,7 @@
       }
     ];
     openVPNPorts = [{
-      port = 6758;
+      port = 44008;
       protocol = "both";
     }];
   };
