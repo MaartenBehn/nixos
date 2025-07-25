@@ -29,7 +29,7 @@
 
   systemd.services.qbittorrent-nox = {
     vpnConfinement = {
-      enable = false;
+      enable = true;
       vpnNamespace = "wg";
     };
 
@@ -77,7 +77,7 @@
 
     "qbittorrent.home" = {
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8083/"; 
+        proxyPass = "http://192.168.15.1:8083/"; 
       };
 
       serverAliases = [
