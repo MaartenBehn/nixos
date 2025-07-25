@@ -22,7 +22,7 @@
         "www.files.${domain}"
       ];
     };
-  }) domains ++ [ local_domain ]);
+  }) (domains ++ [ local_domain ]));
 }
 
 
