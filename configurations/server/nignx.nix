@@ -11,6 +11,11 @@
     80
     443
   ];
+  networking.firewall.allowedUDPPorts = [
+    80
+    443
+  ];
+
 
   services.nginx = {
     enable = true;
