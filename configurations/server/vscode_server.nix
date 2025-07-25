@@ -1,4 +1,4 @@
-{ pkgs-2405, domains, ... }: {
+{ pkgs-2405, domains, local_domain, ... }: {
 
   networking.firewall = {
     allowedTCPPorts = [ 44820 ];
@@ -30,7 +30,7 @@
         "www.code.${domain}"
       ];
     };
-  }) domains);
+  }) domains ++ [ local_domain ]);
 }
 
 /*

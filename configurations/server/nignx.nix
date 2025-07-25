@@ -16,7 +16,6 @@
     443
   ];
 
-
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;

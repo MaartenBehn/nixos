@@ -1,4 +1,4 @@
-{ pkgs, domains, ... }:
+{ pkgs, domains, local_domain, ... }:
 {
   services.static-web-server = {
     enable = true;
@@ -34,5 +34,5 @@
         "www.notes.${domain}"
       ];
     };
-  }) domains);
+  }) domains ++ [ local_domain ]);
 }

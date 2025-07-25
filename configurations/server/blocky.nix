@@ -1,4 +1,4 @@
-{ ... }: {
+{ domains, local_domain, ... }: {
   services.blocky = {
     enable = true;
     settings = {
@@ -29,12 +29,12 @@
 
       customDNS = {
         customTTL = "1h";
-        mapping = {
-          "fritz.box" = "192.168.178.1";
-          "home" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
-          "stroby.duckdns.org" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
-          "stroby.ipv64.de" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
-        };
+        mapping = builtins.listToAttrs (builtins.map (domain: {
+          name = domain; 
+          value = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
+        }) domains ++ [ local_domain ]) // {
+            "fritz.box" = "192.168.178.1";
+          };
       };
     };
   };

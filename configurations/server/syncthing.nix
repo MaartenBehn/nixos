@@ -1,4 +1,4 @@
-{ domains, ... }:
+{ domains, local_domain, ... }:
 {
   services = {
     syncthing = {
@@ -36,5 +36,5 @@
         "www.syncthing.${domain}"
       ];
     };
-  }) domains);
+  }) domains ++ [ local_domain ]);
 }

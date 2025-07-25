@@ -1,4 +1,4 @@
-{ pkgs, domains, ... }: {
+{ pkgs, domains, local_domain ... }: {
   systemd.services.filebrowser = {
     path = with pkgs; [
       filebrowser
@@ -22,7 +22,7 @@
         "www.files.${domain}"
       ];
     };
-  }) domains);
+  }) domains ++ [ local_domain ]);
 }
 
 

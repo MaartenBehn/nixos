@@ -1,4 +1,4 @@
-{ domains, ... }:
+{ domains, local_domain, ... }:
 {
   services.static-web-server = {
     enable = true;
@@ -19,5 +19,5 @@
         "www.gallery.${domain}"
       ];
     };
-  }) domains);
+  }) domains ++ [ local_domain ]);
 }

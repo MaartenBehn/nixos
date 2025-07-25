@@ -1,4 +1,4 @@
-{ pkgs, ... }: {  
+{ pkgs, local_domain, ... }: {  
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
@@ -79,33 +79,33 @@
 
   services.nginx.virtualHosts = {
 
-    "qbittorrent.home" = {
+    "qbittorrent.${local_domain}" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8083/"; 
       };
 
       serverAliases = [
-        "www.qbittorrent.home"
+        "www.qbittorrent.${local_domain}"
       ];
     };
 
-    "jackett.home" = {
+    "jackett.${local_domain}" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:9117/"; 
       };
 
       serverAliases = [
-        "www.jackett.home"
+        "www.jackett.${local_domain}"
       ];
     };
 
-    "flaresolverr.home" = {
+    "flaresolverr.${local_domain}" = {
       locations."/" = {
         proxyPass = "http://192.168.15.1:8191/"; 
       };
 
       serverAliases = [
-        "www.jackett.home"
+        "www.jackett.${local_domain}"
       ];
     };
   };

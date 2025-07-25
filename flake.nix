@@ -103,6 +103,7 @@
         host = "asus";
         username = "stroby"; 
         domains = [ "stroby.duckdns.org" "stroby.ipv64.de" ];
+        local_domain = "home";
       }
       {
         host = "wsl";
@@ -143,6 +144,7 @@
             terminal = (add_optional "terminal" config null);
             desktop = (add_optional "desktop" config null);
             domains = (add_optional "domains" config null);
+            local_domain = (add_optional "local_domain" config null);
 
             add_optional = add_optional;
           };
@@ -169,6 +171,7 @@
                 terminal = (add_optional "terminal" config null);
                 desktop = (add_optional "desktop" config null);
                 domains = (add_optional "domains" config null);
+                local_domain = (add_optional "local_domain" config null);
                 
                 add_optional = add_optional;
               };
