@@ -1,12 +1,12 @@
 { local_domain, ... }: {
-  services.prowlarr = {
-    vpnConfinement = {
-      enable = true;
-      vpnNamespace = "wg";
-    };
-
+  services.prowlarr = { 
     enable = true;
     openFirewall = false;
+  };
+
+  systemd.services.prowlarr.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "wg";
   };
 
   services.nginx.virtualHosts = {
