@@ -13,7 +13,7 @@
     name = "files.${domain}"; 
     value = {
       enableACME = domain != local_domain;
-      forceSSL = true;
+      forceSSL = domain != local_domain;
       locations."/" = {
         proxyPass = "http://127.0.0.1:8080/"; 
       };
