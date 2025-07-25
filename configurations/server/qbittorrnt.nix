@@ -77,7 +77,7 @@
 
     "qbittorrent.home" = {
       locations."/" = {
-        proxyPass = "http://192.168.15.1:8083/"; 
+        proxyPass = "http://127.0.0.1:8083/"; 
       };
 
       serverAliases = [
