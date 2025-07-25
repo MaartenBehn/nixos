@@ -15,21 +15,22 @@
       blocking = {
         blackLists = {
           #Adblocking
-          #ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
           #Another filter for blocking adult sites
-          #adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
+          adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
           #You can add additional categories
         };
         #Configure what block categories are used
         clientGroupsBlock = {
-          #default = [ "ads" ];
-          #kids-ipad = ["ads" "adult"];
+          default = [ "ads" ];
+          kids-ipad = ["ads" "adult"];
         };
       };
 
       customDNS = {
         customTTL = "1h";
         mapping = {
+          "fritz.box" = "192.168.178.1";
           "home" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
           "stroby.duckdns.org" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
           "stroby.ipv64.de" = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
