@@ -15,15 +15,13 @@
       blocking = {
         blackLists = {
           #Adblocking
-          ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
-          #Another filter for blocking adult sites
-          adult = ["https://blocklistproject.github.io/Lists/porn.txt"];
-          #You can add additional categories
+          ads = [
+            "https://raw.githubusercontent.com/hagezi/dns-blocklists/blob/main/adblock/ultimate.txt"
+          ];
         };
         #Configure what block categories are used
         clientGroupsBlock = {
           default = [ "ads" ];
-          kids-ipad = ["ads" "adult"];
         };
       };
 
