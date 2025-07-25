@@ -8,7 +8,7 @@
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "media.${domain}"; 
     value = { 
-      enableACME = true;
+      enableACME = domain != local_domain;
       forceSSL = true;
 
       locations."/" = {

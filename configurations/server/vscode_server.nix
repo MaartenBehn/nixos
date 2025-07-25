@@ -20,7 +20,7 @@
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "code.${domain}"; 
     value = {
-      enableACME = true;
+      enableACME = domain != local_domain;
       forceSSL = true;
       locations."/" = {
         proxyPass = "http://127.0.0.1:8081/"; 
