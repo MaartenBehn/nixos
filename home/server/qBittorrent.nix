@@ -25,16 +25,11 @@ FileLogger\MaxSizeBytes=66560
 FileLogger\Path=/.local/share/qBittorrent/logs
 
 [BitTorrent]
-Session\AlternativeGlobalDLSpeedLimit=3000
-Session\AlternativeGlobalUPSpeedLimit=500
-Session\BandwidthSchedulerEnabled=true
 Session\DefaultSavePath=/media/videos/shows
 Session\ExcludedFileNames=
-Session\GlobalDLSpeedLimit=5000
-Session\GlobalUPSpeedLimit=800
 Session\Interface=wg0
 Session\InterfaceName=wg0
-Session\Port=6758
+Session\Port=44008
 Session\QueueingSystemEnabled=false
 Session\SSL\Port=64215
 Session\UseAlternativeGlobalSpeedLimit=false
