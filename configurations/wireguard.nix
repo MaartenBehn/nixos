@@ -10,7 +10,7 @@
       # Determines the IP address and subnet of the client's end of the tunnel interface.
       address = [ "192.168.178.201/32" "fd0b:810a:db1f::201/64" ];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this it uses random port numbers)
-      dns = [ "192.168.178.1" "fd0b:810a:db1f::2e3a:fdff:feb5:7176" "fritz.box" ];
+      dns = [ "192.168.178.2" "2a00:1f:ef04:7301:3e59:650b:4c40:f405" ];
 
       # Path to the private key file.
       #
@@ -45,7 +45,7 @@
       # Determines the IP address and subnet of the client's end of the tunnel interface.
       address = [ "192.168.178.201/32" ];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this it uses random port numbers)
-      dns = [ "192.168.178.2" ];
+      dns = [ "192.168.178.1"  "fritz.box" ];
 
       # Path to the private key file.
       #
