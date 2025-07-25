@@ -3,6 +3,7 @@
   vpnNamespaces.wg = {
     enable = true;
     wireguardConfigFile = /home/stroby/.config/wireguard/mullvad.conf;
+
     accessibleFrom = [
       "192.168.0.0/24"
     ];
