@@ -85,8 +85,6 @@
               siteMonitor = "http://syncthing.home/";
             };
           }
-        ];
-        Code = [
           {
             VSCode = {
               href = "http://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
