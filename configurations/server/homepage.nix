@@ -100,31 +100,21 @@
 
     widgets = [
       {
+        datetime = {
+          text_size = "xl";
+          format = {
+            timeStyle = "short";
+            };
+          };
+      }
+      {
         resources = {
           cpu = true;
           cputemp = true;
           units = "metric";
           memory = true;
           network = true;
-        };
-      }
-      {
-        resources = {
-          label = "Nix Store";
-          disk = "/nix";
-        };
-      }
-      {
-        resources = {
-          label = "Media";
-          disk = "/media";
-        };
-      }
-      {
-        resources = {
-          label = "All";
-          exanded = true;
-          disk = "/media";
+          disk = "/";
         };
       }
     ];
