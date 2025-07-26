@@ -25,5 +25,7 @@
 
     qbittorrent
     nftables
+
+    python313Packages.markitdown 
   ]);
 }
