@@ -72,6 +72,13 @@
           enableLeechProgress = true;
         };
       }
+      {
+        resources = {
+          cpu = true;
+          memory = true;
+          disk = "/";
+        };
+      }
     ];
 
     kubernetes = { };
