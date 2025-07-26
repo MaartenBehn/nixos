@@ -29,6 +29,7 @@
               href = "http://media.home";
               siteMonitor = "http://media.home/";
               description = "Media Server";
+              icon = "https://jellyfin.org/images/favicon.ico";
               widget = {
                 type = "jellyfin";
                 url = "http://media.home";
@@ -48,6 +49,7 @@
               href = "http://prowlarr.home";
               siteMonitor = "http://prowlarr.home/";
               description = "Torrent Search Engine";
+              icon = "https://prowlarr.com/logo/128.png";
               widget = {
                 type = "prowlarr";
                 url = "http://prowlarr.home";
@@ -60,6 +62,7 @@
               href = "http://qbittorrent.home";
               siteMonitor = "http://qbittorrent.home/";
               description = "Torrent Downloader";
+              icon = "https://www.qbittorrent.org/favicon.svg";
               widget = {
                 type = "qbittorrent";
                 url = "http://qbittorrent.home";
@@ -77,18 +80,21 @@
             FileBrowser = {
               href = "https://files.stroby.ipv64.de";
               siteMonitor = "http://files.home/";
+              icon = "https://filebrowser.org/static/logo.png";
             };
           }
           {
             Syncthing = {
               href = "http://syncthing.home";
               siteMonitor = "http://syncthing.home/";
+              icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
           }
           {
             VSCode = {
               href = "http://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
               siteMonitor = "http://code.home/";
+              icon = "https://code.visualstudio.com/assets/favicon.ico";
             };
           }
           {
