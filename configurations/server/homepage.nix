@@ -42,8 +42,8 @@
       }
     ];
 
-    widgets = [
-      {
+    widgets = {
+      jellyfin = {
         type = "jellyfin";
         url = "http://jellyfin.home";
         key = "apikeyapikeyapikeyapikeyapikey";
@@ -53,20 +53,20 @@
         enableMediaControl = true;
         showEpisodeNumber = true;
         expandOneStreamToTwoRows = true;
-        }
-      {
+      };
+      prowlarr = {
         type = "prowlarr";
         url = "http://prowlarr.home";
         key = "apikeyapikeyapikeyapikeyapikey";
-      }
-      {
+      };
+      qbittorrent = {
         type = "qbittorrent";
         url = "http://qbittorrent.home";
         username = "stroby";
         password = "qbittorrent+240803";
         enableLeechProgress = true;
-      }
-    ];
+      };
+    };
 
     kubernetes = { };
 

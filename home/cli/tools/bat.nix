@@ -13,8 +13,4 @@
       # batdiff
     ];
   };
-
-  home.shellAliases = {
-    cat = "bat"; 
-  };
 }

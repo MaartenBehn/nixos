@@ -30,7 +30,6 @@
     ping = "ping -c 5";
 
     #rm = "gtrash put";
-    find = "fd";
     grep = "rg";
     disk-usage = "ncdu /";
   };
