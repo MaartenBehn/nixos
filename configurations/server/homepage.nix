@@ -42,11 +42,11 @@
             Jellyfin = {
               #icon: "img."
               href = "http://media.home";
-              description = "Watch movies and TV shows.";
+              description = "Media Server";
               widget = {
                 type = "jellyfin";
                 url = "http://jellyfin.home";
-                key = "apikeyapikeyapikeyapikeyapikey";
+                key = "cca46e527a534e758a9cd74c398079e3";
                 enableBlocks = true;
                 enableNowPlaying = true;
                 enableUser = true;
@@ -60,17 +60,18 @@
             Prowlarr = {
               #icon: "img."
               href = "http://prowlarr.home";
-              #description = "Watch movies and TV shows.";
+              description = "Torrent Search Engine";
               widget = {
                 type = "prowlarr";
                 url = "http://prowlarr.home";
-                key = "apikeyapikeyapikeyapikeyapikey";
+                key = "08d09cc6bb6f45419174b35542808b4d";
               };
             };
           }
           {
             Qbittorrent = {
               href = "http://qbittorrent.home";
+              description = "Torrent Downloader";
               widget = {
                 type = "qbittorrent";
                 url = "http://qbittorrent.home";
@@ -78,6 +79,11 @@
                 password = "qbittorrent+240803";
                 enableLeechProgress = true;
               };
+            };
+          }
+          {
+            Gallery = {
+              href = "http://gallery.home";
             };
           }
         ];
