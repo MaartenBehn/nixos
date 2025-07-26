@@ -44,32 +44,45 @@
 
     widgets = [
       {
-        jellyfin = {
-          type = "jellyfin";
-          url = "http://jellyfin.home";
-          key = "apikeyapikeyapikeyapikeyapikey";
-          enableBlocks = true;
-          enableNowPlaying = true;
-          enableUser = true;
-          enableMediaControl = true;
-          showEpisodeNumber = true;
-          expandOneStreamToTwoRows = true;
+        Jellyfin = {
+          #icon: "img."
+          href = "http://media.home";
+          description = "Watch movies and TV shows.";
+          widget = {
+            type = "jellyfin";
+            url = "http://jellyfin.home";
+            key = "apikeyapikeyapikeyapikeyapikey";
+            enableBlocks = true;
+            enableNowPlaying = true;
+            enableUser = true;
+            enableMediaControl = true;
+            showEpisodeNumber = true;
+            expandOneStreamToTwoRows = true;
+          };
         };
       }
       {
-        prowlarr = {
-          type = "prowlarr";
-          url = "http://prowlarr.home";
-          key = "apikeyapikeyapikeyapikeyapikey";
+        Prowlarr = {
+          #icon: "img."
+          href = "http://prowlarr.home";
+          #description = "Watch movies and TV shows.";
+          widget = {
+            type = "prowlarr";
+            url = "http://prowlarr.home";
+            key = "apikeyapikeyapikeyapikeyapikey";
+          };
         };
       }
       {
-        qbittorrent = {
-          type = "qbittorrent";
-          url = "http://qbittorrent.home";
-          username = "stroby";
-          password = "qbittorrent+240803";
-          enableLeechProgress = true;
+        Qbittorrent = {
+          href = "http://prowlarr.home";
+          widget = {
+            type = "qbittorrent";
+            url = "http://qbittorrent.home";
+            username = "stroby";
+            password = "qbittorrent+240803";
+            enableLeechProgress = true;
+          };
         };
       }
       {
