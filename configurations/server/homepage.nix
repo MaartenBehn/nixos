@@ -1,9 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, local_domain, ... }: {
   services.homepage-dashboard = {
     # https://gethomepage.dev/
 
     enable = true;
     package = pkgs.homepage-dashboard;
+    listenPort = 8085;
 
     settings = {
       title = "Stroby's Home Server";
@@ -69,5 +70,17 @@
 
     customJS = "";
     customCSS = "";
+  };
+
+  services.nginx.virtualHosts = {
+    "${local_domain}" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8085/"; 
+      };
+
+      serverAliases = [
+        "www.${local_domain}"
+      ];
+    };
   };
 }
