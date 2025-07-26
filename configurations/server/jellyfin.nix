@@ -1,5 +1,6 @@
 { domains, local_domain, ... }:
 {
+  users.groups.media = {};
   users.users.jellyfin.extraGroups = [ "media" ];
   
   services.jellyfin.enable = true;

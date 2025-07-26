@@ -1,4 +1,5 @@
 { local_domain, ... }: {
+  users.groups.media = {};
   users.users.sonarr.extraGroups = [ "media" ];
 
   services.sonarr = { 
