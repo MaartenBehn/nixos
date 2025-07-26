@@ -29,6 +29,7 @@
   };
 
   users.users.qbittorrent = {
+    isSystemUser = true;
     group = "media";
   };
   users.groups.media = {};
