@@ -5,6 +5,7 @@
     enable = true;
     package = pkgs.homepage-dashboard;
     listenPort = 8085;
+    allowedHosts = "main.home,127.0.0.1:8084";
 
     settings = {
       title = "Stroby's Home Server";
