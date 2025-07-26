@@ -22,22 +22,7 @@
 
     services = [
       {
-        Services = [
-          {
-            FileBrowser = {
-              href = "https://files.stroby.ipv64.de";
-            };
-          }
-          {
-            Syncthing = {
-              href = "http://syncthing.home";
-            };
-          }
-          {
-            VSCode = {
-              href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-            };
-          }
+        Media = [
           {
             Jellyfin = {
               #icon: "img."
@@ -79,6 +64,27 @@
                 password = "qbittorrent+240803";
                 enableLeechProgress = true;
               };
+            };
+          }
+        ];
+      }
+      {
+        Files = [
+          {
+            FileBrowser = {
+              href = "https://files.stroby.ipv64.de";
+            };
+          }
+          {
+            Syncthing = {
+              href = "http://syncthing.home";
+            };
+          }
+        ];
+        Code = [
+          {
+            VSCode = {
+              href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
             };
           }
           {
