@@ -109,8 +109,9 @@
           text_size = "xl";
           format = {
             timeStyle = "short";
-            };
+            hourCycle = "h23";
           };
+        };
       }
       {
         resources = {
