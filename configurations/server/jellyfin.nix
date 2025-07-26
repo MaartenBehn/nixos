@@ -21,4 +21,32 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
+
+
+  services.homepage-dashboard = { 
+    services = [
+      {
+        Media = [
+          {
+            Jellyfin = {
+              #icon: "img."
+              href = "http://media.home";
+              description = "Media Server";
+              widget = {
+                type = "jellyfin";
+                url = "http://media.home";
+                key = "cca46e527a534e758a9cd74c398079e3";
+                enableBlocks = true;
+                enableNowPlaying = true;
+                enableUser = true;
+                enableMediaControl = true;
+                showEpisodeNumber = true;
+                expandOneStreamToTwoRows = true;
+              };
+            };
+          }
+        ];
+      }
+    ];
+  };
 }
