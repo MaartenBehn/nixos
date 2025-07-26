@@ -73,13 +73,13 @@
   };
 
   services.nginx.virtualHosts = {
-    "${local_domain}" = {
+    "main.${local_domain}" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:8085/"; 
       };
 
       serverAliases = [
-        "www.${local_domain}"
+        "www.main.${local_domain}"
       ];
     };
   };
