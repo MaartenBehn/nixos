@@ -1,7 +1,6 @@
 { domains, local_domain, ... }:
 {
-  users.groups.media = {};
-  users.users.jellyfin.extraGroups = [ "media" ];
+  users.groups.media.members = [ "jellyfin" ];
   
   services.jellyfin.enable = true;
   networking.firewall.allowedUDPPorts = [ 7359 8096 ];
