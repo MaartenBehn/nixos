@@ -28,12 +28,6 @@
     }];
   };
 
-  users.users.qbittorrent = {
-    isSystemUser = true;
-    group = "qbittorrent";
-  };
-  users.groups.qbittorrent = {};
-  users.groups.media.members = [ "qbittorrent" ];
 
   systemd.services.qbittorrent-nox = {
     vpnConfinement = {
@@ -50,7 +44,7 @@
     qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "multi-user.target" ];
-    serviceConfig.User = "qbittorrent";
+    serviceConfig.User = "stroby";
   };
 
   
