@@ -20,4 +20,18 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
+
+  services.homepage-dashboard = { 
+    services = [
+      {
+        Data = [
+          {
+            Gallery = {
+              href = "http://gallery.${local_domain}";
+            };
+          }
+        ];
+      }
+    ];
+  };
 }
