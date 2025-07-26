@@ -20,20 +20,32 @@
 
     bookmarks = [
       {
-        Data = {
-          FileBrowser = {
-            abbr = "FB";
-            href = "https://files.stroby.ipv64.de";
-          };
-          Syncthing = {
-            abbr = "ST";
-            href = "http://syncthing.home";
-          };
-          VSCode = {
-            abbr = "VS";
-          href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-          };
-         };
+        Data = [
+          {
+            FileBrowser = [
+              {
+                abbr = "FB";
+                href = "https://files.stroby.ipv64.de";
+              }
+            ];
+          }
+          {
+            Syncthing = [
+              {
+                abbr = "ST";
+                href = "http://syncthing.home";
+              }
+            ];
+          }
+          {
+            VSCode = [
+              {
+                abbr = "VS";
+                href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
+              }
+            ];
+          }
+        ];
       }
     ];
 
