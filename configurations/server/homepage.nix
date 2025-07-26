@@ -18,63 +18,54 @@
       color = "slate";
     };
 
-    bookmarks = [
+    bookmarks = [];
+
+    services = [
       {
-        Data = [
+        Services = [
           {
-            FileBrowser = [
-              {
-                abbr = "FB";
-                href = "https://files.stroby.ipv64.de";
-              }
-            ];
+            FileBrowser = {
+              href = "https://files.stroby.ipv64.de";
+            };
           }
           {
-            Syncthing = [
-              {
-                abbr = "ST";
-                href = "http://syncthing.home";
-              }
-            ];
+            Syncthing = {
+              href = "http://syncthing.home";
+            };
           }
           {
-            VSCode = [
-              {
-                abbr = "VS";
-                href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-              }
-            ];
+            VSCode = {
+              href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
+            };
           }
         ];
       }
     ];
 
-    services = [];
-
     widgets = [
-      #{
-        #type = "jellyfin";
-        #url = "http://jellyfin.home";
-        #key = "apikeyapikeyapikeyapikeyapikey";
-        #enableBlocks = true;
-        #enableNowPlaying = true;
-        #enableUser = true;
-        #enableMediaControl = true;
-        #showEpisodeNumber = true;
-        #expandOneStreamToTwoRows = true;
-        #}
-      #{
-        #  type = "prowlarr";
-        #  url = "http://prowlarr.home";
-        #  key = "apikeyapikeyapikeyapikeyapikey";
-        #}
-      #{
-      #  type = "qbittorrent";
-      #  url = "http://qbittorrent.home";
-      #  username = "stroby";
-      #  password = "qbittorrent+240803";
-      #  enableLeechProgress = true;
-      #}
+      {
+        type = "jellyfin";
+        url = "http://jellyfin.home";
+        key = "apikeyapikeyapikeyapikeyapikey";
+        enableBlocks = true;
+        enableNowPlaying = true;
+        enableUser = true;
+        enableMediaControl = true;
+        showEpisodeNumber = true;
+        expandOneStreamToTwoRows = true;
+        }
+      {
+        type = "prowlarr";
+        url = "http://prowlarr.home";
+        key = "apikeyapikeyapikeyapikeyapikey";
+      }
+      {
+        type = "qbittorrent";
+        url = "http://qbittorrent.home";
+        username = "stroby";
+        password = "qbittorrent+240803";
+        enableLeechProgress = true;
+      }
     ];
 
     kubernetes = { };
