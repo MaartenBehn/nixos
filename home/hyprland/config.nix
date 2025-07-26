@@ -170,6 +170,7 @@
 
         # screenshot
         ",Print, exec, screenshot --copy"
+        "$mainMod, Print, exec, screenshot --md-copy"
 
         # switch focus
         #"$mainMod, left,  movefocus, l"

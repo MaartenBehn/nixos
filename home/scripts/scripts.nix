@@ -7,7 +7,6 @@ in
 {
   home.packages = (map mkScript [
     "update_nix_index"
-    "update_duckdns"
     "set-monitors"
 
     "trigger_ghostty_hyprland"
@@ -57,6 +56,7 @@ in
     "install_config"
   ] else []))
   ++ [
-    pkgs.zenity                            # Gui Dialogs (used in scripts) 
+    pkgs.zenity                            # Gui Dialogs (used in scripts)
+    pkgs.tesseract
   ];
 }
