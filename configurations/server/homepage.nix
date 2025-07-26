@@ -45,7 +45,7 @@
               description = "Media Server";
               widget = {
                 type = "jellyfin";
-                url = "http://jellyfin.home";
+                url = "http://media.home";
                 key = "cca46e527a534e758a9cd74c398079e3";
                 enableBlocks = true;
                 enableNowPlaying = true;
