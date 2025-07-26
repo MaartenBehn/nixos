@@ -76,7 +76,7 @@
               href = "http://sonarr.home";
               siteMonitor = "http://sonarr.home/";
               #description = "Torrent Search Engine";
-              #icon = "https://prowlarr.com/logo/128.png";
+              icon = "https://sonarr.tv/img/logo.png";
               #widget = {
               #  type = "prowlarr";
               #  url = "http://prowlarr.home";

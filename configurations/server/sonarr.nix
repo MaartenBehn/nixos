@@ -1,4 +1,6 @@
 { local_domain, ... }: {
+  users.users.sonarr.extraGroups = [ "media" ];
+
   services.sonarr = { 
     enable = true;
     openFirewall = false;

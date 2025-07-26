@@ -7,6 +7,7 @@
       "networkmanager"
       "wheel"
       "www-data"
+      "media"
     ];
     shell = pkgs.fish;
   };
