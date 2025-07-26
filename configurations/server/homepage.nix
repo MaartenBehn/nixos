@@ -43,19 +43,17 @@
               #icon: "img."
               href = "http://media.home";
               description = "Watch movies and TV shows.";
-              widget = [
-                {
-                  type = "jellyfin";
-                  url = "http://jellyfin.home";
-                  key = "apikeyapikeyapikeyapikeyapikey";
-                  enableBlocks = true;
-                  enableNowPlaying = true;
-                  enableUser = true;
-                  enableMediaControl = true;
-                  showEpisodeNumber = true;
-                  expandOneStreamToTwoRows = true;
-                }
-              ];
+              widget = {
+                type = "jellyfin";
+                url = "http://jellyfin.home";
+                key = "apikeyapikeyapikeyapikeyapikey";
+                enableBlocks = true;
+                enableNowPlaying = true;
+                enableUser = true;
+                enableMediaControl = true;
+                showEpisodeNumber = true;
+                expandOneStreamToTwoRows = true;
+              };
             };
           }
           {
@@ -63,27 +61,23 @@
               #icon: "img."
               href = "http://prowlarr.home";
               #description = "Watch movies and TV shows.";
-              widget = [
-                {
-                  type = "prowlarr";
-                  url = "http://prowlarr.home";
-                  key = "apikeyapikeyapikeyapikeyapikey";
-                }
-              ];
+              widget = {
+                type = "prowlarr";
+                url = "http://prowlarr.home";
+                key = "apikeyapikeyapikeyapikeyapikey";
+              };
             };
           }
           {
             Qbittorrent = {
               href = "http://qbittorrent.home";
-              widget = [
-                {
-                  type = "qbittorrent";
-                  url = "http://qbittorrent.home";
-                  username = "stroby";
-                  password = "qbittorrent+240803";
-                  enableLeechProgress = true;
-                }
-              ];
+              widget = {
+                type = "qbittorrent";
+                url = "http://qbittorrent.home";
+                username = "stroby";
+                password = "qbittorrent+240803";
+                enableLeechProgress = true;
+              };
             };
           }
         ];
