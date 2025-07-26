@@ -28,7 +28,9 @@
     }];
   };
 
-  users.users.qbittorrent = {};
+  users.users.qbittorrent = {
+    group = "qbittorrent";
+  };
   users.groups.media.members = [ "qbittorrent" ];
 
   systemd.services.qbittorrent-nox = {
