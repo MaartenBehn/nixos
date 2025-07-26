@@ -44,7 +44,7 @@
 
     widgets = [
       {
-        widget = {
+        jellyfin = {
           type = "jellyfin";
           url = "http://jellyfin.home";
           key = "apikeyapikeyapikeyapikeyapikey";
@@ -57,14 +57,14 @@
         };
       }
       {
-        widget = {
+        prowlarr = {
           type = "prowlarr";
           url = "http://prowlarr.home";
           key = "apikeyapikeyapikeyapikeyapikey";
         };
       }
       {
-        widget = {
+        qbittorrent = {
           type = "qbittorrent";
           url = "http://qbittorrent.home";
           username = "stroby";
