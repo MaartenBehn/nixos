@@ -30,26 +30,4 @@
       ];
     };
   };
-
-  services.homepage-dashboard = { 
-    services = [
-      {
-        Media = [
-          {
-            Prowlarr = {
-              #icon: "img."
-              href = "http://prowlarr.home";
-              description = "Torrent Search Engine";
-              widget = {
-                type = "prowlarr";
-                url = "http://prowlarr.home";
-                key = "08d09cc6bb6f45419174b35542808b4d";
-              };
-            };
-          }
-        ];
-      }
-    ];
-  };
-
 }

@@ -59,26 +59,4 @@
       ];
     };
   };
-
-  services.homepage-dashboard = { 
-    services = [
-      {
-        Media = [
-          {
-            Qbittorrent = {
-              href = "http://qbittorrent.home";
-              description = "Torrent Downloader";
-              widget = {
-                type = "qbittorrent";
-                url = "http://qbittorrent.home";
-                username = "stroby";
-                password = "qbittorrent+240803";
-                enableLeechProgress = true;
-              };
-            };
-          }
-        ];
-      }
-    ];
-  };
 }

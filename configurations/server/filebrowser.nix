@@ -23,20 +23,6 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
-
-  services.homepage-dashboard = { 
-    services = [
-      {
-        Data = [
-          {
-            FileBrowser = {
-              href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-            };
-          }
-        ];
-      }
-    ];
-  };
 }
 
 

@@ -37,18 +37,4 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
-
-  services.homepage-dashboard = { 
-    services = [
-      {
-        Data = [
-          {
-            Syncthing = {
-              href = "http://syncthing.${local_domain}";
-            };
-          }
-        ];
-      }
-    ];
-  };
 }

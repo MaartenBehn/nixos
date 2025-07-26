@@ -20,7 +20,88 @@
 
     bookmarks = [];
 
-    services = [];
+    services = [
+      {
+        Media = [
+          {
+            Jellyfin = {
+              #icon: "img."
+              href = "http://media.home";
+              siteMonitor = "http://media.home/";
+              description = "Media Server";
+              widget = {
+                type = "jellyfin";
+                url = "http://media.home";
+                key = "cca46e527a534e758a9cd74c398079e3";
+                enableBlocks = true;
+                enableNowPlaying = true;
+                enableUser = true;
+                enableMediaControl = true;
+                showEpisodeNumber = true;
+                expandOneStreamToTwoRows = true;
+              };
+            };
+          }
+          {
+            Prowlarr = {
+              #icon: "img."
+              href = "http://prowlarr.home";
+              siteMonitor = "http://prowlarr.home/";
+              description = "Torrent Search Engine";
+              widget = {
+                type = "prowlarr";
+                url = "http://prowlarr.home";
+                key = "08d09cc6bb6f45419174b35542808b4d";
+              };
+            };
+          }
+          {
+            Qbittorrent = {
+              href = "http://qbittorrent.home";
+              siteMonitor = "http://qbittorrent.home/";
+              description = "Torrent Downloader";
+              widget = {
+                type = "qbittorrent";
+                url = "http://qbittorrent.home";
+                username = "stroby";
+                password = "qbittorrent+240803";
+                enableLeechProgress = true;
+              };
+            };
+          }
+        ];
+      }
+      {
+        Data = [
+          {
+            FileBrowser = {
+              href = "https://files.stroby.ipv64.de";
+              siteMonitor = "http://files.home/";
+            };
+          }
+          {
+            Syncthing = {
+              href = "http://syncthing.home";
+              siteMonitor = "http://syncthing.home/";
+            };
+          }
+        ];
+        Code = [
+          {
+            VSCode = {
+              href = "http://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
+              siteMonitor = "http://code.home/";
+            };
+          }
+          {
+            Gallery = {
+              href = "http://gallery.home";
+              siteMonitor = "http://gallery.home/";
+            };
+          }
+        ];
+      }
+    ];
 
     widgets = [
       {
