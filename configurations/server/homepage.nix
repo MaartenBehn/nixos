@@ -1,9 +1,9 @@
-{ pkgs, local_domain, ... }: {
+{ pkgs-unstable, local_domain, ... }: {
   services.homepage-dashboard = {
     # https://gethomepage.dev/
 
     enable = true;
-    package = pkgs.homepage-dashboard;
+    package = pkgs-unstable.homepage-dashboard;
     listenPort = 8085;
     allowedHosts = "main.home,127.0.0.1:8084";
 
