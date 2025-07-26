@@ -112,18 +112,16 @@
         # Server
         ./server/network.nix
         ./server/duckdns.nix
+        ./server/blocky.nix
         ./server/ipv64.nix
-        #./server/dns.nix
+        ./server/homepage.nix
         ./server/syncthing.nix
-        #./server/obsidian_export.nix
         ./server/vscode_server.nix
         ./server/filebrowser.nix
         ./server/minecraft.nix
         ./server/jellyfin.nix
         ./server/gallery_demo.nix 
         ./server/qbittorrnt.nix
-        ./server/blocky.nix
-        ./server/homepage.nix
         
       ] else [])
     ++ (if host == "wsl" then

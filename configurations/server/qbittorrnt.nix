@@ -2,6 +2,7 @@
 
   imports = [
     ./prowlarr.nix
+    ./sonarr.nix
   ];
 
   # Define VPN network namespace

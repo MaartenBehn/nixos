@@ -44,20 +44,6 @@
             };
           }
           {
-            Prowlarr = {
-              #icon: "img."
-              href = "http://prowlarr.home";
-              siteMonitor = "http://prowlarr.home/";
-              description = "Torrent Search Engine";
-              icon = "https://prowlarr.com/logo/128.png";
-              widget = {
-                type = "prowlarr";
-                url = "http://prowlarr.home";
-                key = "08d09cc6bb6f45419174b35542808b4d";
-              };
-            };
-          }
-          {
             Qbittorrent = {
               href = "http://qbittorrent.home";
               siteMonitor = "http://qbittorrent.home/";
@@ -70,6 +56,32 @@
                 password = "qbittorrent+240803";
                 enableLeechProgress = true;
               };
+            };
+          }
+          {
+            Prowlarr = {
+              href = "http://prowlarr.home";
+              siteMonitor = "http://prowlarr.home/";
+              description = "Torrent Search Engine";
+              icon = "https://prowlarr.com/logo/128.png";
+              widget = {
+                type = "prowlarr";
+                url = "http://prowlarr.home";
+                key = "08d09cc6bb6f45419174b35542808b4d";
+              };
+            };
+          }
+          {
+            Sonarr = {
+              href = "http://sonarr.home";
+              siteMonitor = "http://sonarr.home/";
+              #description = "Torrent Search Engine";
+              #icon = "https://prowlarr.com/logo/128.png";
+              #widget = {
+              #  type = "prowlarr";
+              #  url = "http://prowlarr.home";
+              #  key = "08d09cc6bb6f45419174b35542808b4d";
+              #};
             };
           }
         ];
