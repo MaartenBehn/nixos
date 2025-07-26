@@ -102,8 +102,11 @@
       {
         resources = {
           cpu = true;
+          cputemp = true;
+          units = "metric";
           memory = true;
           disk = "/";
+          network = true;
         };
       }
     ];
