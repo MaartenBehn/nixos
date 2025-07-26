@@ -38,59 +38,59 @@
               href = "https://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
             };
           }
+          {
+            Jellyfin = {
+              #icon: "img."
+              href = "http://media.home";
+              description = "Watch movies and TV shows.";
+              widget = [
+                {
+                  type = "jellyfin";
+                  url = "http://jellyfin.home";
+                  key = "apikeyapikeyapikeyapikeyapikey";
+                  enableBlocks = true;
+                  enableNowPlaying = true;
+                  enableUser = true;
+                  enableMediaControl = true;
+                  showEpisodeNumber = true;
+                  expandOneStreamToTwoRows = true;
+                }
+              ];
+            };
+          }
+          {
+            Prowlarr = {
+              #icon: "img."
+              href = "http://prowlarr.home";
+              #description = "Watch movies and TV shows.";
+              widget = [
+                {
+                  type = "prowlarr";
+                  url = "http://prowlarr.home";
+                  key = "apikeyapikeyapikeyapikeyapikey";
+                }
+              ];
+            };
+          }
+          {
+            Qbittorrent = {
+              href = "http://qbittorrent.home";
+              widget = [
+                {
+                  type = "qbittorrent";
+                  url = "http://qbittorrent.home";
+                  username = "stroby";
+                  password = "qbittorrent+240803";
+                  enableLeechProgress = true;
+                }
+              ];
+            };
+          }
         ];
       }
     ];
 
     widgets = [
-      {
-        Jellyfin = {
-          #icon: "img."
-          href = "http://media.home";
-          description = "Watch movies and TV shows.";
-          widget = [
-            {
-              type = "jellyfin";
-              url = "http://jellyfin.home";
-              key = "apikeyapikeyapikeyapikeyapikey";
-              enableBlocks = true;
-              enableNowPlaying = true;
-              enableUser = true;
-              enableMediaControl = true;
-              showEpisodeNumber = true;
-              expandOneStreamToTwoRows = true;
-            }
-          ];
-        };
-      }
-      {
-        Prowlarr = {
-          #icon: "img."
-          href = "http://prowlarr.home";
-          #description = "Watch movies and TV shows.";
-          widget = [
-            {
-              type = "prowlarr";
-              url = "http://prowlarr.home";
-              key = "apikeyapikeyapikeyapikeyapikey";
-            }
-          ];
-        };
-      }
-      {
-        Qbittorrent = {
-          href = "http://qbittorrent.home";
-          widget = [
-            {
-              type = "qbittorrent";
-              url = "http://qbittorrent.home";
-              username = "stroby";
-              password = "qbittorrent+240803";
-              enableLeechProgress = true;
-            }
-          ];
-        };
-      }
       {
         resources = {
           cpu = true;
