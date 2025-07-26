@@ -29,9 +29,9 @@
   };
 
   users.users.qbittorrent = {
-    group = "qbittorrent";
+    group = "media";
   };
-  users.groups.media.members = [ "qbittorrent" ];
+  users.groups.media = {};
 
   systemd.services.qbittorrent-nox = {
     vpnConfinement = {
