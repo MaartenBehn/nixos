@@ -105,8 +105,26 @@
           cputemp = true;
           units = "metric";
           memory = true;
-          disk = "/";
           network = true;
+        };
+      }
+      {
+        resources = {
+          label = "Nix Store";
+          disk = "/nix";
+        };
+      }
+      {
+        resources = {
+          label = "Media";
+          disk = "/media";
+        };
+      }
+      {
+        resources = {
+          label = "All";
+          exanded = true;
+          disk = "/media";
         };
       }
     ];
