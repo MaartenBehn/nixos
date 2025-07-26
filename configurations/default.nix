@@ -123,6 +123,7 @@
         ./server/gallery_demo.nix 
         ./server/qbittorrnt.nix
         ./server/blocky.nix
+        ./server/homepage.nix
         
       ] else [])
     ++ (if host == "wsl" then
