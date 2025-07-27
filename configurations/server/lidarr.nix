@@ -1,9 +1,10 @@
-{ local_domain, ... }: {
+{ pkgs-unstable, local_domain, ... }: {
   users.groups.media.members = [ "lidarr" ];
 
   services.lidarr = { 
     enable = true;
     openFirewall = false;
+    package = pkgs-unstable.lidarr;
   };
 
   systemd.services.lidarr.vpnConfinement = {
