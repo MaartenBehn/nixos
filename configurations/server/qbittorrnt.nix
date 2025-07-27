@@ -45,6 +45,7 @@
     ";
     wantedBy = [ "multi-user.target" ];
     serviceConfig.User = "stroby";
+
   };
 
   
