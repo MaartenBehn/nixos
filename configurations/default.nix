@@ -121,7 +121,7 @@
         ./server/minecraft.nix
         ./server/jellyfin.nix
         ./server/gallery_demo.nix 
-        ./server/qbittorrnt.nix
+        #./server/qbittorrnt.nix
         
       ] else [])
     ++ (if host == "wsl" then
