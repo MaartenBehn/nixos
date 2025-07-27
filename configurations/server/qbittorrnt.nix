@@ -41,7 +41,7 @@
       curl
     ];
     script = "
-    #curl curl ipinfo.io;
+    curl curl ipinfo.io;
     qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "multi-user.target" ];
