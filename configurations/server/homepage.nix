@@ -62,7 +62,7 @@
             Prowlarr = {
               href = "http://prowlarr.home/";
               siteMonitor = "http://prowlarr.home/";
-              description = "Torrent Search Engine";
+              description = "Indexer Manager";
               icon = "https://prowlarr.com/logo/128.png";
               widget = {
                 type = "prowlarr";
@@ -75,7 +75,7 @@
             Sonarr = {
               href = "http://sonarr.home/";
               siteMonitor = "http://sonarr.home/";
-              #description = "Torrent Search Engine";
+              description = "Show Search Engine";
               icon = "https://sonarr.tv/img/logo.png";
               widget = {
                 type = "sonarr";
@@ -88,7 +88,7 @@
             Radarr = {
               href = "http://radarr.home/";
               siteMonitor = "http://radarr.home/";
-              description = "Torrent Search Engine";
+              description = "Movie Search Engine";
               icon = "https://radarr.video/img/logo.png";
               widget = {
                 type = "radarr";
