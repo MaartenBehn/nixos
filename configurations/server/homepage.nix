@@ -77,11 +77,11 @@
               siteMonitor = "http://sonarr.home/";
               #description = "Torrent Search Engine";
               icon = "https://sonarr.tv/img/logo.png";
-              #widget = {
-              #  type = "prowlarr";
-              #  url = "http://prowlarr.home";
-              #  key = "08d09cc6bb6f45419174b35542808b4d";
-              #};
+              widget = {
+                type = "sonarr";
+                url = "http://som.home";
+                key = "8e699f57fe2a40a194c7e8999d7ac95d";
+              };
             };
           }
         ];
