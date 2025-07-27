@@ -85,16 +85,17 @@
             };
           }
           {
-            Sonarr = {
+            Radarr = {
               href = "http://radarr.home/";
               siteMonitor = "http://radarr.home/";
-              #description = "Torrent Search Engine";
-              #icon = "https://sonarr.tv/img/logo.png";
-              #widget = {
-              #type = "sonarr";
-              #url = "http://sonarr.home/";
-              #key = "8e699f57fe2a40a194c7e8999d7ac95d";
-              #};
+              description = "Torrent Search Engine";
+              icon = "https://radarr.video/img/logo.png";
+              widget = {
+                type = "radarr";
+                url = "http://radarr.home/";
+                key = "4df5bc1be8434eac8da2f9b09ef93bcd";
+                enableQueue = true;
+              };
             };
           }
         ];
