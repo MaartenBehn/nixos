@@ -26,13 +26,13 @@
           {
             Jellyfin = {
               #icon: "img."
-              href = "http://media.home";
+              href = "http://media.home/";
               siteMonitor = "http://media.home/";
               description = "Media Server";
               icon = "https://jellyfin.org/images/favicon.ico";
               widget = {
                 type = "jellyfin";
-                url = "http://media.home";
+                url = "http://media.home/";
                 key = "cca46e527a534e758a9cd74c398079e3";
                 enableBlocks = true;
                 enableNowPlaying = true;
@@ -45,13 +45,13 @@
           }
           {
             Qbittorrent = {
-              href = "http://qbittorrent.home";
+              href = "http://qbittorrent.home/";
               siteMonitor = "http://qbittorrent.home/";
               description = "Torrent Downloader";
               icon = "https://www.qbittorrent.org/favicon.svg";
               widget = {
                 type = "qbittorrent";
-                url = "http://qbittorrent.home";
+                url = "http://qbittorrent.home/";
                 username = "stroby";
                 password = "qbittorrent+240803";
                 enableLeechProgress = true;
@@ -60,26 +60,26 @@
           }
           {
             Prowlarr = {
-              href = "http://prowlarr.home";
+              href = "http://prowlarr.home/";
               siteMonitor = "http://prowlarr.home/";
               description = "Torrent Search Engine";
               icon = "https://prowlarr.com/logo/128.png";
               widget = {
                 type = "prowlarr";
-                url = "http://prowlarr.home";
+                url = "http://prowlarr.home/";
                 key = "08d09cc6bb6f45419174b35542808b4d";
               };
             };
           }
           {
             Sonarr = {
-              href = "http://sonarr.home";
+              href = "http://sonarr.home/";
               siteMonitor = "http://sonarr.home/";
               #description = "Torrent Search Engine";
               icon = "https://sonarr.tv/img/logo.png";
               widget = {
                 type = "sonarr";
-                url = "http://sonarr.home";
+                url = "http://sonarr.home/";
                 key = "8e699f57fe2a40a194c7e8999d7ac95d";
               };
             };
@@ -97,7 +97,7 @@
           }
           {
             Syncthing = {
-              href = "http://syncthing.home";
+              href = "http://syncthing.home/";
               siteMonitor = "http://syncthing.home/";
               icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
@@ -111,7 +111,7 @@
           }
           {
             Gallery = {
-              href = "http://gallery.home";
+              href = "http://gallery.home/";
               siteMonitor = "http://gallery.home/";
             };
           }
