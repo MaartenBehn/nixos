@@ -56,7 +56,7 @@ WebUI\Password_PBKDF2="@ByteArray(hbfqcjsSYVJ4wZ44izyo7g==:vCnpTGzM6mhKoIEEiV8yb
 WebUI\Port=8083
 WebUI\ReverseProxySupportEnabled=true
 WebUI\SessionTimeout=0
-WebUI\TrustedReverseProxiesList=""
+WebUI\TrustedReverseProxiesList="qbittorrent.home"
 WebUI\Username=stroby
 
 [RSS]
