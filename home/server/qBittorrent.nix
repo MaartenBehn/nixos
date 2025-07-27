@@ -52,12 +52,10 @@ Scheduler\end_time=@Variant(\0\0\0\xf\0\x36\xee\x80)
 Scheduler\start_time=@Variant(\0\0\0\xf\x4\x13\xb3\x80)
 WebUI\AuthSubnetWhitelist=@Invalid()
 WebUI\MaxAuthenticationFailCount=0
-WebUI\Password_PBKDF2="@ByteArray(hbfqcjsSYVJ4wZ44izyo7g==:vCnpTGzM6mhKoIEEiV8ybaPvFTX++AdR1ANs9dEKIcaoz4E7akMy33r1g24e/i2C3+c1IuV3sR+Pb1L5XspxDQ==)"
 WebUI\Port=8083
 WebUI\ReverseProxySupportEnabled=true
 WebUI\SessionTimeout=0
 WebUI\TrustedReverseProxiesList=""
-WebUI\Username=stroby
 
 [RSS]
 AutoDownloader\DownloadRepacks=true
