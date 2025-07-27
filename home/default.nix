@@ -43,7 +43,7 @@
     ++ (if host == "asus" then
       [
         ./cli/minimal.nix
-        #./server/qBittorrent.nix
+        ./server/qBittorrent.nix
       ] else [])
     ++ (if host == "wsl" then
       [
