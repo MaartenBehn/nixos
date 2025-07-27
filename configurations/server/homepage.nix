@@ -79,7 +79,7 @@
               icon = "https://sonarr.tv/img/logo.png";
               widget = {
                 type = "sonarr";
-                url = "http://som.home";
+                url = "http://sonarr.home";
                 key = "8e699f57fe2a40a194c7e8999d7ac95d";
               };
             };
