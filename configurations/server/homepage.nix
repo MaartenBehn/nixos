@@ -84,6 +84,19 @@
               };
             };
           }
+          {
+            Sonarr = {
+              href = "http://radarr.home/";
+              siteMonitor = "http://radarr.home/";
+              #description = "Torrent Search Engine";
+              #icon = "https://sonarr.tv/img/logo.png";
+              #widget = {
+              #type = "sonarr";
+              #url = "http://sonarr.home/";
+              #key = "8e699f57fe2a40a194c7e8999d7ac95d";
+              #};
+            };
+          }
         ];
       }
       {
