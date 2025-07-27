@@ -107,7 +107,7 @@
               widget = {
                 type = "lidarr";
                 url = "http://lidarr.home/";
-                key = "4df5bc1be8434eac8da2f9b09ef93bcd";
+                key = "ee7c84e0f9d040b997d8133b14516a8d";
               };
             };
           }
