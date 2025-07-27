@@ -98,6 +98,19 @@
               };
             };
           }
+          {
+            Lidarr = {
+              href = "http://lidarr.home/";
+              siteMonitor = "http://lidarr.home/";
+              description = "Music Search Engine";
+              icon = "https://lidarr.audio/img/logo.png";
+              widget = {
+                type = "lidarr";
+                url = "http://lidarr.home/";
+                key = "4df5bc1be8434eac8da2f9b09ef93bcd";
+              };
+            };
+          }
         ];
       }
       {

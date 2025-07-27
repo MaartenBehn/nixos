@@ -4,6 +4,7 @@
     ./prowlarr.nix
     ./sonarr.nix
     ./radarr.nix
+    ./lidarr.nix
   ];
 
   # Define VPN network namespace
