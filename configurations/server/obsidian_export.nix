@@ -1,11 +1,32 @@
 { pkgs, domains, local_domain, ... }:
-{
-  services.static-web-server = {
-    enable = true;
-    root = "/home/stroby/dev/obsidian_export/quartz/public/";
-    listen = "127.0.0.1:8082";
+let 
+  valid_check = name: pkgs.writeShellScriptBin "valid_check.sh" ''
+    if [ -d "/srv/obsidian_export" ]; then
+      echo "/srv/obsidian_export does exist."
+    fi
+  ''; 
+in {
+  imports = [
+    ./nignx.nix
+  ];
+
+  users.users.obsidian_export = {
+    isSystemUser = true;
+    group = "nginx";
   };
 
+  systemd.services.obsidian_export-valid = {
+    path = with pkgs; [
+      git
+      valid_check
+    ];
+    script = "";
+    #startAt = "hourly";  
+    startAt = "daily";  
+    wantedBy = [ "network-online.target" ];
+    user = "obsidian_export";
+  };
+ 
   systemd.services.obsidian_export-updater = {
     path = with pkgs; [
       bash
@@ -18,6 +39,7 @@
     #startAt = "hourly";  
     startAt = "daily";  
     wantedBy = [ "network-online.target" ];
+    user = "obsidian_export";
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
 
