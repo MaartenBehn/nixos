@@ -10,6 +10,9 @@ let
   init = pkgs.writeShellScriptBin "init" ''
     cd /srv/obsidian_export 
     git clone https://github.com/jackyzha0/quartz.git
+    cd quartz
+    npm i
+
     rustup default stable
     git pull
   '';
