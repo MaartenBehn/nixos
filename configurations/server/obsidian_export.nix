@@ -21,9 +21,7 @@ in {
       git
       valid_check
     ];
-    script = "";
-    #startAt = "hourly";  
-    startAt = "daily";  
+    script = "valid_check";
     wantedBy = [ "network-online.target" ];
   };
  
@@ -35,7 +33,7 @@ in {
       git
       gcc
     ];
-    script = "cd /home/stroby/dev/obsidian_export/ && sh rebuild.sh";
+    script = "cd /srv/obsidian_export/ && sh rebuild.sh";
     #startAt = "hourly";  
     startAt = "daily";  
     wantedBy = [ "network-online.target" ];
