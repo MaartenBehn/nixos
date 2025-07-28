@@ -1,6 +1,6 @@
 { pkgs, domains, local_domain, ... }:
 let 
-  valid_check = name: pkgs.writeShellScriptBin "valid_check.sh" ''
+  valid_check = pkgs.writeShellScriptBin "valid_check.sh" ''
     if [ -d "/srv/obsidian_export" ]; then
       git clone --recurse-submodules -j8 https://github.com/MaartenBehn/obsidian_export.git
     fi
