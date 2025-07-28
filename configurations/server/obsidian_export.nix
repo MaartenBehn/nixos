@@ -2,6 +2,7 @@
 let 
   valid_check = pkgs.writeShellScriptBin "valid_check.sh" ''
     if [ -d "/srv/obsidian_export" ]; then
+      cd /srv 
       git clone --recurse-submodules -j8 https://github.com/MaartenBehn/obsidian_export.git
     fi
   ''; 
