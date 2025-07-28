@@ -82,7 +82,7 @@ in {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
       locations."/".extraConfig = '' 
-        try_files: ${website_root}/$uri ${website_root}/$uri.html ${website_root}/$uri/index.html  ${website_root}/index.html
+        try_files ${website_root}/$uri ${website_root}/$uri.html ${website_root}/$uri/index.html  ${website_root}/index.html
       '';
 
       serverAliases = [
