@@ -81,9 +81,13 @@ in {
     value = {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
-      locations."/".extraConfig = '' 
-        try_files /srv/obsidian_export/quartz/public/$uri /srv/obsidian_export/quartz/public/$uri.html /srv/obsidian_export/quartz/public/index.html;
-      '';
+      locations."/" = {
+        root = "/srv/obsidian_export/quartz/public";
+        extraConfig = '' 
+          index index.html;
+          try_files $uri $uri.html;
+        '';
+      };
 
       serverAliases = [
         "www.notes.${domain}"
