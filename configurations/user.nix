@@ -7,6 +7,7 @@
       "networkmanager"
       "wheel"
       "media"
+      "nginx"
     ];
     shell = pkgs.fish;
   };
