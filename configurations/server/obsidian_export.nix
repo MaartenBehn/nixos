@@ -13,6 +13,7 @@ let
     cd quartz
     npm i
 
+    cd ..
     rustup default stable
     git pull
   '';
