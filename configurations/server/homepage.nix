@@ -116,6 +116,11 @@
       {
         Data = [
           {
+            Notes = {
+              href = "https://notes.home";
+              siteMonitor = "http://notes.home/";
+              icon = "https://obsidian.md/favicon.svg";
+            };
             FileBrowser = {
               href = "https://files.stroby.ipv64.de";
               siteMonitor = "http://files.home/";
