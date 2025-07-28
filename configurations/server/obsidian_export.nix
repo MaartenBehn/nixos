@@ -27,7 +27,7 @@ let
     npx quartz build  
     ''; 
 
-  website_root = /srv/obsidian_export/quartz/public;
+  website_root = "/srv/obsidian_export/quartz/public";
 in {
   imports = [
     ./nignx.nix
@@ -81,10 +81,9 @@ in {
     value = {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
-      locations."/" = {
-        #root = "/srv/obsidian_export/quartz/public";
-        try_files = "${website_root}/$uri ${website_root}/$uri.html ${website_root}/$uri/index.html  ${website_root}/index.html";
-      };
+      locations."/".extraConfig = '' 
+        try_files: ${website_root}/$uri ${website_root}/$uri.html ${website_root}/$uri/index.html  ${website_root}/index.html
+      '';
 
       serverAliases = [
         "www.notes.${domain}"
