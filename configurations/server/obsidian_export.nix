@@ -38,7 +38,7 @@ in {
     #startAt = "hourly";  
     startAt = "daily";  
     wantedBy = [ "network-online.target" ];
-    user = "obsidian_export";
+    serviceConfig.User = "obsidian_export";
   };
   systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
 
