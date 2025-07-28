@@ -84,7 +84,7 @@ in {
       locations."/" = {
         root = "/srv/obsidian_export/quartz/public";
         extraConfig = '' 
-          try_files $uri $uri.html index.html;
+          try_files $uri $uri.html /index.html =404;
         '';
       };
 
