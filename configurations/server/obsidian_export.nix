@@ -15,7 +15,7 @@ in {
   ];
 
   users.users.obsidian_export = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "nginx";
   };
 
