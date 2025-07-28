@@ -44,7 +44,6 @@ in {
       valid_check
     ];
     script = "valid_check";
-    wantedBy = [ "network-online.target" ];
   };
 
   systemd.services.obsidian_export-init = {
@@ -81,7 +80,7 @@ in {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8082/"; 
+        root = "/srv/obsidian_export/quartz/public";
       };
 
       serverAliases = [
