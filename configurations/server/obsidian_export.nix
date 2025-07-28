@@ -12,6 +12,8 @@ in {
     ./nignx.nix
   ];
 
+  users.groups.notes.members = [ "obsidian_export" "stroby" ];
+
   users.users.obsidian_export = {
     isNormalUser = true;
     group = "nginx";
