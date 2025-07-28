@@ -4,6 +4,7 @@ let
     if [ ! -d "/srv/obsidian_export" ]; then
       cd /srv 
       git clone --recurse-submodules -j8 https://github.com/MaartenBehn/obsidian_export.git
+      chown -R obsidian_export:nginx /srv/obsidian_export
     else 
       echo "/srv/obsidian_export found." 
     fi
