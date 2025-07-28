@@ -2,7 +2,7 @@
 let 
   valid_check = name: pkgs.writeShellScriptBin "valid_check.sh" ''
     if [ -d "/srv/obsidian_export" ]; then
-      echo "/srv/obsidian_export does exist."
+      git clone --recurse-submodules -j8 https://github.com/MaartenBehn/obsidian_export.git
     fi
   ''; 
 in {
@@ -24,7 +24,6 @@ in {
     #startAt = "hourly";  
     startAt = "daily";  
     wantedBy = [ "network-online.target" ];
-    user = "obsidian_export";
   };
  
   systemd.services.obsidian_export-updater = {

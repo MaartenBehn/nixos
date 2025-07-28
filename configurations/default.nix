@@ -122,6 +122,7 @@
         ./server/jellyfin.nix
         ./server/gallery_demo.nix 
         ./server/qbittorrnt.nix
+        ./server/obsidian_export.nix
         
       ] else [])
     ++ (if host == "wsl" then
