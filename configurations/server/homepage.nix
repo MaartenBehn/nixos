@@ -117,7 +117,7 @@
         Data = [
           {
             Notes = {
-              href = "https://notes.home";
+              href = "http://notes.home";
               siteMonitor = "http://notes.home/";
               icon = "https://obsidian.md/favicon.svg";
             };
