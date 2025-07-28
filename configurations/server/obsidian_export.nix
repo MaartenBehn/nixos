@@ -3,10 +3,26 @@ let
   valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/obsidian_export" ]; then
       cd /srv 
-      git clone --recurse-submodules -j8 https://github.com/MaartenBehn/obsidian_export.git
+      git clone https://github.com/MaartenBehn/obsidian_export.git
       chown -R obsidian_export:nginx /srv/obsidian_export 
     fi
-  ''; 
+  '';
+  init = pkgs.writeShellScriptBin "init" ''
+    cd /srv/obsidian_export 
+    git clone https://github.com/jackyzha0/quartz.git
+    rustup default stable
+    git pull
+  '';
+  update = pkgs.writeShellScriptBin "init" ''
+    cd /srv/obsidian_export 
+    export PATH=$PATH:''${CARGO_HOME:-~/.cargo}/bin
+    export PATH=$PATH:''${RUSTUP_HOME:-~/.rustup}/toolchains/$RUSTC_VERSION-x86_64-unknown-linux-gnu/bin/
+
+    cargo run 
+
+    cd quartz
+    npx quartz build  
+    ''; 
 in {
   imports = [
     ./nignx.nix
@@ -27,6 +43,17 @@ in {
     script = "valid_check";
     wantedBy = [ "network-online.target" ];
   };
+
+  systemd.services.obsidian_export-init = {
+    path = with pkgs; [
+      git
+      nodejs
+      rustup
+      init
+    ];
+    script = "init";
+    serviceConfig.User = "obsidian_export";
+  };
  
   systemd.services.obsidian_export-updater = {
     path = with pkgs; [
@@ -36,7 +63,7 @@ in {
       git
       gcc
     ];
-    script = "cd /srv/obsidian_export/ && sh rebuild.sh";
+    script = "update";
     #startAt = "hourly";  
     startAt = "daily";  
     wantedBy = [ "network-online.target" ];
