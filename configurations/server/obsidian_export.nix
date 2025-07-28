@@ -10,8 +10,6 @@ let
   init = pkgs.writeShellScriptBin "init" ''
     cd /srv/obsidian_export 
     git clone https://github.com/jackyzha0/quartz.git
-    cd quartz
-    npm i
 
     cd ..
     rustup default stable
@@ -25,6 +23,7 @@ let
     cargo run 
 
     cd quartz
+    npm i
     npx quartz build  
     ''; 
 in {
@@ -66,6 +65,7 @@ in {
       nodejs
       git
       gcc
+      update
     ];
     script = "update";
     #startAt = "hourly";  
