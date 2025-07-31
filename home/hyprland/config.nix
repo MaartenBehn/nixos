@@ -163,33 +163,11 @@
         "$mainMod, C, exec, hyprpicker -a"
         "$mainMod, W, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
         "$mainMod, N, exec, swaync-client -t -sw"
-        "$mainMod, Z, exec, woomer"
-        #"CTRL SHIFT, Escape, exec, hyprctl dispatch exec '[workspace 9] missioncenter'"
-        #"$mainMod, equal, exec, woomer"
-        # "$mainMod SHIFT, W, exec, vm-start"
-
+        "$mainMod, Z, exec, woomer-current"
+        
         # screenshot
         ",Print, exec, screenshot --copy"
         "$mainMod, Print, exec, screenshot --md-copy"
-
-        # switch focus
-        #"$mainMod, left,  movefocus, l"
-        #"$mainMod, right, movefocus, r"
-        #"$mainMod, up,    movefocus, u"
-        #"$mainMod, down,  movefocus, d"
-        #"$mainMod, h, movefocus, l"
-        #"$mainMod, j, movefocus, d"
-        #"$mainMod, k, movefocus, u"
-        #"$mainMod, l, movefocus, r"
-
-        #"$mainMod, left,  alterzorder, top"
-        #"$mainMod, right, alterzorder, top"
-        #"$mainMod, up,    alterzorder, top"
-        #"$mainMod, down,  alterzorder, top"
-        #"$mainMod, h, alterzorder, top"
-        #"$mainMod, j, alterzorder, top"
-        #"$mainMod, k, alterzorder, top"
-        #"$mainMod, l, alterzorder, top"
 
         "CTRL ALT, up, exec, hyprctl dispatch focuswindow floating"
         "CTRL ALT, down, exec, hyprctl dispatch focuswindow tiled"
