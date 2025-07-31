@@ -69,6 +69,7 @@
 
         # Gaming
         ./steam.nix
+        ./mullvad_gui.nix
 
       ] else [])
     ++ (if host == "iso" then

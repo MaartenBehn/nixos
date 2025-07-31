@@ -32,6 +32,7 @@
       [
         ./driver/solaar.nix
         #./programming_languages/all.nix
+        ./apps/minecraft.nix
         ./cli
       ] else [])
     ++ (if host == "iso" then
