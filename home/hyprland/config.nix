@@ -140,7 +140,7 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, ${if terminal == "ghostty" then "trigger_ghostty_hyprland" else (if terminal == "alacritty" then "trigger_alacritty_hyprland" else "trigger_kitty_hyprland")}"
+        "$mainMod, Space, exec, trigger_kitty"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
