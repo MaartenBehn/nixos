@@ -1,4 +1,4 @@
-{ host, terminal, ... }:
+{ terminal, pkgs, ... }:
 let
   custom = {
     font = "JetBrains Mono";
@@ -18,8 +18,31 @@ let
     opacity = "1";
     indicator_height = "2px";
   };
-in
-{
+
+  scrolling_output = pkgs.writeShellScriptBin "scrolling_output" ''
+    trigger() {
+      ACTIVE_WORKSPACE="$(hyprctl monitors -j | jq --arg WAYBAR_OUTPUT_NAME "$WAYBAR_OUTPUT_NAME" '.[] | select(.name == $WAYBAR_OUTPUT_NAME) | .activeWorkspace.id')"
+      ACTIVE_WINDOW="$(hyprctl workspaces -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" '.[] | select(.id == ($ACTIVE_WORKSPACE | tonumber)) | .lastwindow')"
+      hyprctl clients -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" --arg ACTIVE_WINDOW "$ACTIVE_WINDOW" '[ .[] | select(.workspace.id == ($ACTIVE_WORKSPACE | tonumber)) ] | sort_by(.at.[0]) | .[] | {title: .title, active: (.address == $ACTIVE_WINDOW) } | (if .active then "{" else " " end) + .title + (if .active then "}" else " " end)'
+      echo ""
+    }
+
+    handle() {
+      case $1 in
+        activewindow*) trigger ;;
+        workspace*) trigger ;;
+      esac
+    }
+
+    socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do handle "$line"; done
+  '';
+in {
+  home.packages = (with pkgs; [
+    jq
+    socat
+    scrolling_output
+  ]);
+
   programs.waybar.settings.mainBar = with custom; {
     #output = (if host == "laptop" then [ "eDP-1" "DP-5" "DP-6" "DP-7" "DP-8" "DP-9" "DP-10" "DP-11" ] else [ "all" ]);
     position = "bottom";
@@ -33,6 +56,7 @@ in
       "custom/launcher"
       "hyprland/workspaces"
       "custom/tmux"
+      "custom/scrolling"
     ];
     modules-center = [ ];
     modules-right = [
@@ -181,11 +205,11 @@ in
       escape = true;
     };
     "custom/tmux" = {
-      #format = "{}";
-      #exec = "tmux lsw -F '<span foreground=#{?window_active,${orange},${yellow}}>#{window_name}#{?window_bell_flag,!,}</span>' | tr -d '\n@'";
       exec = "tmux lsw -F '#{?window_active,[, }#{window_name}#{?window_bell_flag,!,}#{?window_active,], }' | tr -d '\n@'";
-      #interval = 1;
       signal = 8;
+    };
+    "custom/scrolling" = {
+      exec = "${scrolling_output}/bin/scrolling_output";
     };
   };
 }

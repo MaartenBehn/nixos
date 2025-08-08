@@ -4,6 +4,7 @@
     ./hyprland.nix
     ./config.nix
     ./variables.nix
+    ./scripts
     
     # Needed parts
     ./swaync/swaync.nix
@@ -12,7 +13,7 @@
     ./gtk.nix
     ./rofi.nix
     ./swayosd.nix                     # brightness / volume wiget
-    ./scripts
+    ./hyprscrolling.nix
     
     ./default_apps.nix
   ] 

@@ -1,5 +1,27 @@
-{ pkgs, ... }:
-{
+{ pkgs, desktop, ... }:
+let 
+  nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild" (''
+    cd /home/$USER/nixos/
+    git add --all
+    sudo nixos-rebuild switch --flake . --impure 
+  '' + (if desktop == "hyprland" then ''
+    echo "Reloading hyprland:"
+    hyprctl reload
+  '' else "") + '' 
+    cd -
+  '');
+
+  nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pull" (''
+    cd /home/$USER/nixos/
+    git pull
+    sudo nixos-rebuild switch --flake . --impure 
+  '' + (if desktop == "hyprland" then ''
+    echo "Reloading hyprland:"
+    hyprctl reload
+  '' else "") + '' 
+    cd -
+  '');
+in {
    home.packages = with pkgs; [
     # nix cli
     nix-index
@@ -9,6 +31,9 @@
     
     direnv
     nix-prefetch-github
+
+    nix-rebuild 
+    nix-rebuild-pull
 
     ## Used in aliases 
     fd
@@ -24,10 +49,6 @@
   };
   
   home.shellAliases = {
-    nix-rebuild="cd /home/$USER/nixos/ && git add --all && sudo nixos-rebuild switch --flake . --impure && cd -";
-    nix-rebuild-nh="sudo echo 'Got root access' && cd /home/$USER/nixos/ && git add --all && nh os switch . -- --impure && cd -";
-    nix-rebuild-pull="cd /home/$USER/nixos/ && git pull && sudo nixos-rebuild switch --flake . --impure && cd -";
-
     nix-update="cd /home/$USER/nixos/ && git add --all && nix flake update && cd -";
     nix-clean="sudo nix-collect-garbage --delete-older-than 30d && nix-store --optimise";
     nix-index="update_nix_index";

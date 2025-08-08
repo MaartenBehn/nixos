@@ -22,11 +22,16 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      ${if host != "asus" then ''
-      if status is-interactive 
-      and not set -q TMUX 
-        exec tmux new -As0
+      function fish_title
+        set -q argv[1]; or set argv fish
+        echo $argv[1];
       end
+
+      ${if host != "asus" then ''
+      #if status is-interactive 
+      #and not set -q TMUX 
+      #  exec tmux new -As0
+      #end
       '' else ""}
 
       #function nix-rebuild 

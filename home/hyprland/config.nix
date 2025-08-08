@@ -1,12 +1,12 @@
-{ host, terminal, ... }:
-{
+{ host, terminal, pkgs, ... }: {
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
       exec-once = [
-        # "hash dbus-update-activation-environment 2>/dev/null"
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # load all plugins
+        "hyprctl plugin load \"$HYPR_PLUGIN_DIR/lib/libhyprexpo.so\""
         
         "nm-applet &"
         "poweralertd -s &"
@@ -36,7 +36,7 @@
 
       general = {
         "$mainMod" = "SUPER";
-        layout = "dwindle";
+        layout = "scrolling";
         gaps_in = 6;
         gaps_out = 12;
         border_size = 2;
@@ -131,6 +131,15 @@
         ];
       };
 
+      # https://github.com/hyprwm/hyprland-plugins/tree/main/hyprscrolling
+      plugin.hyprscrolling = {
+        fullscreen_on_one_column = true;
+        column_width = 1.0;
+        explicit_column_widths = [ 0.333 0.5 0.667 1.0 ];
+        focus_fit_method = 0;
+        follow_focus = true;
+      };
+
       binds = {
         movefocus_cycles_fullscreen = true;
       };
@@ -140,7 +149,7 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, trigger_kitty"
+        "$mainMod, Space, exec, kitty"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
@@ -169,12 +178,12 @@
         ",Print, exec, screenshot --copy"
         "$mainMod, Print, exec, screenshot --md-copy"
 
-        "CTRL ALT, up, exec, hyprctl dispatch focuswindow floating"
-        "CTRL ALT, down, exec, hyprctl dispatch focuswindow tiled"
+        "$mainMod, right, layoutmsg, focus r"
+        "$mainMod, left, layoutmsg, focus l"
 
         # switch workspace
-        "$mainMod, left, workspace, -1"
-        "$mainMod, right, workspace, +1"
+        "$mainMod, up, workspace, -1"
+        "$mainMod, down, workspace, +1"
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
@@ -219,16 +228,7 @@
         "$mainMod CTRL, j, resizeactive, 0 80"
         "$mainMod CTRL, k, resizeactive, 0 -80"
         "$mainMod CTRL, l, resizeactive, 80 0"
-
-        #"$mainMod ALT, left, moveactive,  -80 0"
-        #"$mainMod ALT, right, moveactive, 80 0"
-        #"$mainMod ALT, up, moveactive, 0 -80"
-        #"$mainMod ALT, down, moveactive, 0 80"
-        #"$mainMod ALT, h, moveactive,  -80 0"
-        #"$mainMod ALT, j, moveactive, 0 80"
-        #"$mainMod ALT, k, moveactive, 0 -80"
-        #"$mainMod ALT, l, moveactive, 80 0"
-
+ 
         # media and volume controls
         # ",XF86AudioMute,exec, pamixer -t"
         ",XF86AudioPlay,exec, playerctl play-pause"
@@ -263,31 +263,33 @@
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
-
+ 
       # windowrule
       windowrule = [
-        "float,Viewnior"
-        "float,imv"
-        "float,mpv"
-        "tile,Aseprite"
-        "float,audacious"
-        "pin,rofi"
-        "pin,waypaper"
-        "tile, neovide"
-        "idleinhibit focus,mpv"
-        "float,udiskie"
+        "float,title:^(Viewnior)$"
+        "float,title:^(imv)$"
+        "float,title:^(mpv)$"
+        "tile,title:^(Aseprite)$"
+        "float,title:^(audacious)$"
+        "pin,title:^(rofi)$"
+        "pin,title:^(waypaper)$"
+        "tile,title:^(neovide)$"
+        "idleinhibit focus,title:^(mpv)$"
+        "float,title:^(udiskie)$"
         "float,title:^(Transmission)$"
-        "float,title:^(Volume Control)$"
+
         "float,title:^(Firefox — Sharing Indicator)$"
         "move 0 0,title:^(Firefox — Sharing Indicator)$"
+        
+        "float,title:^(Volume Control)$"
         "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
         "${if host == "laptop" then "move 55% 55%,title:^(Volume Control)$" else "move 35% 35%,title:^(Volume Control)$"}"
-        "move 100%-w-10 100%-h-10,title:^(Mullvad VPN)$"
-      ];
+       
+        "move 100%-w-5 100%-h-5,title:^(Mullvad VPN)$"
 
-      # windowrulev2
-      windowrulev2 = [
-        #"float, class:.*"
+        "float,title:^(Bluetooth)"
+        "move 100%-w-5 100%-w-5,title:^(Bluetooth)$"
+
         "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
@@ -298,15 +300,6 @@
         "opacity 1.0 override 1.0 override, class:(Unity)"
         "opacity 1.0 override 1.0 override, class:(zen)"
         "opacity 1.0 override 1.0 override, class:(evince)"
-        #"workspace 1, class:^(zen)$"
-        #"workspace 3, class:^(evince)$"
-        #"workspace 4, class:^(Gimp-2.10)$"
-        #"workspace 4, class:^(Aseprite)$"
-        #"workspace 5, class:^(Audacious)$"
-        #"workspace 5, class:^(Spotify)$"
-        #"workspace 8, class:^(com.obsproject.Studio)$"
-        #"workspace 10, class:^(discord)$"
-        #"workspace 10, class:^(WebCord)$"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,class:^(org.gnome.Calculator)$"
@@ -342,11 +335,11 @@
         "rounding 0, floating:0, onworkspace:w[t1]"
         "bordersize 0, floating:0, onworkspace:w[tg1]"
         "rounding 0, floating:0, onworkspace:w[tg1]"
+        "bordersize 0, floating:0, onworkspace:w[v1]"
+        "rounding 0, floating:0, onworkspace:w[v1]"
         "bordersize 0, floating:0, onworkspace:f[1]"
         "rounding 0, floating:0, onworkspace:f[1]"
-
-        # "maxsize 1111 700, floating: 1"
-        # "center, floating: 1"
+        
 
         # Remove context menu transparency in chromium based apps
         "opaque,class:^()$,title:^()$"
@@ -358,6 +351,7 @@
         # No gaps when only
         "w[t1], gapsout:0, gapsin:0"
         "w[tg1], gapsout:0, gapsin:0"
+        "w[tv1], gapsout:0, gapsin:0"
         "f[1], gapsout:0, gapsin:0"
 
       ] ++ (if host == "laptop" then [  
