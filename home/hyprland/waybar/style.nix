@@ -52,8 +52,8 @@ in
     }
     #workspaces button {
       color: ${yellow};
-      padding-left:  5px;
-      padding-right: 5px;
+      padding-left:  2px;
+      padding-right: 2px;
       margin-right: 10px;
     }
     #workspaces button.empty {

@@ -6,7 +6,6 @@
     ./variables.nix
     ./scripts
     
-    # Needed parts
     ./swaync/swaync.nix
     ./waybar
     ./waypaper.nix
@@ -14,6 +13,9 @@
     ./rofi.nix
     ./swayosd.nix                     # brightness / volume wiget
     ./hyprscrolling.nix
+    #./hyprexpro.nix
+    ./window_decorations.nix
+    ./workspaces.nix
     
     ./default_apps.nix
   ] 

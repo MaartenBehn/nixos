@@ -54,19 +54,19 @@ elif [ "$1" == "home" ]; then
   hyprctl keyword monitor DP-3,highres,auto,1,mirror,eDP-1
   
   hyprctl keyword workspace 1, monitor:eDP-1, default:true 
-  hyprctl keyword workspace r[2-5], monitor:eDP-1
+  hyprctl keyword workspace r[2-3], monitor:eDP-1
 
-  hyprctl keyword workspace 6, monitor:DP-5, default:true
-  hyprctl keyword workspace r[7-10], monitor:DP-5
+  hyprctl keyword workspace 4, monitor:DP-5, default:true
+  hyprctl keyword workspace r[5-6], monitor:DP-5
         
-  hyprctl keyword workspace 6, monitor:DP-7, default:true
-  hyprctl keyword workspace r[7-10], monitor:DP-7
+  hyprctl keyword workspace 4, monitor:DP-7, default:true
+  hyprctl keyword workspace r[5-6], monitor:DP-7
   
-  hyprctl keyword workspace 11, monitor:DP-6, default:true
-  hyprctl keyword workspace r[12-15], monitor:DP-6
+  hyprctl keyword workspace 7, monitor:DP-6, default:true
+  hyprctl keyword workspace r[8-9], monitor:DP-6
   
-  hyprctl keyword workspace 11, monitor:DP-8, default:true
-  hyprctl keyword workspace r[12-15], monitor:DP-8
+  hyprctl keyword workspace 7, monitor:DP-8, default:true
+  hyprctl keyword workspace r[8-9], monitor:DP-8
 
 elif [ "$1" == "dlr" ]; then
   hyprctl keyword monitor eDP-1,2256x1504,0x0,1
@@ -74,13 +74,13 @@ elif [ "$1" == "dlr" ]; then
   hyprctl keyword monitor desc:Ancor Communications Inc ASUS VP239 FALMTJ009911,1920x1080,4816x0,1
 
   hyprctl keyword workspace 1, monitor:eDP-1, default:true 
-  hyprctl keyword workspace r[2-5], monitor:eDP-1
+  hyprctl keyword workspace r[2-3], monitor:eDP-1
 
-  hyprctl keyword workspace 6, monitor:DP-5, default:true
-  hyprctl keyword workspace r[7-10], monitor:DP-5
+  hyprctl keyword workspace 4, monitor:DP-5, default:true
+  hyprctl keyword workspace r[5-6], monitor:DP-5
         
-  hyprctl keyword workspace 11, monitor:DP-7, default:true
-  hyprctl keyword workspace r[12-15], monitor:DP-7
+  hyprctl keyword workspace 7, monitor:DP-7, default:true
+  hyprctl keyword workspace r[8-9], monitor:DP-7
 else
   echo "No args"
 fi

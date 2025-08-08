@@ -1,4 +1,4 @@
-{ host, terminal, pkgs, ... }: {
+{ host, terminal, ... }: {
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
@@ -36,14 +36,6 @@
 
       general = {
         "$mainMod" = "SUPER";
-        layout = "scrolling";
-        gaps_in = 6;
-        gaps_out = 12;
-        border_size = 2;
-        "col.active_border" = "rgb(98971A) rgb(CC241D) 45deg";
-        "col.inactive_border" = "0x00000000";
-        # border_part_of_window = false;
-        no_border_on_floating = false;
       };
 
       misc = {
@@ -56,88 +48,6 @@
         focus_on_activate = true;
         new_window_takes_over_fullscreen = 2;
         middle_click_paste = false;
-      };
-
-      dwindle = {
-        force_split = 2;
-        special_scale_factor = 1.0;
-        split_width_multiplier = 1.0;
-        use_active_for_splits = true;
-        pseudotile = "yes";
-        preserve_split = "yes";
-      };
-
-      master = {
-        new_status = "master";
-        special_scale_factor = 1;
-      };
-
-      decoration = {
-        rounding = 0;
-        # active_opacity = 0.90;
-        # inactive_opacity = 0.90;
-        # fullscreen_opacity = 1.0;
-
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 2;
-          brightness = 1;
-          contrast = 1.4;
-          ignore_opacity = true;
-          noise = 0;
-          new_optimizations = true;
-          xray = true;
-        };
-
-        shadow = {
-          enabled = true;
-
-          ignore_window = true;
-          offset = "0 2";
-          range = 20;
-          render_power = 3;
-          color = "rgba(00000055)";
-        };
-      };
-
-      animations = {
-        enabled = true;
-
-        bezier = [
-          "fluent_decel, 0, 0.2, 0.4, 1"
-          "easeOutCirc, 0, 0.55, 0.45, 1"
-          "easeOutCubic, 0.33, 1, 0.68, 1"
-          "fade_curve, 0, 0.55, 0.45, 1"
-        ];
-
-        animation = [
-          # name, enable, speed, curve, style
-
-          # Windows
-          "windowsIn,   0, 4, easeOutCubic,  popin 20%" # window open
-          "windowsOut,  0, 4, fluent_decel,  popin 80%" # window close.
-          "windowsMove, 1, 2, fluent_decel, slide" # everything in between, moving, dragging, resizing.
-
-          # Fade
-          "fadeIn,      1, 3,   fade_curve" # fade in (open) -> layers and windows
-          "fadeOut,     1, 3,   fade_curve" # fade out (close) -> layers and windows
-          "fadeSwitch,  0, 1,   easeOutCirc" # fade on changing activewindow and its opacity
-          "fadeShadow,  1, 10,  easeOutCirc" # fade on changing activewindow for shadows
-          "fadeDim,     1, 4,   fluent_decel" # the easing of the dimming of inactive windows
-          # "border,      1, 2.7, easeOutCirc"  # for animating the border's color switch speed
-          # "borderangle, 1, 30,  fluent_decel, once" # for animating the border's gradient angle - styles: once (default), loop
-          "workspaces,  1, 4,   easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
-        ];
-      };
-
-      # https://github.com/hyprwm/hyprland-plugins/tree/main/hyprscrolling
-      plugin.hyprscrolling = {
-        fullscreen_on_one_column = true;
-        column_width = 1.0;
-        explicit_column_widths = [ 0.333 0.5 0.667 1.0 ];
-        focus_fit_method = 0;
-        follow_focus = true;
       };
 
       binds = {
@@ -181,54 +91,7 @@
         "$mainMod, right, layoutmsg, focus r"
         "$mainMod, left, layoutmsg, focus l"
 
-        # switch workspace
-        "$mainMod, up, workspace, -1"
-        "$mainMod, down, workspace, +1"
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
-
-        # same as above, but switch to the workspace
-        "$mainMod SHIFT, left, movetoworkspacesilent, -1"
-        "$mainMod SHIFT, right, movetoworkspacesilent, +1"
-        "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-        "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-        "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-        "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-        "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-        "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-        "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-        "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-        "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-        "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-        "$mainMod CTRL, c, movetoworkspace, empty"
-
-        # window control
-        "$mainMod ALT, left, movewindow, l"
-        "$mainMod ALT, right, movewindow, r"
-        "$mainMod ALT, up, movewindow, u"
-        "$mainMod ALT, down, movewindow, d"
-        "$mainMod ALT, h, movewindow, l"
-        "$mainMod ALT, j, movewindow, d"
-        "$mainMod ALT, k, movewindow, u"
-        "$mainMod ALT, l, movewindow, r"
-
-        "$mainMod CTRL, left, resizeactive, -80 0"
-        "$mainMod CTRL, right, resizeactive, 80 0"
-        "$mainMod CTRL, up, resizeactive, 0 -80"
-        "$mainMod CTRL, down, resizeactive, 0 80"
-        "$mainMod CTRL, h, resizeactive, -80 0"
-        "$mainMod CTRL, j, resizeactive, 0 80"
-        "$mainMod CTRL, k, resizeactive, 0 -80"
-        "$mainMod CTRL, l, resizeactive, 80 0"
- 
+         
         # media and volume controls
         # ",XF86AudioMute,exec, pamixer -t"
         ",XF86AudioPlay,exec, playerctl play-pause"
@@ -302,7 +165,7 @@
         "opacity 1.0 override 1.0 override, class:(evince)"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
-        "float,class:^(org.gnome.Calculator)$"
+        #"float,class:^(org.gnome.Calculator)$"
         "float,class:^(waypaper)$"
         "float,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
@@ -329,61 +192,12 @@
         "noinitialfocus,class:^(xwaylandvideobridge)$"
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
-
-        # No gaps when only
-        "bordersize 0, floating:0, onworkspace:w[t1]"
-        "rounding 0, floating:0, onworkspace:w[t1]"
-        "bordersize 0, floating:0, onworkspace:w[tg1]"
-        "rounding 0, floating:0, onworkspace:w[tg1]"
-        "bordersize 0, floating:0, onworkspace:w[v1]"
-        "rounding 0, floating:0, onworkspace:w[v1]"
-        "bordersize 0, floating:0, onworkspace:f[1]"
-        "rounding 0, floating:0, onworkspace:f[1]"
-        
-
+ 
         # Remove context menu transparency in chromium based apps
         "opaque,class:^()$,title:^()$"
         "noshadow,class:^()$,title:^()$"
         "noblur,class:^()$,title:^()$"
       ];
-
-      workspace = [
-        # No gaps when only
-        "w[t1], gapsout:0, gapsin:0"
-        "w[tg1], gapsout:0, gapsin:0"
-        "w[tv1], gapsout:0, gapsin:0"
-        "f[1], gapsout:0, gapsin:0"
-
-      ] ++ (if host == "laptop" then [  
-        "1, monitor:eDP-1, default:true" 
-        "r[2-5], monitor:eDP-1"
-
-        "6, monitor:DP-5, default:true"
-        "r[7-10], monitor:DP-5"
-        
-        "6, monitor:DP-7, default:true"
-        "r[7-10], monitor:DP-7"
-
-        "11, monitor:DP-6, default:true"
-        "r[12-15], monitor:DP-6"
-
-        "11, monitor:DP-8, default:true"
-        "r[12-15], monitor:DP-8"
-     ]
-      else if host == "desktop" then [ 
-        "1, monitor:HDMI-A-1, default:true"
-        "2, monitor:HDMI-A-1"
-        "3, monitor:HDMI-A-1"
-        "4, monitor:HDMI-A-1"
-        "5, monitor:HDMI-A-1"
-
-        "6, monitor:HDMI-A-2, default:true"
-        "7, monitor:HDMI-A-2"
-        "8, monitor:HDMI-A-2"
-        "9, monitor:HDMI-A-2"
-        "10, monitor:HDMI-A-2"
-      ]
-      else []);
     };
 
     extraConfig = "
