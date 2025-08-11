@@ -8,5 +8,6 @@
     ./toggle.nix
     ./show_keybinds.nix
     ./trigger_kitty.nix
+    ./hypercwd.nix
   ];
 }

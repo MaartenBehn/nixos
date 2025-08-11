@@ -23,7 +23,7 @@ let
     trigger() {
       ACTIVE_WORKSPACE="$(hyprctl monitors -j | jq --arg WAYBAR_OUTPUT_NAME "$WAYBAR_OUTPUT_NAME" '.[] | select(.name == $WAYBAR_OUTPUT_NAME) | .activeWorkspace.id')"
       ACTIVE_WINDOW="$(hyprctl workspaces -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" '.[] | select(.id == ($ACTIVE_WORKSPACE | tonumber)) | .lastwindow')"
-      hyprctl clients -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" --arg ACTIVE_WINDOW "$ACTIVE_WINDOW" '[ .[] | select(.workspace.id == ($ACTIVE_WORKSPACE | tonumber)) ] | sort_by(.at.[0]) | .[] | {title: .title, active: (.address == $ACTIVE_WINDOW) } | (if .active then "{" else " " end) + .title + (if .active then "}" else " " end)'
+      hyprctl clients -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" --arg ACTIVE_WINDOW "$ACTIVE_WINDOW" '[ .[] | select(.workspace.id == ($ACTIVE_WORKSPACE | tonumber)) ] | sort_by(.at.[0]) | .[] | {title: (if .title | length > 10 then .title[:9] + ">" else .title end), active: (.address == $ACTIVE_WINDOW) } | (if .active then "{" else " " end) + .title + (if .active then "}" else " " end)'
       echo ""
     }
 

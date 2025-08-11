@@ -48,13 +48,13 @@ in
     }
 
     #workspaces {
-      padding-left: 15px;
+      padding-left: 10px;
     }
     #workspaces button {
       color: ${yellow};
       padding-left:  2px;
       padding-right: 2px;
-      margin-right: 10px;
+      margin-right: 5px;
     }
     #workspaces button.empty {
       color: ${text_color};

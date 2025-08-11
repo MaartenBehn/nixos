@@ -59,7 +59,7 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, kitty"
+        "$mainMod, Space, exec, kitty -d $(hyprcwd)"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
