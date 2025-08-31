@@ -120,7 +120,7 @@
               href = "http://home.home/";
               siteMonitor = "http://home.home/";
               description = "Smart Home";
-              #icon = "https://lidarr.audio/img/logo.png";
+              icon = "https://upload.wikimedia.org/wikipedia/commons/a/ab/New_Home_Assistant_logo.svg";
               widget = {
                 type = "homeassistant";
                 url = "http://home.home/";
