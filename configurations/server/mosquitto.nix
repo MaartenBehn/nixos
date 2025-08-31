@@ -6,7 +6,7 @@
       port = 1883;
       users.tasmota = {
         acl = [
-          "pattern readwrite #"
+          "readwrite #"
         ];
         password = "mqtt+240803";
       };  
