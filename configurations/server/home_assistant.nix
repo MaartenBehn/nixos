@@ -6,7 +6,8 @@
       "esphome"
       "met"
       "radio_browser"
-      "mqtt"
+      "gtts"
+      "tasmota"
     ];
     config = {
       # Includes dependencies for a basic setup
