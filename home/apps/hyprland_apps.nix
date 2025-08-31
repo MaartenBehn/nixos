@@ -8,6 +8,7 @@
     ./unity.nix
     ./blender.nix
     ./blender.nix
+    ./wine.nix
  ];
 
   home.packages = (with pkgs; [

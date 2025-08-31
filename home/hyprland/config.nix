@@ -48,6 +48,7 @@
         focus_on_activate = true;
         new_window_takes_over_fullscreen = 2;
         middle_click_paste = false;
+        enable_anr_dialog = false;
       };
 
       binds = {
@@ -186,6 +187,7 @@
         "float,title:^(branchdialog)$"
         "float,title:^(Confirm to replace files)$"
         "float,title:^(File Operation Progress)$"
+        "float,title:^(Save As)$"
 
         "opacity 0.0 override,class:^(xwaylandvideobridge)$"
         "noanim,class:^(xwaylandvideobridge)$"
