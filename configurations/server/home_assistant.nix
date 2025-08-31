@@ -6,6 +6,7 @@
       "esphome"
       "met"
       "radio_browser"
+      "mqtt"
     ];
     config = {
       # Includes dependencies for a basic setup
@@ -24,7 +25,6 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 8096 ];
   services.nginx.virtualHosts."home.${local_domain}" = {  
     enableACME = false;
     forceSSL = false;
