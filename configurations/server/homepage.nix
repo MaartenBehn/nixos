@@ -116,6 +116,19 @@
       {
         Data = [
           {
+            HomeAssistant = {
+              href = "http://home.home/";
+              siteMonitor = "http://home.home/";
+              description = "Smart Home";
+              #icon = "https://lidarr.audio/img/logo.png";
+              widget = {
+                type = "homeassistant";
+                url = "http://home.home/";
+                key = "ee7c84e0f9d040b997d8133b14516a8d";
+              };
+            };
+          }
+          {
             Notes = {
               href = "http://notes.home";
               siteMonitor = "http://notes.home/";
