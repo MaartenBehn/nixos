@@ -6,7 +6,7 @@
       "esphome"
       "met"
       "radio_browser"
-      "gtts"
+      "google_translate"
       "tasmota"
     ];
     config = {
