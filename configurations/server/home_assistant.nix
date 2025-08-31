@@ -1,4 +1,8 @@
 { local_domain, ... }: {
+  mports = [
+    ./mosquitto.nix
+  ];
+
   services.home-assistant = {
     enable = true;
     extraComponents = [
