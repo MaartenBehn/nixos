@@ -32,6 +32,10 @@
     locations."/" = {
       proxyPass = "http://127.0.0.1:8123/";
       #proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header    Upgrade     $http_upgrade;
+        proxy_set_header    Connection  "upgrade";
+      '';
     };
 
     serverAliases = [
