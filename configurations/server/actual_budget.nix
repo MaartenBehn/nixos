@@ -9,7 +9,7 @@ in {
     pkgs.actual-server
   ];
 
-  systemd.services.filebrowser = {
+  systemd.services.actual-server = {
     path = with pkgs; [
       actual-server
     ];
