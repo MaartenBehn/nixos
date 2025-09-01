@@ -149,10 +149,10 @@
         "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
         "${if host == "laptop" then "move 55% 55%,title:^(Volume Control)$" else "move 35% 35%,title:^(Volume Control)$"}"
        
-        "move 100%-w-5 100%-h-5,title:^(Mullvad VPN)$"
+        "move 100%-w-10 100%-w-40,title:^(Mullvad VPN)$"
 
         "float,title:^(Bluetooth)"
-        "move 100%-w-5 100%-w-5,title:^(Bluetooth)$"
+        "move 100%-w-10 100%-w-40,title:^(Bluetooth)$"
 
         "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"

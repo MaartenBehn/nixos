@@ -125,6 +125,7 @@
         ./server/qbittorrnt.nix
         ./server/obsidian_export.nix
         ./server/home_assistant.nix
+        ./server/actual_budget.nix
         
       ] else [])
     ++ (if host == "wsl" then
