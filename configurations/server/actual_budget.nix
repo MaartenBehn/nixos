@@ -1,6 +1,6 @@
 { pkgs, local_domain, domains, ... }: 
 let
-  configFile = builtins.toJSON(
+  configFile = pkgs.writeText (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
   });
