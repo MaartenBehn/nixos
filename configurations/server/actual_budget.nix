@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  systemPackages = [
+  environment.systemPackages = [
     pkgs.actual-server
   ];
 
