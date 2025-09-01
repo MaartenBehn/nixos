@@ -25,9 +25,7 @@
         Media = [
           {
             Jellyfin = {
-              #icon: "img."
               href = "http://media.home/";
-              siteMonitor = "http://media.home/";
               description = "Media Server";
               icon = "https://jellyfin.org/images/favicon.ico";
               widget = {
@@ -46,7 +44,6 @@
           {
             Qbittorrent = {
               href = "http://qbittorrent.home/";
-              siteMonitor = "http://qbittorrent.home/";
               description = "Torrent Downloader";
               icon = "https://www.qbittorrent.org/favicon.svg";
               widget = {
@@ -61,7 +58,6 @@
           {
             Prowlarr = {
               href = "http://prowlarr.home/";
-              siteMonitor = "http://prowlarr.home/";
               description = "Indexer Manager";
               icon = "https://prowlarr.com/logo/128.png";
               widget = {
@@ -74,7 +70,6 @@
           {
             Sonarr = {
               href = "http://sonarr.home/";
-              siteMonitor = "http://sonarr.home/";
               description = "Show Search Engine";
               icon = "https://sonarr.tv/img/logo.png";
               widget = {
@@ -87,7 +82,6 @@
           {
             Radarr = {
               href = "http://radarr.home/";
-              siteMonitor = "http://radarr.home/";
               description = "Movie Search Engine";
               icon = "https://radarr.video/img/logo.png";
               widget = {
@@ -101,7 +95,6 @@
           {
             Lidarr = {
               href = "http://lidarr.home/";
-              siteMonitor = "http://lidarr.home/";
               description = "Music Search Engine";
               icon = "https://lidarr.audio/img/logo.png";
               widget = {
@@ -118,7 +111,6 @@
           {
             HomeAssistant = {
               href = "http://home.home/";
-              siteMonitor = "http://home.home/";
               description = "Smart Home";
               icon = "https://upload.wikimedia.org/wikipedia/commons/a/ab/New_Home_Assistant_logo.svg";
               widget = {
@@ -143,28 +135,24 @@
           {
             FileBrowser = {
               href = "https://files.stroby.ipv64.de";
-              siteMonitor = "http://files.home/";
               icon = "https://filebrowser.org/static/logo.png";
             };
           }
           {
             Syncthing = {
               href = "http://syncthing.home/";
-              siteMonitor = "http://syncthing.home/";
               icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
           }
           {
             VSCode = {
               href = "http://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-              siteMonitor = "http://code.home/";
               icon = "https://code.visualstudio.com/assets/favicon.ico";
             };
           }
           {
             Gallery = {
               href = "http://gallery.home/";
-              siteMonitor = "http://gallery.home/";
             };
           }
         ];
