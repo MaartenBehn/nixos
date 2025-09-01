@@ -17,8 +17,8 @@
       "$mainMod, 0, workspace, 10"
 
       # same as above, but switch to the workspace
-      "$mainMod SHIFT, left, movetoworkspacesilent, -1"
-      "$mainMod SHIFT, right, movetoworkspacesilent, +1"
+      "$mainMod SHIFT, up, movetoworkspacesilent, -1"
+      "$mainMod SHIFT, down, movetoworkspacesilent, +1"
       "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
       "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
       "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
