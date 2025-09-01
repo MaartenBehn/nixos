@@ -119,7 +119,10 @@
                 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwMDFmZGU4OWNjNmE0OTA0OGViMjgyYWU5NGI3YjZkZCIsImlhdCI6MTc1NjY4NTAzMiwiZXhwIjoyMDcyMDQ1MDMyfQ.9UmaK7XB9XmEUDH6CGG92eXOXJYJ_4qC93O9Q-nfDXg";
                 custom = [
                   {
-                    state = "sensor.total_power";
+                    state = "sensor.plug_asus_energy_total";
+                  }
+                  {
+                    state = "sensor.plug_asus_energy_today";
                   }
                 ];
               };
