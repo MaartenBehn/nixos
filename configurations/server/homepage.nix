@@ -125,6 +125,11 @@
                 type = "homeassistant";
                 url = "http://home.home/";
                 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwMDFmZGU4OWNjNmE0OTA0OGViMjgyYWU5NGI3YjZkZCIsImlhdCI6MTc1NjY4NTAzMiwiZXhwIjoyMDcyMDQ1MDMyfQ.9UmaK7XB9XmEUDH6CGG92eXOXJYJ_4qC93O9Q-nfDXg";
+                custom = [
+                  {
+                    state = "plug_asus.energy_total";
+                  }
+                ];
               };
             };
           }
