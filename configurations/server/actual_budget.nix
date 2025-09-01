@@ -1,9 +1,9 @@
 { pkgs, local_domain, domains, ... }: 
 let
-  configFile = pkgs.writeText (builtins.toJSON(
+  configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
-  }));
+  });
 in {
   environment.systemPackages = [
     pkgs.actual-server
