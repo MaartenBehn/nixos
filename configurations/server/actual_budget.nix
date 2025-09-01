@@ -21,21 +21,17 @@ in {
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "budget.${domain}"; 
     value = { 
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
+      enableACME = true;
+      forceSSL = true;
 
       locations."/" = {
         proxyPass = "http://127.0.0.1:5006/";
         proxyWebsockets = true;
-
-        extraConfig = 
-          "proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;" +
-          "proxy_set_header Host $host;";
       };
 
       serverAliases = [
         "www.budget.${domain}"
       ];
     };
-  }) (domains ++ [ local_domain ]));
+  }) (domains));
 }
