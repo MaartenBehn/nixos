@@ -120,9 +120,11 @@
                 custom = [
                   {
                     state = "sensor.plug_asus_energy_total";
+                    label = "Asus usage total";
                   }
                   {
                     state = "sensor.plug_asus_energy_today";
+                    label = "Asus usage today";
                   }
                 ];
               };
@@ -131,7 +133,6 @@
           {
             Notes = {
               href = "http://notes.home";
-              siteMonitor = "http://notes.home/";
               icon = "https://obsidian.md/favicon.svg";
             };
           }
