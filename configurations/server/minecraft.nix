@@ -7,8 +7,8 @@
 
   networking.firewall = {
     allowedTCPPorts = [ 
-      75692 
-      75693
+      13470 
+      13471
     ];
   };
 
@@ -35,7 +35,7 @@
           spawn-protection = 0;
           white-list = true;
           enforce-white-list = true;
-          server-port = 75692;
+          server-port = 13470;
         };
 
         whitelist = {
@@ -72,7 +72,7 @@
           spawn-protection = 0;
           white-list = true;
           enforce-white-list = true;
-          server-port = 75693;
+          server-port = 13471;
         };
 
         whitelist = {

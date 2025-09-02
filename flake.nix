@@ -103,7 +103,7 @@
       {
         host = "asus";
         username = "stroby"; 
-        domains = [ "stroby.duckdns.org" "stroby.ipv64.de" ];
+        domains = [ "stroby.duckdns.org" "stroby.ipv64.de" "stroby.eu" ];
         local_domain = "home";
       }
       {
