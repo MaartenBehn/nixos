@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756855642,
-        "narHash": "sha256-NPoIG66XH8xngxBRfJCsIuhq1CJTBUgMCh/qigAn4Y8=",
+        "lastModified": 1756856832,
+        "narHash": "sha256-R1f5HguoBsMpTBMf5oDBPTPRWIj1wCBKhRRkfa3CLBk=",
         "owner": "MaartenBehn",
         "repo": "actual-budget-prometheus-exporter",
-        "rev": "162d15f65720bd87c7a210da69ba69c0e31f6b71",
+        "rev": "20ab66bedd43e3464c499c53054fb8c3a27fe2bf",
         "type": "github"
       },
       "original": {
