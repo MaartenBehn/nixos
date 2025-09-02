@@ -12,10 +12,14 @@
  
     networkmanager.enable = false;
     tempAddresses = "disabled";
+
+    interfaces.enp3s0f3u1 = {
+      macAddress = "01:01:01:01:01:01";
+    };
   };
 
-  systemd.network.networks."enp3s0f3u1".ipv6AcceptRAConfig.Token = [
-    "static:::1111:1111:1111:1111"
-    "eui64"
-  ];
+  #systemd.network.networks."enp3s0f3u1".ipv6AcceptRAConfig.Token = [
+  #  "static:::1111:1111:1111:1111"
+  #  "eui64"
+  #];
 } 
