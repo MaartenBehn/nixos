@@ -1,4 +1,4 @@
-{ pkgs, domains, ... }: 
+{ pkgs, domains, inputs, ... }: 
 let
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
@@ -7,6 +7,11 @@ let
     serverFiles = "/var/lib/actual-server/server-files";
   });
 in {
+
+  includes = [
+    inputs.actual-budget-prometheus-exporter
+  ];
+
   environment.systemPackages = [
     pkgs.actual-server
   ];
