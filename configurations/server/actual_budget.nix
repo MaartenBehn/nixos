@@ -8,12 +8,9 @@ let
   });
 in {
 
-  includes = [
-    inputs.actual-budget-prometheus-exporter
-  ];
-
   environment.systemPackages = [
     pkgs.actual-server
+    inputs.actual-budget-prometheus-exporter.packages.x86_64-linux.default
   ];
 
   systemd.services.actual-server = {
