@@ -1,8 +1,10 @@
-{ pkgs, local_domain, domains, ... }: 
+{ pkgs, domains, ... }: 
 let
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
+    userFiles = "/var/lib/actual-server/user-files";
+    serverFiles = "/var/lib/actual-server/server-files";
   });
 in {
   environment.systemPackages = [
