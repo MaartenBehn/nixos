@@ -8,7 +8,7 @@
   networking = {
     firewall.enable = true;
  
-    networkmanager.enable = true;
+    networkmanager.enable = false;
     tempAddresses = "disabled";
   };
 
