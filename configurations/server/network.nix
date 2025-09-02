@@ -13,7 +13,7 @@
   };
 
   systemd.network.networks."enp3s0f3u1".ipv6AcceptRAConfig.Token = [
-    "static:::4114:7e5a:3499:9a58"
+    "static:::1111:1111:1111:1111"
     "eui64"
   ];
-}
+} 
