@@ -14,7 +14,7 @@
     tempAddresses = "disabled";
 
     interfaces.enp3s0f3u1 = {
-      macAddress = "01:01:01:01:01:01";
+      macAddress = "02:11:22:33:44:55";
     };
   };
 
