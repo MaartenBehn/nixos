@@ -106,7 +106,7 @@
         ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
-        ./networking.nix
+        #./networking.nix
         ./battery.nix
         ./keep_on_with_closed_lid.nix
 
