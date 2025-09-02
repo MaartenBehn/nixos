@@ -1,4 +1,4 @@
-{ ... }:
+{ system_name, ... }:
 {
   imports = [
     ./ssh.nix
@@ -6,6 +6,8 @@
   ];
 
   networking = {
+    hostName = system_name;
+
     firewall.enable = true;
  
     networkmanager.enable = false;
