@@ -30,10 +30,10 @@ let
     src = src;
     srcs = [ src translations ];
     sourceRoot = "${src.name}/";
-    #offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
-    #  inherit (old) src missingHashes;
-    #  hash = "sha256-SPLosaI2r8PshhqG+dbJktVmjcaDX1GmIXBO0bF+mY4=";
-    #};
+    offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
+      inherit (old) src;
+      hash = "sha256-SPLosaI2r8PshhqG+dbJktVmjcaDX1GmIXBO0bF+mY4=";
+    };
   });
 in {
 
