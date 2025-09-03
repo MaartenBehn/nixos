@@ -1,6 +1,5 @@
-{ pkgs-unstable, domains, ... }: 
-let
-  pkgs = pkgs-unstable;
+{ pkgs, pkgs-unstable, domains, ... }: 
+let 
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
@@ -8,6 +7,8 @@ let
     serverFiles = "/var/lib/actual-server/server-files";
   });
 
+  # Enable Banking Pull Request Version
+  # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
   src = pkgs.fetchFromGitHub {
       name = "actualbudget-actual-source_patch";
       owner = "realtwister";
@@ -25,7 +26,7 @@ let
     hash = "sha256-3dtdymdKfEzUIzButA3L88GrehO4EjCrd/gq0Y5bcuE=";
   };
 
-  actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
+  actual-enable-banking = pkgs-unstable.actual-server.overrideAttrs (old: {
     version = "git";
     src = src;
     srcs = [ src translations ];
@@ -33,16 +34,21 @@ let
 
     # https://nixos.org/manual/nixpkgs/unstable/#javascript-yarnBerry-missing-hashes
     missingHashes = ./actual_missing_hashes.json;
-    offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
+    offlineCache = pkgs-unstable.yarn-berry.fetchYarnBerryDeps {
       inherit src;
       missingHashes = ./actual_missing_hashes.json;
       hash = "sha256-B9OukwRjXxx5gEHulENJnhjP5M9ccaF/dqL7d8HzXi8=";
     };
+
+    # Allow network during build
+    buildInputs = old.buildInputs or [] ++ [ pkgs.nodejs ]; 
+    NIX_NET_ALLOW = "github.com"; # optional: restrict network to github
   });
 in {
 
   systemd.services.actual-server = {
-    path = with pkgs; [
+    path = [
+      # pkgs.actual-server
       actual-enable-banking
     ];
     script = "actual-server --config ${configFile}";
