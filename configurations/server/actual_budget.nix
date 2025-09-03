@@ -32,7 +32,7 @@ let
     sourceRoot = "${src.name}/";
     offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
       inherit (old) src missingHashes;
-      hash = "";
+      hash = "sha256-SPLosaI2r8PshhqG+dbJktVmjcaDX1GmIXBO0bF+mY4=";
     };
   });
 in {
