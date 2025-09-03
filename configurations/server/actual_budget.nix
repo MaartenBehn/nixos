@@ -25,7 +25,8 @@ let
   };
 
   actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
-    version = "git"; 
+    version = "git";
+    src = src;
     srcs = [ src translations ]; 
   });
 in {
