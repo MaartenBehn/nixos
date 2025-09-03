@@ -6,10 +6,21 @@ let
     userFiles = "/var/lib/actual-server/user-files";
     serverFiles = "/var/lib/actual-server/server-files";
   });
+
+  actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
+    version = "git"; # usually harmless to omit
+    src = pkgs.fetchFromGitHub {
+      name = "actualbudget-actual-source";
+      owner = "realtwister";
+      repo = "actual";
+      rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
+      hash = "";
+    };    
+  });
 in {
 
   environment.systemPackages = [
-    pkgs.actual-server
+    actual-enable-banking
   ];
 
   systemd.services.actual-server = {
