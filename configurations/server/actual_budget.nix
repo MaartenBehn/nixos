@@ -7,15 +7,26 @@ let
     serverFiles = "/var/lib/actual-server/server-files";
   });
 
-  actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
-    version = "git"; # usually harmless to omit
-    src = pkgs.fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
       name = "actualbudget-actual-source";
       owner = "realtwister";
       repo = "actual";
       rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
       hash = "";
     };    
+  translations = pkgs.fetchFromGitHub {
+    name = "actualbudget-translations-source";
+    owner = "actualbudget";
+    repo = "translations";
+    # Note to updaters: this repo is not tagged, so just update this to the Git
+    # tip at the time the update is performed.
+    rev = "c1c2f298013ca3223e6cd6a4a4720bca5e8b8274";
+    hash = "sha256-3dtdymdKfEzUIzButA3L88GrehO4EjCrd/gq0Y5bcuE=";
+  };
+
+  actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
+    version = "git"; 
+    srcs = [ src translations ]; 
   });
 in {
 
