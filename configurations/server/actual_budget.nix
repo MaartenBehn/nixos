@@ -8,7 +8,7 @@ let
   });
 
   src = pkgs.fetchFromGitHub {
-      name = "actualbudget-actual-source";
+      name = "actualbudget-actual-source_patch";
       owner = "realtwister";
       repo = "actual";
       rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
@@ -27,7 +27,8 @@ let
   actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
     version = "git";
     src = src;
-    #srcs = [ src translations ]; 
+    srcs = [ src translations ];
+    sourceRoot = "${src.name}/";
   });
 in {
 
