@@ -12,7 +12,7 @@ let
       owner = "realtwister";
       repo = "actual";
       rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
-      hash = "";
+      hash = "sha256-GfMXhLHzhkBxv0DfC/Ug6jWbraSxzq9Bad1SNi5TquU=";
     };    
   translations = pkgs.fetchFromGitHub {
     name = "actualbudget-translations-source";
