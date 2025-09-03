@@ -30,8 +30,12 @@ let
     src = src;
     srcs = [ src translations ];
     sourceRoot = "${src.name}/";
+
+    # https://nixos.org/manual/nixpkgs/unstable/#javascript-yarnBerry-missing-hashes
+    missingHashes = ./actual_missing_hashes.json;
     offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
-      inherit (old) src;
+      inherit src;
+      missingHashes = ./actual_missing_hashes.json;
       hash = "";
     };
   });
