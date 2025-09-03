@@ -36,7 +36,7 @@ let
     offlineCache = pkgs.yarn-berry.fetchYarnBerryDeps {
       inherit src;
       missingHashes = ./actual_missing_hashes.json;
-      hash = "";
+      hash = "sha256-B9OukwRjXxx5gEHulENJnhjP5M9ccaF/dqL7d8HzXi8=";
     };
   });
 in {
