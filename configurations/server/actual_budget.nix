@@ -40,9 +40,7 @@ let
       hash = "sha256-B9OukwRjXxx5gEHulENJnhjP5M9ccaF/dqL7d8HzXi8=";
     };
 
-    # Allow network during build
-    buildInputs = old.buildInputs or [] ++ [ pkgs.nodejs ]; 
-    NIX_NET_ALLOW = "github.com"; # optional: restrict network to github
+    YARN_ENABLE_OFFLINE=true;
   });
 in {
 
