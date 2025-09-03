@@ -7,6 +7,7 @@ let
     image = [ "imv-dir.desktop" ];
     audio = [ "mpv.desktop" ];
     video = [ "mpv.desktop" ];
+    models = [ "f3d.desktop" ];
     directory = [ "nemo.desktop" ];
     office = [ "libreoffice.desktop" ];
     pdf = [ "org.gnome.Evince.desktop" ];
@@ -47,6 +48,9 @@ let
       "video/x-matroska"
       "video/x-msvideo"
     ];
+    models = [
+      "application/fbx"
+    ];
     directory = [ "inode/directory" ];
     browser = [
       "text/html"
@@ -76,6 +80,7 @@ let
       "application/*tar"
     ];
     discord = [ "x-scheme-handler/discord" ];
+
   };
 
   associations =

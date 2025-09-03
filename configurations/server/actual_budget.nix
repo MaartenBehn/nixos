@@ -6,15 +6,34 @@ let
     userFiles = "/var/lib/actual-server/user-files";
     serverFiles = "/var/lib/actual-server/server-files";
   });
-in {
 
-  environment.systemPackages = [
-    pkgs.actual-server
-  ];
+  src = pkgs.fetchFromGitHub {
+      name = "actualbudget-actual-source";
+      owner = "realtwister";
+      repo = "actual";
+      rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
+      hash = "";
+    };    
+  translations = pkgs.fetchFromGitHub {
+    name = "actualbudget-translations-source";
+    owner = "actualbudget";
+    repo = "translations";
+    # Note to updaters: this repo is not tagged, so just update this to the Git
+    # tip at the time the update is performed.
+    rev = "c1c2f298013ca3223e6cd6a4a4720bca5e8b8274";
+    hash = "sha256-3dtdymdKfEzUIzButA3L88GrehO4EjCrd/gq0Y5bcuE=";
+  };
+
+  actual-enable-banking = pkgs.actual-server.overrideAttrs (old: {
+    version = "git";
+    src = src;
+    srcs = [ src translations ]; 
+  });
+in {
 
   systemd.services.actual-server = {
     path = with pkgs; [
-      actual-server
+      actual-enable-banking
     ];
     script = "actual-server --config ${configFile}";
     wantedBy = [ "network-online.target" ];
