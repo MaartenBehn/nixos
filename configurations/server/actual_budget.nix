@@ -40,14 +40,13 @@ let
       hash = "sha256-B9OukwRjXxx5gEHulENJnhjP5M9ccaF/dqL7d8HzXi8=";
     };
 
-    YARN_ENABLE_OFFLINE=true;
   });
 in {
 
   systemd.services.actual-server = {
     path = [
-      # pkgs.actual-server
-      actual-enable-banking
+      pkgs.actual-server
+      #actual-enable-banking
     ];
     script = "actual-server --config ${configFile}";
     wantedBy = [ "network-online.target" ];
