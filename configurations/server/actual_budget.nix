@@ -1,5 +1,6 @@
-{ pkgs, domains, ... }: 
+{ pkgs-unstable, domains, ... }: 
 let
+  pkgs = pkgs-unstable;
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
