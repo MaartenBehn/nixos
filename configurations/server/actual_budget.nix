@@ -19,13 +19,9 @@ let
   });
 in {
 
-  environment.systemPackages = [
-    actual-enable-banking
-  ];
-
   systemd.services.actual-server = {
     path = with pkgs; [
-      actual-server
+      actual-enable-banking
     ];
     script = "actual-server --config ${configFile}";
     wantedBy = [ "network-online.target" ];
