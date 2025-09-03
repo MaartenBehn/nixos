@@ -1,4 +1,4 @@
-{ pkgs, domains, inputs, ... }: 
+{ pkgs, domains, ... }: 
 let
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
@@ -10,7 +10,6 @@ in {
 
   environment.systemPackages = [
     pkgs.actual-server
-    inputs.actual-budget-prometheus-exporter.packages.x86_64-linux.default
   ];
 
   systemd.services.actual-server = {

@@ -78,10 +78,6 @@
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
-    actual-budget-prometheus-exporter = {
-      url = "github:MaartenBehn/actual-budget-prometheus-exporter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, plasma-manager, solaar, vpn-confinement, ... }@inputs:
