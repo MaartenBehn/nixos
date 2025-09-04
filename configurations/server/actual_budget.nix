@@ -6,6 +6,14 @@ let
     userFiles = "/var/lib/actual-server/user-files";
     serverFiles = "/var/lib/actual-server/server-files";
   });
+
+  configFileTest = pkgs.writeText "config.json" (builtins.toJSON
+  {
+    trustedProxies = [ "127.0.0.1" ];
+    userFiles = "/var/lib/actual-server/user-files-test";
+    serverFiles = "/var/lib/actual-server/server-files-test";
+  });
+
  
   actual-enable-banking = pkgs.writeShellScriptBin "actual-enable-banking" ''
     cd /srv/ 
@@ -18,7 +26,7 @@ let
     yarn install
     yarn build:server
 
-    export ACTUAL_CONFIG_PATH=${configFile} 
+    export ACTUAL_CONFIG_PATH=${configFileTest} 
     yarn start:server
   '';
 
