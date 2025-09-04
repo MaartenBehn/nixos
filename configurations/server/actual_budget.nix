@@ -6,52 +6,42 @@ let
     userFiles = "/var/lib/actual-server/user-files";
     serverFiles = "/var/lib/actual-server/server-files";
   });
+ 
+  actual-enable-banking = pkgs.writeShellScriptBin "actual-enable-banking" ''
+    cd /srv/ 
+    rm -rf actual/
+    git clone https://github.com/realtwister/actual.git
+    cd actual
+    git checkout feature/enable-banking-integration
 
-  # Enable Banking Pull Request Version
-  # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
-  src = pkgs.fetchFromGitHub {
-    name = "actualbudget-actual-source_patch";
-    owner = "realtwister";
-    repo = "actual";
-    rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
-    hash = "sha256-GfMXhLHzhkBxv0DfC/Ug6jWbraSxzq9Bad1SNi5TquU=";
-  };    
-  translations = pkgs.fetchFromGitHub {
-    name = "actualbudget-translations-source";
-    owner = "actualbudget";
-    repo = "translations";
-    # Note to updaters: this repo is not tagged, so just update this to the Git
-    # tip at the time the update is performed.
-    rev = "c1c2f298013ca3223e6cd6a4a4720bca5e8b8274";
-    hash = "sha256-3dtdymdKfEzUIzButA3L88GrehO4EjCrd/gq0Y5bcuE=";
-  };
+    yarn install
+    yarn build:server
+    yarn start:server
+  '';
 
-  actual-enable-banking = pkgs-unstable.actual-server.overrideAttrs (old: {
-    version = "git";
-    src = src;
-    srcs = [ src translations ];
-    sourceRoot = "${src.name}/";
-
-    # https://nixos.org/manual/nixpkgs/unstable/#javascript-yarnBerry-missing-hashes
-    missingHashes = ./actual_missing_hashes.json;
-    offlineCache = pkgs-unstable.yarn-berry.fetchYarnBerryDeps {
-      inherit src;
-      missingHashes = ./actual_missing_hashes.json;
-      hash = "sha256-B9OukwRjXxx5gEHulENJnhjP5M9ccaF/dqL7d8HzXi8=";
-    };
-
-  });
 in {
 
+  #systemd.services.actual-server = {
+    #  path = [
+    #  pkgs.actual-server
+    #];
+    #script = "actual-server --config ${configFile}";
+    #wantedBy = [ "network-online.target" ];
+    #after = [ "network.target" ];
+  #};
+
   systemd.services.actual-server = {
-    path = [
-      #pkgs.actual-server
-      actual-enable-banking
+    path = with pkgs; [
+      nodejs
+      yarn-berry
+      git
     ];
-    script = "actual-server --config ${configFile}";
+    script = ''sh ${actual-enable-banking}'';
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
-  };
+  }; 
+
+
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "budget.${domain}"; 
