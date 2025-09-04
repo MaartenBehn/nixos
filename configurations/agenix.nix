@@ -7,5 +7,5 @@
     inputs.agenix.packages.${system}.default 
   ];
 
-  mullvad.conf.file = ../secrets/mullvad.conf;
+  age.secrets.mullvad.conf.file = ../secrets/mullvad.conf;
 }
