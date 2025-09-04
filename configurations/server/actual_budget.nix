@@ -13,6 +13,7 @@ let
     git clone https://github.com/realtwister/actual.git
     cd actual
     git checkout feature/enable-banking-integration
+    chmod +x ./bin/package-browser
 
     yarn install
     yarn build:server
