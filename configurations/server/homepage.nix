@@ -2,7 +2,7 @@
 let
   secrets = [
     "jellyfin/key"
-    "qbittorrnt/username"
+    "qbittorrent/username"
     "qbittorrnt/password"
 
     "prowlarr/key"
