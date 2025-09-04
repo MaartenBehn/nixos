@@ -20,7 +20,7 @@ IP6=$(curl "http://v6.ident.me")
 
 if [[ $IP6 =~ .*:.* ]]
 then
-  curl "https://www.duckdns.org/update?domains=stroby&token=$TOKEN=$IP6"
+  curl "https://www.duckdns.org/update?domains=stroby&token=$TOKEN&ipv6=$IP6"
 else
   echo "No IPV6: $IP6"
 fi
