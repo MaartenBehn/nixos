@@ -10,12 +10,12 @@ let
   # Enable Banking Pull Request Version
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
   src = pkgs.fetchFromGitHub {
-      name = "actualbudget-actual-source_patch";
-      owner = "realtwister";
-      repo = "actual";
-      rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
-      hash = "sha256-GfMXhLHzhkBxv0DfC/Ug6jWbraSxzq9Bad1SNi5TquU=";
-    };    
+    name = "actualbudget-actual-source_patch";
+    owner = "realtwister";
+    repo = "actual";
+    rev = "5b13e2f1b48b519b03750ffc78fea79e2c3f1dd1";
+    hash = "sha256-GfMXhLHzhkBxv0DfC/Ug6jWbraSxzq9Bad1SNi5TquU=";
+  };    
   translations = pkgs.fetchFromGitHub {
     name = "actualbudget-translations-source";
     owner = "actualbudget";
@@ -45,8 +45,8 @@ in {
 
   systemd.services.actual-server = {
     path = [
-      pkgs.actual-server
-      #actual-enable-banking
+      #pkgs.actual-server
+      actual-enable-banking
     ];
     script = "actual-server --config ${configFile}";
     wantedBy = [ "network-online.target" ];
