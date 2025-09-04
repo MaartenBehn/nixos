@@ -6,6 +6,7 @@
     ./user.nix
     ./clean.nix
     ./sops.nix
+    ./agenix.nix
   ] 
     ++ (if host == "laptop" then
       [
