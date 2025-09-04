@@ -15,8 +15,8 @@ let
     git checkout feature/enable-banking-integration
 
     yarn install
-    yarn build:server
-    yarn start:server --config ${configFile}
+    yarn build:browser
+    yarn start:browser --config ${configFile}
   '';
 
 in {
