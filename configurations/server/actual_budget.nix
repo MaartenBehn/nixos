@@ -14,14 +14,15 @@ let
     serverFiles = "/var/lib/actual-server/server-files-test";
   });
 
- 
+  # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
   actual-enable-banking = pkgs.writeShellScriptBin "actual-enable-banking" ''
     cd /srv/ 
     rm -rf actual/
-    git clone https://github.com/realtwister/actual.git
+    git clone https://github.com/MaartenBehn/actual.git
     cd actual
     git checkout feature/enable-banking-integration
     chmod +x ./bin/package-browser
+    chmod +x ./packages/desktop-client/bin/build-browser
 
     yarn install
     yarn build:server
