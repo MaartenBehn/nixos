@@ -28,6 +28,8 @@ fi
 
 
 in {
+  sops.secrets."duckdns/token" = {};
+
   systemd.services.duckdns-updater = {
     path = with pkgs; [
       bash
