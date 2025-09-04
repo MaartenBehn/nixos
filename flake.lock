@@ -1507,6 +1507,7 @@
         "nvf": "nvf",
         "plasma-manager": "plasma-manager",
         "solaar": "solaar",
+        "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "vpn-confinement": "vpn-confinement",
         "yazi-plugins": "yazi-plugins",
@@ -1595,6 +1596,26 @@
       "original": {
         "type": "tarball",
         "url": "https://flakehub.com/f/Svenum/Solaar-Flake/%2A.tar.gz"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754988908,
+        "narHash": "sha256-t+voe2961vCgrzPFtZxha0/kmFSHFobzF00sT8p9h0U=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "3223c7a92724b5d804e9988c6b447a0d09017d48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "spicetify-nix": {

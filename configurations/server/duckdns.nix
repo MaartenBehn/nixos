@@ -1,9 +1,11 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 let 
   update_duckdns = pkgs.writeShellScriptBin "update_duckdns" ''
 #!/usr/bin/env bash
 
 sleep 10
+
+TOKEN=$(cat ${config.sops.secrets."duckdns/token".path})
 
 #IP4=$(curl "http://v4.ident.me")
 
@@ -18,7 +20,7 @@ IP6=$(curl "http://v6.ident.me")
 
 if [[ $IP6 =~ .*:.* ]]
 then
-  curl "https://www.duckdns.org/update?domains=stroby&token=104a071b-99cf-4b36-9948-2678fc32b1b9&ipv6=$IP6"
+  curl "https://www.duckdns.org/update?domains=stroby&token=$TOKEN=$IP6"
 else
   echo "No IPV6: $IP6"
 fi
