@@ -39,7 +39,9 @@ let
   secret_sops = builtins.listToAttrs (builtins.map (s: 
     {
       name = to_sops s;
-      value = {};
+      value = {
+        owner = "homepage-dashboard";
+      };
     }
   ) secrets);
 
