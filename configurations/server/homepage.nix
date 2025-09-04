@@ -73,7 +73,7 @@ in {
               widget = {
                 type = "jellyfin";
                 url = "http://media.home/";
-                key = "{{${secret_vars.jellyfin}}}";
+                key = "{{${secret_vars.jellyfin.key}}}";
                 enableBlocks = true;
                 enableNowPlaying = true;
                 enableUser = true;
@@ -105,7 +105,7 @@ in {
               widget = {
                 type = "prowlarr";
                 url = "http://prowlarr.home/";
-                key = "";
+                key = "{{${secret_vars.prowlarr.key}}}";
               };
             };
           }
@@ -117,7 +117,7 @@ in {
               widget = {
                 type = "sonarr";
                 url = "http://sonarr.home/";
-                key = "";
+                key = "{{${secret_vars.sonarr.key}}}";
               };
             };
           }
@@ -129,7 +129,7 @@ in {
               widget = {
                 type = "radarr";
                 url = "http://radarr.home/";
-                key = "";
+                key = "{{${secret_vars.radarr.key}}}";
                 enableQueue = true;
               };
             };
@@ -142,7 +142,7 @@ in {
               widget = {
                 type = "lidarr";
                 url = "http://lidarr.home/";
-                key = "";
+                key = "{{${secret_vars.lidarr.key}}}";
               };
             };
           }
@@ -158,7 +158,7 @@ in {
               widget = {
                 type = "homeassistant";
                 url = "http://home.home/";
-                key = "";
+                key = "{{${secret_vars.home_assistant.key}}}";
                 custom = [
                   {
                     state = "sensor.plug_asus_energy_total";
