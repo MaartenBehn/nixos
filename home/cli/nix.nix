@@ -62,5 +62,8 @@ in {
     init-nix-shell="nix-shell-init";
     init-shell="nix-shell-init";
     load_shell="direnv reload";
+
+    secrets-config="cd ~/nixos/secrets && sops secrets.yaml && cd -";
+    secrets-key="mkdir -p ~/.config/sops/age && nvim ~/.config/sops/age/key.txt";
   };
 }
