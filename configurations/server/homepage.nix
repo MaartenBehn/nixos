@@ -1,4 +1,46 @@
-{ pkgs-unstable, local_domain, ... }: {
+{ pkgs-unstable, local_domain, config, lib, ... }: 
+let
+  secrets = [
+    "jellyfin/key"
+    "qbittorrnt/username"
+    "qbittorrnt/password"
+
+    "prowlarr/key"
+    "sonarr/key"
+    "radarr/key"
+    "lidarr/key"
+    
+    "home_assistant/key"
+  ];
+
+  to_var = (s: "HOMEPAGE_FILE_${lib.toUpper (builtins.replaceStrings ["/"] ["_"] s)}");
+  to_sops = (s: "homepage/${s}");
+
+  secret_vars = builtins.listToAttrs (builtins.map (s: 
+    {
+      name = (builtins.replaceStrings ["/"] ["."] s);
+      value = (to_var s);
+    }
+  ) secrets);
+
+  secret_environment = builtins.listToAttrs (builtins.map (s: 
+    {
+      name = (to_var s);
+      value = config.sops.secrets.${to_sops s}.path;
+    }
+  ) secrets);
+
+  secret_sops = builtins.listToAttrs (builtins.map (s: 
+    {
+      name = to_sops s;
+      value = {};
+    }
+  ) secrets);
+
+in {
+  systemd.services.homepage-dashboard.environment = secret_environment;
+  sops.secrets = secret_sops;
+
   services.homepage-dashboard = {
     # https://gethomepage.dev/
 
@@ -31,7 +73,7 @@
               widget = {
                 type = "jellyfin";
                 url = "http://media.home/";
-                key = "cca46e527a534e758a9cd74c398079e3";
+                key = "{{${secret_vars.jellyfin}}}";
                 enableBlocks = true;
                 enableNowPlaying = true;
                 enableUser = true;
@@ -49,8 +91,8 @@
               widget = {
                 type = "qbittorrent";
                 url = "http://qbittorrent.home/";
-                username = "stroby";
-                password = "qbittorrent+240803";
+                username = "{{${secret_vars.qbittorrnt.username}}}";
+                password = "{{${secret_vars.qbittorrnt.password}}}";
                 enableLeechProgress = true;
               };
             };
@@ -63,7 +105,7 @@
               widget = {
                 type = "prowlarr";
                 url = "http://prowlarr.home/";
-                key = "08d09cc6bb6f45419174b35542808b4d";
+                key = "";
               };
             };
           }
@@ -75,7 +117,7 @@
               widget = {
                 type = "sonarr";
                 url = "http://sonarr.home/";
-                key = "8e699f57fe2a40a194c7e8999d7ac95d";
+                key = "";
               };
             };
           }
@@ -87,7 +129,7 @@
               widget = {
                 type = "radarr";
                 url = "http://radarr.home/";
-                key = "4df5bc1be8434eac8da2f9b09ef93bcd";
+                key = "";
                 enableQueue = true;
               };
             };
@@ -100,7 +142,7 @@
               widget = {
                 type = "lidarr";
                 url = "http://lidarr.home/";
-                key = "ee7c84e0f9d040b997d8133b14516a8d";
+                key = "";
               };
             };
           }
@@ -116,7 +158,7 @@
               widget = {
                 type = "homeassistant";
                 url = "http://home.home/";
-                key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwMDFmZGU4OWNjNmE0OTA0OGViMjgyYWU5NGI3YjZkZCIsImlhdCI6MTc1NjY4NTAzMiwiZXhwIjoyMDcyMDQ1MDMyfQ.9UmaK7XB9XmEUDH6CGG92eXOXJYJ_4qC93O9Q-nfDXg";
+                key = "";
                 custom = [
                   {
                     state = "sensor.plug_asus_energy_total";
