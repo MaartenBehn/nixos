@@ -10,7 +10,7 @@
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
-    wireguardConfigFile = config.age.secrets.mullvad.conf.path;
+    wireguardConfigFile = config.age.secrets.mullvad.path;
     accessibleFrom = [
       "192.168.0.0/24"
     ];
