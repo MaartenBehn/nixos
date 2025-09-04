@@ -49,6 +49,15 @@ in {
   systemd.services.homepage-dashboard.environment = secret_environment;
   sops.secrets = secret_sops;
 
+  users.users.homepage-dashboard = {
+    isSystemUser = true;
+    group = "nginx";
+  };
+
+  systemd.services.homepage-dashboard = {
+    serviceConfig.User = "homepage-dashboard";
+  };
+
   services.homepage-dashboard = {
     # https://gethomepage.dev/
 
