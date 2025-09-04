@@ -17,32 +17,32 @@ let
     yarn install
     yarn build:server
 
-    export ACTUAL_CONFIG_PATH ${configFile} 
+    export ACTUAL_CONFIG_PATH=${configFile} 
     yarn start:server
   '';
 
 in {
 
-  systemd.services.actual-server = {
-      path = [
-      pkgs.actual-server
-    ];
-    script = "actual-server --config ${configFile}";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
-  };
-
-  #systemd.services.actual-server = {
-    #path = with pkgs; [
-    #  nodejs
-    #  yarn-berry
-    #  git
-    #  actual-enable-banking
+    #systemd.services.actual-server = {
+    #  path = [
+    #  pkgs.actual-server
     #];
-    #script = "actual-enable-banking";
+    #script = "actual-server --config ${configFile}";
     #wantedBy = [ "network-online.target" ];
     #after = [ "network.target" ];
-  #}; 
+  #};
+
+  systemd.services.actual-server = {
+    path = with pkgs; [
+      nodejs
+      yarn-berry
+      git
+      actual-enable-banking
+    ];
+    script = "actual-enable-banking";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
+  }; 
 
 
 
