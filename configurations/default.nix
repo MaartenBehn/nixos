@@ -5,6 +5,7 @@
     ./local.nix
     ./user.nix
     ./clean.nix
+    ./sops.nix
   ] 
     ++ (if host == "laptop" then
       [
@@ -58,6 +59,7 @@
         ./printing.nix
         ./usb_auto_mount.nix
         ./fix_stuck_on_tpmrm0.nix
+        ./sops.nix
 
         # Windows
         ./display_manager.nix
