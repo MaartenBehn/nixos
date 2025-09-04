@@ -47,6 +47,7 @@ in {
       nodejs
       yarn-berry
       git
+      bash
       actual-enable-banking
     ];
     script = "actual-enable-banking";
