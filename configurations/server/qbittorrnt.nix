@@ -7,10 +7,12 @@
     #./lidarr.nix
   ];
 
+  sops.secrets."mullvad.conf" = {};
+
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
-    wireguardConfigFile = config.age.secrets.mullvad.path;
+    wireguardConfigFile = config.sops.secrets."mullvad.conf".path;
     accessibleFrom = [
       "192.168.0.0/24"
     ];
