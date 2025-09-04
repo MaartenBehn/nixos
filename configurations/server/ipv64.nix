@@ -1,12 +1,15 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 let 
   update_ipv64 = pkgs.writeShellScriptBin "update_ipv64" ''
 #!/usr/bin/env bash
 sleep 10
-curl "https://ipv64.net/nic/update?key=RP256hHTkX7nSozZsjq4LlIxvbGdOyfJ"
+KEY=$(cat ${config.sops.secrets."ipv64/key".path})
+curl "https://ipv64.net/nic/update?key=$KEY"
 '';
 
 in {
+  sops.secrets."ipv64/key" = {};
+
   systemd.services.ipv64-updater = {
     path = with pkgs; [
       bash
