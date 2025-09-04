@@ -35,8 +35,9 @@ in {
       nodejs
       yarn-berry
       git
+      actual-enable-banking
     ];
-    script = ''${actual-enable-banking}'';
+    script = "actual-enable-banking";
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   }; 
