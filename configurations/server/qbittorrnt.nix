@@ -7,7 +7,7 @@
     #./lidarr.nix
   ];
 
-  sops.secrets."mullvad.conf" = { owner = "stroby"; };
+  sops.secrets."mullvad.conf" = {  };
 
   # Define VPN network namespace
   vpnNamespaces.wg = {
@@ -44,8 +44,8 @@
       curl
     ];
     script = "
-    curl ipinfo.io;
-    qbittorrent-nox --confirm-legal-notice;
+      curl ipinfo.io;
+      qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "multi-user.target" ];
     serviceConfig.User = "stroby";
