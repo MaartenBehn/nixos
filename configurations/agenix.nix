@@ -7,7 +7,5 @@
     inputs.agenix.packages.${system}.default 
   ];
 
-  identityPaths = [ "/home/${username}/.ssh/id_ed25519" ];
-
   age.secrets.mullvad.file = ../secrets/mullvad.conf;
 }
