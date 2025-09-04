@@ -16,7 +16,9 @@ let
 
     yarn install
     yarn build:browser
-    yarn start:browser --config ${configFile}
+
+    export ACTUAL_CONFIG_PATH ${configFile} 
+    yarn start:browser 
   '';
 
 in {
