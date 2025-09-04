@@ -64,6 +64,6 @@ in {
     load_shell="direnv reload";
 
     secrets-config="cd ~/nixos/secrets && sops secrets.yaml && cd -";
-    secrets-key="mkdir -p ~/.config/sops/age && nvim ~/.config/sops/age/key.txt";
+    secrets-key="mkdir -p ~/.config/sops/age && nvim ~/.config/sops/age/keys.txt";
   };
 }
