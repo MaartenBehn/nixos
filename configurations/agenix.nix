@@ -6,4 +6,6 @@
   environment.systemPackages = [ 
     inputs.agenix.packages.${system}.default 
   ];
+
+  mullvad.conf.file = ../secrets/mullvad.conf;
 }
