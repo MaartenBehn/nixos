@@ -3,7 +3,7 @@ let
   secrets = [
     "jellyfin/key"
     "qbittorrent/username"
-    "qbittorrnt/password"
+    "qbittorrent/password"
 
     "prowlarr/key"
     "sonarr/key"
@@ -97,8 +97,8 @@ in {
               widget = {
                 type = "qbittorrent";
                 url = "http://qbittorrent.home/";
-                username = "{{${secret_vars.qbittorrnt.username}}}";
-                password = "{{${secret_vars.qbittorrnt.password}}}";
+                username = "{{${secret_vars.qbittorrent.username}}}";
+                password = "{{${secret_vars.qbittorrent.password}}}";
                 enableLeechProgress = true;
               };
             };
