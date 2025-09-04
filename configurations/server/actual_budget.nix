@@ -32,27 +32,27 @@ let
   '';
 
 in {
-  systemd.services.actual-server = {
-      path = [
-      pkgs.actual-server
-    ];
-    script = "actual-server --config ${configFile}";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
-  };
-
-  #systemd.services.actual-server = {
-    #path = with pkgs; [
-    #  nodejs
-    #  yarn-berry
-    #  git
-    #  bash
-    #  actual-enable-banking
+    #systemd.services.actual-server = {
+    #  path = [
+    #  pkgs.actual-server
     #];
-    #script = "actual-enable-banking";
+    #script = "actual-server --config ${configFile}";
     #wantedBy = [ "network-online.target" ];
     #after = [ "network.target" ];
-  #}; 
+  #};
+
+  systemd.services.actual-server = {
+    path = with pkgs; [
+      nodejs
+      yarn-berry
+      git
+      bash
+      actual-enable-banking
+    ];
+    script = "actual-enable-banking";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
+  }; 
 
 
 
