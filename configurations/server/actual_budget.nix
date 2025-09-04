@@ -16,7 +16,7 @@ let
 
     yarn install
     yarn build:server
-    yarn start:server
+    yarn start:server --config ${configFile}
   '';
 
 in {
@@ -35,6 +35,7 @@ in {
       nodejs
       yarn-berry
       git
+      sh
     ];
     script = ''sh ${actual-enable-banking}'';
     wantedBy = [ "network-online.target" ];
