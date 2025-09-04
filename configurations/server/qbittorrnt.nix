@@ -7,7 +7,7 @@
     #./lidarr.nix
   ];
 
-  sops.secrets."mullvad.conf" = {};
+  sops.secrets."mullvad.conf" = { owner = "stroby"; };
 
   # Define VPN network namespace
   vpnNamespaces.wg = {
