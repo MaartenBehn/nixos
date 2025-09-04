@@ -82,11 +82,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, plasma-manager, solaar, vpn-confinement, ... }@inputs:
