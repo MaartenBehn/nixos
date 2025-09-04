@@ -15,13 +15,10 @@ let
 
   to_var = (s: "HOMEPAGE_FILE_${lib.toUpper (builtins.replaceStrings ["/"] ["_"] s)}");
   to_sops = (s: "homepage/${s}");
-
-  secret_vars = builtins.listToAttrs (builtins.map (s: 
-    {
-      name = (builtins.replaceStrings ["/"] ["."] s);
-      value = (to_var s);
-    }
-  ) secrets);
+  
+  secret_vars = builtins.foldl' 
+    (set: s: builtins.listToAttrs [{ name = s; value = set; }]) 
+    (builtins.map (s: lib.strings.splitString "/" s) secrets);
 
   secret_environment = builtins.listToAttrs (builtins.map (s: 
     {
