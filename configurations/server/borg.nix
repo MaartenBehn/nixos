@@ -1,4 +1,4 @@
-{ username, config, ... }: {
+{ username, lib, config, ... }: {
   
   sops.secrets."wireguard/fritz_behns.conf" = { };
 
@@ -30,6 +30,11 @@
     repo = "ssh://Stroby@192.168.178.39/BackUp/asus_server/Notes";
     compression = "auto,zstd";
     startAt = "daily";
+
+    preStart = lib.mkBefore ''
+      # waiting for internet after resume-from-suspend
+      until /run/wrappers/bin/ping google.com -c1 -q; do :; done
+    '';
   };
 
 }
