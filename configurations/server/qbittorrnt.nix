@@ -5,6 +5,7 @@
     ./sonarr.nix
     ./radarr.nix
     #./lidarr.nix
+    ./whisparr.nix
   ];
 
   sops.secrets."mullvad.conf" = { owner = "stroby"; };
