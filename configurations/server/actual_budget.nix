@@ -28,7 +28,8 @@ let
     yarn build:server
   '';
 
-  actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" '' 
+  actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
+    cd /srv/actual
     export ACTUAL_CONFIG_PATH=${configFileTest} 
     yarn start:server
   '';
