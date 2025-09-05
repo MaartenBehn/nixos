@@ -18,7 +18,7 @@
     }];
   };
 
-  systemd.services.borgbackup.vpnConfinement = {
+  systemd.services.borgbackup-job-notes.vpnConfinement = {
     enable = true;
     vpnNamespace = "fritz";
   };
@@ -30,11 +30,6 @@
     repo = "ssh://Stroby@192.168.178.39/BackUp/asus_server/Notes";
     compression = "auto,zstd";
     startAt = "daily";
-
-    preStart = lib.mkBefore ''
-      # waiting for internet after resume-from-suspend
-      until /run/wrappers/bin/ping google.com -c1 -q; do :; done
-    '';
   };
 
 }
