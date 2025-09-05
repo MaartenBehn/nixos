@@ -53,7 +53,6 @@ in {
       actual_enable_banking_init
     ];
     script = "actual_enable_banking_init";
-    serviceConfig.User = "obsidian_export";
   };
 
   systemd.services.actual-server = {
