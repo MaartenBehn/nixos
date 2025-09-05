@@ -24,7 +24,7 @@
     paths = "/home/${username}/Notes";
     encryption.mode = "none";
     environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
-    repo = "ssh://behnserver/BackUp/asus_server/Notes";
+    repo = "ssh://Stroby@192.168.178.39/BackUp/asus_server/Notes";
     compression = "auto,zstd";
     startAt = "daily";
   };
