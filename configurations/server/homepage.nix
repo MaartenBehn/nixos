@@ -167,13 +167,8 @@ in {
           {
             Whisparr = {
               href = "http://whisparr.home/";
-              description = "Corn Search Engine";
-              icon = "https://whisparr.audio/img/logo.png";
-              widget = {
-                type = "whisparr";
-                url = "http://whisparr.home/";
-                key = "{{${secret_vars.whisparr.key}}}";
-              };
+              description = "Adult Search Engine";
+              icon = "https://whisparr.org/wp-content/uploads/2024/12/256.png";
             };
           }
         ];
