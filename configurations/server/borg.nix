@@ -4,7 +4,8 @@
 
   vpnNamespaces.fritz = {
     enable = true;
-    wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
+    #wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
+    wireguardConfigFile = "/home/stroby/.config/wireguard/fritz_behns.conf";
     namespaceAddress = "192.168.16.1";
     bridgeAddress = "192.168.16.5";
     
