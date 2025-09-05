@@ -12,7 +12,7 @@
     vpnNamespace = "mullvad";
   };
 
-  vpnNamespaces.wg = {
+  vpnNamespaces.mullvad = {
     portMappings = [
       { 
         from = 8686;
