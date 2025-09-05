@@ -12,8 +12,8 @@
   systemd.services."mullvad_test" = {
     script = ''
         echo "
-        $(cat ${config.sops.secrets."myservice/my_subdir/my_secret".path})
-        ${config.sops.secrets."myservice/my_subdir/my_secret".path}
+        $(cat ${config.sops.secrets."mullvad.conf".path})
+        ${config.sops.secrets."mullvad.conf".path}
         " > ~/test.txt
       '';
     serviceConfig = {
