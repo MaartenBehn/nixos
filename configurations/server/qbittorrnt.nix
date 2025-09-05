@@ -50,7 +50,7 @@
       qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "multi-user.target" ];
-    #serviceConfig.User = "stroby";
+    serviceConfig.User = "stroby";
   };
 
   
