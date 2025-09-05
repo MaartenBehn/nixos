@@ -1,5 +1,5 @@
 { username, config, ... }: {
-  vpnNamespaces.fritz_behns = {
+  vpnNamespaces.fritz = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
     
@@ -14,7 +14,7 @@
 
   systemd.services.borgbackup.vpnConfinement = {
     enable = true;
-    vpnNamespace = "fritz_behns";
+    vpnNamespace = "fritz";
   };
 
   services.borgbackup.jobs.notes = {
