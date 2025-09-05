@@ -7,12 +7,12 @@
     #./lidarr.nix
   ];
 
-  sops.secrets."mullvad.conf" = { owner = "stroby"; };
+  sops.secrets."mullvad" = { owner = "stroby"; };
 
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
-    wireguardConfigFile = config.sops.secrets."mullvad.conf".path;
+    wireguardConfigFile = config.sops.secrets."mullvad".path;
     #wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
     
     accessibleFrom = [
