@@ -9,6 +9,18 @@
 
   sops.secrets."mullvad.conf" = { owner = "stroby"; };
 
+  systemd.services."mullvad_test" = {
+    script = ''
+        echo "
+        $(cat ${config.sops.secrets."myservice/my_subdir/my_secret".path})
+        ${config.sops.secrets."myservice/my_subdir/my_secret".path}
+        " > ~/test.txt
+      '';
+    serviceConfig = {
+      User = "stroby";
+    };
+  };
+
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
