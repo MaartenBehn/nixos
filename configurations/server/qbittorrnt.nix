@@ -47,7 +47,7 @@
     ];
     script = "
       curl ipinfo.io;
-      #qbittorrent-nox --confirm-legal-notice;
+      qbittorrent-nox --confirm-legal-notice;
     ";
     wantedBy = [ "multi-user.target" ];
     #serviceConfig.User = "stroby";
