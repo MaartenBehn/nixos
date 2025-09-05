@@ -9,7 +9,7 @@
 
   systemd.services.lidarr.vpnConfinement = {
     enable = true;
-    vpnNamespace = "wg";
+    vpnNamespace = "mullvad";
   };
 
   vpnNamespaces.wg = {

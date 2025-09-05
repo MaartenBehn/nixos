@@ -8,10 +8,10 @@
     ./whisparr.nix
   ];
 
-  sops.secrets."mullvad.conf" = { owner = "stroby"; };
+  sops.secrets."wireguard/mullvad.conf" = { owner = "stroby"; };
 
   # Define VPN network namespace
-  vpnNamespaces.wg = {
+  vpnNamespaces.mullvad = {
     enable = true;
     #wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
     wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
@@ -39,7 +39,7 @@
   systemd.services.qbittorrent-nox = {
     vpnConfinement = {
       enable = true;
-      vpnNamespace = "wg";
+      vpnNamespace = "mullvad";
     };
 
     path = with pkgs; [

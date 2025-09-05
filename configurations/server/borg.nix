@@ -1,9 +1,28 @@
 { username, ... }: {
+  vpnNamespaces.fritz_behns = {
+    enable = true;
+    #wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
+    wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
+    
+    accessibleFrom = [
+      "192.168.0.0/24"
+    ];
+    openVPNPorts = [{
+      port = 22;
+      protocol = "both";
+    }];
+  };
+
+  systemd.services.borgbackup.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "fritz_behns";
+  };
+
   services.borgbackup.jobs.notes = {
     paths = "/home/${username}/Notes";
     encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/danbst/.ssh/id_ed25519";
-    repo = "ssh://user@example.com:23/path/to/backups-dir/home-danbst";
+    environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
+    repo = "ssh://behnserver/BackUp/asus_server/Notes";
     compression = "auto,zstd";
     startAt = "daily";
   };

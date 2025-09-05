@@ -8,7 +8,7 @@
 
   systemd.services.radarr.vpnConfinement = {
     enable = true;
-    vpnNamespace = "wg";
+    vpnNamespace = "mullvad";
   };
 
   vpnNamespaces.wg = {

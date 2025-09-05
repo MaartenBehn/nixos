@@ -6,7 +6,7 @@
 
   systemd.services.prowlarr.vpnConfinement = {
     enable = true;
-    vpnNamespace = "wg";
+    vpnNamespace = "mullvad";
   };
 
   vpnNamespaces.wg = {

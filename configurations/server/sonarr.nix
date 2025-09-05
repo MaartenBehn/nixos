@@ -8,7 +8,7 @@
 
   systemd.services.sonarr.vpnConfinement = {
     enable = true;
-    vpnNamespace = "wg";
+    vpnNamespace = "mullvad";
   };
 
   vpnNamespaces.wg = {
