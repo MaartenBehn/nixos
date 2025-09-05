@@ -6,7 +6,7 @@
     openFirewall = false;
   };
 
-  systemd.services.radarr.vpnConfinement = {
+  systemd.services.whisparr.vpnConfinement = {
     enable = true;
     vpnNamespace = "wg";
   };
