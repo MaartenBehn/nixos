@@ -1,8 +1,7 @@
-{ username, ... }: {
+{ username, config, ... }: {
   vpnNamespaces.fritz_behns = {
     enable = true;
-    #wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
-    wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
+    wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
     
     accessibleFrom = [
       "192.168.0.0/24"
