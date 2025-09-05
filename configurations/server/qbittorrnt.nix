@@ -13,7 +13,7 @@
   # Define VPN network namespace
   vpnNamespaces.mullvad = {
     enable = true;
-    wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
+    wireguardConfigFile = config.sops.secrets."wireguard/mullvad.conf".path;
     #wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
     
     accessibleFrom = [
