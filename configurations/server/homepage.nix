@@ -9,6 +9,7 @@ let
     "sonarr/key"
     "radarr/key"
     "lidarr/key"
+    "whisparr/key"
     
     "home_assistant/key"
   ];
