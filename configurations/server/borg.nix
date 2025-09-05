@@ -5,6 +5,8 @@
   vpnNamespaces.fritz = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
+    namespaceAddress = "192.168.16.1";
+    bridgeAddress = "192.168.16.5";
     
     accessibleFrom = [
       "192.168.0.0/24"
