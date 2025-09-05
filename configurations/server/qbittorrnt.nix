@@ -9,23 +9,11 @@
 
   sops.secrets."mullvad.conf" = { owner = "stroby"; };
 
-  systemd.services."mullvad_test" = {
-    script = ''
-        echo "
-        $(cat ${config.sops.secrets."mullvad.conf".path})
-        ${config.sops.secrets."mullvad.conf".path}
-        " > ~/test.txt
-      '';
-    serviceConfig = {
-      User = "stroby";
-    };
-  };
-
   # Define VPN network namespace
   vpnNamespaces.wg = {
     enable = true;
-    wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
-    #wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
+    #wireguardConfigFile = "${config.sops.secrets."mullvad.conf".path}";
+    wireguardConfigFile = "/home/stroby/.config/wireguard/mullvad.conf";
     
     accessibleFrom = [
       "192.168.0.0/24"
