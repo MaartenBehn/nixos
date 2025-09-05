@@ -1,4 +1,4 @@
-{ username, lib, config, ... }: {
+{ pkgs, username, lib, config, ... }: {
   
   sops.secrets."wireguard/fritz_behns.conf" = { };
 
@@ -18,9 +18,18 @@
     }];
   };
 
-  systemd.services.borgbackup-job-notes.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "fritz";
+  systemd.services.borgbackup-job-notes = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+
+    path = with pkgs; [
+      curl
+    ];
+    postStart = lib.mkBefore ''
+      curl ipinfo.io;
+    '';
   };
 
   services.borgbackup.jobs.notes = {
