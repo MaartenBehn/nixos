@@ -1,4 +1,7 @@
 { username, config, ... }: {
+  
+  sops.secrets."wireguard/fritz_behns.conf" = { };
+
   vpnNamespaces.fritz = {
     enable = true;
     wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
