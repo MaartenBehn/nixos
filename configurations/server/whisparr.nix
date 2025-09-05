@@ -4,7 +4,6 @@
   services.whisparr = { 
     enable = true;
     openFirewall = false;
-    settings.server.port = 6969;
   };
 
   systemd.services.radarr.vpnConfinement = {
