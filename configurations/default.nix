@@ -114,6 +114,7 @@
 
         # Server
         ./server/network.nix
+        ./server/borg.nix
         ./server/duckdns.nix
         ./server/blocky.nix
         ./server/ipv64.nix

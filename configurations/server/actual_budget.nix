@@ -15,7 +15,7 @@ let
   });
 
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
-  actual-enable-banking = pkgs.writeShellScriptBin "actual-enable-banking" ''
+  actual_enable_banking_init = pkgs.writeShellScriptBin "actual_enable_banking_init" ''
     cd /srv/ 
     rm -rf actual/
     git clone https://github.com/MaartenBehn/actual.git
@@ -26,7 +26,9 @@ let
 
     yarn install
     yarn build:server
+  '';
 
+  actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" '' 
     export ACTUAL_CONFIG_PATH=${configFileTest} 
     yarn start:server
   '';
@@ -41,20 +43,28 @@ in {
     #after = [ "network.target" ];
   #};
 
-  systemd.services.actual-server = {
+  systemd.services.actual-server-init = {
     path = with pkgs; [
       nodejs
       yarn-berry
       git
       bash
-      actual-enable-banking
+      actual_enable_banking_init
     ];
-    script = "actual-enable-banking";
+    script = "actual_enable_banking_init";
+    serviceConfig.User = "obsidian_export";
+  };
+
+  systemd.services.actual-server = {
+    path = with pkgs; [
+      yarn-berry
+      bash
+      actual_enable_banking
+    ];
+    script = "actual_enable_banking";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
   }; 
-
-
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "budget.${domain}"; 
