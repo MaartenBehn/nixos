@@ -10,11 +10,11 @@
       [ 
         ./hyprland 
         ./scripts/scripts.nix             # personal scripts
-        ./apps/hyprland_minimal.nix
+        ./apps/minimal.nix
       ] else [ ])
     ++ (if desktop == "hyprland" && host != "iso" then 
       [ 
-        ./apps/hyprland_apps.nix
+        ./apps
       ] else [ ])
     ++ (if desktop == "plasma" then 
       [ 
@@ -25,13 +25,12 @@
     ++ (if host == "laptop" then
       [
         ./driver/solaar.nix
-        ./programming_languages/all.nix
+        ./programming_languages
         ./cli
       ] else [])
     ++ (if host == "desktop" then
       [
         ./driver/solaar.nix
-        #./programming_languages/all.nix
         ./apps/minecraft.nix
         ./cli
       ] else [])

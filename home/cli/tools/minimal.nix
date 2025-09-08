@@ -1,3 +1,5 @@
+# Include this and not the default.nix if you only want to include light weight essesntial cli tools
+
 { pkgs, ... }: {
   imports = [
     ./bat.nix                         # better cat command
@@ -19,7 +21,6 @@
     speedtest-cli
     
     eza
-    gtrash                            # rm replacement, put deleted files in system trash
     fd
     ripgrep                           # grep replacement
     dust                              # better du 
@@ -29,7 +30,6 @@
     ls = "exa -l -a";
     ping = "ping -c 5";
 
-    #rm = "gtrash put";
     grep = "rg";
     disk-usage = "ncdu /";
   };

@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    ./hyprland_minimal.nix
+    ./minimal.nix
     ./cava.nix
     ./gonme-text-editor.nix
     ./obsidian.nix
@@ -40,7 +40,8 @@
     
     bleachbit                         # cache cleaner
     gnome-calculator                  # calculator
-    
+   
+    # For .exe files
     winetricks
     wineWowPackages.wayland
  ]);

@@ -3,6 +3,7 @@
     ./minimal.nix
     ./create_iso.nix
     ./create_wsl.nix
+    ./presenterm.nix
   ];
 
   home.packages = (with pkgs; [
@@ -21,9 +22,6 @@
     cmatrix
     pipes                             # terminal screensaver
 
-    presenterm                        # Terminal presentation tool
-
-    qbittorrent
     nftables
 
     python313Packages.markitdown
