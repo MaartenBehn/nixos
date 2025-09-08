@@ -1315,15 +1315,18 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "nixpkgs-unstable": [
+          "nixpkgs-unstable"
+        ],
         "nixvim": "nixvim_2",
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1755170651,
-        "narHash": "sha256-RKXdus3GM+r6HcEaRPBdsPZvnehw43S8Rl4HtVBOzlQ=",
+        "lastModified": 1757347669,
+        "narHash": "sha256-loKn3IM6mgWfF/1EKo+L+YEpl8pKC4GqzuNmOTtNZCg=",
         "owner": "MaartenBehn",
         "repo": "nixvim",
-        "rev": "737848ad319224454ff9382af73f103475ba3669",
+        "rev": "a646029fb4ff3557ad836a11abd935a3d6ce0d76",
         "type": "github"
       },
       "original": {
