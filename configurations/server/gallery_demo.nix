@@ -2,7 +2,7 @@
 {
   services.static-web-server = {
     enable = true;
-    root = "/home/stroby/dev/Gallery/Build";
+    root = "/home/stroby/dev/3d_gallery/build";
     listen = "127.0.0.1:8084";
   };
 
