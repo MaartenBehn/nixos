@@ -1,3 +1,5 @@
+# Include this and not the default.nix if you only want to include light weight cli config
+
 { ... }:
 {
   imports = [
