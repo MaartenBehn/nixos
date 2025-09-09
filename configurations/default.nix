@@ -43,8 +43,6 @@
 
         ./mullvad_gui.nix
 
-        ./server/borg.nix
-
       ] else [])
     ++ (if host == "desktop" then
       [

@@ -1,14 +1,15 @@
 { pkgs, username, lib, config, ... }: {
   
-  sops.secrets."wireguard/fritz_behns.conf" = { };
+  sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 
+    owner = "stroby";  
+  };
 
   vpnNamespaces.fritz = {
     enable = true;
-    #wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
-    wireguardConfigFile = "/home/stroby/.config/wireguard/fritz_behns.conf";
+    wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_asus_borg.conf".path;
     namespaceAddress = "192.168.16.1";
     bridgeAddress = "192.168.16.5";
-    
+ 
     accessibleFrom = [
       "192.168.0.0/24"
     ];
@@ -25,20 +26,18 @@
     };
 
     path = with pkgs; [
-      curl
+      borgbackup
     ];
-    postStart = lib.mkBefore ''
-      curl ipinfo.io;
-    '';
   };
 
   services.borgbackup.jobs.notes = {
     paths = "/home/${username}/Notes";
     encryption.mode = "none";
     environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
-    repo = "ssh://Stroby@192.168.178.39/BackUp/asus_server/Notes";
+    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server";
     compression = "auto,zstd";
     startAt = "daily";
+    user = "stroby";
   };
 
 }

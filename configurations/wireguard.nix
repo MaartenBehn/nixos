@@ -5,7 +5,7 @@
   };
   
   sops.secrets."wireguard/dont_panic.conf" = { owner = "stroby"; };
-  sops.secrets."wireguard/fritz_behns.conf" = { owner = "stroby"; };
+  sops.secrets."wireguard/fritz_behns_stroby.conf" = { owner = "stroby"; };
 
   networking.wg-quick.interfaces = {
     
@@ -16,7 +16,7 @@
 
     fritz_behns = {      
       autostart = false;
-      configFile = config.sops.secrets."wireguard/fritz_behns.conf".path;
+      configFile = config.sops.secrets."wireguard/fritz_behns_stroby.conf".path;
     };   
   };
 }
