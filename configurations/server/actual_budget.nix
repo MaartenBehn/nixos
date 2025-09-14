@@ -54,7 +54,7 @@ let
       {
         name = "fritz_behns_actual_server_${name}";
         value = {
-          paths = path;
+          paths = [path];
           encryption.mode = "none";
           environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
@@ -66,7 +66,7 @@ let
       {
         name = "proxy_actual_server_${name}";
         value = {
-          paths = path;
+          paths = [path];
           encryption.mode = "none";
           environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
@@ -116,8 +116,6 @@ let
       };
     }
   ] ++ backup_jobs_systemd_services_config_names); 
-
-
 in {
     #systemd.services.actual-server = {
     #  path = [
