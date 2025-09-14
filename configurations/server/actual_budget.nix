@@ -1,17 +1,23 @@
 { pkgs, pkgs-unstable, domains, username, lib, ... }: 
 let 
+  actual_server_folder = "/var/lib/actual-server/";
+  user_files = "user-files";
+  server_files = "server-files";
+  user_files_test = "${user_files}-test";
+  server_files_test = "${user_files}-test";
+
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
-    userFiles = "/var/lib/actual-server/user-files";
-    serverFiles = "/var/lib/actual-server/server-files";
+    userFiles = actual_server_folder ++ user_files;
+    serverFiles = actual_server_folder ++ server_files;
   });
 
   configFileTest = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
-    userFiles = "/var/lib/actual-server/user-files-test";
-    serverFiles = "/var/lib/actual-server/server-files-test";
+    userFiles = actual_server_folder ++ user_files_test;
+    serverFiles = actual_server_folder ++ server_files_test;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
@@ -35,15 +41,15 @@ let
   '';
 
   # Backup
-  backup_paths = [ 
-    configFileTest.userFiles 
-    configFileTest.serverFiles 
-    configFile.userFiles 
-    configFile.serverFiles 
+  backup_names = [ 
+    user_files
+    server_files
+    user_files_test
+    server_files_test
   ];
 
-  backup_jobs = builtins.listToAttrs (lib.lists.flatten (builtins.map (path: 
-    let name = builtins.baseNameOf path;
+  backup_jobs = builtins.listToAttrs (lib.lists.flatten (builtins.map (name: 
+    let path = actual_server_folder ++ name;
     in [
       {
         name = "fritz_behns_actual_server_${name}";
@@ -69,17 +75,17 @@ let
           user = "stroby";
         };
       }
-    ]) backup_paths));
+    ]) backup_names));
 
-  backup_jobs_systemd_services_config_names = builtins.map (path: {
-      name = "borgbackup-job-fritz_behns_actual_server_${builtins.baseNameOf path}"; 
+  backup_jobs_systemd_services_config_names = builtins.map (name: {
+      name = "borgbackup-job-fritz_behns_actual_server_${name}"; 
       value = {
         vpnConfinement = {
           enable = true;
           vpnNamespace = "fritz";
         };
       };
-    }) backup_paths;
+    }) backup_names;
 
   # Joining all services
   systemd_services = builtins.listToAttrs ([ 
