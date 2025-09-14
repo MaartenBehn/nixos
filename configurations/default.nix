@@ -108,7 +108,6 @@
         ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
-        #./networking.nix
         ./battery.nix
         ./keep_on_with_closed_lid.nix
 
@@ -129,6 +128,8 @@
         ./server/obsidian_export.nix
         ./server/home_assistant.nix
         ./server/actual_budget.nix
+        ./server/notes.nix
+        ./server/immich.nix
         
       ] else [])
     ++ (if host == "wsl" then
