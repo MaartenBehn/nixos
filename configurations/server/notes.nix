@@ -1,5 +1,5 @@
 { username, ... }: {
-  includes = [ ./borg.nix ];
+  imports = [ ./borg.nix ];
 
   # Backup
   systemd.services.borgbackup-job-fritz_behns_notes = {

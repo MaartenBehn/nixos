@@ -1,6 +1,6 @@
 { domains, local_domain, username, ... }:
 {
-  includes = [ ./borg.nix ];
+  imports = [ ./borg.nix ];
   
   users.groups.media.members = [ "jellyfin" ];
   
