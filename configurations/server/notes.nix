@@ -15,7 +15,7 @@
     environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
     compression = "auto,zstd";
-    startAt = "daily";
+    startAt = "daily 04:15";
     user = "stroby";
   };
 
@@ -25,7 +25,7 @@
     environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
     repo = "ssh://root@138.199.203.38/backup/notes";
     compression = "auto,zstd";
-    startAt = "daily";
+    startAt = "daily 04:10";
     user = "stroby";
   };
 

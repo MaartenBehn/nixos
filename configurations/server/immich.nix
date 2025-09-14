@@ -1,4 +1,6 @@
-{ domains, local_domain, config, pkgs-unstable, ... }: {
+{ domains, local_domain, config, pkgs-unstable, username, ... }: {
+  imports = [ ./borg.nix ];
+
   services.immich = {
     enable = true;
     port = 2283;
@@ -27,4 +29,24 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
+
+  systemd.services.borgbackup-job-fritz_behns_notes = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+  };
+
+  services.borgbackup.jobs.fritz_behns_immich = {
+    paths = "/var/lib/immich";
+    encryption.mode = "none";
+    environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
+    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
+    compression = "zstd";
+    startAt = "Sat 04:00";
+    user = "stroby";
+    prune.keep = {
+      last = 2;
+    };
+  };
 }

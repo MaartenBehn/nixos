@@ -69,8 +69,7 @@ in {
       update
     ];
     script = "update";
-    #startAt = "hourly";  
-    startAt = "daily";  
+    startAt = "Sat 03:45";  
     wantedBy = [ "network-online.target" ];
     serviceConfig.User = "obsidian_export";
   };

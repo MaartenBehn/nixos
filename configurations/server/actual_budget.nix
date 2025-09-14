@@ -59,7 +59,7 @@ let
           environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
           compression = "auto,zstd";
-          startAt = "daily";
+          startAt = "daily 03:00";
           user = "stroby";
         };
       }
@@ -71,7 +71,7 @@ let
           environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
           compression = "auto,zstd";
-          startAt = "daily";
+          startAt = "daily 03:15";
           user = "stroby";
         };
       }
