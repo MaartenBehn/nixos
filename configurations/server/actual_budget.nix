@@ -4,7 +4,7 @@ let
   user_files = "user-files";
   server_files = "server-files";
   user_files_test = "${user_files}-test";
-  server_files_test = "${user_files}-test";
+  server_files_test = "${server_files}-test";
 
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
