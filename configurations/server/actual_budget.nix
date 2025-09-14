@@ -9,15 +9,15 @@ let
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
-    userFiles = actual_server_folder ++ user_files;
-    serverFiles = actual_server_folder ++ server_files;
+    userFiles = actual_server_folder + user_files;
+    serverFiles = actual_server_folder + server_files;
   });
 
   configFileTest = pkgs.writeText "config.json" (builtins.toJSON
   {
     trustedProxies = [ "127.0.0.1" ];
-    userFiles = actual_server_folder ++ user_files_test;
-    serverFiles = actual_server_folder ++ server_files_test;
+    userFiles = actual_server_folder + user_files_test;
+    serverFiles = actual_server_folder + server_files_test;
   });
 
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
