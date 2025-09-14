@@ -6,7 +6,7 @@
 
   vpnNamespaces.fritz = {
     enable = true;
-    wireguardConfigFile =   config.sops.secrets."wireguard/fritz_behns_asus_borg.conf".path;
+    wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_asus_borg.conf".path;
     namespaceAddress = "192.168.16.1";
     bridgeAddress = "192.168.16.5";
  

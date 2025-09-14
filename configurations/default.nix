@@ -113,7 +113,6 @@
 
         # Server
         ./server/network.nix
-        ./server/borg.nix
         ./server/duckdns.nix
         ./server/blocky.nix
         ./server/ipv64.nix
@@ -127,9 +126,9 @@
         ./server/qbittorrnt.nix
         ./server/obsidian_export.nix
         ./server/home_assistant.nix
-        ./server/actual_budget.nix
-        ./server/notes.nix
-        ./server/immich.nix
+        #./server/actual_budget.nix
+        #./server/notes.nix
+        #./server/immich.nix
         
       ] else [])
     ++ (if host == "wsl" then
