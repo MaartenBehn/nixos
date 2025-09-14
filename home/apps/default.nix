@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgs-2405, ... }: {
   imports = [
     ./minimal.nix
     ./cava.nix
@@ -39,7 +39,8 @@
     audacity                          # Audio editing
     
     bleachbit                         # cache cleaner
-    gnome-calculator                  # calculator
+    #gnome-calculator                 # calculator  Good but Ui is buggy
+    qalculate-gtk
    
     # For .exe files
     winetricks

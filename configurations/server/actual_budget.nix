@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, domains, ... }: 
+{ pkgs, pkgs-unstable, domains, username, lib, ... }: 
 let 
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
@@ -34,6 +34,84 @@ let
     yarn start:server
   '';
 
+  # Backup
+  backup_paths = [ 
+    configFileTest.userFiles 
+    configFileTest.serverFiles 
+    configFile.userFiles 
+    configFile.serverFiles 
+  ];
+
+  backup_jobs = builtins.listToAttrs (lib.lists.flatten (builtins.map (path: 
+    let name = builtins.baseNameOf path;
+    in [
+      {
+        name = "fritz_behns_actual_server_${name}";
+        value = {
+          paths = path;
+          encryption.mode = "none";
+          environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
+          repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
+          compression = "auto,zstd";
+          startAt = "daily";
+          user = "stroby";
+        };
+      }
+      {
+        name = "proxy_actual_server_${name}";
+        value = {
+          paths = path;
+          encryption.mode = "none";
+          environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
+          repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
+          compression = "auto,zstd";
+          startAt = "daily";
+          user = "stroby";
+        };
+      }
+    ]) backup_paths));
+
+  backup_jobs_systemd_services_config_names = builtins.map (path: {
+      name = "borgbackup-job-fritz_behns_actual_server_${builtins.baseNameOf path}"; 
+      value = {
+        vpnConfinement = {
+          enable = true;
+          vpnNamespace = "fritz";
+        };
+      };
+    }) backup_paths;
+
+  # Joining all services
+  systemd_services = builtins.listToAttrs [ 
+    {
+      name = "actual-server-init";
+      value = {
+        path = with pkgs; [
+          nodejs
+          yarn-berry
+          git
+          bash
+          actual_enable_banking_init
+        ];
+        script = "actual_enable_banking_init";
+      };
+    }
+    {
+      name = "actual-server";
+      value = {
+        path = with pkgs; [
+          yarn-berry
+          bash
+          actual_enable_banking
+        ];
+        script = "actual_enable_banking";
+        wantedBy = [ "network-online.target" ];
+        after = [ "network.target" ];
+      };
+    }
+  ] ++ backup_jobs_systemd_services_config_names; 
+
+
 in {
     #systemd.services.actual-server = {
     #  path = [
@@ -42,29 +120,9 @@ in {
     #script = "actual-server --config ${configFile}";
     #wantedBy = [ "network-online.target" ];
     #after = [ "network.target" ];
-  #};
+    #};
 
-  systemd.services.actual-server-init = {
-    path = with pkgs; [
-      nodejs
-      yarn-berry
-      git
-      bash
-      actual_enable_banking_init
-    ];
-    script = "actual_enable_banking_init";
-  };
-
-  systemd.services.actual-server = {
-    path = with pkgs; [
-      yarn-berry
-      bash
-      actual_enable_banking
-    ];
-    script = "actual_enable_banking";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
-  }; 
+  systemd.services = systemd_services;
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "budget.${domain}"; 
@@ -87,4 +145,7 @@ in {
       ];
     };
   }) (domains));
+
+  # Backups 
+  services.borgbackup.jobs = backup_jobs;
 }
