@@ -128,7 +128,7 @@ in {
     #after = [ "network.target" ];
     #};
 
-  includes = [ ./borg.nix ];
+  imports = [ ./borg.nix ];
 
   systemd.services = systemd_services;
 
