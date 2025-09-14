@@ -41,7 +41,7 @@
     paths = "/var/lib/immich";
     encryption.mode = "none";
     environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
-    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
+    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
     compression = "zstd";
     startAt = "Sat 04:00";
     user = "stroby";
