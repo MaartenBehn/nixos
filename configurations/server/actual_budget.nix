@@ -82,7 +82,7 @@ let
     }) backup_paths;
 
   # Joining all services
-  systemd_services = builtins.listToAttrs [ 
+  systemd_services = builtins.listToAttrs ([ 
     {
       name = "actual-server-init";
       value = {
@@ -109,7 +109,7 @@ let
         after = [ "network.target" ];
       };
     }
-  ] ++ backup_jobs_systemd_services_config_names; 
+  ] ++ backup_jobs_systemd_services_config_names); 
 
 
 in {
