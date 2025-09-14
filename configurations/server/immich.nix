@@ -1,7 +1,8 @@
-{ domains, local_domain, config, ... }: {
+{ domains, local_domain, config, pkgs-unstable, ... }: {
   services.immich = {
     enable = true;
     port = 2283;
+    package = pkgs-unstable.immich; 
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
