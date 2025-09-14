@@ -30,7 +30,7 @@
     };
   }) (domains ++ [ local_domain ]));
 
-  systemd.services.borgbackup-job-fritz_behns_notes = {
+  systemd.services.borgbackup-job-fritz_behns_immich = {
     vpnConfinement = {
       enable = true;
       vpnNamespace = "fritz";
