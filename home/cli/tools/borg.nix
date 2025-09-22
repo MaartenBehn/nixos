@@ -25,9 +25,14 @@ let
     "server-files-test"
   ];
 
-  folders = [
+  both_folders = [
     "notes"
   ] ++ actual_folders;
+
+  only_fritz_folders = [
+    "study"
+    "immich"
+  ];
 
   servers = [
     "fritz_behns"
@@ -39,8 +44,10 @@ let
       builtins.map (server_name: 
         make_script repo_folder server_name
       ) servers
-    ) folders
-  );
+    ) both_folders
+  ) ++ builtins.map (repo_folder: 
+    make_script repo_folder "fritz_behns"
+  ) only_fritz_folders;
 in {
   home.packages = (with pkgs; [
     borgbackup

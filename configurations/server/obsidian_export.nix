@@ -73,7 +73,6 @@ in {
     wantedBy = [ "network-online.target" ];
     serviceConfig.User = "obsidian_export";
   };
-  systemd.timers.obsidian_export-updater.timerConfig.RandomizedDelaySec = "15m";
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "notes.${domain}"; 
