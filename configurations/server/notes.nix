@@ -12,7 +12,7 @@
       curl
     ];
 
-    ExecStart = ''
+    preStart = ''
       curl http://ipecho.net/plain; echo
     ''; 
   };
