@@ -4,6 +4,7 @@
     owner = "stroby";  
   };
 
+  # https://blog.aaronlenoir.com/2018/05/06/ssh-into-synology-nas-with-ssh-key/
   vpnNamespaces.fritz = {
     enable = true;
     #wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_stroby.conf".path;
