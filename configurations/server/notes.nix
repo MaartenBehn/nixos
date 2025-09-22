@@ -7,6 +7,14 @@
       enable = true;
       vpnNamespace = "fritz";
     };
+
+    path = with pkgs; [
+      curl
+    ];
+
+    ExecStart = ''
+      curl http://ipecho.net/plain; echo
+    ''; 
   };
 
   services.borgbackup.jobs.fritz_behns_notes = {
