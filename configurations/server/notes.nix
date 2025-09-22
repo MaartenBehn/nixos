@@ -14,6 +14,8 @@
 
     preStart = ''
       curl http://ipecho.net/plain; echo
+      cat ~/.ssh/id_ed25519.pub
+      ssh Stroby@192.168.178.39 "ls -la" 
     ''; 
   };
   users.groups.notes.members = [ "borg" ];
