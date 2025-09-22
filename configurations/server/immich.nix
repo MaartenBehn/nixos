@@ -44,7 +44,7 @@
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
     compression = "auto,zstd";
     startAt = "Sat 04:00";
-    user = "stroby";
+    user = "immich";
     prune.keep = {
       last = 2;
     };
