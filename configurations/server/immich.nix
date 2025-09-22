@@ -7,6 +7,11 @@
     package = pkgs-unstable.immich; 
   };
 
+  users.users.immich = {
+    isNormalUser = true;
+    group = "nginx";
+  };
+
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "immich.${domain}"; 
     value = {
