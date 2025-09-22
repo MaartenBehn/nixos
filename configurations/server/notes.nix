@@ -8,15 +8,15 @@
       vpnNamespace = "fritz";
     };
 
-    path = with pkgs; [
-      curl
-    ];
+    #path = with pkgs; [
+      #curl
+      #];
 
-    preStart = ''
-      curl http://ipecho.net/plain; echo
-      cat ~/.ssh/id_ed25519.pub
-      ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
-    ''; 
+    #preStart = ''
+      #curl http://ipecho.net/plain; echo
+      #cat ~/.ssh/id_ed25519.pub
+      #ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
+    #''; 
   };
   users.groups.notes.members = [ "borg" ];
 
@@ -26,6 +26,9 @@
     paths = "/notes";
     encryption.mode = "none";
     environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519 -o StrictHostKeychecking=no";
+    environment.BORG_RELOCATED_REPO_ACCESS_IS_OK = "yes";
+    environment.BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
+
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
     compression = "auto,zstd";
     startAt = "*-*-* 04:15";
