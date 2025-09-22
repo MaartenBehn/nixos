@@ -32,6 +32,7 @@ let
   only_fritz_folders = [
     "study"
     "immich"
+    "nextcloud"
   ];
 
   servers = [
