@@ -35,17 +35,17 @@ in {
     };
 
     hostName = cloud_domain;
+  };
 
-    nginx.virtualHosts = {
-      "${cloud_domain}" = {
-        forceSSL = true;
-        enableACME = true;
-      };
-
-      "${onlyoffice_domain}" = {
-        forceSSL = true;
-        enableACME = true;
-      };
+  services.nginx.virtualHosts = {
+    "${cloud_domain}" = {
+      forceSSL = true;
+      enableACME = true;
     };
-  }; 
+
+    "${onlyoffice_domain}" = {
+      forceSSL = true;
+      enableACME = true;
+    };
+  };
 }
