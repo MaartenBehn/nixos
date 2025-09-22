@@ -33,7 +33,6 @@ in {
   }) (domains ++ [ local_domain ]));
 
 
-
   users.groups.immich.members = [ "borg" ];
 
   systemd.services.borgbackup-job-fritz_behns_immich = {

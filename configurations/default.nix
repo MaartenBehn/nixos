@@ -132,6 +132,7 @@
         ./server/actual_budget.nix
         ./server/notes.nix
         ./server/immich.nix
+        ./server/nextcloud.nix
         
       ] else [])
     ++ (if host == "wsl" then
