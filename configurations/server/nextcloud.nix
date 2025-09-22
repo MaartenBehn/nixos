@@ -29,12 +29,12 @@ in {
       adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
     };
 
-    onlyoffice = {
-      enable = true;
-      hostname = onlyoffice_domain;
-    };
-
     hostName = cloud_domain;
+  };
+
+  services.onlyoffice = {
+    enable = true;
+    hostname = onlyoffice_domain;
   };
 
   services.nginx.virtualHosts = {
