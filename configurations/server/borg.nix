@@ -1,7 +1,11 @@
 { pkgs, username, lib, config, ... }: {
   
   sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 
-    owner = "stroby";  
+    owner = "borg";  
+  };
+
+  users.users.borg = {
+    isNormalUser = true;
   };
 
   # https://blog.aaronlenoir.com/2018/05/06/ssh-into-synology-nas-with-ssh-key/
