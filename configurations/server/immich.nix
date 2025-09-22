@@ -7,11 +7,6 @@
     package = pkgs-unstable.immich; 
   };
 
-  users.users.immich = {
-    isNormalUser = true;
-    group = "nginx";
-  };
-
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "immich.${domain}"; 
     value = {
@@ -49,7 +44,7 @@
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
     compression = "auto,zstd";
     startAt = "Sat 04:00";
-    user = "immich";
+    user = "root";
     prune.keep = {
       last = 2;
     };
