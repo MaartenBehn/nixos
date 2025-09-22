@@ -20,10 +20,12 @@
   };
   users.groups.notes.members = [ "borg" ];
 
+
+
   services.borgbackup.jobs.fritz_behns_notes = {
     paths = "/notes";
     encryption.mode = "none";
-    #environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519";
+    environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519 -o StrictHostKeychecking=no";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
     compression = "auto,zstd";
     startAt = "*-*-* 04:15";
