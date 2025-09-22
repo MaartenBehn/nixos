@@ -54,7 +54,7 @@ in {
 
   users.groups.nextcloud.members = [ "borg" ];
 
-  systemd.services.borgbackup-job-fritz_behns_immich = {
+  systemd.services.borgbackup-job-fritz_behns_nextcloud = {
     vpnConfinement = {
       enable = true;
       vpnNamespace = "fritz";
