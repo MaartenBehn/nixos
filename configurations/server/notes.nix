@@ -1,4 +1,4 @@
-{ username, ... }: {
+{ username, pkgs, ... }: {
   imports = [ ./borg.nix ];
 
   # Backup
@@ -7,6 +7,12 @@
       enable = true;
       vpnNamespace = "fritz";
     };
+
+    path = with pkgs; [
+      curl
+    ];
+
+    ExecStart = ''curl http://ipecho.net/plain; echo''; 
   };
 
   services.borgbackup.jobs.fritz_behns_notes = {
@@ -28,5 +34,4 @@
     startAt = "*-*-* 04:10";
     user = "stroby";
   };
-
 }
