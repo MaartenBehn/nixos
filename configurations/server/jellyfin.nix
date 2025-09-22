@@ -1,5 +1,6 @@
-{ domains, local_domain, username, ... }:
-{
+{ domains, local_domain, ... }:
+let default_borg_settings = import ./borg_settings.nix;
+in {
   imports = [ ./borg.nix ];
   
   users.groups.media.members = [ "jellyfin" ];
@@ -34,12 +35,9 @@
     };
   };
 
-  services.borgbackup.jobs.fritz_behns_shibari_study = {
+  services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {
     paths = "/media/videos/ShibariStudy";
-    encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
-    compression = "auto,zstd";
     startAt = "month";
     user = "stroby";
   };

@@ -27,7 +27,7 @@
   ]);
 
   home.shellAliases = {
-    ls = "exa -l -a";
+    ls = "exa -l -a --group";
     ping = "ping -c 5";
 
     grep = "rg";

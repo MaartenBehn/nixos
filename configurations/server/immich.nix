@@ -1,4 +1,6 @@
-{ domains, local_domain, config, pkgs-unstable, username, ... }: {
+{ domains, local_domain, config, pkgs-unstable, ... }: 
+let default_borg_settings = import ./borg_settings.nix;
+in {
   imports = [ ./borg.nix ];
 
   services.immich = {
@@ -30,6 +32,8 @@
     };
   }) (domains ++ [ local_domain ]));
 
+
+
   users.groups.immich.members = [ "borg" ];
 
   systemd.services.borgbackup-job-fritz_behns_immich = {
@@ -39,14 +43,10 @@
     };
   };
 
-  services.borgbackup.jobs.fritz_behns_immich = {
+  services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
     paths = "/var/lib/immich";
-    encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
-    compression = "auto,zstd";
     startAt = "Sat 04:00";
-    user = "borg";
     prune.keep = {
       last = 2;
     };

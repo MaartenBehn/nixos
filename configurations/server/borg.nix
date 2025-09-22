@@ -1,4 +1,4 @@
-{ pkgs, username, lib, config, ... }: {
+{ ... }: {
   
   sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 
     owner = "borg";  

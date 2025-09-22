@@ -1,4 +1,6 @@
-{ username, pkgs, ... }: {
+{ username, pkgs, ... }: 
+let default_borg_settings = import ./borg_settings.nix;
+in {
   imports = [ ./borg.nix ];
 
   # Backup
@@ -22,26 +24,15 @@
 
 
 
-  services.borgbackup.jobs.fritz_behns_notes = {
-    paths = "/notes";
-    encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519 -o StrictHostKeychecking=no";
-    environment.BORG_RELOCATED_REPO_ACCESS_IS_OK = "yes";
-    environment.BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK = "yes";
-
+  services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
+    paths = "/notes"; 
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
-    compression = "auto,zstd";
     startAt = "*-*-* 04:15";
-    user = "borg";
   };
 
-  services.borgbackup.jobs.proxy_notes = {
+  services.borgbackup.jobs.proxy_notes = default_borg_settings // {
     paths = "/notes";
-    encryption.mode = "none";
-    #environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519";
     repo = "ssh://root@138.199.203.38/backup/notes";
-    compression = "auto,zstd";
     startAt = "*-*-* 04:10";
-    user = "borg";
   };
 }

@@ -41,6 +41,8 @@ let
   '';
 
   # Backup
+  default_borg_settings = import ./borg_settings.nix;
+
   backup_names = [ 
     user_files
     server_files
@@ -53,26 +55,18 @@ let
     in [
       {
         name = "fritz_behns_actual_server_${name}";
-        value = {
+        value = default_borg_settings // {
           paths = path;
-          encryption.mode = "none";
-          environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
-          compression = "auto,zstd";
           startAt = "*-*-* 03:00";
-          user = "stroby";
         };
       }
       {
         name = "proxy_actual_server_${name}";
-        value = {
+        value = default_borg_settings // {
           paths = path;
-          encryption.mode = "none";
-          environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
           repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
-          compression = "auto,zstd";
           startAt = "*-*-* 03:15";
-          user = "stroby";
         };
       }
     ]) backup_names));
