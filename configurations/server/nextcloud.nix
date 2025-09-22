@@ -2,7 +2,10 @@
 let 
   cloud_domain = "cloud.stroby.ipv64.de";
   onlyoffice_domain = "office.stroby.ipv64.de";
+  default_borg_settings = import ./borg_settings.nix;
 in {
+  imports = [ ./borg.nix ];
+
   sops.secrets."nextcloud/adminpass" = { 
     owner = "nextcloud";  
   };
@@ -46,6 +49,24 @@ in {
     "${onlyoffice_domain}" = {
       forceSSL = true;
       enableACME = true;
+    };
+  };
+
+  users.groups.nextcloud.members = [ "borg" ];
+
+  systemd.services.borgbackup-job-fritz_behns_immich = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+  };
+
+  services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
+    paths = "/var/lib/nextcloud";
+    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/nextcloud";
+    startAt = "Sat 04:15";
+    prune.keep = {
+      last = 6;
     };
   };
 }
