@@ -15,7 +15,7 @@
     preStart = ''
       curl http://ipecho.net/plain; echo
       cat ~/.ssh/id_ed25519.pub
-      ssh -v Stroby@192.168.178.39 "ls -la" 
+      ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
     ''; 
   };
   users.groups.notes.members = [ "borg" ];
