@@ -20,7 +20,7 @@
   services.borgbackup.jobs.fritz_behns_notes = {
     paths = "/home/${username}/Notes";
     encryption.mode = "none";
-    environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519";
+    environment.BORG_RSH = "ssh -i /home/${username}/.ssh/id_ed25519 -p 22";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
     compression = "auto,zstd";
     startAt = "*-*-* 04:15";
