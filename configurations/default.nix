@@ -31,6 +31,7 @@
         # Apps
         ./syncthing.nix
         ./wireguard.nix
+        ./mullvad_gui.nix
 
         # Gaming
         ./steam.nix
@@ -39,9 +40,10 @@
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
 
+        # Eden
         ./dlr_eden_postgress.nix
+        ./docker.nix
 
-        ./mullvad_gui.nix
 
       ] else [])
     ++ (if host == "desktop" then
