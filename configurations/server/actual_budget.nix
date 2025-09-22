@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, domains, username, lib, ... }: 
+{ pkgs, domains, lib, ... }: 
 let 
   actual_server_folder = "/var/lib/actual-server/";
   user_files = "user-files";

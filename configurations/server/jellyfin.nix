@@ -39,6 +39,5 @@ in {
     paths = "/media/videos/ShibariStudy";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
     startAt = "month";
-    user = "stroby";
   };
 }
