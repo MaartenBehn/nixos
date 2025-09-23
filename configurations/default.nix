@@ -31,6 +31,7 @@
         # Apps
         ./syncthing.nix
         ./wireguard.nix
+        ./mullvad_gui.nix
 
         # Gaming
         ./steam.nix
@@ -39,11 +40,10 @@
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
 
+        # Eden
         ./dlr_eden_postgress.nix
+        ./docker.nix
 
-        ./mullvad_gui.nix
-
-        ./server/borg.nix
 
       ] else [])
     ++ (if host == "desktop" then
@@ -110,13 +110,12 @@
         ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
-        #./networking.nix
         ./battery.nix
         ./keep_on_with_closed_lid.nix
+        ./wireguard.nix
 
         # Server
         ./server/network.nix
-        ./server/borg.nix
         ./server/duckdns.nix
         ./server/blocky.nix
         ./server/ipv64.nix
@@ -131,6 +130,9 @@
         ./server/obsidian_export.nix
         ./server/home_assistant.nix
         ./server/actual_budget.nix
+        ./server/notes.nix
+        ./server/immich.nix
+        ./server/nextcloud.nix
         
       ] else [])
     ++ (if host == "wsl" then

@@ -4,6 +4,7 @@
     ./create_iso.nix
     ./create_wsl.nix
     ./presenterm.nix
+    ./borg.nix
   ];
 
   home.packages = (with pkgs; [

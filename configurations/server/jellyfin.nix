@@ -1,5 +1,8 @@
 { domains, local_domain, ... }:
-{
+let default_borg_settings = import ./borg_settings.nix;
+in {
+  imports = [ ./borg.nix ];
+  
   users.groups.media.members = [ "jellyfin" ];
   
   services.jellyfin.enable = true;
@@ -23,4 +26,18 @@
       ];
     };
   }) (domains ++ [ local_domain ]));
+
+  # Backups
+  systemd.services.borgbackup-job-fritz_behns_shibari_study = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+  };
+
+  services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {
+    paths = "/media/videos/ShibariStudy";
+    repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
+    startAt = "month";
+  };
 }

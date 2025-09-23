@@ -15,6 +15,11 @@
         hostname = "192.168.178.2";
         user = "stroby";
       };
+
+      proxy = {
+        hostname = "138.199.203.38";
+        user = "root";
+      };
     }; 
   };
 }
