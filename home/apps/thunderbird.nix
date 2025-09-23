@@ -13,17 +13,13 @@ let
       name = "Stroby";
     }
     {
-      mail = "socialropelab@gmail.com";
-      name = "Social Rope Lab";
-    }
-    {
       mail = "strobyburn@gmail.com";
       name = "Stroby";
     }
-    {
-      mail = "socialropelab@gmail.com";
-      name = "Social Rope Lab";
-    }
+    #{
+    #  mail = "socialropelab@gmail.com";
+    #  name = "Social Rope Lab";
+    #}
   ];
   imap_configs = [
     {
