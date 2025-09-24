@@ -162,11 +162,9 @@
         "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
         "opacity 1.0 override 1.0 override, class:(Aseprite)"
         "opacity 1.0 override 1.0 override, class:(Unity)"
-        "opacity 1.0 override 1.0 override, class:(zen)"
-        "opacity 1.0 override 1.0 override, class:(evince)"
         "idleinhibit focus, class:^(mpv)$"
         "idleinhibit fullscreen, class:^(firefox)$"
-        #"float,class:^(org.gnome.Calculator)$"
+        
         "float,class:^(waypaper)$"
         "float,class:^(zenity)$"
         "size 850 500,class:^(zenity)$"
@@ -175,6 +173,8 @@
         "float,class:^(org.pulseaudio.pavucontrol)$"
         "float,class:^(SoundWireServer)$"
         "float,class:^(.sameboy-wrapped)$"
+
+        # File Popups
         "float,class:^(file_progress)$"
         "float,class:^(confirm)$"
         "float,class:^(dialog)$"
@@ -182,8 +182,12 @@
         "float,class:^(notification)$"
         "float,class:^(error)$"
         "float,class:^(confirmreset)$"
+
         "float,title:^(Open File)$"
+        "size <90% <90%,title:^(Open File)$"
         "float,title:^(File Upload)$"
+        "size <90% <90%,title:^(File Upload)$"
+        
         "float,title:^(branchdialog)$"
         "float,title:^(Confirm to replace files)$"
         "float,title:^(File Operation Progress)$"

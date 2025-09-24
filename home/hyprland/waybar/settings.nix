@@ -23,7 +23,21 @@ let
     trigger() {
       ACTIVE_WORKSPACE="$(hyprctl monitors -j | jq --arg WAYBAR_OUTPUT_NAME "$WAYBAR_OUTPUT_NAME" '.[] | select(.name == $WAYBAR_OUTPUT_NAME) | .activeWorkspace.id')"
       ACTIVE_WINDOW="$(hyprctl workspaces -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" '.[] | select(.id == ($ACTIVE_WORKSPACE | tonumber)) | .lastwindow')"
-      hyprctl clients -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" --arg ACTIVE_WINDOW "$ACTIVE_WINDOW" '[ .[] | select(.workspace.id == ($ACTIVE_WORKSPACE | tonumber)) ] | sort_by(.at.[0]) | .[] | {title: (if .title | length > 10 then .title[:9] + ">" else .title end), active: (.address == $ACTIVE_WINDOW) } | (if .active then "{" else " " end) + .title + (if .active then "}" else " " end)'
+      hyprctl clients -j | jq -j --arg ACTIVE_WORKSPACE "$ACTIVE_WORKSPACE" --arg ACTIVE_WINDOW "$ACTIVE_WINDOW" '[ .[] | select(.workspace.id == ($ACTIVE_WORKSPACE | tonumber)) ] 
+        | group_by(.at.[0]) 
+        | [.[] | {
+            at: .[0].at.[0], 
+            titles: [.[] | (if .title | length > 12 then .title[:9] + "..." else .title end)], 
+            active: any(.; .[].address == $ACTIVE_WINDOW) 
+          }] 
+        | sort_by(.at)[] 
+        | "<span" 
+          + (if .active then " foreground=\"#FE8019\"" else "" end)
+          + "> "
+          + (if .titles | length > 1 then "[" else "" end) 
+          + ( .titles | join(" ")) 
+          + (if .titles | length > 1 then "]" else "" end) 
+          + " </span>"'    
       echo ""
     }
 
@@ -133,8 +147,8 @@ in {
         default = [ "<span foreground='${blue}'> </span>" ];
       };
       scroll-step = 2;
-      on-click = "pamixer -t";
-      on-click-right = "pavucontrol";
+      max-volume = 150;
+      on-click = "pavucontrol";
     };
     battery = {
       format = "<span foreground='${yellow}'>{icon}</span> {capacity}%";
@@ -155,11 +169,6 @@ in {
       format-time = "{H}h{M}m";
       tooltip = true;
       tooltip-format = "{time}";
-    };
-    "hyprland/language" = {
-      format = "<span foreground='#FABD2F'> </span> {}";
-      format-fr = "FR";
-      format-en = "US";
     };
     "custom/launcher" = {
       format = "";

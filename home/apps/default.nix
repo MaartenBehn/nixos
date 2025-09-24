@@ -9,6 +9,7 @@
     ./blender.nix
     ./blender.nix
     ./wine.nix
+    ./arduino.nix
  ];
 
   home.packages = (with pkgs; [

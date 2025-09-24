@@ -80,7 +80,7 @@ in
     #tray menuitem {
     }
 
-    #pulseaudio, #network, #cpu, #memory, #disk, #battery, #language, #custom-notification {
+    #pulseaudio, #network, #cpu, #memory, #disk, #battery, #language, #custom-notification #custom-scrolling {
       margin-right: 10px;
       margin-left: 10px;
       color: ${text_color};
