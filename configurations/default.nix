@@ -113,6 +113,7 @@
         ./battery.nix
         ./keep_on_with_closed_lid.nix
         ./wireguard.nix
+        ./server/data_drive.nix
 
         # Server
         ./server/network.nix
