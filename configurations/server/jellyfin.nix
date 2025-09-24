@@ -36,7 +36,7 @@ in {
   };
 
   services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {
-    paths = "/media/videos/ShibariStudy";
+    paths = "/media/videos_data/ShibariStudy";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
     startAt = "month";
   };
