@@ -22,6 +22,8 @@
    # source: https://docs.syncthing.net/users/firewall.html
    networking.firewall.allowedTCPPorts = [ 22000 ];
    networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+
+  users.groups.notes.members = [ "syncthing" ];
  
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "syncthing.${domain}"; 
