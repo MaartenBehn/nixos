@@ -94,6 +94,10 @@ let
           actual_enable_banking_init
         ];
         script = "actual_enable_banking_init";
+
+        serviceConfig = {
+          User = "actual";
+        };
       };
     }
     {
@@ -107,6 +111,10 @@ let
         script = "actual_enable_banking";
         wantedBy = [ "network-online.target" ];
         after = [ "network.target" ];
+
+        serviceConfig = {
+          User = "actual";
+        };
       };
     }
   ] ++ backup_jobs_systemd_services_config_names); 
@@ -123,6 +131,11 @@ in {
     #};
 
   imports = [ ./borg.nix ];
+
+  users.users.actual = {
+    isSystemUser = true;
+    group = "actual";
+  };
 
   systemd.services = systemd_services;
 

@@ -1,6 +1,5 @@
 { domains, local_domain, ... }:
 { 
-
   users.groups.notes.members = [ "nginx" "syncthing" ];
  
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
