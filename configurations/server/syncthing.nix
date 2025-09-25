@@ -4,8 +4,8 @@
     syncthing = {
       enable = true;
       user = "syncthing";
-      dataDir = "/home/stroby/";    # Default folder for new synced folders
-      configDir = "/home/stroby/.config/syncthing";   # Folder for Syncthing's settings and keys
+      dataDir = "/var/lib/syncthing/default";      # Default folder for new synced folders
+      configDir = "/var/lib/syncthing/config";  # Folder for Syncthing's settings and keys
       guiAddress = "0.0.0.0:8384";
       settings.gui = {
         user = "stroby";
