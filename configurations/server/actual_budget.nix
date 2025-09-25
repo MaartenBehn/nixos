@@ -22,7 +22,7 @@ let
 
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
   actual_enable_banking_init = pkgs.writeShellScriptBin "actual_enable_banking_init" ''
-    mkdir -p /var/lib/actual-server 
+    mkdir /var/lib/actual-server 
     cd /var/lib/actual-server 
     rm -rf actual/
     git clone https://github.com/MaartenBehn/actual.git
@@ -135,7 +135,7 @@ in {
 
   users.groups.actual.members = [ "borg" ];
   users.users.actual = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "actual";
   };
 
