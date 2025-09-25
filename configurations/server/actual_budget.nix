@@ -22,7 +22,8 @@ let
 
   # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
   actual_enable_banking_init = pkgs.writeShellScriptBin "actual_enable_banking_init" ''
-    cd /srv/ 
+    mkdir -p /var/lib/actual-server 
+    cd /var/lib/actual-server 
     rm -rf actual/
     git clone https://github.com/MaartenBehn/actual.git
     cd actual
@@ -35,7 +36,7 @@ let
   '';
 
   actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
-    cd /srv/actual
+    cd /var/lib/actual-server/actual
     export ACTUAL_CONFIG_PATH=${configFileTest} 
     yarn start:server
   '';
