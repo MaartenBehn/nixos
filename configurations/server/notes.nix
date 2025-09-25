@@ -1,6 +1,22 @@
 { username, pkgs, ... }: 
 let default_borg_settings = import ./borg_settings.nix;
 in {
+  # Notes Folders: 
+  # /notes
+  # 
+  # Permissions: 2770 
+  # 2 -> create all files with group of folder 
+  # 770 -> only owner and group can acces it
+  # set default facl for permissions
+  #
+  # sudo chgrp -R notes /notes
+  # sudo chmod -R 2770 /notes
+  # sudo setfacl -R -d -m g::rwx /notes
+  # sudo setfacl -R -d -m o::--- /notes
+  # 
+  # show groups: getent group
+  # show facl: getfacl 
+
   imports = [ ./borg.nix ];
 
   # Backup
@@ -21,8 +37,6 @@ in {
     #''; 
   };
   users.groups.notes.members = [ "borg" ];
-
-
 
   services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
     paths = "/notes"; 
