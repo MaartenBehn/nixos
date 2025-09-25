@@ -1,9 +1,31 @@
 { domains, local_domain, ... }:
 let default_borg_settings = import ./borg_settings.nix;
 in {
+
+  # Media Folders: 
+  # /media
+  # /mnt/Data/media
+  # 
+  # Permissions: 2770 
+  # 2 -> create all files with group of folder 
+  # 770 -> only owner and group can acces it
+  # set default facl for permissions
+  #
+  # sudo chgrp -R media /media
+  # sudo chgrp -R media /mnt/Data/media
+  # sudo chmod -R 2770 /media
+  # sudo chmod -R 2770 /mnt/Data/media
+  # sudo setfacl -R -d -m g::rwx /media
+  # sudo setfacl -R -d -m g::rwx /mnt/Data/media
+  # sudo setfacl -R -d -m o::--- /media
+  # sudo setfacl -R -d -m o::--- /mnt/Data/media
+  # 
+  # show groups: getent group
+  # show facl: getfacl 
+
   imports = [ ./borg.nix ];
   
-  users.groups.media.members = [ "jellyfin" ];
+  users.groups.media.members = [ "jellyfin" "borg" ];
   
   services.jellyfin.enable = true;
   networking.firewall.allowedUDPPorts = [ 7359 8096 ];
