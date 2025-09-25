@@ -5,6 +5,7 @@ let
   server_files = "server-files";
   user_files_test = "${user_files}-test";
   server_files_test = "${server_files}-test";
+  data_dir = "${actual_server_folder}data";
 
   configFile = pkgs.writeText "config.json" (builtins.toJSON
   {
@@ -37,7 +38,8 @@ let
 
   actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
     cd /var/lib/actual-server/actual
-    export ACTUAL_CONFIG_PATH=${configFileTest} 
+    export ACTUAL_CONFIG_PATH=${configFileTest}
+    export ACTUAL_DATA_DIR=${data_dir}
     yarn start:server
   '';
 
