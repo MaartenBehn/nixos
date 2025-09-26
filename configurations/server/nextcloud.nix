@@ -10,6 +10,8 @@ in {
     owner = "nextcloud";  
   };
 
+  users.groups.notes.members = [ "nextcloud" ];
+
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud31;
