@@ -1,4 +1,4 @@
-{ pkgs, desktop, ... }:
+{ pkgs, ... }:
 {
   programs.tmux = {
     enable = true;
@@ -29,25 +29,10 @@
       set -gq allow-passthrough on
       set -g visual-activity off
       set-option -g focus-events on
-    '' 
-    + (if desktop == "hyprland" then ''
-      # Waybar signal
-      set-hook -g session-window-changed 'run-shell "pkill -SIGRTMIN+8 waybar"'
-      set-hook -g alert-bell 'run-shell "pkill -SIGRTMIN+8 waybar"' 
-      set-hook -g client-attached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
-      set-hook -g client-detached 'run-shell "pkill -SIGRTMIN+8 waybar"' 
-      set-hook -g window-renamed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
-      set-hook -g session-created 'run-shell "pkill -SIGRTMIN+8 waybar"' 
-      set-hook -g session-closed 'run-shell "pkill -SIGRTMIN+8 waybar"' 
       
-      # Hiding default status
-      set -g status off
-    '' else ''
       # Status bar
       set -g status-right '#[fg=color15,bg=color234]  #{ram_fg_color}#{ram_percentage}#[fg=color15]  #{cpu_fg_color}#{cpu_percentage}#[fg=color15] #[fg=color15] %H:%M '
       run-shell ${pkgs.tmuxPlugins.cpu}/share/tmux-plugins/cpu/cpu.tmux
-    '');
-
-
+    '';
   };
 }
