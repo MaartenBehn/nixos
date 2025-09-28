@@ -1,4 +1,4 @@
-{ local_domain, ... }: {
+{ local_domain, lib, ... }: {
   services.slskd = { 
     enable = true;
     openFirewall = false;
@@ -25,7 +25,7 @@
 
     "slskd.${local_domain}" = {
       locations."/" = {
-        proxyPass = "http://192.168.15.1:5030/"; 
+        proxyPass = lib.mkForce "http://192.168.15.1:5030/"; 
       };
 
       serverAliases = [
