@@ -1,4 +1,4 @@
-{ local_domain }: {
+{ local_domain, ... }: {
   services.slskd = { 
     enable = true;
     openFirewall = false;
