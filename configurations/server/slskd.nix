@@ -2,6 +2,7 @@
   services.slskd = { 
     enable = true;
     openFirewall = false;
+    domain = "slskd.${local_domain}";
   };
   
   systemd.services.slskd = {
