@@ -43,7 +43,7 @@
     ++ (if host == "asus" then
       [
         ./cli/minimal.nix
-        ./cli/tmux.nix
+
       ] else [])
     ++ (if host == "wsl" then
       [

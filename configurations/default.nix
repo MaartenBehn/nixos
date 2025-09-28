@@ -134,7 +134,6 @@
         ./server/notes.nix
         ./server/immich.nix
         ./server/nextcloud.nix
-        ./docker.nix
         
       ] else [])
     ++ (if host == "wsl" then
