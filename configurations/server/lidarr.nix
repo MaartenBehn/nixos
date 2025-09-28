@@ -2,14 +2,9 @@
 let
 
 plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
-    #version = "plugins"; # usually harmless to omit
-  src = pkgs-unstable.fetchFromGitHub {
-    owner = "Lidarr";
-    repo = "Lidarr";
-    rev = "6e5f2f6f844daadc3a9abf4955b984da87b77dde";
-    hash = "sha256-IioDoRVN3PbwDAIOxgfI+F3i4nRl8+zYB5esVTAuRgk=";
-  };    
-});
+  version = "plugins"; # usually harmless to omit
+  src = /home/stroby/Downloads/Lidarr.tar.gz
+  });
 
 in {
   users.groups.media.members = [ "lidarr" ];
