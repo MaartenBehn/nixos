@@ -12,7 +12,7 @@ plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
 in {
 
   imports = [
-    ./slskd.nix
+    #./slskd.nix
   ];
 
   users.groups.media.members = [ "lidarr" ];
