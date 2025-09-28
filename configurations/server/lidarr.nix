@@ -1,8 +1,11 @@
-{ pkgs-unstable, local_domain, ... }: 
+{ pkgs, pkgs-unstable, local_domain, ... }: 
 let
 
+  # Local build from plugins branch
 plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
   version = "plugins"; # usually harmless to omit
+
+  # scp ~/dev/Lidarr/_artifacts/linux-x64/net6.0/Lidarr.tar.gz asus:~/Downloads 
   src = /home/stroby/Downloads/Lidarr.tar.gz;
   });
 
@@ -15,10 +18,17 @@ in {
     ##package = pkgs-unstable.lidarr;
     package = plugin_branch;
   };
+  
+  systemd.services.lidarr = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "mullvad";
+    };
 
-  systemd.services.lidarr.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "mullvad";
+    # For youtube download plugin
+    path = [
+      pkgs.ffmpeg
+    ];
   };
 
   vpnNamespaces.mullvad = {
