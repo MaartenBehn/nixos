@@ -3,7 +3,7 @@ let
 
 plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
   version = "plugins"; # usually harmless to omit
-  src = /home/stroby/Downloads/Lidarr.tar.gz
+  src = /home/stroby/Downloads/Lidarr.tar.gz;
   });
 
 in {
