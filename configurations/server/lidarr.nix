@@ -2,7 +2,7 @@
 let
 
 plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
-  version = "plugins"; # usually harmless to omit
+    #version = "plugins"; # usually harmless to omit
   src = pkgs-unstable.fetchFromGitHub {
     owner = "Lidarr";
     repo = "Lidarr";
