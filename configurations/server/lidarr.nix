@@ -10,6 +10,11 @@ plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
   });
 
 in {
+
+  imports = [
+    ./slskd.nix
+  ];
+
   users.groups.media.members = [ "lidarr" ];
 
   services.lidarr = { 
@@ -49,16 +54,6 @@ in {
 
       serverAliases = [
         "www.lidarr.${local_domain}"
-      ];
-    };
-
-    "lidarr_fix.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8686/"; 
-      };
-
-      serverAliases = [
-        "www.lidarr_fix.${local_domain}"
       ];
     };
   };
