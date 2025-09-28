@@ -3,7 +3,7 @@
     enable = true;
   };
 
-  # Overerride the nginx config form:
+  # Overerride the nginx config from:
   # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/services/web-apps/baikal.nix
   # 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
@@ -15,6 +15,12 @@
       locations = {
         "/" = {
           index = "index.php";
+          extraConfig = ''
+            client_max_body_size 50000M;
+            proxy_read_timeout   600s;
+            proxy_send_timeout   600s;
+            send_timeout         600s;
+          '';
         };
         "/.well-known/".extraConfig = ''
             rewrite ^/.well-known/caldav  /dav.php redirect;
