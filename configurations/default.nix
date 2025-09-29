@@ -135,6 +135,7 @@
         ./server/immich.nix
         ./server/nextcloud.nix
         ./server/baikal.nix
+        ./server/manage_my_damn_life.nix
         
       ] else [])
     ++ (if host == "wsl" then
