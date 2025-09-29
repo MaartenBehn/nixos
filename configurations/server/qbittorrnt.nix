@@ -1,6 +1,7 @@
-{ pkgs, local_domain, config , ... }: { 
+{ inputs, pkgs, local_domain, config , ... }: { 
 
   imports = [
+    inputs.vpn-confinement.nixosModules.default
     ./prowlarr.nix
     ./sonarr.nix
     ./radarr.nix

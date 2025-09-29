@@ -1,5 +1,9 @@
-{ ... }: {
-  
+{ inputs, ... }: {
+ 
+  imports = [
+    inputs.vpn-confinement.nixosModules.default
+  ];
+
   sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 
     owner = "borg";  
   };

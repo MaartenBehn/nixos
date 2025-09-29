@@ -83,6 +83,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    manage-my-damn-life = {
+      url = "github:MaartenBehn/manage-my-damn-life-nextjs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, plasma-manager, solaar, vpn-confinement, ... }@inputs:
@@ -128,18 +133,13 @@
     mkSystemName = config: 
         (if config.host == "iso" then "iso" else   
         (if config.host == "wsl" then "wsl" else   
-        "${config.username}-${config.host}")); 
-  in   
-  {
-    # Generate configs
-    nixosConfigurations = builtins.listToAttrs (builtins.map (config: 
-      { 
-        # Name of the config
-        name = mkSystemName config; 
-        # Content of the config
-        value = nixpkgs.lib.nixosSystem {
-          inherit system; # system = system
-          specialArgs = {
+            "${config.username}-${config.host}")); 
+    in   
+      {
+      # Generate configs
+      nixosConfigurations = builtins.listToAttrs (builtins.map (config:
+        let 
+          args = {
             inherit nix-version;
             inherit system;
             inherit inputs;
@@ -154,40 +154,28 @@
             local_domain = (add_optional "local_domain" config null);
 
             add_optional = add_optional;
+          }; 
+        in { 
+          # Name of the config
+          name = mkSystemName config; 
+          # Content of the config
+          value = nixpkgs.lib.nixosSystem {
+            inherit system; # system = system
+            specialArgs = args;
+            modules = [
+              ./configurations
+
+              inputs.home-manager.nixosModules.default
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.users."${config.username}" = import ./home;
+                home-manager.extraSpecialArgs = args;
+              }
+            ];
           };
-          modules = [
-            ./configurations
-
-            inputs.home-manager.nixosModules.default
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
-
-              home-manager.users."${config.username}" = import ./home;
-              home-manager.extraSpecialArgs = { 
-                inherit nix-version;
-                inherit system;
-                inherit inputs;
-                inherit pkgs-2405;
-                inherit pkgs-unstable;
-                username = config.username;
-                host = config.host;
-                system_name = mkSystemName config;
-                terminal = (add_optional "terminal" config null);
-                desktop = (add_optional "desktop" config null);
-                domains = (add_optional "domains" config null);
-                local_domain = (add_optional "local_domain" config null);
-                
-                add_optional = add_optional;
-              };
-            }
-
-            solaar.nixosModules.default
-            vpn-confinement.nixosModules.default
-          ];
-        };
-      } ) configs);
-  };
+        } ) configs);
+    };
 }

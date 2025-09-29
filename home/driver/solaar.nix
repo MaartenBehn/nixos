@@ -1,4 +1,4 @@
-{ username, lib, ... }: 
+{ username, lib, inputs, ... }: 
 
 let 
   writableFile = path: text: (
@@ -9,6 +9,10 @@ let
       echo "${text}" > ${path}
     '');
 in {
+
+  imports = [
+    inputs.solaar.nixosModules.default
+  ];
 
   home.activation = {
     write_solaar_config = (writableFile "/home/${username}/.config/solaar/config.yaml" ''
