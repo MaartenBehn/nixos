@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
+  imports = [
+    inputs.solaar.nixosModules.default
+  ];
+
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 

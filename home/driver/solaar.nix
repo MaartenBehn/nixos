@@ -8,12 +8,7 @@ let
       mkdir -p "$(dirname "${path}")"
       echo "${text}" > ${path}
     '');
-in {
-
-  imports = [
-    inputs.solaar.nixosModules.default
-  ];
-
+in { 
   home.activation = {
     write_solaar_config = (writableFile "/home/${username}/.config/solaar/config.yaml" ''
 - 1.1.13
