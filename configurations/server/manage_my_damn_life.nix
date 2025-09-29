@@ -18,7 +18,7 @@ let
 ############################################################
 
 ## Database variables.
-DB_HOST=mmdl
+DB_HOST=127.0.0.1
 DB_USER=mmdl
 DB_PASS=1234
 DB_PORT=5432
