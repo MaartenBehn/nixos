@@ -3,7 +3,7 @@ let
    valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/mmdl" ]; then
       cd /srv 
-      git clone git@github.com:intri-in/manage-my-damn-life-nextjs.git
+      git clone https://github.com/intri-in/manage-my-damn-life-nextjs.git
       chown -R mmdl:nginx /srv/mmdl
     fi
   '';
