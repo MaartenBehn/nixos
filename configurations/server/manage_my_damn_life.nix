@@ -7,6 +7,7 @@ let
       chown -R mmdl:nginx /srv/mmdl
     fi
   '';
+
   init = pkgs.writeShellScriptBin "init" ''
     cd /srv/mmdl
     npm install
@@ -122,12 +123,14 @@ EOF
     npm run migrate
     npm run build
   '';
-  run = pkgs.writeShellScriptBin "mmdl" ''
+
+  mmdl = pkgs.writeShellScriptBin "mmdl" ''
     cd /srv/mmdl
     npm run start
     ''; 
 in {
 
+  # Set password for user to 1234
   users.users.mmdl = {
     isNormalUser = true;
     group = "nginx";
@@ -153,9 +156,9 @@ in {
   systemd.services.mmdl = {
     path = with pkgs; [
       nodejs
-      run
+      mmdl
     ];
-    script = "run";
+    script = "mmdl";
     wantedBy = [ "network-online.target" ];
     serviceConfig.User = "mmdl";
   };
