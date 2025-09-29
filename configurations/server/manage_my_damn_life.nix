@@ -24,7 +24,7 @@ DB_PASS=1234
 DB_PORT=5432
 # DB_DIALECT can be one of the following:'mysql' | 'postgres' | 'sqlite'. See documentation for more details. 
 DB_DIALECT=postgres
-DB_NAME=install_mmdl
+DB_NAME=mmdl
 DB_CHARSET=utf8mb4
 DB_COLLATE=utf8mb4_0900_ai_ci
 
@@ -131,6 +131,7 @@ EOF
 in {
 
   # Set password for user to 1234
+  # sudo passwd mmdl 
   users.users.mmdl = {
     isNormalUser = true;
     group = "nginx";
