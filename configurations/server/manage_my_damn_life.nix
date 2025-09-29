@@ -126,12 +126,10 @@ EOF
 
   mmdl = pkgs.writeShellScriptBin "mmdl" ''
     cd /srv/mmdl
-    npm run start
+    next start
     ''; 
 in {
 
-  # Set password for user to 1234
-  # sudo passwd mmdl 
   users.users.mmdl = {
     isNormalUser = true;
     group = "nginx";
@@ -166,6 +164,9 @@ in {
     serviceConfig.User = "mmdl";
   };
 
+  # set password 
+  # sudo -u mmdl psql mmdl
+  # ALTER USER mmdl WITH PASSWORD '1234';
   services.postgresql = {
     enable = true;
 
