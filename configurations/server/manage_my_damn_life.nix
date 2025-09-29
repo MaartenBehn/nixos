@@ -164,10 +164,12 @@ in {
     enable = true;
 
     ensureDatabases = [ "mmdl" ];
-    ensureUsers.mmdl = {
-      name = "mmdl";
-      ensureDBOwnership = true;
-    };
+    ensureUsers = [ 
+      {
+        name = "mmdl";
+        ensureDBOwnership = true;
+      }
+    ];
 
     enableTCPIP = true;
     settings.port = 5432;
