@@ -157,6 +157,7 @@ in {
   systemd.services.mmdl = {
     path = with pkgs; [
       nodejs
+      bash
       mmdl
     ];
     script = "mmdl";
