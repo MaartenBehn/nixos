@@ -3,7 +3,7 @@ let
    valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/mmdl" ]; then
       cd /srv 
-      git clone https://github.com/MaartenBehn/manage-my-damn-life-nextjs.git mmdl
+      git clone https://github.com/intri-in/manage-my-damn-life-nextjs.git mmdl
       chown -R mmdl:nginx /srv/mmdl
     fi
   '';
@@ -23,7 +23,7 @@ DB_USER=mmdl
 DB_PASS=1234
 DB_PORT=5432
 # DB_DIALECT can be one of the following:'mysql' | 'postgres' | 'sqlite'. See documentation for more details. 
-DB_DIALECT=postgres
+DB_DIALECT=sqlite
 DB_NAME=mmdl
 DB_CHARSET=utf8mb4
 DB_COLLATE=utf8mb4_0900_ai_ci
@@ -163,35 +163,6 @@ in {
     wantedBy = [ "network-online.target" ];
     serviceConfig.User = "mmdl";
   };
-
-  # set password 
-  # sudo -u mmdl psql mmdl
-  # ALTER USER mmdl WITH PASSWORD '1234';
-  services.postgresql = {
-    enable = true;
-
-    ensureDatabases = [ "mmdl" ];
-    ensureUsers = [ 
-      {
-        name = "mmdl";
-        ensureDBOwnership = true;
-      }
-    ];
-
-    authentication = pkgs.lib.mkOverride 10 ''
-      #...
-      #type database DBuser origin-address auth-method
-      local all       all     trust
-      # ipv4
-      host  all      all     127.0.0.1/32   trust
-      # ipv6
-      host all       all     ::1/128        trust
-    '';
-
-    enableTCPIP = true;
-    settings.port = 5432;
-  };
-
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "calendar.${domain}"; 
