@@ -147,6 +147,7 @@ in {
   systemd.services.mmdl-init = {
     path = with pkgs; [
       nodejs
+      bash
       init
     ];
     script = "init";
