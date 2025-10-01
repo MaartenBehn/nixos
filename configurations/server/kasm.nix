@@ -28,7 +28,7 @@
 
       locations."/" = {
         #proxyPass = "http://192.168.15.1:8087/"; 
-        proxyPass = "http://127.0.0.1:8087/"; 
+        proxyPass = "https://127.0.0.1:8087/"; 
       };
 
       serverAliases = [
