@@ -1,5 +1,5 @@
 ARG BASE_TAG="1.17.0"
-FROM kasmweb/firefox:$BASE_TAG
+FROM kasmweb/ubuntu-focal-desktop:$BASE_TAG
 USER root
 
 ENV HOME /home/kasm-default-profile

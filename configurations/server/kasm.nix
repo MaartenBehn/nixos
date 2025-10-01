@@ -40,9 +40,13 @@
 
 
   /*
+
+  cd ~/nixos/docker/kasm/mullvad_firefox
+  sudo docker build -t custom:mullvad_firefox -f Dockerfile .
+
   {
     "dns": [
-      "194.242.2.2"
+      "194.242.2.2",
       "1.1.1.1"
     ],
     "devices": [
@@ -56,8 +60,14 @@
   # Docker Exec Config
   {
     "first_launch":{
-      "cmd":"bash -c '/usr/bin/desktop_ready && xfce4-terminal -T OpenVPN  -x /usr/bin/wg-quick up wg0",
+      "cmd":"bash -c '/usr/bin/desktop_ready && xfce4-terminal -T OpenVPN  -x /usr/bin/wg-quick up wg0'",
       "user":"root"
+    },
+    "assign": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --assign --url \"$KASM_URL\"'"
+    },
+    "go": {
+      "cmd": "bash -c '/dockerstartup/custom_startup.sh --go --url \"$KASM_URL\"'"
     }
   }
 
