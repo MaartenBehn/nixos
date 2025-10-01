@@ -11,7 +11,6 @@ let
   init = pkgs.writeShellScriptBin "init" ''
     cd /srv/mmdl
     npm install
-
     npm run migrate
     npm run build
   '';
