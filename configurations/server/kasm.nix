@@ -36,5 +36,30 @@
         "www.kasm.${domain}"
       ];
     };
-  }) (domains ++ [ local_domain ])); 
+  }) (domains ++ [ local_domain ]));
+
+
+  /*
+  {
+    "dns": [
+      "194.242.2.2"
+      "1.1.1.1"
+    ],
+    "devices": [
+      "dev/net/tun",
+      "/dev/net/tun"
+    ],
+    "user": "root",
+    "privileged": true
+  }
+
+  # Docker Exec Config
+  {
+    "first_launch":{
+      "cmd":"bash -c '/usr/bin/desktop_ready && xfce4-terminal -T OpenVPN  -x /usr/bin/wg-quick up wg0",
+      "user":"root"
+    }
+  }
+
+  */
 }
