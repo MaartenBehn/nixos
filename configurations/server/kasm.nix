@@ -60,14 +60,8 @@
   # Docker Exec Config
   {
     "first_launch":{
-      "cmd":"bash -c '/usr/bin/desktop_ready && xfce4-terminal -T OpenVPN  -x /usr/bin/wg-quick up wg0'",
+      "cmd":"bash -c '/usr/bin/desktop_ready && xfce4-terminal -T wireguard -x /usr/bin/wg-quick up wg0'",
       "user":"root"
-    },
-    "assign": {
-      "cmd": "bash -c '/dockerstartup/custom_startup.sh --assign --url \"$KASM_URL\"'"
-    },
-    "go": {
-      "cmd": "bash -c '/dockerstartup/custom_startup.sh --go --url \"$KASM_URL\"'"
     }
   }
 
