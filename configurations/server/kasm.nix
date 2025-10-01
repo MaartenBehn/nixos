@@ -40,6 +40,7 @@
 
 
   /*
+    # Device: Exotic Snake
 
   cd ~/nixos/docker/kasm/mullvad_firefox
   sudo docker build -t custom:mullvad_firefox -f Dockerfile .
