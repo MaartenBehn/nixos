@@ -6,10 +6,9 @@
 
   systemd.services.kasmweb = {
     vpnConfinement = {
-      enable = true;
+      enable = false;
       vpnNamespace = "mullvad";
     };
-    wantedBy = [ "network-online.target" ];
   };
 
   vpnNamespaces.mullvad = {
@@ -28,7 +27,8 @@
       forceSSL = domain != local_domain;
 
       locations."/" = {
-        proxyPass = "http://192.168.15.1:8087/"; 
+        #proxyPass = "http://192.168.15.1:8087/"; 
+        proxyPass = "http://127.0.0.1:8087/"; 
       };
 
       serverAliases = [
