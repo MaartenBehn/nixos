@@ -10,6 +10,8 @@ WORKDIR $HOME
 ######### Customize Container Here ###########
 
 # Install wireguard
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32EE5355A6BC6E42
+
 RUN apt-get update && \
 apt-get install -y wireguard-tools iproute2 openresolv procps curl && \
 rm -rf /var/lib/apt/lists/* 
