@@ -35,7 +35,7 @@ in {
       soulseek = {
         username = "Stroby241";
         password = "SoulSeek+240803";
-      }
+      };
     };
   };
   
