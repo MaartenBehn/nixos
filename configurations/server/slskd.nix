@@ -29,12 +29,24 @@ in {
           speed_limit = 1000;
         };
       };
+
       shares = {
         directories = []; 
       };
+
       soulseek = {
         username = "Stroby241";
         password = "SoulSeek+240803";
+      };
+
+      relay = {
+        enable = true;
+        controller = {
+          address = "http://lidarr.home";
+          ignoreCertificateErrors = false;
+          apiKey = "ghsbzdsf465sdd";
+          downloads = true;
+        };
       };
     };
   };
