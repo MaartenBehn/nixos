@@ -15,6 +15,11 @@ in {
     openFirewall = false;
     domain = "slskd.${local_domain}";
     environmentFile = env_file;
+    settings = {
+      shares = {
+        directories = []; 
+      };
+    };
   };
   
   systemd.services.slskd = {
