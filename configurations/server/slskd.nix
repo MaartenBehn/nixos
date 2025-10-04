@@ -16,9 +16,26 @@ in {
     domain = "slskd.${local_domain}";
     environmentFile = env_file;
     settings = {
+      directories = {
+        incomplete = "/media/downloads/temp/soulseek";
+        downloads = "/media/downloads/soulseek";
+      };
+
+      global = {
+        upload = {
+          slots = 20;
+        };
+        download = {
+          speed_limit = 1000;
+        };
+      };
       shares = {
         directories = []; 
       };
+      soulseek = {
+        username = "Stroby241";
+        password = "SoulSeek+240803";
+      }
     };
   };
   
