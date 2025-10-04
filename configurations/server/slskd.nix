@@ -35,24 +35,24 @@ in {
         };
       };
 
-      web = {
-        #port = 5030;
-        #url_base = http://slskd.home;
-      };
-      
+            
       soulseek = {
         username = "Stroby241";
         password = "SoulSeek+240803";
       };
 
-      authentication = {
-        disabled = false;
-        apiKeys = {
-          lidarr = {
-            key = "nuewbginjie5623vh";
+      web = {
+        #port = 5030;
+        #url_base = http://slskd.home;
+        authentication = {
+          disabled = false;
+          apiKeys = {
+            lidarr = {
+              key = "nuewbginjie5623vh";
+            };
           };
         };
-      };
+
     };
   };
   
