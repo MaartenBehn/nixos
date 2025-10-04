@@ -19,6 +19,10 @@ in {
       directories = {
         incomplete = "/media/downloads/temp/soulseek";
         downloads = "/media/downloads/soulseek";
+        uploads = "/media/upload/soulseek";
+      };
+      shares = {
+        directories = []; 
       };
 
       global = {
@@ -26,26 +30,27 @@ in {
           slots = 20;
         };
         download = {
+          slots = 500;
           speed_limit = 1000;
         };
       };
 
-      shares = {
-        directories = []; 
+      web = {
+        port = 5030;
+        url_base = "http://slskd.home";
       };
-
+      
       soulseek = {
         username = "Stroby241";
         password = "SoulSeek+240803";
       };
 
-      relay = {
-        enabled = true;
-        controller = {
-          address = "http://localhost:5030";
-          ignoreCertificateErrors = false;
-          apiKey = "ghsbzdsf465sdd";
-          downloads = true;
+      authentication = {
+        disabled = false;
+        api_keys = {
+          lidarr = {
+            key = "nuewbginjie5623vh";
+          };
         };
       };
     };
