@@ -46,5 +46,7 @@
     # For .exe files
     winetricks
     wineWowPackages.wayland
+
+    soulseekqt
  ]);
 }
