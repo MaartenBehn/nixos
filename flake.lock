@@ -958,27 +958,6 @@
         "type": "github"
       }
     },
-    "manage-my-damn-life": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1759159907,
-        "narHash": "sha256-OtxwwV/+rfe3zaQ4HAzWffRzmGqwU58/JFk/f0fTyq4=",
-        "owner": "MaartenBehn",
-        "repo": "manage-my-damn-life-nextjs",
-        "rev": "1677417baf51c4c96420a9a66ac2ace7af61d070",
-        "type": "github"
-      },
-      "original": {
-        "owner": "MaartenBehn",
-        "repo": "manage-my-damn-life-nextjs",
-        "type": "github"
-      }
-    },
     "mnw": {
       "locked": {
         "lastModified": 1747499976,
@@ -991,6 +970,27 @@
       "original": {
         "owner": "Gerg-L",
         "repo": "mnw",
+        "type": "github"
+      }
+    },
+    "neko": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759312040,
+        "narHash": "sha256-lqJlPEOccDm4btm9fAUc3pBKs8lOl7UZ2lPU7HZS2sQ=",
+        "owner": "MaartenBehn",
+        "repo": "neko",
+        "rev": "0e2be1a60df238024f71f2630ac47f171ac1cec6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MaartenBehn",
+        "repo": "neko",
         "type": "github"
       }
     },
@@ -1553,7 +1553,7 @@
         "hyprland-plugins": "hyprland-plugins",
         "hyprmag": "hyprmag",
         "hyprpicker": "hyprpicker",
-        "manage-my-damn-life": "manage-my-damn-life",
+        "neko": "neko",
         "nix-flatpak": "nix-flatpak",
         "nix-minecraft": "nix-minecraft",
         "nixos-wsl": "nixos-wsl",

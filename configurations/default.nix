@@ -44,6 +44,7 @@
         ./dlr_eden_postgress.nix
         ./docker.nix
 
+        ./filebrowser.nix
 
       ] else [])
     ++ (if host == "desktop" then

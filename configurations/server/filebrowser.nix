@@ -1,4 +1,4 @@
-{ pkgs, domains, local_domain, ... }: {
+{ pkgs, domains, local_domain, host, ... }: {
   systemd.services.filebrowser = {
     path = with pkgs; [
       filebrowser
@@ -8,6 +8,7 @@
     wantedBy = [ "network-online.target" ];
 		after = [ "network.target" ];
   };
+
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "files.${domain}"; 

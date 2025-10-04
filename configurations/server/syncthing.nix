@@ -1,5 +1,7 @@
 { domains, local_domain, ... }:
 {
+  users.groups.meida.members = [ "syncthing" ];
+
   services = {
     syncthing = {
       enable = true;
