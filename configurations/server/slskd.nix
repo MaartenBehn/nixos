@@ -36,8 +36,8 @@ in {
       };
 
       web = {
-        port = 5030;
-        url_base = "http://slskd.home";
+        #port = 5030;
+        #url_base = http://slskd.home;
       };
       
       soulseek = {
