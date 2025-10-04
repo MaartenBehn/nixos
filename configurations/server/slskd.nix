@@ -40,7 +40,7 @@ in {
       };
 
       relay = {
-        enable = true;
+        enabled = true;
         controller = {
           address = "http://lidarr.home";
           ignoreCertificateErrors = false;
