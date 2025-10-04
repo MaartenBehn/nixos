@@ -4,13 +4,6 @@
     listenPort = 8087;
   };
 
-  systemd.services.kasmweb = {
-    vpnConfinement = {
-      enable = false;
-      vpnNamespace = "mullvad";
-    };
-  };
-
   vpnNamespaces.mullvad = {
     portMappings = [
       { 
