@@ -42,7 +42,7 @@ in {
       relay = {
         enabled = true;
         controller = {
-          address = "http://lidarr.home";
+          address = "http://localhost:5030";
           ignoreCertificateErrors = false;
           apiKey = "ghsbzdsf465sdd";
           downloads = true;
