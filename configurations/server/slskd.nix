@@ -47,7 +47,7 @@ in {
 
       authentication = {
         disabled = false;
-        api_keys = {
+        apiKeys = {
           lidarr = {
             key = "nuewbginjie5623vh";
           };
