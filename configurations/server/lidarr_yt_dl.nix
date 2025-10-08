@@ -1,15 +1,11 @@
 { pkgs, ... }: 
-let
-  valid_check = pkgs.writeShellScriptBin "valid_check" ''
-    if [ ! -d "/srv/lidarr-youtube-downloader" ]; then
-      cd /srv 
-      git clone https://github.com/dmzoneill/lidarr-youtube-downloader.git
-      chown -R lidarr:lidarr /srv/lidarr-youtube-downloader 
-    fi
-  '';
-
+let 
   init = pkgs.writeShellScriptBin "init" ''
-    cd /srv/lidarr-youtube-downloader 
+    cd /srv
+    rm -r lidarr-youtube-downloader 
+    git clone https://github.com/dmzoneill/lidarr-youtube-downloader.git
+    cd lidarr-youtube-downloader 
+
     python3 -m venv .venv
     source ./.venv/bin/activate
     python3 -m pip install --no-cache-dir --no-deps -U yt-dlp
@@ -29,15 +25,7 @@ let
     python3 -u lyd.py
     ''; 
 
-in {
-  systemd.services.lidarr-youtube-downloader-valid = {
-    path = with pkgs; [
-      git
-      valid_check
-    ];
-    script = "valid_check";
-  };
-
+in { 
   systemd.services.lidarr-youtube-downloader-init = {
     path = with pkgs; [
       bash
