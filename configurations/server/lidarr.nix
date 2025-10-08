@@ -1,6 +1,5 @@
 { pkgs, pkgs-unstable, local_domain, ... }: 
-let
-
+let 
   # Local build from plugins branch
 plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
   version = "plugins"; # usually harmless to omit
@@ -13,6 +12,7 @@ in {
 
   imports = [
     ./slskd.nix
+    ./lidarr_yt_dl.nix
   ];
 
   users.groups.media.members = [ "lidarr" ];
@@ -35,7 +35,7 @@ in {
       pkgs.ffmpeg
     ];
   };
-
+ 
   vpnNamespaces.mullvad = {
     portMappings = [
       { 
