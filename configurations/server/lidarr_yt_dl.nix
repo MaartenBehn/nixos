@@ -23,7 +23,7 @@ let
     export LIDARR_MUSIC_PATH="/media/music"
 
     rm seen
-    python3 -u lyd.py
+    python3 -u lyd.py --stop=True
     ''; 
 
 in { 
