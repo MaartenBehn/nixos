@@ -9,6 +9,15 @@
     vpnNamespace = "mullvad";
   };
 
+  vpnNamespaces.mullvad = {
+    portMappings = [
+      { 
+        from = 5055;
+        to = 5055;
+      }
+    ];
+  };
+
   services.nginx.virtualHosts = {
 
     "seerr.${local_domain}" = {
