@@ -22,6 +22,7 @@ let
     export LIDARR_DB="/var/lib/lidarr/.config/Lidarr/lidarr.db"
     export LIDARR_MUSIC_PATH="/media/music"
 
+    rm seen
     python3 -u lyd.py
     ''; 
 
