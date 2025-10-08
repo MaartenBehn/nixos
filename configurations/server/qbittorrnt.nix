@@ -7,6 +7,7 @@
     ./radarr.nix
     ./lidarr.nix
     ./whisparr.nix
+    ./jellyseer.nix
   ];
 
   sops.secrets."wireguard/mullvad.conf" = { owner = "stroby"; };
