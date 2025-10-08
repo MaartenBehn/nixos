@@ -35,6 +35,7 @@ in {
     path = with pkgs; [
       bash
       git
+      python3
       init
     ];
     script = "init";
