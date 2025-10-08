@@ -12,7 +12,6 @@ in {
 
   imports = [
     ./slskd.nix
-    ./lidarr_yt_dl.nix
   ];
 
   users.groups.media.members = [ "lidarr" ];
