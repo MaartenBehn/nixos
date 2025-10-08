@@ -14,7 +14,7 @@ let
   '';
 
   update = pkgs.writeShellScriptBin "update" ''
-    cd /srv/lidarr-youtube-downloader/lidarr-youtube-downloader 
+    cd /srv/lidarr-youtube-downloader/lidarr_youtube_downloader 
         
     source ../.venv/bin/activate
     export LIDARR_URL="http://127.0.0.1:8686"
