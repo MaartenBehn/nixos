@@ -11,13 +11,13 @@
 
   services.nginx.virtualHosts = {
 
-    "jellyseerr.${local_domain}" = {
+    "seerr.${local_domain}" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:5055/"; 
       };
 
       serverAliases = [
-        "www.jellyseerr.${local_domain}"
+        "www.seerr.${local_domain}"
       ];
     };
   };
