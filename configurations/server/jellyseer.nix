@@ -1,4 +1,4 @@
-{ local_domain, domains, ... }: {
+{ local_domain, ... }: {
   services.jellyseerr = {
     enable = true;
     port = 5055;
@@ -18,20 +18,16 @@
     ];
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "seerr.${domain}"; 
-    value = { 
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
+  services.nginx.virtualHosts = {
 
+    "seerr.${local_domain}" = {
       locations."/" = {
-        proxyPass = "http://192.168.15.1:5055/";
-        proxyWebsockets = true;
+        proxyPass = "http://192.168.15.1:5055/"; 
       };
 
       serverAliases = [
-        "www.seerr.${domain}"
+        "www.seerr.${local_domain}"
       ];
     };
-  }) (domains ++ [ local_domain ]));
+  };
 } 
