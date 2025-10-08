@@ -34,6 +34,7 @@ in {
 
     path = with pkgs; [
       bash
+      git
       init
     ];
     script = "init";
