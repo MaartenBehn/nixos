@@ -50,10 +50,9 @@ in {
 
     path = with pkgs; [
       bash
-      lidarr
       update
     ];
-    script = "lidarr";
+    script = "update";
     #startAt = "Sat 03:45";  
     #wantedBy = [ "network-online.target" ];
     serviceConfig.User = "lidarr";
