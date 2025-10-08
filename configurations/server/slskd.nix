@@ -22,7 +22,13 @@ in {
         uploads = "/media/upload/soulseek";
       };
       shares = {
-        directories = []; 
+        directories = [
+          "/media/videos/movies"
+          "/media/videos/shows"
+          "/media/videos_data/movies"
+          "/media/videos_data/shows"
+          "/media/music"
+        ]; 
       };
 
       global = {
