@@ -4,6 +4,11 @@
     port = 5055;
   };
 
+  systemd.services.jellyseerr.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "mullvad";
+  };
+
   services.nginx.virtualHosts = {
 
     "jellyseerr.${local_domain}" = {
