@@ -30,7 +30,7 @@ let
     ''; 
 
 in {
-  systemd.services.obsidian_export-valid = {
+  systemd.services.lidarr-youtube-downloader-valid = {
     path = with pkgs; [
       git
       valid_check
@@ -38,7 +38,7 @@ in {
     script = "valid_check";
   };
 
-  systemd.services.obsidian_export-init = {
+  systemd.services.lidarr-youtube-downloader-init = {
     path = with pkgs; [
       bash
       init
@@ -47,7 +47,7 @@ in {
     serviceConfig.User = "lidarr";
   };
  
-  systemd.services.obsidian_export-updater = {
+  systemd.services.lidarr-youtube-downloader-updater = {
     path = with pkgs; [
       bash
       update
