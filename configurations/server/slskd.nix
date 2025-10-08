@@ -23,11 +23,11 @@ in {
       };
       shares = {
         directories = [
-          "/media/videos/movies"
-          "/media/videos/shows"
-          "/media/videos_data/movies"
-          "/media/videos_data/shows"
-          "/media/music"
+          "[movies_0]/media/videos/movies"
+          "[shows_0]/media/videos/shows"
+          "[movies_1]/media/videos_data/movies"
+          "[shows_1]/media/videos_data/shows"
+          "[music_0]/media/music"
         ]; 
       };
 
