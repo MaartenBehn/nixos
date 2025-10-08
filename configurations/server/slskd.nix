@@ -3,13 +3,14 @@ let
 env_file = pkgs.writeTextFile {
     name = "slskd_env";
     text = ''
-#SLSKD_SLSK_USERNAME=Stroby241
-#SLSKD_SLSK_PASSWORD=SoulSeek+240803
 SLSKD_USERNAME=Stroby241
 SLSKD_PASSWORD=SoulSeek+240803
     '';
   };
 in {
+
+  users.groups.media.members = [ "slskd" ];
+
   services.slskd = { 
     enable = true;
     openFirewall = false;
