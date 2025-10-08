@@ -41,7 +41,10 @@ in {
   };
  
   systemd.services.lidarr-youtube-downloader-updater = {
-
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "mullvad";
+    };
 
     path = with pkgs; [
       bash
