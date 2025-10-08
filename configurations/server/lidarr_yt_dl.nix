@@ -50,6 +50,7 @@ in {
 
     path = with pkgs; [
       bash
+      lidarr
       update
     ];
     script = "lidarr";
