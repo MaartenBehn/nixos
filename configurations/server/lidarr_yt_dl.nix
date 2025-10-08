@@ -17,7 +17,7 @@ let
     cd /srv/lidarr-youtube-downloader/lidarr-youtube-downloader 
         
     source ../.venv/bin/activate
-    export LIDARR_URL="http://127.0.0.4:8686"
+    export LIDARR_URL="http://127.0.0.1:8686"
     export LIDARR_API_KEY="ee7c84e0f9d040b997d8133b14516a8d" # your key
     export LIDARR_DB="/var/lib/lidarr/.config/Lidarr/lidarr.db"
     export LIDARR_MUSIC_PATH="/media/music"
@@ -27,6 +27,11 @@ let
 
 in { 
   systemd.services.lidarr-youtube-downloader-init = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "mullvad";
+    };
+
     path = with pkgs; [
       bash
       init
@@ -36,6 +41,8 @@ in {
   };
  
   systemd.services.lidarr-youtube-downloader-updater = {
+
+
     path = with pkgs; [
       bash
       update
