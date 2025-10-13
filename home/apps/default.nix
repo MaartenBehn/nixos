@@ -47,6 +47,6 @@
     winetricks
     wineWowPackages.wayland
 
-    soulseekqt
+    #soulseekqt
  ]);
 }
