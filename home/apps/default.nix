@@ -48,5 +48,6 @@
     wineWowPackages.wayland
 
     #soulseekqt
+    tradingview
  ]);
 }
