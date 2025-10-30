@@ -251,8 +251,8 @@ in {
           cputemp = true;
           units = "metric";
           memory = true;
-          network = true;
-          disk = "/";
+          #network = true;
+          #disk = "/";
         };
       }
     ];
