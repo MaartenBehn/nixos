@@ -55,10 +55,10 @@ in {
     group = "nginx";
   };
 
+  # unstable Service
   disabledModules = [ "services/misc/homepage-dashboard.nix" ];
   imports = [
-    inputs.nixpkgs-unstable.services.homepage-dashboard
-  ];
+    "${inputs.nixpkgs-unstable}/nixos/modules/services/misc/homepage-dashboard.nix"  ];
 
   systemd.services.homepage-dashboard = {
     serviceConfig.User = "homepage-dashboard";
