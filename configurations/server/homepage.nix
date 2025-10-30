@@ -1,4 +1,4 @@
-{ pkgs-unstable, local_domain, config, lib, ... }: 
+{ pkgs, local_domain, config, lib, ... }: 
 let
   secrets = [
     "jellyfin/key"
@@ -58,12 +58,12 @@ in {
   systemd.services.homepage-dashboard = {
     serviceConfig.User = "homepage-dashboard";
   };
-
+  
   services.homepage-dashboard = {
     # https://gethomepage.dev/
 
     enable = true;
-    package = pkgs-unstable.homepage-dashboard;
+    package = pkgs.homepage-dashboard;
     listenPort = 8085;
     allowedHosts = "main.home,127.0.0.1:8085";
 
