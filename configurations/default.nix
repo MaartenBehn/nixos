@@ -121,7 +121,7 @@
         ./server/duckdns.nix
         ./server/blocky.nix
         ./server/ipv64.nix
-        ./server/homepage.nix
+        #./server/homepage.nix
         ./server/syncthing.nix
         ./server/vscode_server.nix
         ./server/filebrowser.nix
