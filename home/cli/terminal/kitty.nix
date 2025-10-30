@@ -49,4 +49,17 @@
       "ctrl+shift+right" = "no_op";
     };
   };
+
+  home.sessionVariables = {
+    TERMINAL = "kitty";
+  };
+
+  #xdg.terminal-exec = {
+  #  enable = true;
+  #  settings = {
+  #    default = [
+  #      "kitty.desktop"
+  #    ];
+  #  };
+  #};
 }

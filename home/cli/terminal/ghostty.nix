@@ -84,4 +84,17 @@ in
     selection-foreground = #282828
     selection-background = #98971A
   '';
+
+  home.sessionVariables = {
+    TERMINAL = "ghostty";
+  };
+
+  #xdg.terminal-exec = {
+  #  enable = true;
+  #  settings = {
+  #    default = [
+  #      "ghostty.desktop"
+  #    ];
+  #  };
+  #};
 }

@@ -13,7 +13,6 @@
     ## CLI utility
     file                              # Show file information 
     hexdump
-    ncdu                              # disk space
     openssl
     wavemon                           # monitoring for wireless network devices
     wget
@@ -31,6 +30,6 @@
     ping = "ping -c 5";
 
     grep = "rg";
-    disk-usage = "ncdu /";
+    disk-usage = "sudo dust /";
   };
 }

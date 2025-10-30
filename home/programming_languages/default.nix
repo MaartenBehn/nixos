@@ -1,8 +1,9 @@
 { ... }: {
   imports = [
     ./c.nix
-    ./r.nix
     ./python.nix
-    ./zig.nix
+    ./rust.nix
+    #./r.nix
+    #./zig.nix
   ];
 }
