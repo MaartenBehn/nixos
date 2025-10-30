@@ -57,7 +57,7 @@ in {
 
   disabledModules = [ "services/misc/homepage-dashboard.nix" ];
   imports = [
-    "${inputs.nixpkgs-unstable}"/services/misc/homepage-dashboard.nix
+    inputs.nixpkgs-unstable.services.homepage-dashboard
   ];
 
   systemd.services.homepage-dashboard = {
