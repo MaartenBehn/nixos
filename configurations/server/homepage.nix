@@ -1,4 +1,4 @@
-{ pkgs, local_domain, config, lib, ... }: 
+{ pkgs-unstable, local_domain, config, lib, inputs, ... }: 
 let
   secrets = [
     "jellyfin/key"
@@ -55,6 +55,11 @@ in {
     group = "nginx";
   };
 
+  disabledModules = [ "services/misc/homepage-dashboard.nix" ];
+  imports = [
+    "${inputs.nixpkgs-unstable}"/services/misc/homepage-dashboard.nix
+  ];
+
   systemd.services.homepage-dashboard = {
     serviceConfig.User = "homepage-dashboard";
   };
@@ -63,7 +68,7 @@ in {
     # https://gethomepage.dev/
 
     enable = true;
-    package = pkgs.homepage-dashboard;
+    package = pkgs-unstable.homepage-dashboard;
     listenPort = 8085;
     allowedHosts = "main.home,127.0.0.1:8085";
 
