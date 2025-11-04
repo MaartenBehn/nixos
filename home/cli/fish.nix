@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, desktop, ... }:
 {
   home.packages = with pkgs; [
     # shell env programms
@@ -22,9 +22,11 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
-        exec hyprland 
-      end
+      ${if desktop == "hyprland" then ''
+        if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
+          exec hyprland 
+        end
+      '' else ""}
 
       function fish_title
         set -q argv[1]; or set argv fish
