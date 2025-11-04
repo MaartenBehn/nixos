@@ -1,4 +1,4 @@
-{ pkgs, host, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     # shell env programms
@@ -22,29 +22,15 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
+      if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
+        exec hyprland 
+      end
+
       function fish_title
         set -q argv[1]; or set argv fish
         echo $argv[1];
       end
 
-      ${if host != "asus" then ''
-      #if status is-interactive 
-      #and not set -q TMUX 
-      #  exec tmux new -As0
-      #end
-      '' else ""}
-
-      #function nix-rebuild 
-      #  cd /home/$USER/nixos/
-      #  command git add --all
-      #  if count $argv > /dev/null
-      #    command "sudo nixos-rebuild switch --impure --flake ." 
-      #  else
-      #    command "sudo nixos-rebuild switch --impure --flake ./#$argv[1]"  
-      #  end
-      #  cd -
-      #end
- 
       alias myip="curl http://ipecho.net/plain; echo";
 
       alias vpn-uni="sudo openconnect -b -u behn --authgroup=Tunnel-Uni-Bremen vpn.uni-bremen.de";

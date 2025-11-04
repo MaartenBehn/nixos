@@ -25,7 +25,6 @@
         ./battery.nix
 
         # Windows
-        ./display_manager.nix
         ./window_manager
 
         # Apps
@@ -41,8 +40,8 @@
         ./server/hotspot.nix 
 
         # Eden
-        ./dlr_eden_postgress.nix
-        ./docker.nix
+        #./dlr_eden_postgress.nix
+        #./docker.nix
 
         #./filebrowser.nix
         ./set_kitty_default.nix
@@ -66,7 +65,6 @@
         ./sops.nix
 
         # Windows
-        ./display_manager.nix
         ./window_manager
 
         # Apps
@@ -99,7 +97,6 @@
         ./battery.nix
 
         # Windows
-        ./display_manager.nix
         ./window_manager
 
         #./calamares.nix

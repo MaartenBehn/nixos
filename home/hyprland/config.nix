@@ -5,17 +5,19 @@
       exec-once = [
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        # load all plugins
-        "hyprctl plugin load \"$HYPR_PLUGIN_DIR/lib/libhyprexpo.so\""
-        
-        "nm-applet &"
-        "poweralertd -s &"
-        "wl-clip-persist --clipboard both &"
-        "wl-paste --watch cliphist store &"
-        "waybar &"
-        "swaync &"
-        "hyprctl setcursor Bibata-Modern-Ice 24 &"
-        "swww-daemon &"
+         
+        # Needed to look fine
+        "sleep 0.4 && swww-daemon &"
+        "sleep 0.4 && hyprctl setcursor Bibata-Modern-Ice 24 &"
+        "sleep 0.4 && waybar &"
+       
+        # Rest
+        "sleep 0.6 && hyprctl plugin load \"$HYPR_PLUGIN_DIR/lib/libhyprexpo.so\"" 
+        "sleep 0.6 && nm-applet &"
+        "sleep 0.6 && poweralertd -s &"
+        "sleep 0.6 && wl-clip-persist --clipboard both &"
+        "sleep 0.6 && wl-paste --watch cliphist store &"
+        "sleep 0.6 && swaync &"
 
         (if host != "iso" then "hyprlock" else "echo done")
       ];
