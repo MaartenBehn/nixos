@@ -40,11 +40,13 @@
         ./server/hotspot.nix 
 
         # Eden
-        #./dlr_eden_postgress.nix
+        ./dlr_eden_postgress.nix
         #./docker.nix
 
         #./filebrowser.nix
         ./set_kitty_default.nix
+
+        ./server/algo_trading.nix
 
       ] else [])
     ++ (if host == "desktop" then
