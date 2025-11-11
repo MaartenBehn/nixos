@@ -36,7 +36,7 @@ in {
 
   systemd.services."unit-status-mail@" = {
     path = with pkgs; [
-      ssmtp
+      msmtp
       unit_status_mail
     ];
     execStart = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
