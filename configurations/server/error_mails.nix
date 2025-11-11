@@ -28,7 +28,7 @@ in {
     enable = true;
     accounts.default = {
       tls = true;
-      host = "gmail.com";
+      host = "gmail.com:587";
       from = "dontpanic355@gmail.com";
       user = "dontpanic355@gmail.com";
       password = "tfhg464fgg";
