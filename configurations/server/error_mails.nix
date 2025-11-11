@@ -11,7 +11,7 @@ let
 
     UNITSTATUS=$(systemctl status $UNIT)
 
-    sendmail $MAILTO <<EOF
+    ${pkgs.system-sendmail}/bin/sendmail $MAILTO <<EOF
     Subject:Status mail for unit: $UNIT
 
     Status report for unit: $UNIT
@@ -36,11 +36,7 @@ in {
   };
 
   systemd.services."unit-status-mail@" = {
-    path = with pkgs; [
-      system-sendmail
-      unit_status_mail
-    ];
-    serviceConfig.ExecStart = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    serviceConfig.ExecStart = "${unit_status_mail} %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
