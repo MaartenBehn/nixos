@@ -27,6 +27,7 @@ in {
   programs.msmtp = {
     enable = true;
     accounts.default = {
+      tls = true;
       host = "gmail.com";
       from = "dontpanic355@gmail.com";
       user = "dontpanic355@gmail.com";
@@ -39,7 +40,7 @@ in {
       system-sendmail
       unit_status_mail
     ];
-    script = "unit_status_mail %i 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    serviceConfig.ExecStart = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
