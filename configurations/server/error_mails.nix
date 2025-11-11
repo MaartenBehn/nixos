@@ -26,9 +26,12 @@ in {
  
   programs.msmtp = {
     enable = true;
-    accounts.default = {
+    defaults = {
+      port = 587;
       tls = true;
-      host = "gmail.com:587";
+    };
+    accounts.default = {
+      host = "gmail.com";
       from = "dontpanic355@gmail.com";
       user = "dontpanic355@gmail.com";
       password = "tfhg464fgg";
