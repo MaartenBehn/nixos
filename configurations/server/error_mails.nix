@@ -31,7 +31,7 @@ in {
       tls = true;
     };
     accounts.default = {
-      host = "gmail.com";
+      host = "smtp.gmail.com";
       from = "dontpanic355@gmail.com";
       user = "dontpanic355@gmail.com";
       password = "tfhg464fgg";
