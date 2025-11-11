@@ -34,7 +34,7 @@ in {
       host = "smtp.gmail.com";
       from = "maarten.behn@gmail.com";
       user = "maarten.behn@gmail.com";
-      password = "zmiw trwz bilv qxve";
+      password = "zmiwtrwzbilvqxve";
     };
   };
 
