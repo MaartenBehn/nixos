@@ -11,7 +11,7 @@ let
 
     UNITSTATUS=$(systemctl status $UNIT)
 
-    ssmtp $MAILTO <<EOF
+    sendmail $MAILTO <<EOF
     Subject:Status mail for unit: $UNIT
 
     Status report for unit: $UNIT
@@ -23,23 +23,23 @@ let
     echo -e "Status mail sent to: $MAILTO for unit: $UNIT"  
     '';
 in {
-
-  # Throw away gmail account.
-  environment.etc."ssmtp/ssmtp.conf".text = lib.mkForce ''
-    root=dontpanic355@gmail.com
-    mailhub=smtp.gmail.com:465
-    FromLineOverride=YES
-    AuthUser=dontpanic355@gmail.com
-    AuthPass=tfhg464fgg
-    UseTLS=YES
-  '';
+ 
+  programs.msmtp = {
+    enable = true;
+    accounts.default = {
+      host = "gmail.com";
+      from = "dontpanic355@gmail.com";
+      user = "dontpanic355@gmail.com";
+      password = "tfhg464fgg";
+    };
+  };
 
   systemd.services."unit-status-mail@" = {
     path = with pkgs; [
       ssmtp
       unit_status_mail
     ];
-    script = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    execStart = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
