@@ -36,10 +36,10 @@ in {
 
   systemd.services."unit-status-mail@" = {
     path = with pkgs; [
-      msmtp
+      system-sendmail
       unit_status_mail
     ];
-    script = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    script = "unit_status_mail %i 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
