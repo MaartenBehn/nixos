@@ -36,7 +36,7 @@ in {
   };
 
   systemd.services."unit-status-mail@" = {
-    serviceConfig.ExecStart = "${unit_status_mail} %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    serviceConfig.ExecStart = "${unit_status_mail}/bin/unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
