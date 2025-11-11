@@ -32,9 +32,9 @@ in {
     };
     accounts.default = {
       host = "smtp.gmail.com";
-      from = "dontpanic355@gmail.com";
-      user = "dontpanic355@gmail.com";
-      password = "tfhg464fgg";
+      from = "maarten.behn@gmail.com";
+      user = "maarten.behn@gmail.com";
+      password = "qsqspjgiprgaorex";
     };
   };
 
