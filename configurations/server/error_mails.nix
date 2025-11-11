@@ -1,8 +1,7 @@
-{ pkgs, ... }: 
+{ pkgs, lib, ... }: 
 let
   unit_status_mail = pkgs.writeShellScriptBin "unit_status_mail" ''
     MAILTO="stroby241@gmail.com"
-    MAILFROM="unit-status-mailer"
     UNIT=$1
 
     EXTRA=""
@@ -12,9 +11,7 @@ let
 
     UNITSTATUS=$(systemctl status $UNIT)
 
-    sendmail $MAILTO <<EOF
-    From:$MAILFROM
-    To:$MAILTO
+    ssmtp $MAILTO <<EOF
     Subject:Status mail for unit: $UNIT
 
     Status report for unit: $UNIT
@@ -25,10 +22,21 @@ let
 
     echo -e "Status mail sent to: $MAILTO for unit: $UNIT"  
     '';
-in { 
+in {
+
+  # Throw away gmail account.
+  environment.etc."ssmtp/ssmtp.conf".text = lib.mkForce ''
+    root=dontpanic355@gmail.com
+    mailhub=smtp.gmail.com:465
+    FromLineOverride=YES
+    AuthUser=dontpanic355@gmail.com
+    AuthPass=tfhg464fgg
+    UseTLS=YES
+  '';
+
   systemd.services."unit-status-mail@" = {
     path = with pkgs; [
-      system-sendmail
+      ssmtp
       unit_status_mail
     ];
     script = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
