@@ -39,7 +39,7 @@ in {
       msmtp
       unit_status_mail
     ];
-    execStart = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    script = "unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
