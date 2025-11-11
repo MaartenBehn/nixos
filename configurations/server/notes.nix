@@ -17,25 +17,12 @@ in {
   # show groups: getent group
   # show facl: getfacl 
 
-  imports = [ ./borg.nix ];
+  imports = [ 
+    ./borg.nix 
+    ./error_mails.nix 
+  ];
 
   # Backup
-  systemd.services.borgbackup-job-fritz_behns_notes = {
-    vpnConfinement = {
-      enable = true;
-      vpnNamespace = "fritz";
-    };
-
-    #path = with pkgs; [
-      #curl
-      #];
-
-    #preStart = ''
-      #curl http://ipecho.net/plain; echo
-      #cat ~/.ssh/id_ed25519.pub
-      #ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
-    #''; 
-  };
   users.groups.notes.members = [ "borg" ];
 
   services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
@@ -48,5 +35,29 @@ in {
     paths = "/notes";
     repo = "ssh://root@138.199.203.38/backup/notes";
     startAt = "*-*-* 04:10";
+  };
+ 
+  systemd.services.borgbackup-job-fritz_behns_notes = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+
+    onFailure = [ "unit-status-mail@%n.service" ];
+
+
+    #path = with pkgs; [
+      #curl
+      #];
+
+    #preStart = ''
+      #curl http://ipecho.net/plain; echo
+      #cat ~/.ssh/id_ed25519.pub
+      #ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
+    #''; 
+  };
+
+  systemd.services.borgbackup-job-proxy_notes = {
+    onFailure = [ "unit-status-mail@%n.service" ];
   };
 }
