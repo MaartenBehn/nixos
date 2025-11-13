@@ -25,7 +25,7 @@ let
 in {
 
   imports = [
-    "./mail.nix"
+    ./mail.nix
   ];
  
   programs.msmtp = {
