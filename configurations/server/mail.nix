@@ -7,7 +7,7 @@ in {
     inputs.mailserver.nixosModules.default
   ];
 
-  sops.secrets."mail/asus/hash" = { owner = "mailserver"; };
+  sops.secrets."mail/asus/hash" = { owner = "stroby"; };
 
   mailserver = {
     enable = true;
