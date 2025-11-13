@@ -11,7 +11,7 @@ in {
 
   mailserver = {
     enable = true;
-    stateVersion = 3;
+    # stateVersion = 3;
     fqdn = "mail.${main_domain}";
     domains = all_domains;
 
