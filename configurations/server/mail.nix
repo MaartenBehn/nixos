@@ -4,7 +4,7 @@ let
   main_domain = "stroby.ipv64.de";
 in {
   imports = [
-    inputs.mailserver.mailserverModule
+    inputs.mailserver.nixosModules.default
   ];
 
   sops.secrets."mail/asus/hash" = { owner = "mailserver"; };
