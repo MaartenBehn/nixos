@@ -88,6 +88,11 @@
       url = "github:MaartenBehn/neko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mailserver = {
+      url = "gitlab:/simple-nixos-mailserver/nixos-mailserver";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, plasma-manager, solaar, vpn-confinement, ... }@inputs:

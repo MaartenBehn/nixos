@@ -23,6 +23,10 @@ let
     echo -e "Status mail sent to: $MAILTO for unit: $UNIT"  
     '';
 in {
+
+  imports = [
+    "./mail.nix"
+  ];
  
   programs.msmtp = {
     enable = true;
@@ -34,7 +38,7 @@ in {
       host = "smtp.gmail.com";
       from = "maarten.behn@gmail.com";
       user = "maarten.behn@gmail.com";
-      password = "zmiwtrwzbilvqxve";
+      password = "fg457r3";
     };
   };
 
