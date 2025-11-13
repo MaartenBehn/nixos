@@ -3,7 +3,7 @@ let
   all_domains = domains ++ [ local_domain ];
   main_domain = "stroby.ipv64.de";
 in {
-  sops.secrets."mail/asus/hash" = { owner = "stroby"; };
+  sops.secrets."mail/asus/hash" = { owner = "maddy"; };
 
   services.maddy = {
     enable = true;
