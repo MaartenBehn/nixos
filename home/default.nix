@@ -26,6 +26,7 @@
       [
         ./driver/solaar.nix
         ./programming_languages
+        ./apps/minecraft.nix
         ./cli
       ] else [])
     ++ (if host == "desktop" then
