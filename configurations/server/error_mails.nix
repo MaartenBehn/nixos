@@ -27,28 +27,29 @@ in {
   imports = [
     ./mail.nix
   ];
- 
-  programs.msmtp = {
-    enable = true;
-    defaults = {
-      port = 587;
-      tls = true;
-    };
-    accounts.default = {
-      host = "smtp.gmail.com";
-      from = "maarten.behn@gmail.com";
-      user = "maarten.behn@gmail.com";
-      password = "fg457r3";
-    };
-  };
 
-  systemd.services."unit-status-mail@" = {
-    serviceConfig.ExecStart = "${unit_status_mail}/bin/unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
-    after = [ "network.target" ];
-  };
-
-  systemd.services."allways-fails" = {
-    script = "exit -1";
-    onFailure = [ "unit-status-mail@%n.service" ];
-  };
+  
+#  programs.msmtp = {
+#    enable = true;
+#    defaults = {
+#      port = 587;
+#      tls = true;
+#    };
+#    accounts.default = {
+#      host = "smtp.gmail.com";
+#      from = "maarten.behn@gmail.com";
+#      user = "maarten.behn@gmail.com";
+#      password = "fg457r3";
+#    };
+#  };
+#
+#  systemd.services."unit-status-mail@" = {
+#    serviceConfig.ExecStart = "${unit_status_mail}/bin/unit_status_mail %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+#    after = [ "network.target" ];
+#  };
+#
+#  systemd.services."allways-fails" = {
+#    script = "exit -1";
+#    onFailure = [ "unit-status-mail@%n.service" ];
+#  };
 }
