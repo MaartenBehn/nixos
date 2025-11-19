@@ -41,7 +41,7 @@
 
         # Eden
         ./dlr_eden_postgress.nix
-        #./docker.nix
+        ./docker.nix
 
         #./filebrowser.nix
         ./set_kitty_default.nix
