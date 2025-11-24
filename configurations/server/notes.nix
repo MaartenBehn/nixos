@@ -32,6 +32,7 @@ in {
   };
 
   services.borgbackup.jobs.proxy_notes = default_borg_settings // {
+    group = "notes";
     paths = "/notes";
     repo = "ssh://root@138.199.203.38/backup/notes";
     startAt = "*-*-* 04:10";
