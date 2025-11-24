@@ -59,6 +59,7 @@ let
       {
         name = "fritz_behns_actual_server_${name}";
         value = default_borg_settings // {
+          group = "actual";
           paths = path;
           repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
           startAt = "*-*-* 03:00";
@@ -67,6 +68,7 @@ let
       {
         name = "proxy_actual_server_${name}";
         value = default_borg_settings // {
+          group = "actual";
           paths = path;
           repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
           startAt = "*-*-* 03:15";
@@ -135,7 +137,6 @@ in {
 
   imports = [ ./borg.nix ];
 
-  users.groups.actual.members = [ "borg" ];
   users.users.actual = {
     isNormalUser = true;
     group = "actual";

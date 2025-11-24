@@ -22,10 +22,8 @@ in {
     ./error_mails.nix 
   ];
 
-  # Backup
-  users.groups.notes.members = [ "borg" ];
-
   services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
+    group = "notes";
     paths = "/notes"; 
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/notes";
     startAt = "*-*-* 04:15";
