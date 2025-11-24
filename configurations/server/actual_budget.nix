@@ -137,6 +137,7 @@ in {
 
   imports = [ ./borg.nix ];
 
+  users.groups.actual = {};
   users.users.actual = {
     isNormalUser = true;
     group = "actual";
