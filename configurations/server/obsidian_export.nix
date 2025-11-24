@@ -71,7 +71,6 @@ in {
     ];
     script = "update";
     startAt = "Sat 03:45";  
-    wantedBy = [ "network-online.target" ];
     serviceConfig.User = "obsidian_export";
   };
 

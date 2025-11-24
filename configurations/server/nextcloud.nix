@@ -1,7 +1,6 @@
 { pkgs, config, ... }: 
 let 
   cloud_domain = "cloud.stroby.ipv64.de";
-  onlyoffice_domain = "office.stroby.ipv64.de";
   default_borg_settings = import ./borg_settings.nix;
 in {
   imports = [ ./borg.nix ];
@@ -37,18 +36,8 @@ in {
     hostName = cloud_domain;
   };
 
-  services.onlyoffice = {
-    enable = true;
-    hostname = onlyoffice_domain;
-  };
-
   services.nginx.virtualHosts = {
     "${cloud_domain}" = {
-      forceSSL = true;
-      enableACME = true;
-    };
-
-    "${onlyoffice_domain}" = {
       forceSSL = true;
       enableACME = true;
     };
