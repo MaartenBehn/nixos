@@ -1,5 +1,9 @@
 { inputs, ... }: {
  
+  # Important: 
+  # To read files from an other group the group has the specified in the config 
+  # giving the borg user the group does not work!
+
   imports = [
     inputs.vpn-confinement.nixosModules.default
   ];

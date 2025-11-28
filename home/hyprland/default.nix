@@ -8,7 +8,8 @@
     
     ./swaync/swaync.nix
     ./waybar
-    ./waypaper.nix
+    ./wallpaper.nix
+    ./layout.nix
     ./gtk.nix
     ./rofi.nix
     ./swayosd.nix                     # brightness / volume wiget

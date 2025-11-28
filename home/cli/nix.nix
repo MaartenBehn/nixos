@@ -7,6 +7,7 @@ let
   '' + (if desktop == "hyprland" then ''
     echo "Reloading hyprland:"
     hyprctl reload
+    restore-layout
   '' else "") + '' 
     cd -
   '');
@@ -18,6 +19,7 @@ let
   '' + (if desktop == "hyprland" then ''
     echo "Reloading hyprland:"
     hyprctl reload
+    restore-layout
   '' else "") + '' 
     cd -
   '');

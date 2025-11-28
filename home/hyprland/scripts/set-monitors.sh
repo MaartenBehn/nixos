@@ -1,10 +1,7 @@
-#!/usr/bin/env bash
 if [ $# -eq 0 ]; then
     echo "No arg of: home, dlr, present, mirror-all"
     exit
 fi
-
-swaync-client -cp
 
 hyprctl keyword monitor DP-1,disable
 hyprctl keyword monitor DP-2,disable

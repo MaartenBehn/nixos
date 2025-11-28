@@ -46,19 +46,19 @@
         "actions": [
           {
             "label": "Home",
-            "command": "set-monitors home"
+            "command": "set-layout home"
           },
           {
             "label": "DLR",
-            "command": "set-monitors dlr"
+            "command": "set-layout dlr"
           },
           {
             "label": "Present",
-            "command": "set-monitors present"
+            "command": "set-layout present"
           },
           {
             "label": "Mirror",
-            "command": "set-monitors mirror-all"
+            "command": "set-layout mirror-all"
           }
         ]
       },

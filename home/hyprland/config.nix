@@ -8,6 +8,7 @@
          
         # Needed to look fine
         "sleep 0.4 && swww-daemon &"
+        "sleep 0.4 && guess-layout &"
         "sleep 0.4 && hyprctl setcursor Bibata-Modern-Ice 24 &"
         "sleep 0.4 && waybar &"
        
@@ -83,7 +84,7 @@
         "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
         "$mainMod SHIFT, B, exec, toggle_waybar"
         "$mainMod, C, exec, hyprpicker -a"
-        "$mainMod, W, exec, hyprctl dispatch exec '[float; size 925 615] waypaper'"
+        "$mainMod, W, exec, wallpaper-picker"
         "$mainMod, N, exec, swaync-client -t -sw"
         "$mainMod, Z, exec, woomer-current"
         

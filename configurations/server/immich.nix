@@ -32,8 +32,6 @@ in {
     };
   }) (domains ++ [ local_domain ]));
 
-  users.groups.immich.members = [ "borg" ];
-
   systemd.services.borgbackup-job-fritz_behns_immich = {
     vpnConfinement = {
       enable = true;
@@ -42,6 +40,7 @@ in {
   };
 
   services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
+    group = "immich";
     paths = "/var/lib/immich";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
     startAt = "Sat 04:00";
