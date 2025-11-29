@@ -29,6 +29,6 @@ in {
 
   systemd.services."allways-fails" = {
     script = "exit -1";
-    onFailure = [ "unit-status@%n" ];
+    onFailure = [ "unit-status@%n.service" ];
   };
 }
