@@ -57,6 +57,6 @@ in {
   };
 
   systemd.services.borgbackup-job-proxy_notes = {
-    onFailure = [ "unit-status-mail@%n.service" ];
+    onFailure = [ "unit-status@%n.service" ];
   };
 }
