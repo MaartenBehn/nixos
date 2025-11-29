@@ -2,7 +2,7 @@
   services.ntfy-sh = {
     enable = true;
     settings = {
-      base-url = "ntfy.stroby.ipv64.de";
+      base-url = "http://ntfy.stroby.ipv64.de";
       listen-http = ":8081";
     };
   };
