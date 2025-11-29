@@ -137,6 +137,7 @@
         ./server/nextcloud.nix
         ./server/baikal.nix
         ./server/manage_my_damn_life.nix
+        ./server/ntfy.nix
         #./server/kasm.nix
         
       ] else [])
