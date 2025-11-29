@@ -1,26 +1,28 @@
 { pkgs, ... }: 
 let
   unit_status = pkgs.writeShellScriptBin "unit_status" ''
-    UNIT=$1
-
-    EXTRA=""
-    for e in "''${@:2}"; do
-    EXTRA+="$e"$'\n'
-    done
-
-    UNITSTATUS=$(systemctl status $UNIT)
-
-    MSG=$(cat <<EOF
-    Status report for unit: $UNIT
-    $EXTRA
-
-    $UNITSTATUS
-    EOF
-    )
-
-    echo $MSG
-
     curl -d "fail" http://localhost:8090/status
+    
+    #UNIT=$1
+
+    #EXTRA=""
+    #for e in "''${@:2}"; do
+    #EXTRA+="$e"$'\n'
+    #done
+
+    #UNITSTATUS=$(systemctl status $UNIT)
+
+    #MSG=$(cat <<EOF
+    #Status report for unit: $UNIT
+    #$EXTRA
+
+    #$UNITSTATUS
+    #EOF
+    #)
+
+    #echo $MSG
+
+    #curl -d "fail" http://localhost:8090/status
     '';
 in {
   systemd.services."unit-status@" = {
@@ -28,8 +30,7 @@ in {
       curl 
     ]);  
 
-    #serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
-    serviceConfig.ExecStart = "sh -c \"curl -d 'fail' http://localhost:8090/status\"";
+    serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
     after = [ "network.target" ];
   };
 
