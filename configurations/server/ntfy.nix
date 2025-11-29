@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       base-url = "http://ntfy.stroby.ipv64.de";
-      listen-http = ":8081";
+      listen-http = ":8090";
     };
   };
 
@@ -14,7 +14,7 @@
       forceSSL = domain != local_domain;
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8081/"; 
+        proxyPass = "http://127.0.0.1:8090/"; 
         proxyWebsockets = true;
       };
 
