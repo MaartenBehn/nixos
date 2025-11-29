@@ -9,7 +9,7 @@ let
     done
 
     UNITSTATUS=$(systemctl status $UNIT)
-    
+
     MSG=$(cat <<EOF
     Status report for unit: $UNIT
     $EXTRA
@@ -18,16 +18,22 @@ let
     EOF
     )
 
+    echo $MSG
+
     curl -d $MSG http://localhost:8090/status
     '';
 in {
   systemd.services."unit-status@" = {
-      serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
-      after = [ "network.target" ];
+    path = (with pkgs; [ 
+      curl 
+    ]);  
+
+    serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+    after = [ "network.target" ];
   };
-  
+
   systemd.services."allways-fails" = {
-      script = "exit -1";
-      onFailure = [ "unit-status@%n.service" ];
+    script = "exit -1";
+    onFailure = [ "unit-status@%n.service" ];
   };
 }
