@@ -1,7 +1,7 @@
 { local_domain, domains, ... }: {
   services.ntfy-sh = {
-    base-url = "ntfy.stroby.ipv64.de";
     settings = {
+      base-url = "ntfy.stroby.ipv64.de";
       listen-http = ":8081";
     };
   };
