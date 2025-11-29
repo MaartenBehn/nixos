@@ -29,7 +29,7 @@ in {
     ]);  
 
     #serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
-    serviceConfig.ExecStart = "curl -d 'fail' http://localhost:8090/status";
+    serviceConfig.ExecStart = "sh -c \"curl -d 'fail' http://localhost:8090/status\"";
     after = [ "network.target" ];
   };
 
