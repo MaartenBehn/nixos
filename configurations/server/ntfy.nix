@@ -1,5 +1,6 @@
 { local_domain, domains, ... }: {
   services.ntfy-sh = {
+    enable = true;
     settings = {
       base-url = "ntfy.stroby.ipv64.de";
       listen-http = ":8081";
