@@ -21,7 +21,7 @@ let
     curl -d $MSG http://localhost:8090/status
     '';
 in {
-  systemd.services."unit-status-fail@" = {
+  systemd.services."unit-status@" = {
       serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
       after = [ "network.target" ];
   };
