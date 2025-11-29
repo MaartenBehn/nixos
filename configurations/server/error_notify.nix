@@ -20,7 +20,7 @@ let
 
     echo $MSG
 
-    curl -d $MSG http://localhost:8090/status
+    curl -d "fail" http://localhost:8090/status
     '';
 in {
   systemd.services."unit-status@" = {
