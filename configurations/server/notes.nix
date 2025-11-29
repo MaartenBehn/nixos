@@ -19,7 +19,7 @@ in {
 
   imports = [ 
     ./borg.nix 
-    ./error_mails.nix 
+    ./error_notify.nix 
   ];
 
   services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
