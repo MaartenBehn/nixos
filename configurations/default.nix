@@ -115,6 +115,7 @@
         ./keep_on_with_closed_lid.nix
         ./wireguard.nix
         ./server/data_drive.nix
+        ./server/error_notify.nix
 
         # Server
         ./server/network.nix
@@ -138,7 +139,6 @@
         ./server/baikal.nix
         ./server/manage_my_damn_life.nix
         ./server/ntfy.nix
-        #./server/kasm.nix
         
       ] else [])
     ++ (if host == "wsl" then
