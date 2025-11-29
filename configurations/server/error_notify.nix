@@ -1,16 +1,14 @@
 { pkgs, ... }: 
 let
   unit_status = pkgs.writeShellScriptBin "unit_status" ''
-    curl http://localhost:8090/status --data @- <<EOF
+    curl http://localhost:8090/status 
+    -d "
     Status report for unit: $1
     blas 
     bjsabf
     nklsafn
     nkasjf
-    nsaf
-    EOF
-
-
+    nsaf"
     
     #UNIT=$1
 
