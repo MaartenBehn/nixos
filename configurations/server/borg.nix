@@ -6,6 +6,7 @@
 
   imports = [
     inputs.vpn-confinement.nixosModules.default
+    ./error_notify.nix
   ];
 
   sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 

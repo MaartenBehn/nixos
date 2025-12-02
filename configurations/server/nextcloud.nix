@@ -48,6 +48,7 @@ in {
       enable = true;
       vpnNamespace = "fritz";
     };
+    onFailure = [ "unit-status@%n.service" ];
   };
 
   services.borgbackup.jobs.fritz_behns_nextcloud = default_borg_settings // {

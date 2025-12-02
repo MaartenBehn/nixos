@@ -19,7 +19,6 @@ in {
 
   imports = [ 
     ./borg.nix 
-    ./error_notify.nix 
   ];
 
   services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
@@ -42,21 +41,8 @@ in {
       vpnNamespace = "fritz";
     };
 
-    onFailure = [ "unit-status-mail@%n.service" ];
-
-
-    #path = with pkgs; [
-      #curl
-      #];
-
-    #preStart = ''
-      #curl http://ipecho.net/plain; echo
-      #cat ~/.ssh/id_ed25519.pub
-      #ssh -o StrictHostKeychecking=no -i /home/borg/.ssh/id_ed25519 -v Stroby@192.168.178.39 "ls -la" 
-    #''; 
-  };
-
-  systemd.services.borgbackup-job-proxy_notes = {
     onFailure = [ "unit-status@%n.service" ];
   };
+
+  systemd.services.borgbackup-job-proxy_notes.onFailure = [ "unit-status@%n.service" ];
 }

@@ -83,6 +83,7 @@ let
           enable = true;
           vpnNamespace = "fritz";
         };
+        onFailure = [ "unit-status@%n.service" ];
       };
     }) backup_names;
 
