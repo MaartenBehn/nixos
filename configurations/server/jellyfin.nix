@@ -25,7 +25,7 @@ in {
 
   imports = [ ./borg.nix ];
   
-  users.groups.media.members = [ "jellyfin" "borg" ];
+  users.groups.media.members = [ "jellyfin" ];
   
   services.jellyfin.enable = true;
   networking.firewall.allowedUDPPorts = [ 7359 8096 ];
@@ -58,6 +58,7 @@ in {
   };
 
   services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {
+    group = "media";
     paths = "/media/videos_data/ShibariStudy";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
     startAt = "month";
