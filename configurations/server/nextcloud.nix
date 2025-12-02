@@ -52,7 +52,7 @@ in {
   };
 
   services.borgbackup.jobs.fritz_behns_nextcloud = default_borg_settings // {
-    group = "nextcloud";
+    user = "nextcloud";
     paths = "/var/lib/nextcloud";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/nextcloud";
     startAt = "Sat 04:15";
