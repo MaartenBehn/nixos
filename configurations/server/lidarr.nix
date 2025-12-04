@@ -12,7 +12,7 @@ let
     cd /srv/Lidarr 
     git checkout plugins
     git pull
-    sh build.sh
+    sh build.sh -f linux-x64 --all
   ''; 
 
   # Local build from plugins branch
