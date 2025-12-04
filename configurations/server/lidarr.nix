@@ -29,7 +29,7 @@ in {
     ./slskd.nix
   ];
 
-  users.users.lidarr = {
+  users.users.lidarr_build = {
     isNormalUser = true;
     group = "lidarr_build";
   };
