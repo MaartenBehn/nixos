@@ -28,7 +28,7 @@ in {
   systemd.services.lidarr-plugins-init = {
     path = with pkgs; [
       git
-      dotnet
+      dotnet-sdk
       init
     ];
     script = "init";
