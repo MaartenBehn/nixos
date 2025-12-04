@@ -4,7 +4,15 @@ let
   plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
     version = "plugins"; # usually harmless to omit
 
-    # scp ~/dev/Lidarr/_artifacts/linux-x64/net6.0/Lidarr.tar.gz asus:~/Downloads 
+    # git clone git@github.com:Lidarr/Lidarr.git
+    # cd Lidarr 
+    # git checkout plugins
+    # nix-shell -p dotnet-sdk yarn --command "sh build.sh -f linux-x64 --all"
+    # mkdir lidarr-linux-x64
+    # cp -R _output/net8.0/linux-x64/* lidarr-linux-x64
+    # cp -R _output/UI lidarr-linux-x64
+    # compress lidarr-linux-x64
+    # scp lidarr-linux-x64.tar.gz asus:Downloads
     src = /home/stroby/Downloads/lidarr-linux-x64.tar.gz;
   });
 
@@ -19,8 +27,8 @@ in {
   services.lidarr = { 
     enable = true;
     openFirewall = false;
-    #package = pkgs-unstable.lidarr;
-    package = plugin_branch;
+    package = pkgs.lidarr;
+    #package = plugin_branch;
   };
   
   systemd.services.lidarr = {
