@@ -1,13 +1,17 @@
 { pkgs, pkgs-unstable, local_domain, ... }: 
 let 
-  init = pkgs.writeShellScriptBin "init" ''
-   if [ ! -d "/srv/Lidarr" ]; then
+  valid_check = pkgs.writeShellScriptBin "valid_check" ''
+    if [ ! -d "/srv/Lidarr" ]; then
       cd /srv 
       git clone https://github.com/Lidarr/Lidarr.git
+      chown -R lidarr:lidarr /srv/Lidarr 
     fi
+  '';
 
+  update = pkgs.writeShellScriptBin "update" ''
     cd /srv/Lidarr 
     git checkout plugins
+    git pull
     sh build.sh
   ''; 
 
@@ -25,14 +29,22 @@ in {
     ./slskd.nix
   ];
 
-  systemd.services.lidarr-plugins-init = {
+  systemd.services.lidarr-plugins-valid = {
+    path = with pkgs; [
+      git
+      valid_check
+    ];
+    script = "valid_check";
+  };
+
+  systemd.services.lidarr-plugins-update = {
     path = with pkgs; [
       git
       dotnet-sdk
       bash
-      init
+      update
     ];
-    script = "init";
+    script = "update";
     serviceConfig.User = "lidarr";
   };
 
