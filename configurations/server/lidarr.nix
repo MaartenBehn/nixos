@@ -19,8 +19,8 @@ in {
   services.lidarr = { 
     enable = false;
     openFirewall = false;
-    ##package = pkgs-unstable.lidarr;
-    package = plugin_branch;
+    package = pkgs-unstable.lidarr;
+    #package = plugin_branch;
   };
   
   systemd.services.lidarr = {
