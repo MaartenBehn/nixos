@@ -48,6 +48,7 @@ in {
       git
       dotnet-sdk
       bash
+      yarn
       update
     ];
     script = "update";
