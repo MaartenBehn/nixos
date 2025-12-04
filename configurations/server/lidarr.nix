@@ -1,7 +1,7 @@
 { pkgs, pkgs-unstable, local_domain, ... }: 
 let 
   init = pkgs.writeShellScriptBin "init" ''
-   if [ ! -d "/srv/obsidian_export" ]; then
+   if [ ! -d "/srv/Lidarr" ]; then
       cd /srv 
       git clone https://github.com/Lidarr/Lidarr.git
     fi
