@@ -7,14 +7,14 @@ let
     # git clone git@github.com:Lidarr/Lidarr.git
     # cd Lidarr 
     # git checkout plugins
-    # nix-shell -p dotnet-sdk yarn --command "sh build.sh -f linux-x64 --all"
-    # mkdir lidarr-linux-x64
-    # cp -R _output/net8.0/linux-x64/* lidarr-linux-x64
-    # cp -R _output/UI lidarr-linux-x64
-    # compress lidarr-linux-x64
+    # uncomment other systems
+    # nix-shell -p dotnet-sdk yarn --command "sh build.sh"
+    # compress _artifacts/linux-x64/net8.0/Lidarr
     # scp lidarr-linux-x64.tar.gz asus:Downloads
-    src = /home/stroby/Downloads/lidarr-linux-x64.tar.gz;
+    
+    src = /home/stroby/Downloads/Lidarr.tar.gz;
   });
+  # https://github.com/blampe/hearring-aid/blob/main/docs/self-hosted-mirror-setup.md#101-configure-tubifarry-plugin-in-lidarr
 
   # Local build from plugins branch
   latest = pkgs.lidarr.overrideAttrs (old: {
@@ -33,8 +33,8 @@ in {
     enable = true;
     openFirewall = false;
     #package = pkgs.lidarr;
-    #package = plugin_branch;
-    package = latest;
+    package = plugin_branch;
+    # package = latest;
   };
   
   systemd.services.lidarr = {
