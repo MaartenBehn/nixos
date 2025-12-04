@@ -37,8 +37,15 @@ in {
 
   users.groups.media.members = [ "lidarr" ];
 
+  users.users.lidarr = {
+    isSystemUser = true;
+    group = "lidarr";
+  };
+  users.groups.lidarr = {};
+
+
   services.lidarr = { 
-    enable = true;
+    enable = false;
     openFirewall = false;
     #package = pkgs-unstable.lidarr;
     package = plugin_branch;
