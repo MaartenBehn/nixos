@@ -4,7 +4,7 @@ let
     if [ ! -d "/srv/Lidarr" ]; then
       cd /srv 
       git clone https://github.com/Lidarr/Lidarr.git
-      chown -R lidarr:lidarr /srv/Lidarr 
+      chown -R lidarr_build:lidarr_build /srv/Lidarr 
     fi
   '';
 
@@ -29,6 +29,12 @@ in {
     ./slskd.nix
   ];
 
+  users.users.lidarr = {
+    isNormalUser = true;
+    group = "lidarr_build";
+  };
+  users.groups.lidarr_build = {};
+
   systemd.services.lidarr-plugins-valid = {
     path = with pkgs; [
       git
@@ -45,17 +51,10 @@ in {
       update
     ];
     script = "update";
-    serviceConfig.User = "lidarr";
+    serviceConfig.User = "lidarr_build";
   };
 
-  users.groups.media.members = [ "lidarr" ];
-
-  users.users.lidarr = {
-    isSystemUser = true;
-    group = "lidarr";
-  };
-  users.groups.lidarr = {};
-
+  users.groups.media.members = [ "lidarr" ]; 
 
   services.lidarr = { 
     enable = false;
