@@ -9,8 +9,9 @@ let
     # git checkout plugins
     # uncomment other systems
     # nix-shell -p dotnet-sdk yarn --command "sh build.sh"
-    # compress _artifacts/linux-x64/net8.0/Lidarr
-    # scp lidarr-linux-x64.tar.gz asus:Downloads
+    # cd _artifacts/linux-x64/net8.0 
+    # compress Lidarr
+    # scp Lidarr.tar.gz asus:Downloads
     
     src = /home/stroby/Downloads/Lidarr.tar.gz;
   });
@@ -30,7 +31,7 @@ in {
   users.groups.media.members = [ "lidarr" ]; 
 
   services.lidarr = { 
-    enable = true;
+    enable = false;
     openFirewall = false;
     #package = pkgs.lidarr;
     package = plugin_branch;
