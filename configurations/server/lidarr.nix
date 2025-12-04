@@ -1,26 +1,11 @@
 { pkgs, pkgs-unstable, local_domain, ... }: 
 let 
-  valid_check = pkgs.writeShellScriptBin "valid_check" ''
-    if [ ! -d "/srv/Lidarr" ]; then
-      cd /srv 
-      git clone https://github.com/Lidarr/Lidarr.git
-      chown -R lidarr_build:lidarr_build /srv/Lidarr 
-    fi
-  '';
-
-  update = pkgs.writeShellScriptBin "update" ''
-    cd /srv/Lidarr 
-    git checkout plugins
-    git pull
-    sh build.sh -f linux-x64 --all
-  ''; 
-
   # Local build from plugins branch
   plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
     version = "plugins"; # usually harmless to omit
 
     # scp ~/dev/Lidarr/_artifacts/linux-x64/net6.0/Lidarr.tar.gz asus:~/Downloads 
-    src = /home/stroby/Downloads/Lidarr.tar.gz;
+    src = /home/stroby/Downloads/lidarr-linux-x64.tar.gz;
   });
 
 in {
@@ -28,37 +13,11 @@ in {
   imports = [
     ./slskd.nix
   ];
-
-  users.users.lidarr_build = {
-    isNormalUser = true;
-    group = "lidarr_build";
-  };
-  users.groups.lidarr_build = {};
-
-  systemd.services.lidarr-plugins-valid = {
-    path = with pkgs; [
-      git
-      valid_check
-    ];
-    script = "valid_check";
-  };
-
-  systemd.services.lidarr-plugins-update = {
-    path = with pkgs; [
-      git
-      dotnet-sdk
-      bash
-      yarn
-      update
-    ];
-    script = "update";
-    serviceConfig.User = "lidarr_build";
-  };
-
+ 
   users.groups.media.members = [ "lidarr" ]; 
 
   services.lidarr = { 
-    enable = false;
+    enable = true;
     openFirewall = false;
     #package = pkgs-unstable.lidarr;
     package = plugin_branch;
