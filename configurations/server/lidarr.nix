@@ -16,6 +16,11 @@ let
     src = /home/stroby/Downloads/lidarr-linux-x64.tar.gz;
   });
 
+  # Local build from plugins branch
+  latest = pkgs.lidarr.overrideAttrs (old: {
+    version = "v3.1.0.4875";
+  });
+
 in {
 
   imports = [
@@ -27,8 +32,9 @@ in {
   services.lidarr = { 
     enable = true;
     openFirewall = false;
-    package = pkgs.lidarr;
+    #package = pkgs.lidarr;
     #package = plugin_branch;
+    package = latest;
   };
   
   systemd.services.lidarr = {
