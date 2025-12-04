@@ -6,7 +6,7 @@ let
       git clone https://github.com/Lidarr/Lidarr.git
     fi
 
-    cd /srv/obsidian_export 
+    cd /srv/Lidarr 
     git checkout plugins
     sh build.sh
   ''; 
@@ -29,6 +29,7 @@ in {
     path = with pkgs; [
       git
       dotnet-sdk
+      bash
       init
     ];
     script = "init";
