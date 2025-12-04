@@ -34,8 +34,8 @@ in {
     enable = true;
     openFirewall = false;
     #package = pkgs.lidarr;
-    # package = plugin_branch;
-    package = latest;
+    package = plugin_branch;
+    # package = latest;
   };
   
   systemd.services.lidarr = {
