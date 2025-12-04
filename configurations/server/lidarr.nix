@@ -1,11 +1,22 @@
 { pkgs, pkgs-unstable, local_domain, ... }: 
 let 
-  # Local build from plugins branch
-plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
-  version = "plugins"; # usually harmless to omit
+  init = pkgs.writeShellScriptBin "lidarr_plugins_init" ''
+   if [ ! -d "/srv/obsidian_export" ]; then
+      cd /srv 
+      git clone https://github.com/Lidarr/Lidarr.git
+    fi
 
-  # scp ~/dev/Lidarr/_artifacts/linux-x64/net6.0/Lidarr.tar.gz asus:~/Downloads 
-  src = /home/stroby/Downloads/Lidarr.tar.gz;
+    cd /srv/obsidian_export 
+    git checkout plugins
+    sh build.sh
+  ''; 
+
+  # Local build from plugins branch
+  plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
+    version = "plugins"; # usually harmless to omit
+
+    # scp ~/dev/Lidarr/_artifacts/linux-x64/net6.0/Lidarr.tar.gz asus:~/Downloads 
+    src = /home/stroby/Downloads/Lidarr.tar.gz;
   });
 
 in {
@@ -14,13 +25,23 @@ in {
     ./slskd.nix
   ];
 
+  systemd.services.lidarr-plugins-init = {
+    path = with pkgs; [
+      git
+      dotnet
+      init
+    ];
+    script = "init";
+    serviceConfig.User = "lidarr";
+  };
+
   users.groups.media.members = [ "lidarr" ];
 
   services.lidarr = { 
-    enable = true;
+    enable = false;
     openFirewall = false;
-    package = pkgs-unstable.lidarr;
-    #package = plugin_branch;
+    #package = pkgs-unstable.lidarr;
+    package = plugin_branch;
   };
   
   systemd.services.lidarr = {
