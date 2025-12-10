@@ -44,8 +44,7 @@ in {
 
   # PostgreSQL service configuration
   services.postgresql = {
-    enable = true;
-    extensions = [ pkgs.postgresql16Packages.timescaledb ];
+    extensions = [ pkgs.postgresql17Packages.timescaledb ];
     settings = {
       shared_preload_libraries = "timescaledb";
     };

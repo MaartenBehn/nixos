@@ -28,13 +28,13 @@
     webcamoid
     obs-studio
     
-    spotify
-    signal-desktop
-    obs-studio
-    telegram-desktop
+    #spotify
+    #signal-desktop
+    #obs-studio
+    #telegram-desktop
     discord
     
-    filezilla        
+    #filezilla        
     gimp                              # image editing
     pitivi                            # video editing
     audacity                          # Audio editing
@@ -42,10 +42,6 @@
     bleachbit                         # cache cleaner
     #gnome-calculator                 # calculator  Good but Ui is buggy
     qalculate-gtk
-   
-    # For .exe files
-    winetricks
-    wineWowPackages.wayland
 
     #soulseekqt
     tradingview

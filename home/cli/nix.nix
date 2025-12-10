@@ -4,11 +4,6 @@ let
     cd /home/$USER/nixos/
     git add --all
     sudo nixos-rebuild switch --flake . --impure 
-  '' + (if desktop == "hyprland" then ''
-    echo "Reloading hyprland:"
-    hyprctl reload
-    restore-layout
-  '' else "") + '' 
     cd -
   '');
 
@@ -16,11 +11,6 @@ let
     cd /home/$USER/nixos/
     git pull
     sudo nixos-rebuild switch --flake . --impure 
-  '' + (if desktop == "hyprland" then ''
-    echo "Reloading hyprland:"
-    hyprctl reload
-    restore-layout
-  '' else "") + '' 
     cd -
   '');
 in {

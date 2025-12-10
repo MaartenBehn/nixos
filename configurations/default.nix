@@ -39,10 +39,6 @@
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
 
-        # Eden
-        ./dlr_eden_postgress.nix
-        ./docker.nix
-
         #./filebrowser.nix
         ./set_kitty_default.nix
 

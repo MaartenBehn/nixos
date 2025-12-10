@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = (with pkgs; [
     caligula                          # User-friendly, lightweight TUI for disk imaging
-    ventoy                            # USD multi iso boot
+    #ventoy                            # USD multi iso boot
   ]);
   
   home.shellAliases = { 

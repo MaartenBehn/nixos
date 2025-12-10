@@ -1,4 +1,4 @@
-{ domains, local_domain, config, pkgs-unstable, ... }: 
+{ domains, local_domain, config, ... }: 
 let default_borg_settings = import ./borg_settings.nix;
 in {
   imports = [ ./borg.nix ];
@@ -6,7 +6,6 @@ in {
   services.immich = {
     enable = true;
     port = 2283;
-    package = pkgs-unstable.immich; 
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {

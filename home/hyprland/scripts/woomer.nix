@@ -1,4 +1,4 @@
-{pkgs, pkgs-unstable, ... }: 
+{pkgs, ... }: 
 let
   script = pkgs.writeShellScriptBin "woomer-current" ''
     #!/usr/bin/env bash
@@ -7,7 +7,7 @@ let
   ''; 
 in {
   home.packages = [ 
-    pkgs-unstable.woomer
+    pkgs.woomer
     script 
   ];
 }

@@ -26,6 +26,5 @@
     nftables
 
     python313Packages.markitdown
-    docling
   ]);
 }

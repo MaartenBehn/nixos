@@ -3,11 +3,11 @@
 
   inputs = {
     nixpkgs-2405.url = "github:nixos/nixpkgs/release-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,7 +19,6 @@
     nixvim = {
       url = "github:MaartenBehn/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
 
     nix-minecraft = {
@@ -96,7 +95,7 @@
     system = "x86_64-linux";
     pkgs-2405 = nixpkgs-2405.legacyPackages.${system};
     pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-    nix-version = "25.05";
+    nix-version = "25.11";
 
     configs = [
       {

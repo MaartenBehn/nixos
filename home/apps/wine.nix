@@ -31,6 +31,10 @@
     };
   };
 in {
-  home.packages = builtins.map make_wine wine_apps;
   xdg.desktopEntries = builtins.listToAttrs (builtins.map make_desktop_entry wine_apps);
+
+  home.packages = (with pkgs; [
+    winetricks
+    wineWowPackages.wayland
+  ] ++ builtins.map make_wine wine_apps);
 }

@@ -3,8 +3,8 @@
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     mesa
-    vaapiIntel
-    vaapiVdpau
+    intel-vaapi-driver
+    libva-vdpau-driver
     libvdpau-va-gl
     intel-media-driver
   ];
