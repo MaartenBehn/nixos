@@ -12,7 +12,8 @@ let
     "borg_mount_${server_name}_${repo_folder_to_name repo_folder}" 
     ''
       mkdir -p ${folder}
-      borgfs -p ${make_repo repo_folder server_name} ${folder}
+      uid=$(id -u)
+      borgfs -o uid=$uid -p ${make_repo repo_folder server_name} ${folder}
     '';
 
   make_script = repo_folder: server_name: (make_script_inner repo_folder server_name 
