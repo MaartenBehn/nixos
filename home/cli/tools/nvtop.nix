@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-2505, host, ... }:
 let
   nvtop = pkgs.nvtopPackages.intel.overrideAttrs (old: {
     version = "fix-2"; # usually harmless to omit    
@@ -11,8 +11,9 @@ let
   });
 
 in { 
-  home.packages = [ 
-    pkgs.nvtopPackages.intel
-    pkgs.intel-gpu-tools
-  ];
+  home.packages = if host == "laptop" then 
+    [ pkgs.nvtopPackages.intel ] 
+  else if host == "desktop" then 
+    [ pkgs-2505.nvtopPackages.nvidia ]
+  else [];
 }
