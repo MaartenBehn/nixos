@@ -5,6 +5,7 @@
     ./create_wsl.nix
     ./presenterm.nix
     ./borg.nix
+    ./nvtop.nix
   ];
 
   home.packages = (with pkgs; [

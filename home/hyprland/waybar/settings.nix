@@ -51,6 +51,26 @@ let
 
     socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do handle "$line"; done
   '';
+
+  gpu_usage = pkgs.writeShellScriptBin "gpu_usage" ''
+    nvtop -s | jq -r '[
+      (.[0].gpu_util 
+        | if . != null then (. 
+          | rtrimstr("%") 
+          | tonumber
+        ) else null end), 
+      (.[0].gpu_clock 
+        | if . != null then (. 
+          | rtrimstr("MHz") 
+          | tonumber 
+          | . / 1500
+        ) else null end)] 
+      | .[] 
+      | select(. != null) 
+      | . * 100 
+      | round'; 
+  '';
+
 in {
   home.packages = (with pkgs; [
     jq
@@ -77,6 +97,7 @@ in {
     modules-right = [
       "cpu"
       "memory"
+      "custom/gpu"
       #(if (host == "desktop") then "disk" else "")
       "pulseaudio"
       "battery"
@@ -200,6 +221,12 @@ in {
     };
     "custom/scrolling" = {
       exec = "${scrolling_output}/bin/scrolling_output";
+    };
+    "custom/gpu" = {
+      exec = "${gpu_usage}/bin/gpu_usage";
+      interval = 5;
+      format = "<span foreground=\"#AF8ED6\">󰹑 </span>{}%";
+      on-click = "hyprctl dispatch exec '${terminal} -e nvtop'";
     };
   };
 }
