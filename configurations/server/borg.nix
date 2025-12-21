@@ -1,4 +1,9 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: 
+let 
+  check_fritz_vpn = pkgs.writeShellScriptBin "check_fritz_vpn" ''
+    ping 192.168.178.39 || (systemctl restart fritz.service && sleep 10) 
+  ''; 
+in {
  
   # Important: 
   # To read files from an other group the group has the specified in the config 
@@ -34,4 +39,20 @@
       protocol = "both";
     }];
   };
+
+  systemd.services.fritz_behns_vpn_check = {
+    vpnConfinement = {
+      enable = true;
+      vpnNamespace = "fritz";
+    };
+
+    serviceConfig.Type = "oneshot";
+    
+    path = with pkgs; [
+      ping
+      check_fritz_vpn
+    ];
+    script = "check_fritz_vpn";
+  };
+
 }

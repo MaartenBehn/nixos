@@ -36,6 +36,8 @@ in {
       enable = true;
       vpnNamespace = "fritz";
     };
+    requires = [ "fritz_behns_vpn_check.service" ];
+    after = [ "fritz_behns_vpn_check.service" ];
     onFailure = [ "unit-status@%n.service" ];
   };
 

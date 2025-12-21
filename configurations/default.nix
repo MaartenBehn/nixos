@@ -43,6 +43,7 @@
         ./set_kitty_default.nix
 
         ./server/algo_trading.nix
+        ./virtualbox.nix
 
       ] else [])
     ++ (if host == "desktop" then
