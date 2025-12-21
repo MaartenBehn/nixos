@@ -49,7 +49,6 @@ in {
     serviceConfig.Type = "oneshot";
     
     path = with pkgs; [
-      ping
       check_fritz_vpn
     ];
     script = "check_fritz_vpn";
