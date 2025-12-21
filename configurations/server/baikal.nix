@@ -2,6 +2,7 @@
   services.baikal = {
     enable = true;
   };
+  nixpkgs.config.allowBroken = true;
 
   # Overerride the nginx config from:
   # https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/modules/services/web-apps/baikal.nix
