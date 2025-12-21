@@ -63,12 +63,11 @@ let
         | if . != null then (. 
           | rtrimstr("MHz") 
           | tonumber 
-          | . / 1500
+          | (. / 1500) * 100
         ) else null end)] 
       | .[] 
       | select(. != null) 
-      | . * 100 
-      | round'; 
+      | round' | head -n 1; 
   '';
 
 in {
