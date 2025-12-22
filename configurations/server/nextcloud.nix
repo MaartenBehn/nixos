@@ -36,7 +36,12 @@ in {
     hostName = cloud_domain;
   };
 
-  services.postgresql.ensureUsers.nextcloud.ensureDBOwnership = true;
+  services.postgresql.ensureUsers = [ 
+    { 
+      name = "nextcloud";
+      ensureDBOwnership = true;
+    }
+  ];
 
   services.nginx.virtualHosts = {
     "${cloud_domain}" = {
