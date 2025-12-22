@@ -42,6 +42,8 @@ in {
     };
 
     onFailure = [ "unit-status@%n.service" ];
+    requires = [ "fritz_behns_vpn_check.service" ];
+    after = [ "fritz_behns_vpn_check.service" ];
   };
 
   systemd.services.borgbackup-job-proxy_notes.onFailure = [ "unit-status@%n.service" ];

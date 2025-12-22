@@ -55,6 +55,9 @@ in {
       enable = true;
       vpnNamespace = "fritz";
     };
+    onFailure = [ "unit-status@%n.service" ];
+    requires = [ "fritz_behns_vpn_check.service" ];
+    after = [ "fritz_behns_vpn_check.service" ];
   };
 
   services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {

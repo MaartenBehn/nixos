@@ -84,6 +84,8 @@ let
           vpnNamespace = "fritz";
         };
         onFailure = [ "unit-status@%n.service" ];
+        requires = [ "fritz_behns_vpn_check.service" ];
+        after = [ "fritz_behns_vpn_check.service" ];
       };
     }) backup_names;
 
