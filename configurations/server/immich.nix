@@ -1,5 +1,10 @@
-{ domains, local_domain, config, ... }: 
-let default_borg_settings = import ./borg_settings.nix;
+{ domains, local_domain, config, pkgs, ... }: 
+let 
+  default_borg_settings = import ./borg_settings.nix;
+  fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
+    chmod -R 750 /var/lib/immich 
+  ''; 
+
 in {
   imports = [ ./borg.nix ];
 
@@ -36,13 +41,22 @@ in {
       enable = true;
       vpnNamespace = "fritz";
     };
-    requires = [ "fritz_behns_vpn_check.service" ];
-    after = [ "fritz_behns_vpn_check.service" ];
+    requires = [ "fritz_behns_vpn_check.service" "borg_immich_fix_permissions.service" ];
+    after = [ "fritz_behns_vpn_check.service" "borg_immich_fix_permissions.service" ];
     onFailure = [ "unit-status@%n.service" ];
   };
 
+  systemd.services.borg_immich_fix_permissions = {
+    serviceConfig.Type = "oneshot";
+    
+    path = [
+      fix_permissions
+    ];
+    script = "fix_permissions";
+  };
+
+
   services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
-    user = "immich";
     group = "immich";
     paths = "/var/lib/immich";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
