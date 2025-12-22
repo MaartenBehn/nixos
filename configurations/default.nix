@@ -131,7 +131,7 @@
         ./server/home_assistant.nix
         ./server/actual_budget.nix
         ./server/notes.nix
-        #./server/immich.nix
+        ./server/immich.nix
         ./server/nextcloud.nix
         ./server/baikal.nix
         ./server/manage_my_damn_life.nix
