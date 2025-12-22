@@ -18,7 +18,6 @@ in {
   services.immich = {
     enable = true;
     port = 2283;
-    package = pkgs-2505.immich;
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
