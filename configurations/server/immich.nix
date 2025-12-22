@@ -42,6 +42,7 @@ in {
   };
 
   services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
+    user = "immich";
     group = "immich";
     paths = "/var/lib/immich";
     repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/immich";
