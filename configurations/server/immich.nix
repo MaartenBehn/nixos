@@ -1,4 +1,4 @@
-{ domains, local_domain, config, pkgs, pkgs-2505, ... }: 
+{ domains, local_domain, config, pkgs, ... }: 
 let 
   default_borg_settings = import ./borg_settings.nix;
   fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
@@ -14,6 +14,10 @@ in {
       ensureDBOwnership = true;
     }
   ];
+
+  environment.systemPackages = with pkgs; [
+    immich-cli
+  ]; 
 
   services.immich = {
     enable = true;
