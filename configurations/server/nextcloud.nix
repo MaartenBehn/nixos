@@ -13,7 +13,7 @@ in {
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud31;
+    package = pkgs.nextcloud32;
 
     database.createLocally = true;
     configureRedis = true;
@@ -35,6 +35,8 @@ in {
 
     hostName = cloud_domain;
   };
+
+  services.postgresql.ensureUsers.nextcloud.ensureDBOwnership = true;
 
   services.nginx.virtualHosts = {
     "${cloud_domain}" = {
