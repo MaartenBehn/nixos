@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }: 
 let 
   check_fritz_vpn = pkgs.writeShellScriptBin "check_fritz_vpn" ''
-    ping 192.168.178.39 || (systemctl restart fritz.service && sleep 10) 
+    ping -c 2 192.168.178.39 || (systemctl restart fritz.service && sleep 10) 
   ''; 
 in {
  
