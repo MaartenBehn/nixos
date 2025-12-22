@@ -24,6 +24,11 @@ in {
     port = 2283;
   };
 
+  # hardware acceleration 
+  services.immich.accelerationDevices = null;
+  users.users.immich.extraGroups = [ "video" "render" ];
+  hardware.graphics.enable = true;
+
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "immich.${domain}"; 
     value = {
