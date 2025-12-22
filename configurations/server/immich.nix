@@ -1,4 +1,4 @@
-{ domains, local_domain, config, pkgs, ... }: 
+{ domains, local_domain, config, pkgs, pkgs-2505, ... }: 
 let 
   default_borg_settings = import ./borg_settings.nix;
   fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
@@ -18,6 +18,7 @@ in {
   services.immich = {
     enable = true;
     port = 2283;
+    package = pkgs-2505.immich;
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
