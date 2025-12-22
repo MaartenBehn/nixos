@@ -13,7 +13,7 @@ in {
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud32;
+    package = pkgs.nextcloud31;
 
     database.createLocally = true;
     configureRedis = true;
