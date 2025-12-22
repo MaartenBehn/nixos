@@ -8,6 +8,13 @@ let
 in {
   imports = [ ./borg.nix ];
 
+  services.postgresql.ensureUsers = [ 
+    { 
+      name = "immich";
+      ensureDBOwnership = true;
+    }
+  ];
+
   services.immich = {
     enable = true;
     port = 2283;
@@ -54,7 +61,6 @@ in {
     ];
     script = "fix_permissions";
   };
-
 
   services.borgbackup.jobs.fritz_behns_immich = default_borg_settings // {
     group = "immich";
