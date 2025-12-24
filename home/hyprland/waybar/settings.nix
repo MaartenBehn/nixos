@@ -111,10 +111,10 @@ in {
           today = "<span color='#98971A'><b>{}</b></span>";
         };
       };
-      format = "  {:%H:%M}";
+      format = " {:%H:%M}";
       tooltip = "true";
       tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      format-alt = "  {:%d/%m}";
+      format-alt = " {:%d/%m}";
     };
     "hyprland/workspaces" = {
       active-only = false;
@@ -139,13 +139,13 @@ in {
       on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
     memory = {
-      format = "<span foreground='${cyan}'> </span>{}%";
+      format = "<span foreground='${cyan}'> </span> {}%";
       interval = 2;
       on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
     disk = {
       # path = "/";
-      format = "<span foreground='${orange}'>󰋊 </span>{percentage_used}%";
+      format = "<span foreground='${orange}'>󰋊 </span> {percentage_used}%";
       interval = 60;
       on-click = "hyprctl dispatch exec '${terminal} -e btop'";
     };
@@ -160,7 +160,7 @@ in {
       icon-size = 20;
       spacing = 8;
     };
-    pulseaudio = {
+  pulseaudio = {
       format = "{icon} {volume}%";
       format-muted = "<span foreground='${blue}'> </span> {volume}%";
       format-icons = {
@@ -224,7 +224,7 @@ in {
     "custom/gpu" = {
       exec = "${gpu_usage}/bin/gpu_usage";
       interval = 5;
-      format = "<span foreground=\"#AF8ED6\">󰹑 </span>{}%";
+      format = "<span foreground=\"#AF8ED6\">󰹑 </span> {}%";
       on-click = "hyprctl dispatch exec '${terminal} -e nvtop'";
     };
   };

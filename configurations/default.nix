@@ -34,6 +34,7 @@
 
         # Gaming
         ./steam.nix
+        ./lutris.nix
 
         # Other
         ./server/debug_tools.nix 

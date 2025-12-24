@@ -68,8 +68,8 @@ in
     }
 
     #tray {
-      margin-left: 10px;
-      margin-right: 10px;
+      margin-left: 15px;
+      margin-right: 15px;
       color: ${text_color};
     }
     #tray menu {
@@ -80,9 +80,12 @@ in
     #tray menuitem {
     }
 
-    #pulseaudio, #network, #cpu, #memory, #disk, #battery, #language, #custom-notification #custom-scrolling {
-      margin-right: 10px;
-      margin-left: 10px;
+    #memory, #cpu, #battery, #disk, #pulseaudio, #custom-gpu {
+      margin-right: 20px;
+      color: ${text_color};
+    }
+
+    #custom-scrolling {
       color: ${text_color};
     }
 

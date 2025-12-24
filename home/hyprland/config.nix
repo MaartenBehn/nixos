@@ -63,30 +63,34 @@
         "$mainMod, F1, exec, show-keybinds"
 
         # keybindings
-        "$mainMod, Space, exec, kitty -d $(hyprcwd)"
         "$mainMod, Q, killactive,"
         "$mainMod, F, fullscreen, 0"
-        "$mainMod SHIFT, F, fullscreen, 1"
-        "$mainMod, B, exec, firefox"
-        "$mainMod, O, exec, obsidian"
-        "$mainMod, D, exec, rofi -show drun || pkill rofi"
-        "$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
-        "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
+        "$mainMod SHIFT, F, togglefloating"
+        "$mainMod, T, exec, toggle_oppacity"
+        
+        # System shortcuts
         "$mainMod, Escape, exec, hyprlock"
         "$mainMod SHIFT, Escape, exec, power-menu"
-        "$mainMod, P, pseudo,"
-        "$mainMod, X, togglesplit,"
-        "$mainMod, T, exec, toggle_oppacity"
-        "$mainMod, E, exec, nemo"
-        "$mainMod, M, exec, thunderbird"
-        "$mainMod SHIFT, V, exec, open_vim_cheat_sheet"
-        "ALT, E, exec, hyprctl dispatch exec '[float; size 1111 700] nemo'"
-        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
+        "$mainMod, D, exec, rofi -show drun || pkill rofi"
         "$mainMod SHIFT, B, exec, toggle_waybar"
-        "$mainMod, C, exec, hyprpicker -a"
         "$mainMod, W, exec, wallpaper-picker"
         "$mainMod, N, exec, swaync-client -t -sw"
+
+        # Programm shortcuts
+        "$mainMod, Space, exec, kitty -d $(hyprcwd)"
+        "$mainMod, B, exec, firefox"
+        "$mainMod, O, exec, obsidian"
+        "$mainMod, E, exec, nemo"
+        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
+        "$mainMod, M, exec, thunderbird"
+        "$mainMod SHIFT, V, exec, open_vim_cheat_sheet"
+        
+        # Other shortcuts
+        "$mainMod, C, exec, hyprpicker -a"
         "$mainMod, Z, exec, woomer-current"
+        
+        #"$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        #"$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
         
         # screenshot
         ",Print, exec, screenshot --copy"
@@ -95,7 +99,6 @@
         "$mainMod, right, layoutmsg, focus r"
         "$mainMod, left, layoutmsg, focus l"
 
-         
         # media and volume controls
         # ",XF86AudioMute,exec, pamixer -t"
         ",XF86AudioPlay,exec, playerctl play-pause"
