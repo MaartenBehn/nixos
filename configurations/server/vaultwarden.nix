@@ -5,8 +5,8 @@
 
   sops.templates."vaultwarden.env" = {
     content = ''
-      ADMIN_TOKEN='${config.sops.secrets."vaultwarden/admin_token"}'
-      SMTP_PASSWORD='${config.sops.secrets."mail/vaultwarden/pw"}'
+      ADMIN_TOKEN='${config.sops.placeholder."vaultwarden/admin_token"}'
+      SMTP_PASSWORD='${config.sops.placeholder."mail/vaultwarden/pw"}'
     '';
     owner = "vaultwarden";
   };
