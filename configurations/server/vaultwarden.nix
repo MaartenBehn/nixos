@@ -1,13 +1,25 @@
 { domains, local_domain, config, ... }: {
+
+  sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
+  sops.secrets."mail/vaultwarden/pw" = { owner = "vaultwarden"; };
+
+  sops.templates."vaultwarden.env" = {
+    content = ''
+      ADMIN_TOKEN='${config.sops.secrets."vaultwarden/admin_token"}'
+      SMTP_PASSWORD='${config.sops.secrets."mail/vaultwarden/pw"}'
+    '';
+    owner = "vaultwarden";
+  };
+
   services.vaultwarden = {
     enable = true;
     backupDir = "/var/local/vaultwarden/backup";
     # in order to avoid having  ADMIN_TOKEN in the nix store it can be also set with the help of an environment file
     # be aware that this file must be created by hand (or via secrets management like sops)
-    environmentFile = "/var/lib/vaultwarden/vaultwarden.env";
+    environmentFile = config.sops.templates."vaultwarden.env".path;
     config = {
         # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
-        DOMAIN = "https://bitwarden.example.com";
+        DOMAIN = "https://vaultwarden.stroby.ipv64.de";
         SIGNUPS_ALLOWED = false;
 
         ROCKET_ADDRESS = "127.0.0.1";
@@ -22,30 +34,24 @@
         SMTP_PORT = 25;
         SMTP_SSL = false;
 
-        SMTP_FROM = "admin@bitwarden.example.com";
-        SMTP_FROM_NAME = "example.com Bitwarden server";
+        SMTP_USERNAME = "vaultwarden@stroby.ipv64.de";
+
+        SMTP_FROM = "vaultwarden@stroby.ipv64.de";
+        SMTP_FROM_NAME = "Vaultwarden server";
     };
   };
 
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "immich.${domain}"; 
+    name = "vaultwarden.${domain}"; 
     value = {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
       locations."/" = {
-        proxyPass = "http://[::1]:${toString config.services.immich.port}";
-        proxyWebsockets = true;
-        recommendedProxySettings = true;
-        extraConfig = ''
-          client_max_body_size 50000M;
-          proxy_read_timeout   600s;
-          proxy_send_timeout   600s;
-          send_timeout         600s;
-        '';      
+        proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
       };
 
       serverAliases = [
-        "www.immich.${domain}"
+        "www.vaultwarden.${domain}"
       ];
     };
   }) (domains ++ [ local_domain ]));

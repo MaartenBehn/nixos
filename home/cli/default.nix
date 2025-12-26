@@ -8,6 +8,8 @@
     gnirehtet     
     android-tools # needed for gnirehtet
 
+    vaultwarden
+
   ];  
   imports = [
     ./tools

@@ -138,6 +138,7 @@
         ./server/manage_my_damn_life.nix
         ./server/ntfy.nix
         ./server/mail.nix
+        ./server/vaultwarden.nix
         
       ] else [])
     ++ (if host == "wsl" then
