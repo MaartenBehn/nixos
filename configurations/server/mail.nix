@@ -41,6 +41,7 @@ in {
     secrets = [ config.sops.templates."maddy_secrets.env".path ];
   };
 
+  sops.secrets."mail/gandi_api_key" = { owner = "maddy"; };
   sops.templates."maddy_secrets.env" = {
     content = ''
        GANDI_API_KEY='${config.sops.placeholder."mail/gandi_api_key"}'
