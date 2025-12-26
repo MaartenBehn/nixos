@@ -47,7 +47,7 @@ in {
   };
   sops.templates."maddy_secrets.env" = {
     content = ''
-       CLOUDFLARE_API_TOKEN='${config.sops.placeholder."cloudflare/acme/api_token"}'
+       CLOUDFLARE_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
     '';
     owner = "maddy";
   };
