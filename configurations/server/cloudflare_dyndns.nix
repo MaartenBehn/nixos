@@ -7,14 +7,15 @@ CLOUDFLARE_API_TOKEN=$(cat ${config.sops.secrets."cloudflare/api_token".path})
 ZONE_ID=$(cat ${config.sops.secrets."cloudflare/zone_id".path})
 DNS_RECORD_ID=$(cat ${config.sops.secrets."cloudflare/aaaa_id".path})
 IP6=$(curl "http://v6.ident.me")
+DATE=$(date)
 BODY=$(printf '{
   "name": "stroby.org",
   "ttl": 1,
   "type": "AAAA",
-  "comment": "Update by script",
+  "comment": "Update by script on %s",
   "content": "%s",
   "proxied": true
-}' "$IP6")
+}' "$DATE" "$IP6")
 
 echo "$BODY"
 
