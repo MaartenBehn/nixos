@@ -3,9 +3,9 @@ let
   update_cloudflare_dns = pkgs.writeShellScriptBin "update_cloudflare_dns" ''
 #!/usr/bin/env bash
 sleep 10
-CLOUDFLARE_API_TOKEN=$(cat ${config.sops.secrets."cloudflare/api_token".path})
-ZONE_ID=$(cat ${config.sops.secrets."cloudflare/zone_id".path})
-DNS_RECORD_ID=$(cat ${config.sops.secrets."cloudflare/aaaa_id".path})
+CLOUDFLARE_API_TOKEN=$(cat ${config.sops.secrets."cloudflare/dyndns/api_token".path})
+ZONE_ID=$(cat ${config.sops.secrets."cloudflare/dyndns/zone_id".path})
+DNS_RECORD_ID=$(cat ${config.sops.secrets."cloudflare/dyndns/aaaa_id".path})
 IP6=$(curl "http://v6.ident.me")
 DATE=$(date)
 BODY=$(printf '{
@@ -29,9 +29,9 @@ curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD
 
 in {
   sops.secrets = {
-    "cloudflare/api_token" = {};
-    "cloudflare/zone_id" = {};
-    "cloudflare/aaaa_id" = {};
+    "cloudflare/dyndns/api_token" = {};
+    "cloudflare/dyndns/zone_id" = {};
+    "cloudflare/dyndns/aaaa_id" = {};
   };
 
   systemd.services.cloudflare_dns_updater = {

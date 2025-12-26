@@ -19,10 +19,10 @@ in {
       extraConfig = ''
         email admin@stroby.org
         agreed # indicate your agreement with Let's Encrypt ToS
-        host ${config.services.maddy.primaryDomain}
+        hostname ${config.services.maddy.primaryDomain}
         challenge dns-01
-        dns gandi {
-          api_token "{env:GANDI_API_KEY}"
+        dns cloudflare {
+          api_token "{env:CLOUDFLARE_API_TOKEN}"
         }
       '';
     };
@@ -41,10 +41,13 @@ in {
     secrets = [ config.sops.templates."maddy_secrets.env".path ];
   };
 
-  sops.secrets."mail/gandi_api_key" = { owner = "maddy"; };
+  sops.secrets.maddy_cloudflare_api = { 
+    key = "cloudflare/api_token";
+    owner = "maddy"; 
+  };
   sops.templates."maddy_secrets.env" = {
     content = ''
-       GANDI_API_KEY='${config.sops.placeholder."mail/gandi_api_key"}'
+       CLOUDFLARE_API_TOKEN='${config.sops.placeholder."cloudflare/acme/api_token"}'
     '';
     owner = "maddy";
   };
