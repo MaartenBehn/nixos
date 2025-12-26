@@ -120,6 +120,7 @@
         ./server/duckdns.nix
         ./server/blocky.nix
         ./server/ipv64.nix
+        ./server/cloudflare_dyndns.nix
         ./server/homepage.nix
         ./server/syncthing.nix
         ./server/vscode_server.nix
