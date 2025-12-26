@@ -13,8 +13,9 @@ BODY=$(jq -n \
   --arg type "AAAA" \
   --arg comment "Update by script" \
   --arg content "$IP6" \
-  --argjson proxied true
-)
+  --argjson proxied true)
+
+echo "$BODY"
 
 # https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/update/
 curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID \
