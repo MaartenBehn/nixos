@@ -39,7 +39,7 @@
     config = {
         # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
         DOMAIN = "https://vaultwarden.stroby.ipv64.de";
-        SIGNUPS_ALLOWED = false;
+        SIGNUPS_ALLOWED = true;
 
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
