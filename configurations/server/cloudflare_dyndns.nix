@@ -36,6 +36,7 @@ in {
     path = with pkgs; [
       bash
       curl
+      jq
       update_cloudflare_dns
     ];
     script = "update_cloudflare_dns";
