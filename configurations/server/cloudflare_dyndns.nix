@@ -18,7 +18,7 @@ curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD
           "ttl": 1,
           "type": "AAAA",
           "comment": "Update by script",
-          "content": "$IP6",
+          "content": '$IP6',
           "proxied": true
         }'
 '';
