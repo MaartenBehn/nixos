@@ -42,7 +42,7 @@ in {
   };
 
   sops.secrets.maddy_cloudflare_api = { 
-    key = "cloudflare/api_token";
+    key = "cloudflare/acme/api_token";
     owner = "maddy"; 
   };
   sops.templates."maddy_secrets.env" = {
