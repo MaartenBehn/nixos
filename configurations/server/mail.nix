@@ -15,4 +15,7 @@ in {
        "asus@${main_domain}".passwordFile = config.sops.secrets."mail/asus/pw".path;
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 25 587 143 ];
+  networking.firewall.allowedUDPPorts = [ 25 587 143 ];
 }

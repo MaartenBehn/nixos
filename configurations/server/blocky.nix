@@ -11,6 +11,8 @@
         upstream = "https://one.one.one.one/dns-query";
         ips = [ "1.1.1.1" "1.0.0.1" ];
       };
+    
+
       #Enable blocking of certain domains.
       blocking = {
         blackLists = {
@@ -32,7 +34,16 @@
           value = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
         }) (domains ++ [ local_domain ])) // {
             "fritz.box" = "192.168.178.1";
+
+            # Entry's for Maddy 
+
           };
+      };
+
+      caching = {
+        minTime = "5m";
+        maxTime = "30m";
+        prefetching = true;
       };
     };
   };
