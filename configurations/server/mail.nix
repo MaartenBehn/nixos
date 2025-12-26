@@ -1,17 +1,17 @@
-{ inputs, domains, local_domain, config, pkgs, ... }: 
+{ config, ... }: 
 let 
-  main_domain = "stroby.ipv64.de";
+  main_domain = "stroby.org";
 in {
-  sops.secrets."mail/asus/pw" = { owner = "maddy"; };
+  sops.secrets."mail/admin/pw" = { owner = "maddy"; };
 
   services.maddy = {
     enable = true;
     primaryDomain = main_domain;
     ensureAccounts = [
-      "asus@${main_domain}"
+      "admin@${main_domain}"
     ];
     ensureCredentials = {
-      "asus@${main_domain}".passwordFile = config.sops.secrets."mail/asus/pw".path;
+      "admin@${main_domain}".passwordFile = config.sops.secrets."mail/admin/pw".path;
     };
   };
 

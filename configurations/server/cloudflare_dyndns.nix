@@ -14,7 +14,7 @@ BODY=$(printf '{
   "type": "AAAA",
   "comment": "Update by script on %s",
   "content": "%s",
-  "proxied": true
+  "proxied": false
 }' "$DATE" "$IP6")
 
 echo "$BODY"
