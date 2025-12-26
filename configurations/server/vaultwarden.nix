@@ -1,15 +1,34 @@
 { domains, local_domain, config, ... }: {
 
   sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
-  sops.secrets."mail/vaultwarden/pw" = { owner = "vaultwarden"; };
+
+  sops.secrets.vaultwarden_smtp_pw = { 
+    owner = "vaultwarden"; 
+    key = "mail/vaultwarden/pw";
+  };
 
   sops.templates."vaultwarden.env" = {
     content = ''
       ADMIN_TOKEN='${config.sops.placeholder."vaultwarden/admin_token"}'
-      SMTP_PASSWORD='${config.sops.placeholder."mail/vaultwarden/pw"}'
+      SMTP_PASSWORD='${config.sops.placeholder.vaultwarden_smtp_pw}'
     '';
     owner = "vaultwarden";
   };
+
+  sops.secrets.vaultwarden_mail_pw = { 
+    owner = "maddy"; 
+    key = "mail/vaultwarden/pw";
+  };
+
+  services.maddy = {
+    ensureAccounts = [
+      "vaultwarden@${config.services.maddy.primaryDomain}"
+    ];
+    ensureCredentials = {
+      "vaultwarden@${config.services.maddy.primaryDomain}".passwordFile = config.sops.secrets.vaultwarden_mail_pw.path;
+    };
+  };
+
 
   services.vaultwarden = {
     enable = true;
