@@ -13,7 +13,7 @@ in {
     ];
     ensureCredentials = {
       #"asus@${main_domain}".passwordFile = config.sops.secrets."mail/asus/pw".path;
-       "asus@${main_domain}".passwordFile = "${pkgs.writeText "postmaster" "test"}";
+       "asus@${main_domain}".passwordFile = "${pkgs.writeText "asus" "test"}";
     };
   };
 
