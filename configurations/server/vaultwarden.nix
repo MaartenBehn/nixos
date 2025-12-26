@@ -1,4 +1,4 @@
-{ domains, local_domain, config, ... }: {
+{ domains, local_domain, config, pkgs, ... }: {
 
   sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
 
@@ -29,7 +29,7 @@
     };
   };
 
-
+  environment.systemPackages = with pkgs; [ vaultwarden ];
   services.vaultwarden = {
     enable = true;
     backupDir = "/var/local/vaultwarden/backup";
