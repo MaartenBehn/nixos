@@ -1,4 +1,4 @@
-{ inputs, domains, local_domain, config, ... }: 
+{ inputs, domains, local_domain, config, pkgs, ... }: 
 let 
   all_domains = domains ++ [ local_domain ];
   main_domain = "stroby.ipv64.de";
@@ -12,7 +12,8 @@ in {
       "asus@${main_domain}"
     ];
     ensureCredentials = {
-       "asus@${main_domain}".passwordFile = config.sops.secrets."mail/asus/pw".path;
+      #"asus@${main_domain}".passwordFile = config.sops.secrets."mail/asus/pw".path;
+       "asus@${main_domain}".passwordFile = "${pkgs.writeText "postmaster" "test"}";
     };
   };
 
