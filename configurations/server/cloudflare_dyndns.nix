@@ -25,6 +25,21 @@ curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
     -d "$BODY"
+
+BODY=$(printf '{
+  "name": "mx.stroby.org",
+  "ttl": 1,
+  "type": "AAAA",
+  "comment": "Update by script on %s",
+  "content": "%s",
+  "proxied": false
+}' "$DATE" "$IP6")
+
+curl https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID \
+    -X PUT \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+    -d "$BODY"
 '';
 
 in {

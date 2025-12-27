@@ -55,4 +55,32 @@ in {
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];
+
+  services.go-autoconfig = {
+    enable = true;
+    settings = {
+      service_addr = ":1323";
+      domain = "autoconfig.stroby.org";
+      imap = {
+        server = "stroby.org";
+        port = 993;
+      };
+      smtp = {
+        server = "stroby.org";
+        port = 587;
+      };
+    };
+  };
+
+  services.nginx.virtualHosts."autoconfig.stroby.org" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:1323";
+    };
+
+    serverAliases = [
+      "www.autoconfig.stroby.org"
+    ];
+  };
 }
