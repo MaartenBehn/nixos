@@ -39,7 +39,10 @@ in {
     acceptTerms = true;
     certs."mx.stroby.org" = {
       dnsProvider = "cloudflare";
-      environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+      #environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+      environmentFile = "${pkgs.writeText "cloudflare_acme.env" ''
+      CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.maddy_cloudflare_api}
+    ''}";
       group = config.services.maddy.group;
       enableDebugLogs = true;
     };
@@ -50,7 +53,7 @@ in {
   };
   sops.templates."maddy_acme.env" = {
     content = ''
-       CLOUDFLARE_DNS_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
+       CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.maddy_cloudflare_api}
     '';
   };
  
