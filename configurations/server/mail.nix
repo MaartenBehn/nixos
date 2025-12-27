@@ -16,16 +16,18 @@ in {
     };
 
     tls = {
-      loader = "acme";
-      extraConfig = ''
-        email stroby241@gmail.com
-        agreed # indicate your agreement with Let's Encrypt ToS
-        hostname ${config.services.maddy.primaryDomain}
-        challenge dns-01
-        dns cloudflare {
-          api_token "{env:CLOUDFLARE_API_TOKEN}"
-        }
-      '';
+      #loader = "acme";
+        #extraConfig = ''
+        #email stroby241@gmail.com
+        #agreed # indicate your agreement with Let's Encrypt ToS
+        #hostname ${config.services.maddy.primaryDomain}
+        #challenge dns-01
+        #dns cloudflare {
+        #  api_token "{env:CLOUDFLARE_API_TOKEN}"
+        #}
+      #'';
+      loader = "file";
+      certificates = [ config.security.acme.certs."stroby.org" ]; 
     };
 
     # Enable TLS listeners. Configuring this via the module is not yet
@@ -37,21 +39,24 @@ in {
         "imap tls://0.0.0.0:993 tcp://0.0.0.0:143"
         "submission tls://0.0.0.0:465 tcp://0.0.0.0:587"
       ] options.services.maddy.config.default;
+    
     # Reading secrets from a file. Do not use this example in production
     # since it stores the keys world-readable in the Nix store.
-    secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
+    #secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
   };
 
-  sops.secrets.maddy_cloudflare_api = { 
-    key = "cloudflare/acme/api_token";
-    owner = "maddy"; 
-  };
-  sops.templates."maddy_secrets.env" = {
-    content = ''
-       CLOUDFLARE_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
-    '';
-    owner = "maddy";
-  };
+  security.acme.certs."stroby.org".group = config.services.maddy.group;
+
+  #sops.secrets.maddy_cloudflare_api = { 
+  #  key = "cloudflare/acme/api_token";
+  #  owner = "maddy"; 
+  #};
+  #sops.templates."maddy_secrets.env" = {
+  #  content = ''
+  #     CLOUDFLARE_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
+  #  '';
+  #  owner = "maddy";
+  #};
 
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];
