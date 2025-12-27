@@ -19,8 +19,8 @@ in {
     tls = {
       loader = "file";
       certificates = [{
-          keyPath = "/var/lib/acme/mx.stroby.org/key.pem";
-          certPath = "/var/lib/acme/mx.stroby.org/cert.pem";
+          keyPath = "/var/lib/maddy/certs/key.pem";
+          certPath = "/var/lib/maddy/certs/cert.pem";
       }];
     };
 
@@ -37,25 +37,19 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    certs."mx.stroby.org" = {
-      dnsProvider = "cloudflare";
-      #environmentFile = "${config.sops.templates."maddy_acme.env".path}";
-      environmentFile = "${pkgs.writeText "cloudflare_acme.env" ''
-      CLOUDFLARE_DNS_API_TOKEN=a7WPRRs8p-7TNTIiO7-DFMD0TQ8M_D4rUGRIjb30
-    ''}";
-      group = config.services.maddy.group;
-      enableDebugLogs = true;
+    certs."stroby.org" = {
+      postRun = "mkdir /var/lib/maddy/certs && cp cert.pem /var/lib/maddy/certs/cert.pem && cp key.pem /var/lib/maddy/certs/key.pem && chown -R maddy:maddy /var/lib/maddy/certs";
     };
   };
 
-  sops.secrets.maddy_cloudflare_api = { 
-    key = "cloudflare/acme/api_token";
-  };
-  sops.templates."maddy_acme.env" = {
-    content = ''
-       CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.maddy_cloudflare_api}
-    '';
-  };
+    #sops.secrets.maddy_cloudflare_api = { 
+    #key = "cloudflare/acme/api_token";
+  #};
+    #sops.templates."maddy_acme.env" = {
+    #content = ''
+    #   CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.maddy_cloudflare_api}
+    #'';
+  #};
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];
