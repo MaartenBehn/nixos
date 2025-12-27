@@ -1,8 +1,7 @@
-{ config, options, domains, local_domain, ... }: 
+{ config, options, pkgs, ... }: 
 let 
   main_domain = "stroby.org";
 in {
-  imports = [ ./landing_page.nix ];
 
   sops.secrets."mail/admin/pw" = { owner = "maddy"; };
 
@@ -29,7 +28,7 @@ in {
         #}
       #'';
       #loader = "file";
-      #certificates = []; 
+      #certificates = [ ]; 
     };
 
     # Enable TLS listeners. Configuring this via the module is not yet
@@ -47,18 +46,23 @@ in {
     #secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
   };
 
-  #security.acme.certs."stroby.org".group = config.services.maddy.group;
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "admin+acme@stroby.org";
+    certs."mx.stroby.org" = {
+      dnsProvider = "cloudflare";
+      environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+    };
+  };
 
-  #sops.secrets.maddy_cloudflare_api = { 
-  #  key = "cloudflare/acme/api_token";
-  #  owner = "maddy"; 
-  #};
-  #sops.templates."maddy_secrets.env" = {
-  #  content = ''
-  #     CLOUDFLARE_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
-  #  '';
-  #  owner = "maddy";
-  #};
+  sops.secrets.maddy_cloudflare_api = { 
+    key = "cloudflare/acme/api_token";
+  };
+  sops.templates."maddy_acme.env" = {
+    content = ''
+       CLOUDFLARE_DNS_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
+  '';
+  };
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];

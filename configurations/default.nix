@@ -140,6 +140,7 @@
         ./server/ntfy.nix
         ./server/mail.nix
         ./server/vaultwarden.nix
+        ./server/landing_page.nix
         
       ] else [])
     ++ (if host == "wsl" then
