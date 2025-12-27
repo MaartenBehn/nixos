@@ -6,6 +6,7 @@ in {
 
   services.maddy = {
     enable = true;
+    openFirewall = true;
     primaryDomain = main_domain;
     ensureAccounts = [
       "admin@${main_domain}"
