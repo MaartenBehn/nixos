@@ -3,7 +3,7 @@
   # SSL 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "stroby241@gmail.com";
+    defaults.email = "admin@stroby.org";
   };
   
   # Open http and https ports
