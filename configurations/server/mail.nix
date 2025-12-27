@@ -48,7 +48,6 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "admin+acme@stroby.org";
     certs."mx.stroby.org" = {
       dnsProvider = "cloudflare";
       environmentFile = "${config.sops.templates."maddy_acme.env".path}";
