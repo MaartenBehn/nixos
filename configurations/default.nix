@@ -142,6 +142,8 @@
         ./server/vaultwarden.nix
         ./server/landing_page.nix
         
+        ./server/debug_tools.nix
+        
       ] else [])
     ++ (if host == "wsl" then
       [
