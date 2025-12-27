@@ -46,11 +46,13 @@ in {
 
   sops.secrets.maddy_cloudflare_api = { 
     key = "cloudflare/acme/api_token";
+    owner = config.services.maddy.user;
   };
   sops.templates."maddy_acme.env" = {
     content = ''
        CLOUDFLARE_DNS_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
     '';
+    owner = config.services.maddy.user;
   };
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
