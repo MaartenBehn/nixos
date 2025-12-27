@@ -18,12 +18,12 @@
         blackLists = {
           #Adblocking
           ads = [
-            "https://raw.githubusercontent.com/hagezi/dns-blocklists/blob/main/adblock/ultimate.txt"
+            #"https://raw.githubusercontent.com/hagezi/dns-blocklists/blob/main/adblock/ultimate.txt"
           ];
         };
         #Configure what block categories are used
         clientGroupsBlock = {
-          default = [ "ads" ];
+          #default = [ "ads" ];
         };
       };
 
