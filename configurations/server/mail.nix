@@ -28,8 +28,8 @@ in {
         #  api_token "{env:CLOUDFLARE_API_TOKEN}"
         #}
       #'';
-      loader = "file";
-      certificates = []; 
+      #loader = "file";
+      #certificates = []; 
     };
 
     # Enable TLS listeners. Configuring this via the module is not yet
