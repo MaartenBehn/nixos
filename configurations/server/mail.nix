@@ -1,7 +1,9 @@
-{ config, options, ... }: 
+{ config, options, domains, local_domain, ... }: 
 let 
   main_domain = "stroby.org";
 in {
+  imports = [ ./landing_page.nix ];
+
   sops.secrets."mail/admin/pw" = { owner = "maddy"; };
 
   services.maddy = {
@@ -27,7 +29,7 @@ in {
         #}
       #'';
       loader = "file";
-      certificates = [ config.security.acme.certs."stroby.org" ]; 
+      certificates = []; 
     };
 
     # Enable TLS listeners. Configuring this via the module is not yet
@@ -57,6 +59,20 @@ in {
   #  '';
   #  owner = "maddy";
   #};
+
+  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
+    name = "${domain}"; 
+    value = {
+      enableACME = domain != local_domain;
+      forceSSL = domain != local_domain;
+      locations."/" = {
+      };
+
+      serverAliases = [
+        "www.vaultwarden.${domain}"
+      ];
+    };
+  }) (domains ++ [ local_domain ]));
 
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];
