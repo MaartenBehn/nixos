@@ -38,11 +38,8 @@ in {
   security.acme = {
     acceptTerms = true;
     certs."mx.stroby.org" = {
-      dnsProvider = "cloudflare";
-      #environmentFile = "${config.sops.templates."maddy_acme.env".path}";
-      environmentFile = "${pkgs.writeText "cloudflare_acme.env" ''
-        CLOUDFLARE_DNS_API_TOKEN=a7WPRRs8p-7TNTIiO7-DFMD0TQ8M_D4rUGRIjb30
-      ''}";
+      dnsProvider = "Cloudflare";
+      environmentFile = "${config.sops.templates."maddy_acme.env".path}";
       group = config.services.maddy.group;
     };
   };
