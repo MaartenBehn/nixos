@@ -27,5 +27,7 @@
     nftables
 
     python313Packages.markitdown
+
+    lego
   ]);
 }

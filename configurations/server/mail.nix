@@ -50,7 +50,7 @@ in {
   sops.templates."maddy_acme.env" = {
     content = ''
        CLOUDFLARE_DNS_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
-  '';
+    '';
   };
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
