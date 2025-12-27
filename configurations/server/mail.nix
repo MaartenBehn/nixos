@@ -39,20 +39,21 @@ in {
     acceptTerms = true;
     certs."mx.stroby.org" = {
       dnsProvider = "cloudflare";
-      environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+      #environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+      environmentFile = "${pkgs.writeText "cloudflare_acme.env" ''
+        CLOUDFLARE_DNS_API_TOKEN=a7WPRRs8p-7TNTIiO7-DFMD0TQ8M_D4rUGRIjb30
+      ''}";
       group = config.services.maddy.group;
     };
   };
 
   sops.secrets.maddy_cloudflare_api = { 
     key = "cloudflare/acme/api_token";
-    owner = config.services.maddy.user;
   };
   sops.templates."maddy_acme.env" = {
     content = ''
        CLOUDFLARE_DNS_API_TOKEN='${config.sops.placeholder.maddy_cloudflare_api}'
     '';
-    owner = config.services.maddy.user;
   };
  
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
