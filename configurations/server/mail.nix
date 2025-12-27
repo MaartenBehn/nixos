@@ -38,7 +38,7 @@ in {
       ] options.services.maddy.config.default;
     # Reading secrets from a file. Do not use this example in production
     # since it stores the keys world-readable in the Nix store.
-    secrets = [ config.sops.templates."maddy_secrets.env".path ];
+    secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
   };
 
   sops.secrets.maddy_cloudflare_api = { 
