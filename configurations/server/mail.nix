@@ -18,7 +18,7 @@ in {
     tls = {
       loader = "acme";
       extraConfig = ''
-        email admin@stroby.org
+        email stroby241@gmail.com
         agreed # indicate your agreement with Let's Encrypt ToS
         hostname ${config.services.maddy.primaryDomain}
         challenge dns-01
