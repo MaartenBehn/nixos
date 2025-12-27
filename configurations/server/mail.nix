@@ -17,18 +17,11 @@ in {
     };
 
     tls = {
-      #loader = "acme";
-        #extraConfig = ''
-        #email stroby241@gmail.com
-        #agreed # indicate your agreement with Let's Encrypt ToS
-        #hostname ${config.services.maddy.primaryDomain}
-        #challenge dns-01
-        #dns cloudflare {
-        #  api_token "{env:CLOUDFLARE_API_TOKEN}"
-        #}
-      #'';
-      #loader = "file";
-      #certificates = [ ]; 
+      loader = "file";
+      certificates = [{
+          keyPath = "/var/lib/acme/mx.stroby.org/key.pem";
+          certPath = "/var/lib/acme/mx.stroby.org/cert.pem";
+      }]; 
     };
 
     # Enable TLS listeners. Configuring this via the module is not yet
@@ -40,10 +33,6 @@ in {
         "imap tls://0.0.0.0:993 tcp://0.0.0.0:143"
         "submission tls://0.0.0.0:465 tcp://0.0.0.0:587"
       ] options.services.maddy.config.default;
-    
-    # Reading secrets from a file. Do not use this example in production
-    # since it stores the keys world-readable in the Nix store.
-    #secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
   };
 
   security.acme = {
@@ -51,6 +40,7 @@ in {
     certs."mx.stroby.org" = {
       dnsProvider = "cloudflare";
       environmentFile = "${config.sops.templates."maddy_acme.env".path}";
+      group = config.services.maddy.group;
     };
   };
 
