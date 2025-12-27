@@ -47,7 +47,7 @@ in {
     #secrets = [ "${config.sops.templates."maddy_secrets.env".path}" ];
   };
 
-  security.acme.certs."stroby.org".group = config.services.maddy.group;
+  #security.acme.certs."stroby.org".group = config.services.maddy.group;
 
   #sops.secrets.maddy_cloudflare_api = { 
   #  key = "cloudflare/acme/api_token";
@@ -59,21 +59,7 @@ in {
   #  '';
   #  owner = "maddy";
   #};
-
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-      };
-
-      serverAliases = [
-        "www.vaultwarden.${domain}"
-      ];
-    };
-  }) (domains ++ [ local_domain ]));
-
+ 
   networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
   networking.firewall.allowedUDPPorts = [ 25 587 143 993 465 ];
 }
