@@ -138,8 +138,8 @@
         ./server/baikal.nix
         ./server/manage_my_damn_life.nix
         ./server/ntfy.nix
-        ./server/mail.nix
-        ./server/vaultwarden.nix
+        #./server/mail.nix
+        #./server/vaultwarden.nix
         ./server/landing_page.nix
         
       ] else [])
