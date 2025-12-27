@@ -33,6 +33,11 @@ let
       username = "stroby"; # Optional if username is not mail
       host = "web.smjg.org";
     }
+    {
+      mail = "admin@stroby.org";
+      name = "Admin";
+      host = "stroby.org";
+    }
   ];
   rope_lab_configs = [
     {
