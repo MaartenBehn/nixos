@@ -16,13 +16,13 @@ in {
       "admin@${main_domain}".passwordFile = config.sops.secrets."mail/admin/pw".path;
     };
 
-      #tls = {
-      #loader = "file";
-      #certificates = [{
-      #    keyPath = "/var/lib/acme/mx.stroby.org/key.pem";
-      #    certPath = "/var/lib/acme/mx.stroby.org/cert.pem";
-      #}];
-    #};
+    tls = {
+      loader = "file";
+      certificates = [{
+          keyPath = "/var/lib/acme/mx.stroby.org/key.pem";
+          certPath = "/var/lib/acme/mx.stroby.org/cert.pem";
+      }];
+    };
 
     # Enable TLS listeners. Configuring this via the module is not yet
     # implemented, see https://github.com/NixOS/nixpkgs/pull/153372
