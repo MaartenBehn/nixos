@@ -38,9 +38,10 @@ in {
   security.acme = {
     acceptTerms = true;
     certs."mx.stroby.org" = {
-      dnsProvider = "Cloudflare";
+      dnsProvider = "cloudflare";
       environmentFile = "${config.sops.templates."maddy_acme.env".path}";
       group = config.services.maddy.group;
+      postRun = "echo $CLOUDFLARE_DNS_API_TOKEN";
     };
   };
 
