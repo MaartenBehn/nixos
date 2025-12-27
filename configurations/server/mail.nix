@@ -41,6 +41,7 @@ in {
       dnsProvider = "cloudflare";
       environmentFile = "${config.sops.templates."maddy_acme.env".path}";
       group = config.services.maddy.group;
+      postRun = "chmod -R 770 /var/lib/acme/mx.stroby.org";
     };
   };
 
