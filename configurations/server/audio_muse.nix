@@ -30,7 +30,7 @@ let
     POSTGRES_PASSWORD=$POSTGRES_PW
     POSTGRES_DB=audio_muse
     POSTGRES_PORT=5432
-    POSTGRES_HOST=postgres
+    POSTGRES_HOST=http://127.0.0.1
     " > .env
 
     docker compose -f docker-compose.yaml up -d 
