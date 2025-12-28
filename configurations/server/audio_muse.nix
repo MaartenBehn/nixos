@@ -10,6 +10,9 @@ let
   run = pkgs.writeShellScriptBin "run" ''
     cd /srv/AudioMuse-AI
 
+    POSTGRES_PW=$(cat ${config.sops.secrets."audio_muse/user_id".path})
+    psql db_name -c "ALTER USER audio_muse WITH PASSWORD '$POSTGRES_PW';"
+
     git pull
     cd deployment
 
@@ -22,18 +25,31 @@ let
     JELLYFIN_USER_ID=$USER_ID
     JELLYFIN_TOKEN=$TOKEN
     FRONTEND_PORT=8088
-    POSTGRES_PORT=5433
+
+    POSTGRES_USER=audio_muse
+    POSTGRES_PASSWORD=$POSTGRES_PW
+    POSTGRES_DB=audio_muse
+    POSTGRES_PORT=5432
+    POSTGRES_HOST=postgres
     " > .env
 
-    docker compose -f docker-compose.yaml up -d
+    docker compose -f docker-compose.yaml up -d 
   '';
   
 in {
   imports = [ ../docker.nix ];
 
+  services.postgresql.ensureUsers = [ 
+    { 
+      name = "audio_muse";
+      ensureDBOwnership = true;
+    }
+  ];
+
   sops.secrets = {
     "audio_muse/user_id" = { owner = "audio_muse"; };
     "audio_muse/jellyfin_token" = { owner = "audio_muse"; };
+    "audio_muse/postgres/pw" = { owner = "audio_muse"; };
   };
 
   users.users.audio_muse = {
