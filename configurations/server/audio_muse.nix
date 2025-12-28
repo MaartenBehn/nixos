@@ -78,22 +78,17 @@ in {
     after = [ "network.target" ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 8000 ];
-  networking.firewall.allowedUDPPorts = [ 8000 ];
 
  
-    #services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    #name = "audio_muse.${domain}"; 
-    #value = {
-    #  enableACME = domain != local_domain;
-    #  forceSSL = domain != local_domain;
-    #  locations."/" = {
-    #    proxyPass = "http://172.17.0.1:8000/";
-    #  };
-    #
-  #  serverAliases = [
-    #      "www.audio_muse.${domain}"
-    #  ];
-    #};
-  #}) (domains ++ [ local_domain ]));
+  services.nginx.virtualHosts."audio_muse.home" = {
+    enableACME = false;
+    forceSSL = false;
+    locations."/" = {
+      proxyPass = "http://172.17.0.1:8000/";
+    };
+    
+    serverAliases = [
+          "www.audio_muse.home"
+      ];
+  };
 }
