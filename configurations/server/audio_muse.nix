@@ -21,6 +21,7 @@ let
     JELLYFIN_URL=http://127.0.0.1:8096/
     JELLYFIN_USER_ID=$USER_ID
     JELLYFIN_TOKEN=$TOKEN
+    FRONTEND_PORT=8088
     " > .env
 
     docker compose -f docker-compose.yaml up -d
@@ -65,6 +66,7 @@ in {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
       locations."/" = {
+        proxyPass = "http://127.0.0.1:8088/";
       };
 
       serverAliases = [
