@@ -30,8 +30,8 @@ in {
   imports = [ ../docker.nix ];
 
   sops.secrets = {
-    "audio_muse/user_id" = {};
-    "audio_muse/jellyfin_token" = {};
+    "audio_muse/user_id" = { owner = "audio_muse"; };
+    "audio_muse/jellyfin_token" = { owner = "audio_muse"; };
   };
 
   users.users.audio_muse = {
