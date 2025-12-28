@@ -39,12 +39,15 @@ let
 in {
   imports = [ ../docker.nix ];
 
-  services.postgresql.ensureUsers = [ 
-    { 
-      name = "audio_muse";
-      ensureDBOwnership = true;
-    }
-  ];
+  services.postgresql = {
+    ensureDatabases = [ "audio_muse" ];
+    ensureUsers = [ 
+      { 
+        name = "audio_muse";
+        ensureDBOwnership = true;
+      }
+    ];
+  };
 
   sops.secrets = {
     "audio_muse/user_id" = { owner = "audio_muse"; };
