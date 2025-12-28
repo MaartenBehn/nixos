@@ -72,6 +72,7 @@ in {
     path = with pkgs; [
       git
       docker
+      psql
       run
     ];
     script = "run";
