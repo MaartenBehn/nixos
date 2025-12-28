@@ -39,7 +39,7 @@ in {
     group = "docker";
   };
 
-  systemd.services.obsidian_export-valid = {
+  systemd.services.audio_muse-valid = {
     path = with pkgs; [
       git
       valid_check
