@@ -3,7 +3,7 @@ let
   valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/AudioMuse-AI" ]; then
       cd /srv 
-      git clone https://github.com/NeptuneHub/AudioMuse-AI.git
+      git clone https://github.com/MaartenBehn/AudioMuse-AI.git
       chown -R audio_muse:docker /srv/AudioMuse-AI
     fi
   '';
@@ -67,7 +67,7 @@ in {
       enableACME = domain != local_domain;
       forceSSL = domain != local_domain;
       locations."/" = {
-        proxyPass = "http://127.0.0.1:8088/";
+        proxyPass = "http://172.17.0.1:8088/";
       };
 
       serverAliases = [
