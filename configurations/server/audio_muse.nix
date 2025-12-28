@@ -23,7 +23,7 @@ let
     JELLYFIN_TOKEN=$TOKEN
     " > .env
 
-    docker compose -f deployment/docker-compose.yaml up -d
+    docker compose -f docker-compose.yaml up -d
   '';
   
 in {
