@@ -22,6 +22,7 @@ let
     JELLYFIN_USER_ID=$USER_ID
     JELLYFIN_TOKEN=$TOKEN
     FRONTEND_PORT=8088
+    POSTGRES_PORT=5433
     " > .env
 
     docker compose -f docker-compose.yaml up -d
