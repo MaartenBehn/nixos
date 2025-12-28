@@ -141,7 +141,7 @@
         ./server/mail.nix
         ./server/vaultwarden.nix
         ./server/landing_page.nix
-        ./server/plex.nix
+        ./server/audio_muse.nix
         
         ./server/debug_tools.nix
         
