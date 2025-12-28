@@ -11,7 +11,7 @@ let
     cd /srv/AudioMuse-AI
 
     POSTGRES_PW=$(cat ${config.sops.secrets."audio_muse/user_id".path})
-    psql db_name -c "ALTER USER audio_muse WITH PASSWORD '$POSTGRES_PW';"
+    psql audio_muse -c "ALTER USER audio_muse WITH PASSWORD '$POSTGRES_PW';"
 
     git pull
     cd deployment
