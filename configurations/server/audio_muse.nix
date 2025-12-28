@@ -77,14 +77,12 @@ in {
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
   };
-
-
  
   services.nginx.virtualHosts."audio_muse.home" = {
     enableACME = false;
     forceSSL = false;
     locations."/" = {
-      proxyPass = "http://172.17.0.1:8000/";
+      proxyPass = "http://172.0.0.1:8000/";
     };
     
     serverAliases = [
