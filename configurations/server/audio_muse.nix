@@ -77,8 +77,11 @@ in {
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
   };
+
+  networking.firewall.allowedTCPPorts = [ 8000 ];
+  networking.firewall.allowedUDPPorts = [ 8000 ];
  
-  services.nginx.virtualHosts."audio_muse.home" = {
+   services.nginx.virtualHosts."audio_muse.home" = {
     enableACME = false;
     forceSSL = false;
     locations."/" = {
