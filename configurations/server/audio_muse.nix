@@ -49,7 +49,6 @@ in {
 
   systemd.services.audio_muse-run = {
     path = with pkgs; [
-      sed
       git
       docker
       run
