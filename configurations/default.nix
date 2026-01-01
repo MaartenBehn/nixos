@@ -142,6 +142,7 @@
         ./server/vaultwarden.nix
         ./server/landing_page.nix
         ./server/audio_muse.nix
+        ./server/backup_music.nix
         
         ./server/debug_tools.nix
         
@@ -152,4 +153,11 @@
         ./wsl.nix
         ./networking.nix
       ] else []);
+
+
+  networking.firewall = {
+    allowedTCPPorts = [ 
+      42727
+    ];
+  };
 }

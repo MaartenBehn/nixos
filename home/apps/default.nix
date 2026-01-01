@@ -45,5 +45,7 @@
 
     #soulseekqt
     tradingview
+
+    ausweisapp
  ]);
 }
