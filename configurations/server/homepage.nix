@@ -85,12 +85,12 @@ in {
         Media = [
           {
             Jellyfin = {
-              href = "http://media.home/";
+              href = "http://media.stroby.org/";
               description = "Media Server";
               icon = "https://jellyfin.org/images/favicon.ico";
               widget = {
                 type = "jellyfin";
-                url = "http://media.home/";
+                url = "http://media.stroby.org/";
                 key = "{{${secret_vars.jellyfin.key}}}";
                 enableBlocks = true;
                 enableNowPlaying = true;
@@ -199,31 +199,38 @@ in {
           }
           {
             Notes = {
-              href = "http://notes.home";
+              href = "http://notes.stroby.org";
               icon = "https://obsidian.md/favicon.svg";
             };
           }
           {
             FileBrowser = {
-              href = "https://files.stroby.ipv64.de";
+              href = "https://files.stroby.org";
               icon = "https://filebrowser.org/static/logo.png";
             };
           }
           {
             Syncthing = {
-              href = "http://syncthing.home/";
+              href = "http://syncthing.stroby.org/";
               icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
           }
           {
             VSCode = {
-              href = "http://code.home/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-              icon = "https://code.visualstudio.com/assets/favicon.ico";
+              href = "http://code.stroby.org/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
+              icon = "https://www.nesabamedia.com/wp-content/uploads/2019/08/Visual-Studio-Code-Logo-1.png";
             };
           }
           {
-            Gallery = {
-              href = "http://gallery.home/";
+            Immich = {
+              href = "http://immich.stroby.org/";
+              description = "Fotos";
+              icon = "https://immich.app/favicon.ico";
+              widget = {
+                type = "immich";
+                url = "http://immich.stroby.org/";
+                key = "{{${secret_vars.immich.key}}}";
+              };
             };
           }
         ];

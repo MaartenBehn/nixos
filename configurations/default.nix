@@ -127,7 +127,6 @@
         ./server/filebrowser.nix
         ./server/minecraft.nix
         ./server/jellyfin.nix
-        ./server/gallery_demo.nix 
         ./server/qbittorrnt.nix
         ./server/obsidian_export.nix
         ./server/home_assistant.nix
@@ -153,11 +152,4 @@
         ./wsl.nix
         ./networking.nix
       ] else []);
-
-
-  networking.firewall = {
-    allowedTCPPorts = [ 
-      42727
-    ];
-  };
 }
