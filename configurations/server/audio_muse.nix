@@ -86,6 +86,9 @@ in {
     forceSSL = false;
     locations."/" = {
       proxyPass = "http://172.0.0.1:8000/";
+      extraConfig = ''
+          proxy_http_version 1.1;
+        '';      
     };
     
     serverAliases = [

@@ -34,6 +34,7 @@ let
     "study"
     "immich"
     "nextcloud"
+    "ellie_minibot_music"
   ];
 
   servers = [
