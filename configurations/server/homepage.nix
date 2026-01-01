@@ -87,12 +87,12 @@ in {
         Media = [
           {
             Jellyfin = {
-              href = "http://media.stroby.org/";
+              href = "https://media.stroby.org/";
               description = "Media Server";
               icon = "https://jellyfin.org/images/favicon.ico";
               widget = {
                 type = "jellyfin";
-                url = "http://media.stroby.org/";
+                url = "https://media.stroby.org/";
                 key = "{{${secret_vars.jellyfin.key}}}";
                 enableBlocks = true;
                 enableNowPlaying = true;
@@ -225,12 +225,12 @@ in {
           }
           {
             Immich = {
-              href = "http://immich.stroby.org/";
+              href = "https://immich.stroby.org/";
               description = "Fotos";
               icon = "https://immich.app/favicon.ico";
               widget = {
                 type = "immich";
-                url = "http://immich.stroby.org/";
+                url = "https://immich.stroby.org/";
                 key = "{{${secret_vars.immich.key}}}";
                 version = 2;
               };
