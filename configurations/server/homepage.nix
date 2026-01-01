@@ -12,6 +12,8 @@ let
     "whisparr/key"
     
     "home_assistant/key"
+    
+    "immich/key"
   ];
 
   to_var = (s: "HOMEPAGE_FILE_${lib.toUpper (builtins.replaceStrings ["/"] ["_"] s)}");
@@ -230,6 +232,7 @@ in {
                 type = "immich";
                 url = "http://immich.stroby.org/";
                 key = "{{${secret_vars.immich.key}}}";
+                version = 2;
               };
             };
           }
