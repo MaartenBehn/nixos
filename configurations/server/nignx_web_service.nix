@@ -8,8 +8,8 @@
   };
 
   config = {
-    services.nginx.virtualHosts = builtins.map (sub_domain: 
-      builtins.listToAttrs (builtins.map (domain: {
+    services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (sub_domain: 
+      builtins.map (domain: {
         name = "${sub_domain}.${domain}"; 
         value = {
           enableACME = domain != "local";
@@ -19,7 +19,7 @@
             "www.${sub_domain}.${domain}"
           ];
         };
-      }) config.domains.all))
-      (builtins.attrNames config.web_services);
+      }) config.domains.all)
+      (builtins.attrNames config.web_services));
   };
 }
