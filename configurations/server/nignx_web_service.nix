@@ -2,36 +2,24 @@
 {
   options = {
     web_services = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
-        options = {
-          sub_domain = lib.mkOption {
-            description = "The subdomain in <this>.stroby.org";
-            type = lib.types.str;
-          };
-
-          config = lib.mkOption {
-            description = "Get passed into services.nginx.virtualHosts.locations.\"/\"";
-            type = lib.types.attrs;
-          };
-        };
-      });
+      type = lib.types.attrsOf lib.types.attrs;
+      description = "Get passed into services.nginx.virtualHosts.locations.\"/\"";
     };
   };
 
   config = {
-
-    services.nginx.virtualHosts = builtins.map (web_service: 
+    services.nginx.virtualHosts = builtins.map (sub_domain: 
       builtins.listToAttrs (builtins.map (domain: {
-        name = "${web_service.sub_domain}.${domain}"; 
+        name = "${sub_domain}.${domain}"; 
         value = {
           enableACME = domain != "local";
           forceSSL = domain != "local";
-          locations."/" = web_service.config; 
+          locations."/" = builtins.getAttr sub_domain config.web_services; 
           serverAliases = [
-            "www.${web_service.sub_domain}.${domain}"
+            "www.${sub_domain}.${domain}"
           ];
         };
-      }) config.domains.all)
-      config.web_services);
+      }) config.domains.all))
+      (builtins.attrNames config.web_services);
   };
 }
