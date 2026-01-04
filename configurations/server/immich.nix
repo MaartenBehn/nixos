@@ -1,4 +1,4 @@
-{ domains, local_domain, config, pkgs, ... }: 
+{ config, pkgs, ... }: 
 let 
   default_borg_settings = import ./borg_settings.nix;
   fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
@@ -32,8 +32,8 @@ in {
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "immich.${domain}"; 
     value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
+      enableACME = domain != "local";
+      forceSSL = domain != "local";
       locations."/" = {
         proxyPass = "http://[::1]:${toString config.services.immich.port}";
         proxyWebsockets = true;
@@ -50,7 +50,7 @@ in {
         "www.immich.${domain}"
       ];
     };
-  }) (domains ++ [ local_domain ]));
+  }) (config.domains.all));
 
   systemd.services.borgbackup-job-fritz_behns_immich = {
     vpnConfinement = {

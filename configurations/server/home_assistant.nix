@@ -1,4 +1,4 @@
-{ local_domain, ... }: {
+{ ... }: {
   imports = [
     ./mosquitto.nix
   ];
@@ -30,7 +30,7 @@
     };
   };
 
-  services.nginx.virtualHosts."home.${local_domain}" = {  
+  services.nginx.virtualHosts."home.local" = {  
     enableACME = false;
     forceSSL = false;
 
@@ -40,7 +40,7 @@
     };
 
     serverAliases = [
-      "www.home.${local_domain}"
+      "www.home.local"
     ];
   };
 }

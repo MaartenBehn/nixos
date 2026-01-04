@@ -1,4 +1,4 @@
-{ local_domain, config, lib, inputs, ... }: 
+{ config, lib, inputs, ... }: 
 let
   secrets = [
     "jellyfin/key"
@@ -271,13 +271,13 @@ in {
   };
 
   services.nginx.virtualHosts = {
-    "main.${local_domain}" = {
+    "main.local" = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:8085/"; 
       };
 
       serverAliases = [
-        "www.main.${local_domain}"
+        "www.main.local"
       ];
     };
   };
