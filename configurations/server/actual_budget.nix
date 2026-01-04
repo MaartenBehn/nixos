@@ -148,28 +148,19 @@ in {
 
   systemd.services = systemd_services;
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "budget.${domain}"; 
-    value = { 
-      enableACME = true;
-      forceSSL = true;
+  web_services."budget" = {
+    domains = "public";
+    loc = {
+      proxyPass = "http://127.0.0.1:5006/";
+      proxyWebsockets = true;
 
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:5006/";
-        proxyWebsockets = true;
-
-        extraConfig = ''
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header Host $host;
-        '';
-      };
-
-      serverAliases = [
-        "www.budget.${domain}"
-      ];
+      extraConfig = ''
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+      '';
     };
-  }) (domains));
-
+  };
+  
   # Backups 
   services.borgbackup.jobs = backup_jobs;
 }

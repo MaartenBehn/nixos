@@ -12,7 +12,7 @@
  
           loc = lib.mkOption {
             type = lib.types.attrs;
-            description = "Get passed into services.nginx.virtualHosts.locations.\"/\"";
+            description = "Gets passed into services.nginx.virtualHosts.*.locations.\"/\"";
           };
         };
       });
