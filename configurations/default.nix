@@ -46,6 +46,8 @@
         ./server/algo_trading.nix
         ./virtualbox.nix
 
+        ./smb.nix
+
       ] else [])
     ++ (if host == "desktop" then
       [
