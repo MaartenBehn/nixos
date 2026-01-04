@@ -8,7 +8,7 @@
   };
 
   config = {
-    services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (sub_domain: 
+    services.nginx.virtualHosts = builtins.listToAttrs (lib.lists.flatten (builtins.map (sub_domain: 
       builtins.map (domain: {
         name = "${sub_domain}.${domain}"; 
         value = {
@@ -20,6 +20,6 @@
           ];
         };
       }) config.domains.all)
-      (builtins.attrNames config.web_services));
+      (builtins.attrNames config.web_services)));
   };
 }
