@@ -107,50 +107,19 @@
       [
         ../hardware-configuration.nix
         
-        # Drive
+        # Drivers
         ./bootloader.nix
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./battery.nix
         ./keep_on_with_closed_lid.nix
         ./wireguard.nix
-        ./server/data_drive.nix
-        ./server/error_notify.nix
-
-        # Server
-        ./server/network.nix
-        ./server/duckdns.nix
-        ./server/blocky.nix
-        ./server/ipv64.nix
-        ./server/cloudflare_dyndns.nix
-        ./server/homepage.nix
-        ./server/syncthing.nix
-        ./server/vscode_server.nix
-        ./server/filebrowser.nix
-        ./server/minecraft.nix
-        ./server/jellyfin.nix
-        ./server/qbittorrnt.nix
-        ./server/obsidian_export.nix
-        ./server/home_assistant.nix
-        ./server/actual_budget.nix
-        ./server/notes.nix
-        ./server/immich.nix
-        ./server/nextcloud.nix
-        ./server/baikal.nix
-        ./server/manage_my_damn_life.nix
-        ./server/ntfy.nix
-        ./server/mail.nix
-        ./server/vaultwarden.nix
-        ./server/landing_page.nix
-        ./server/audio_muse.nix
-        ./server/backup_music.nix
         
-        ./server/debug_tools.nix
-        
+        ./server        
       ] else [])
     ++ (if host == "wsl" then
       [
-        # Drive
+        # Drivers
         ./wsl.nix
         ./networking.nix
       ] else []);
