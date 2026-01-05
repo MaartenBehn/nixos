@@ -78,17 +78,11 @@ in {
       }
     ];
   };
-
-  services.nginx.virtualHosts = {
-
-    "slskd.${local_domain}" = {
-      locations."/" = {
-        proxyPass = lib.mkForce "http://192.168.15.1:5030/"; 
-      };
-
-      serverAliases = [
-        "www.slskd.${local_domain}"
-      ];
+  
+  web_services."slskd" = {
+    domains = "local";
+    loc = {
+      proxyPass = lib.mkForce "http://192.168.15.1:5030/"; 
     };
   };
 }

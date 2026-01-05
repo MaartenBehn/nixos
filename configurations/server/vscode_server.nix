@@ -17,21 +17,13 @@
     serviceConfig.User = "stroby";
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "code.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8081/"; 
-        proxyWebsockets = true;
-      };
-
-      serverAliases = [
-        "www.code.${domain}"
-      ];
+  web_services."code" = {
+    domains = "all";
+    loc = {
+      proxyPass = "http://127.0.0.1:8081/"; 
+      proxyWebsockets = true;
     };
-  }) (domains ++ [ local_domain ]));
+  };
 }
 
 /*

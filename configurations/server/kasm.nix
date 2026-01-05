@@ -13,25 +13,14 @@
     ];
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "kasm.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-
-      locations."/" = {
-        #proxyPass = "http://192.168.15.1:8087/"; 
-        proxyPass = "https://127.0.0.1:8087/"; 
-        proxyWebsockets = true;
-      };
-
-      serverAliases = [
-        "www.kasm.${domain}"
-      ];
+  web_services."kasm" = {
+    domains = "local";
+    loc = {
+      proxyPass = "https://127.0.0.1:8087/"; 
+      proxyWebsockets = true;
     };
-  }) (domains ++ [ local_domain ]));
-
-
+  };
+ 
   /*
     # Device: Exotic Snake
 

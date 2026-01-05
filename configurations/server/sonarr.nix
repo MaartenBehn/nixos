@@ -20,16 +20,10 @@
     ];
   };
 
-  services.nginx.virtualHosts = {
-
-    "sonarr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8989/"; 
-      };
-
-      serverAliases = [
-        "www.sonarr.${local_domain}"
-      ];
+  web_services."sonarr" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:8989/"; 
     };
   };
 }

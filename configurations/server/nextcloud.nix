@@ -1,6 +1,6 @@
 { pkgs, config, ... }: 
 let 
-  cloud_domain = "cloud.stroby.ipv64.de";
+  cloud_domain = "cloud.stroby.org";
   default_borg_settings = import ./borg_settings.nix;
 in {
   imports = [ ./borg.nix ];

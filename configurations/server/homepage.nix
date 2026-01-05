@@ -270,15 +270,10 @@ in {
     customCSS = "";
   };
 
-  services.nginx.virtualHosts = {
-    "main.local" = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8085/"; 
-      };
-
-      serverAliases = [
-        "www.main.local"
-      ];
+  web_services."main" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://127.0.0.1:8085/"; 
     };
   };
 }

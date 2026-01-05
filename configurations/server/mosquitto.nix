@@ -18,17 +18,11 @@
     allowedTCPPorts = [ 1883 ];
   };
 
-  services.nginx.virtualHosts."mqtt.${local_domain}" = {  
-    enableACME = false;
-    forceSSL = false;
-
-    locations."/" = {
+  web_services."mqtt" = {
+    domains = "local";
+    loc = {
       proxyPass = "http://127.0.0.1:1883/";
       proxyWebsockets = true;
     };
-
-    serverAliases = [
-      "www.mqtt.${local_domain}"
-    ];
   };
 }

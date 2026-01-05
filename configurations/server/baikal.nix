@@ -1,4 +1,4 @@
-{ local_domain, domains, config, ... }: {
+{ config, ... }: {
   services.baikal = {
     enable = true;
   };
@@ -10,8 +10,8 @@
   services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
     name = "baikal.${domain}"; 
     value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
+      enableACME = domain != "local";
+      forceSSL = domain != "local";
       root = "${config.services.baikal.package}/share/php/baikal/html";
       locations = {
         "/" = {
@@ -44,5 +44,5 @@
         "www.baikal.${domain}"
       ];
     };
-  }) (domains ++ [ local_domain ]));
+  }) (config.domains.all));
 }

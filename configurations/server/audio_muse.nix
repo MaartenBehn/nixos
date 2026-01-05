@@ -80,16 +80,12 @@ in {
 
   networking.firewall.allowedTCPPorts = [ 8000 ];
   networking.firewall.allowedUDPPorts = [ 8000 ];
- 
-   services.nginx.virtualHosts."audio_muse.home" = {
-    enableACME = false;
-    forceSSL = false;
-    locations."/" = {
+
+  web_services."audio_muse" = {
+    domains = "local";
+    loc = {
       proxyPass = "http://172.17.0.1:8000/";
+      proxyWebsockets = true;
     };
-    
-    serverAliases = [
-          "www.audio_muse.home"
-      ];
   };
 }

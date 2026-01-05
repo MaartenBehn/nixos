@@ -1,4 +1,4 @@
-{ local_domain, ... }: {
+{ ... }: {
   users.groups.media.members = [ "radarr" ];
 
   services.radarr = { 
@@ -20,16 +20,10 @@
     ];
   };
 
-  services.nginx.virtualHosts = {
-
-    "radarr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:7878/"; 
-      };
-
-      serverAliases = [
-        "www.radarr.${local_domain}"
-      ];
+  web_services."radarr" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:7878/"; 
     };
   };
 }

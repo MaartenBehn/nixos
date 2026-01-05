@@ -30,17 +30,11 @@
     };
   };
 
-  services.nginx.virtualHosts."home.local" = {  
-    enableACME = false;
-    forceSSL = false;
-
-    locations."/" = {
+  web_services."home" = {
+    domains = "local";
+    loc = {
       proxyPass = "http://127.0.0.1:8123/";
       proxyWebsockets = true;
     };
-
-    serverAliases = [
-      "www.home.local"
-    ];
   };
 }

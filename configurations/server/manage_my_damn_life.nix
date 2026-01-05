@@ -55,18 +55,10 @@ in {
     serviceConfig.User = "mmdl";
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "calendar.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:3000/"; 
-      };
-
-      serverAliases = [
-        "www.calendar.${domain}"
-      ];
+  web_services."calendar" = {
+    domains = "all";
+    loc = {
+      proxyPass = "http://127.0.0.1:3000/";
     };
-  }) (domains ++ [ local_domain ]));
+  };
 }

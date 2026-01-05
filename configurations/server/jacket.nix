@@ -39,27 +39,19 @@
     ];
   };
 
-  services.nginx.virtualHosts = { 
-    "jackett.${local_domain}" = {
-      locations."/" = {
+  web_services = {
+    "jackett" = {
+      domains = "local";
+      loc = {
         proxyPass = "http://192.168.15.1:9117/"; 
       };
-
-      serverAliases = [
-        "www.jackett.${local_domain}"
-      ];
     };
 
-    "flaresolverr.${local_domain}" = {
-      locations."/" = {
+    "flaresolverr" = {
+      domains = "local";
+      loc = {
         proxyPass = "http://192.168.15.1:8191/"; 
       };
-
-      serverAliases = [
-        "www.jackett.${local_domain}"
-      ];
     };
   };
-
-
 }

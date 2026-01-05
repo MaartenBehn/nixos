@@ -70,15 +70,10 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."autoconfig.stroby.org" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
+  web_services."autoconfig" = {
+    domains = "public";
+    loc = {
       proxyPass = "http://127.0.0.1:1323";
     };
-
-    serverAliases = [
-      "www.autoconfig.stroby.org"
-    ];
   };
 }

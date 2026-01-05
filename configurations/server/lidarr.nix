@@ -58,17 +58,11 @@ in {
       }
     ];
   };
-
-  services.nginx.virtualHosts = {
-
-    "lidarr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8686/"; 
-      };
-
-      serverAliases = [
-        "www.lidarr.${local_domain}"
-      ];
+  
+  web_services."lidarr" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:8686/"; 
     };
   };
 }

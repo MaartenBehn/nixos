@@ -60,26 +60,18 @@
     };
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "vaultwarden.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
-        proxyWebsockets = true;
-        recommendedProxySettings = true;
-        extraConfig = ''
+  web_services."vaultwarden" = {
+    domains = "all";
+    loc = {
+      proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+      proxyWebsockets = true;
+      recommendedProxySettings = true;
+      extraConfig = ''
           client_max_body_size 50000M;
           proxy_read_timeout   600s;
           proxy_send_timeout   600s;
           send_timeout         600s;
-        '';      
-      };
-
-      serverAliases = [
-        "www.vaultwarden.${domain}"
-      ];
+      '';      
     };
-  }) (domains ++ [ local_domain ]));
+  };
 }

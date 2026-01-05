@@ -74,21 +74,13 @@ in {
     serviceConfig.User = "obsidian_export";
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "notes.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-        root = "/srv/obsidian_export/quartz/public";
-        extraConfig = '' 
-          try_files $uri $uri.html /index.html =404;
-        '';
-      };
-
-      serverAliases = [
-        "www.notes.${domain}"
-      ];
+  web_services."notes" = {
+    domains = "all";
+    loc = {
+      root = "/srv/obsidian_export/quartz/public";
+      extraConfig = '' 
+        try_files $uri $uri.html /index.html =404;
+      '';
     };
-  }) (domains ++ [ local_domain ]));
+  };
 }

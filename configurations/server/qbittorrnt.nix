@@ -58,17 +58,10 @@
     serviceConfig.User = "stroby";
   };
 
-  
-  services.nginx.virtualHosts = {
-
-    "qbittorrent.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:8083/"; 
-      };
-
-      serverAliases = [
-        "www.qbittorrent.${local_domain}"
-      ];
+  web_services."qbittorrent" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:8083/"; 
     };
   };
 }

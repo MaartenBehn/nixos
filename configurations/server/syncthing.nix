@@ -26,19 +26,11 @@
    networking.firewall.allowedUDPPorts = [ 22000 21027 ];
 
   users.groups.notes.members = [ "syncthing" ];
- 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "syncthing.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8384/"; 
-      };
 
-      serverAliases = [
-        "www.syncthing.${domain}"
-      ];
+  web_services."syncthing" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://127.0.0.1:8384/"; 
     };
-  }) (domains ++ [ local_domain ]));
+  };
 }

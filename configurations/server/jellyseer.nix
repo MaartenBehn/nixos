@@ -18,16 +18,10 @@
     ];
   };
 
-  services.nginx.virtualHosts = {
-
-    "seerr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:5055/"; 
-      };
-
-      serverAliases = [
-        "www.seerr.${local_domain}"
-      ];
+  web_services."seer" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:5055/"; 
     };
   };
 } 

@@ -20,16 +20,10 @@
     ];
   };
 
-  services.nginx.virtualHosts = {
-
-    "whisparr.${local_domain}" = {
-      locations."/" = {
-        proxyPass = "http://192.168.15.1:6969/"; 
-      };
-
-      serverAliases = [
-        "www.whisparr.${local_domain}"
-      ];
+  web_services."whisparr" = {
+    domains = "local";
+    loc = {
+      proxyPass = "http://192.168.15.1:6969/"; 
     };
   };
 }
