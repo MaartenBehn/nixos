@@ -67,7 +67,7 @@ in {
     enable = true;
     #package = pkgs-unstable.homepage-dashboard;
     listenPort = 8085;
-    allowedHosts = "main.home,127.0.0.1:8085";
+    allowedHosts = "main.local,127.0.0.1:8085";
 
     settings = {
       title = "Stroby's Home Server";
