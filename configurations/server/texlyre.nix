@@ -3,7 +3,7 @@ let
    valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/texlyre" ]; then
       cd /srv 
-      git clone https://github.com/TeXlyre/texlyre.git texlyre
+      git clone https://github.com/MaartenBehn/texlyre.git texlyre
       chown -R texlyre:nginx /srv/texlyre
     fi
   '';
