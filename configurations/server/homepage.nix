@@ -105,12 +105,12 @@ in {
           }
           {
             Qbittorrent = {
-              href = "http://qbittorrent.home/";
+              href = "http://qbittorrent.local/";
               description = "Torrent Downloader";
               icon = "https://www.qbittorrent.org/favicon.svg";
               widget = {
                 type = "qbittorrent";
-                url = "http://qbittorrent.home/";
+                url = "http://qbittorrent.local/";
                 username = "{{${secret_vars.qbittorrent.username}}}";
                 password = "{{${secret_vars.qbittorrent.password}}}";
                 enableLeechProgress = true;
@@ -119,36 +119,36 @@ in {
           }
           {
             Prowlarr = {
-              href = "http://prowlarr.home/";
+              href = "http://prowlarr.local/";
               description = "Indexer Manager";
               icon = "https://prowlarr.com/logo/128.png";
               widget = {
                 type = "prowlarr";
-                url = "http://prowlarr.home/";
+                url = "http://prowlarr.local/";
                 key = "{{${secret_vars.prowlarr.key}}}";
               };
             };
           }
           {
             Sonarr = {
-              href = "http://sonarr.home/";
+              href = "http://sonarr.local/";
               description = "Show Search Engine";
               icon = "https://sonarr.tv/img/logo.png";
               widget = {
                 type = "sonarr";
-                url = "http://sonarr.home/";
+                url = "http://sonarr.local/";
                 key = "{{${secret_vars.sonarr.key}}}";
               };
             };
           }
           {
             Radarr = {
-              href = "http://radarr.home/";
+              href = "http://radarr.local/";
               description = "Movie Search Engine";
               icon = "https://radarr.video/img/logo.png";
               widget = {
                 type = "radarr";
-                url = "http://radarr.home/";
+                url = "http://radarr.local/";
                 key = "{{${secret_vars.radarr.key}}}";
                 enableQueue = true;
               };
@@ -156,19 +156,19 @@ in {
           }
           {
             Lidarr = {
-              href = "http://lidarr.home/";
+              href = "http://lidarr.local/";
               description = "Music Search Engine";
               icon = "https://lidarr.audio/img/logo.png";
               widget = {
                 type = "lidarr";
-                url = "http://lidarr.home/";
+                url = "http://lidarr.local/";
                 key = "{{${secret_vars.lidarr.key}}}";
               };
             };
           }
           {
             Whisparr = {
-              href = "http://whisparr.home/";
+              href = "http://whisparr.local/";
               description = "Adult Search Engine";
               icon = "https://whisparr.org/wp-content/uploads/2024/12/256.png";
             };
@@ -179,12 +179,12 @@ in {
         Data = [
           {
             HomeAssistant = {
-              href = "http://home.home/";
+              href = "http://home.local/";
               description = "Smart Home";
               icon = "https://upload.wikimedia.org/wikipedia/commons/a/ab/New_Home_Assistant_logo.svg";
               widget = {
                 type = "homeassistant";
-                url = "http://home.home/";
+                url = "http://home.local/";
                 key = "{{${secret_vars.home_assistant.key}}}";
                 custom = [
                   {
