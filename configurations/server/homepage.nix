@@ -217,12 +217,12 @@ in {
               icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
           }
-          {
-            VSCode = {
-              href = "http://code.stroby.org/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
-              icon = "https://www.nesabamedia.com/wp-content/uploads/2019/08/Visual-Studio-Code-Logo-1.png";
-            };
-          }
+          #{
+            #VSCode = {
+              #href = "http://code.stroby.org/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
+              #icon = "https://www.nesabamedia.com/wp-content/uploads/2019/08/Visual-Studio-Code-Logo-1.png";
+           #};
+          #}
           {
             Immich = {
               href = "https://immich.stroby.org/";
