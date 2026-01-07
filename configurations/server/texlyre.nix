@@ -8,15 +8,11 @@ let
     fi
   '';
 
-  init = pkgs.writeShellScriptBin "init" ''
+  build = pkgs.writeShellScriptBin "build" ''
     cd /srv/texlyre
     npm install
+    npm run build:prod
   '';
-
-  run = pkgs.writeShellScriptBin "run" ''
-    cd /srv/texlyre
-    npm run start
-    ''; 
 in {
 
   users.users.texlyre = {
@@ -32,31 +28,23 @@ in {
     script = "valid_check";
   };
 
-  systemd.services.texlyre-init = {
+  systemd.services.texlyre-build = {
     path = with pkgs; [
       nodejs
       bash
-      init
+      build
     ];
-    script = "init";
+    script = "build";
     serviceConfig.User = "texlyre";
   };
- 
-  systemd.services.texlyre = {
-    path = with pkgs; [
-      nodejs
-      bash
-      run
-    ];
-    script = "run";
-    wantedBy = [ "network-online.target" ];
-    serviceConfig.User = "texlyre";
-  };
-
+  
   web_services."texlyre" = {
     domains = "all";
     loc = {
-      proxyPass = "http://localhost:4173/texlyre/";
+      root = "/srv/texlyre/result";
+      extraConfig = '' 
+        try_files $uri $uri.html /index.html =404;
+      '';
     };
   };
 }
