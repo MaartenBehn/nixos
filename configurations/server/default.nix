@@ -38,6 +38,7 @@
     ./vaultwarden.nix
     ./audio_muse.nix
     ./qbittorrnt.nix
+    ./texlyre.nix
    
     # Game servers
     ./minecraft.nix

@@ -1,4 +1,4 @@
-{ domains, local_domain, config, pkgs, ... }: {
+{ config, pkgs, ... }: {
 
   sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
 
