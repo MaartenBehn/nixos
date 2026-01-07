@@ -13,7 +13,7 @@ let
     npm install
   '';
 
-  run = pkgs.writeShellScriptBin "mmdl" ''
+  run = pkgs.writeShellScriptBin "run" ''
     cd /srv/texlyre
     npm run start
     ''; 
