@@ -27,7 +27,7 @@
     ./syncthing.nix
     ./filebrowser.nix
     ./jellyfin.nix
-    ./vscode_server.nix
+    #./vscode_server.nix
     ./obsidian_export.nix
     ./home_assistant.nix
     ./actual_budget.nix
@@ -38,7 +38,7 @@
     ./vaultwarden.nix
     ./audio_muse.nix
     ./qbittorrnt.nix
-    ./texlyre.nix
+    #./texlyre.nix
    
     # Game servers
     ./minecraft.nix

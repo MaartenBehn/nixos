@@ -10,6 +10,7 @@ let
 
   build = pkgs.writeShellScriptBin "build" ''
     cd /srv/texlyre
+    git pull
     npm install
     npm run build:prod
   '';
@@ -32,6 +33,7 @@ in {
     path = with pkgs; [
       nodejs
       bash
+      git
       build
     ];
     script = "build";
