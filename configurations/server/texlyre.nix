@@ -41,7 +41,7 @@ in {
   web_services."texlyre" = {
     domains = "all";
     loc = {
-      root = "/srv/texlyre/result";
+      root = "/srv/texlyre/dist";
       extraConfig = '' 
         try_files $uri $uri.html /index.html =404;
       '';
