@@ -9,7 +9,7 @@ let
 
     if [ ! -d "/srv/AudioMuse-AI-MusicServer" ]; then
       cd /srv 
-      git clone https://github.com/NeptuneHub/AudioMuse-AI-MusicServer.git
+      git clone https://github.com/MaartenBehn/AudioMuse-AI-MusicServer.git
       chown -R audio_muse:nginx /srv/AudioMuse-AI-MusicServer
     fi
   '';
