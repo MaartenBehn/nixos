@@ -56,6 +56,7 @@ let
 
   run_server = pkgs.writeShellScriptBin "run_server" ''
     cd /srv/AudioMuse-AI-MusicServer/music-server-backend
+    DATABASE_PATH="/home/audio_muse/.config/audio_muse_server/music.db"
     ./music-server  
   '';
   
@@ -144,7 +145,7 @@ in {
     "audio_muse_server" = {
       domains = "local";
       loc = {
-        root = "/srv/AudioMuse-AI-MusicServer/music-server-frontend/dist";
+        root = "/srv/AudioMuse-AI-MusicServer/music-server-frontend/public";
         extraConfig = '' 
           try_files $uri $uri.html /index.html =404;
         '';
