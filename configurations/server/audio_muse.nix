@@ -153,4 +153,12 @@ in {
       };
     };
   };
+
+  services.nginx.virtualHosts."audio_muse_server.local" = {
+    locations = {
+      "/api" = {
+        proxyPass = "http://172.0.0.1:8001/api";
+      };
+    };
+  };
 }
