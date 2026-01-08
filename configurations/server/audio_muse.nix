@@ -147,7 +147,7 @@ in {
     "audio_muse_server" = {
       domains = "local";
       loc = {
-        proxyPass = "http://172.0.0.1:8081";
+        proxyPass = "http://172.0.0.1:8081/";
       };
     };
   };
