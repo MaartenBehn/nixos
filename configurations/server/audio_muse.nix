@@ -112,6 +112,7 @@ in {
     path = with pkgs; [
       git
       go
+      gccgo
       nodejs
       build_server
     ];
