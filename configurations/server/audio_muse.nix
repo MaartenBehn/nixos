@@ -124,7 +124,8 @@ in {
   };
 
   systemd.services.audio_muse_server-run = {
-    path = [
+    path = with pkgs; [
+      ffmpeg
       run_server
     ];
     script = "run_server";
