@@ -147,18 +147,7 @@ in {
     "audio_muse_server" = {
       domains = "local";
       loc = {
-        root = "/srv/AudioMuse-AI-MusicServer/music-server-frontend/build";
-        extraConfig = '' 
-          try_files $uri $uri.html /index.html =404;
-        '';
-      };
-    };
-  };
-
-  services.nginx.virtualHosts."audio_muse_server.local" = {
-    locations = {
-      "/api" = {
-        proxyPass = "http://172.0.0.1:8001/api";
+        proxyPass = "http://172.0.0.1:8001";
       };
     };
   };
