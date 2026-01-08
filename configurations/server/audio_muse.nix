@@ -147,7 +147,7 @@ in {
     "audio_muse_server" = {
       domains = "local";
       loc = {
-        root = "/srv/AudioMuse-AI-MusicServer/music-server-frontend/public";
+        root = "/srv/AudioMuse-AI-MusicServer/music-server-frontend/build";
         extraConfig = '' 
           try_files $uri $uri.html /index.html =404;
         '';
