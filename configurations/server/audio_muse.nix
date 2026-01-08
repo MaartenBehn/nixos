@@ -116,6 +116,7 @@ in {
       go
       gccgo
       nodejs
+      bash
       build_server
     ];
     script = "build_server";
