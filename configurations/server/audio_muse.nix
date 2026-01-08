@@ -56,7 +56,7 @@ let
 
   run_server = pkgs.writeShellScriptBin "run_server" ''
     cd /srv/AudioMuse-AI-MusicServer/music-server-backend
-    DATABASE_PATH=/home/audio_muse/.config/audio_muse_server/music.db;
+    export DATABASE_PATH=/home/audio_muse/.config/audio_muse_server/music.db;
     echo $DATABASE_PATH;
     ./music-server  
   '';
