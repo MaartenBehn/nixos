@@ -51,6 +51,7 @@ let
 
     cd ../music-server-frontend
     npm install
+    PUBLIC_URL="";
     npm build
   '';
 
