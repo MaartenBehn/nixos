@@ -10,7 +10,7 @@ let
     if [ ! -d "/srv/AudioMuse-AI-MusicServer" ]; then
       cd /srv 
       git clone https://github.com/NeptuneHub/AudioMuse-AI-MusicServer.git
-      chown -R audio_muse:docker /srv/AudioMuse-AI-MusicServer
+      chown -R audio_muse:nginx /srv/AudioMuse-AI-MusicServer
     fi
   '';
   run = pkgs.writeShellScriptBin "run" ''
@@ -56,7 +56,7 @@ let
 
   run_server = pkgs.writeShellScriptBin "run_server" ''
     cd /srv/AudioMuse-AI-MusicServer/music-server-backend
-    DATABASE_PATH="/home/audio_muse/.config/audio_muse_server/music.db"
+    DATABASE_PATH=/home/audio_muse/.config/audio_muse_server/music.db
     ./music-server  
   '';
   
