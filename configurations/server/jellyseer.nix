@@ -18,7 +18,7 @@
     ];
   };
 
-  web_services."seer" = {
+  web_services."seerr" = {
     domains = "local";
     loc = {
       proxyPass = "http://192.168.15.1:5055/"; 
