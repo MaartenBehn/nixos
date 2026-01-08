@@ -51,8 +51,7 @@ let
 
     cd ../music-server-frontend
     npm install
-    PUBLIC_URL="";
-    npm build
+    npm run build
   '';
 
   run_server = pkgs.writeShellScriptBin "run_server" ''
