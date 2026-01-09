@@ -68,7 +68,7 @@
     "duplicates"
 
     # Find matches using Discogs
-    "discogs"
+    #"discogs"
 
     # Submit fingerprints to acoustid for easier identification in
     # the future.
@@ -171,7 +171,7 @@
 
   musicbrainz = {
     external_ids = {
-      discogs = true;
+      #discogs = true;
       spotify = true;
       bandcamp = true;
       beatport = true;
