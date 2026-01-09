@@ -76,7 +76,7 @@ in
     settings =
       (import ./settings.nix rec {
         inherit (pkgs) essentia-extractor keyfinder-cli;
-        cache-dir = "/var/lib/beets";
+        cache-dir = "/home/stroby/.config/beets";
         music-dir = "/media/music";
         playlist-dir = "${cache-dir}/playlists";
         essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
