@@ -72,7 +72,7 @@ in
 
   programs.beets = {
     enable = true;
-    package = my-beets;
+    #package = my-beets;
     settings =
       (import ./settings.nix rec {
         inherit (pkgs) essentia-extractor keyfinder-cli;
@@ -80,8 +80,8 @@ in
         music-dir = "/media/music";
         playlist-dir = "${cache-dir}/playlists";
         essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
-      })
-      // (import ../../../../secrets/sun/beets.nix { });
+      });
+      #// (import ../../../../secrets/sun/beets.nix { });
   };
 
   # TODO: Download the models to the beets cache dir:
