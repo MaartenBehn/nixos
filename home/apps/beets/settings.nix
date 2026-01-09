@@ -36,7 +36,7 @@
     "replaygain"
 
     # Apply permissions to imported tracks
-    "permissions"
+    #"permissions"
 
     # Fetches and stores song lyrics from databases on the Web
     #"lyrics"
