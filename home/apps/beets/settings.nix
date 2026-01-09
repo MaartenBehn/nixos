@@ -42,7 +42,7 @@
     "lyrics"
 
     # Interact with the listenbrainz service
-    "listenbrainz"
+    #"listenbrainz"
 
     # Detect the musical key of a track from its audio data and
     # store it in the initial_key field of the beets database.
