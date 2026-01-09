@@ -39,7 +39,7 @@
     "permissions"
 
     # Fetches and stores song lyrics from databases on the Web
-    "lyrics"
+    #"lyrics"
 
     # Interact with the listenbrainz service
     #"listenbrainz"
@@ -129,8 +129,8 @@
   };
 
   permissions = {
-    file = "644";
-    dir = "755";
+    file = "777";
+    dir = "777";
   };
 
   importfeeds = {
