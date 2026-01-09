@@ -69,6 +69,7 @@ let
       );
 in
 {
+  home.packages = (with pkgs; [ flac ]);
 
   programs.beets = {
     enable = true;
