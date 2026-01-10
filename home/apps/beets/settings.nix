@@ -76,7 +76,7 @@
     "chroma"
 
     # Check for missing and corrupt files
-    "badfiles"
+    #"badfiles"
 
     # Obtain low and high level musical information from your songs
     # (bpm, danceability, etc).
