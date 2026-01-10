@@ -117,6 +117,13 @@
             ];
       };
     };
+    low_level_targets = {
+      bpm = {
+        path = "rhythm.bpm";
+        type = "integer";
+        required = true;
+      };
+    };
   };
 
   ui = {
