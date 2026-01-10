@@ -43,7 +43,7 @@ let
     # In this case, I believe that because the base package doesn't
     # have any propagatedBuildInputs, I need to make a new
     # derivation to add this.
-    (pkgs.python313Packages.beets.override {
+    (pkgs.python3Packages.beets.override {
       pluginOverrides = {
         xtractor = {
           enable = true;
