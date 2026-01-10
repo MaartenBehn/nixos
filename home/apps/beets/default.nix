@@ -55,10 +55,10 @@ let
           propagatedBuildInputs = [ beets-plugin-lidarrfields ];
         };
 
-        check = {
-          enable = true;
-          propagatedBuildInputs = [ beets-plugin-check ];
-        };
+        #check = {
+        #  enable = true;
+        #  propagatedBuildInputs = [ beets-plugin-check ];
+        #};
       };
     }).overrideAttrs
       (
