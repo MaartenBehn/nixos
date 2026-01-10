@@ -80,7 +80,7 @@ in
     enable = true;
     package = my-beets;
     settings =
-      (import ./settings.nix rec {
+      (import ./settings.nix {
         inherit (pkgs) essentia-extractor keyfinder-cli;
         inherit cache-dir music-dir playlist-dir essentia-extractor-SVM-models-dir; 
       });
@@ -94,7 +94,7 @@ in
       url = "https://essentia.upf.edu/svm_models/essentia-extractor-svm_models-v2.1_beta5.tar.gz";
       hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
     };
-  }
+  };
 
 
   # TODO: Download the models to the beets cache dir:
