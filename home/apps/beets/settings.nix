@@ -84,7 +84,7 @@
 
     # Useful template fields to customize your path formats in a more
     # lidarr way
-    #"lidarrfields"
+    "lidarrfields"
 
     # Verify and store checksums
     #"check"
