@@ -39,6 +39,7 @@
     ./audio_muse.nix
     ./qbittorrnt.nix
     #./texlyre.nix
+    ./kodi.nix
    
     # Game servers
     ./minecraft.nix
