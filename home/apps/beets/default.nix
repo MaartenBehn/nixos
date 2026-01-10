@@ -43,7 +43,7 @@ let
     # In this case, I believe that because the base package doesn't
     # have any propagatedBuildInputs, I need to make a new
     # derivation to add this.
-    (pkgs.beets.override {
+    (pkgs.python313Packages.beets.override {
       pluginOverrides = {
         xtractor = {
           enable = true;
@@ -73,7 +73,7 @@ in
 
   programs.beets = {
     enable = true;
-    #package = my-beets;
+    package = my-beets;
     settings =
       (import ./settings.nix rec {
         inherit (pkgs) essentia-extractor keyfinder-cli;
