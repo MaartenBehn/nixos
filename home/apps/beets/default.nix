@@ -86,6 +86,7 @@ in
         
         # Use newer veriosn not in nixpkgs
         #essentia-extractor = pkgs.essentia-extractor;
+        # https://github.com/p-laranjinha/essentia-nix
         essentia-extractor = "/home/stroby/dev/essentia-nix/streaming_extractor_music"    
       });
       #// (import ../../../../secrets/sun/beets.nix { });
