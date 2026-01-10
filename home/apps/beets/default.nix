@@ -97,12 +97,21 @@ in
 
           dontUnpack = true;
 
-          nativeBuildInputs = [
-            pkgs.autoPatchelfHook
+          nativeBuildInputs = with pkgs; [
+            autoPatchelfHook
           ];
 
-          buildInputs = [
-            pkgs.glibc
+          buildInputs = with pkgs; [
+            glibc
+            glibc
+            stdenv.cc.cc
+            zlib
+            libyaml
+            libsamplerate
+            taglib
+            chromaprint
+            ffmpeg_4
+            qt4
           ];
 
           installPhase = ''
