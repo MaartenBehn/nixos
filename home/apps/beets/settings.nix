@@ -184,10 +184,10 @@
   import = {
     move = false;
     copy = false;
-    write = false;
+    write = true;
 
-    resume = false;
-    incremental = false;
+    resume = true;
+    incremental = true;
 
     # Controlling whether skipped directories are recorded in the
     # incremental list. When set to yes, skipped directories won’t
