@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, pkgs, pkgs-2405, ... }:
 let
   beets-plugin-xtractor = pkgs.callPackage ./beets-plugin-xtractor.nix {
     inherit lib;
@@ -111,7 +111,7 @@ in
             taglib
             chromaprint
             ffmpeg_4
-            qt5
+            pkgs-2405.qt4
           ];
 
           installPhase = ''
