@@ -20,20 +20,20 @@
     "the"
 
     # Use m3u playlists
-    "playlist"
+    #"playlist"
 
     # Build playlists based on Beets searches. Would be really
     # cool to make some DJ-oriented lists, as well as replicating
     # "newly released", "liked tracks", and "highly rated"
     # playlists.
-    "smartplaylist"
+    #"smartplaylist"
 
     # Build an m3u playlist based on newly imported music - a
     # "just in" playlist, basically.
-    "importfeeds"
+    #"importfeeds"
 
     # This plugin will provide data to help normalise the audio.
-    "replaygain"
+    #"replaygain"
 
     # Apply permissions to imported tracks
     #"permissions"
