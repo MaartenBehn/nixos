@@ -155,10 +155,6 @@
         name = "all.m3u";
         query = "";
       }
-      {
-        name = "beatles.m3u";
-        query = "artist:Beatles";
-      }
     ];
   };
 
@@ -186,7 +182,7 @@
   };
 
   import = {
-    move = true;
+    move = false;
     copy = false;
     write = false;
 
