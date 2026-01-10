@@ -111,7 +111,7 @@ in
             taglib
             chromaprint
             ffmpeg_4
-            libsForQt4.qt4
+            qt5
           ];
 
           installPhase = ''
