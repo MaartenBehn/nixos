@@ -92,13 +92,7 @@ in
     recursive = true;
     source = pkgs.fetchzip {
       url = "https://essentia.upf.edu/svm_models/essentia-extractor-svm_models-v2.1_beta5.tar.gz";
-      hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
+      hash = "sha256-xLx0LUwpTlTzKgbfemBDgSKQgtESzk1zooQuBAkN+oY=";
     };
-  };
-
-
-  # TODO: Download the models to the beets cache dir:
-  #       https://essentia.upf.edu/svm_models/
-  #       Probably using home.files = {}
-
+  }; 
 }
