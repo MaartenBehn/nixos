@@ -3,19 +3,19 @@ let
   beets-plugin-xtractor = pkgs.callPackage ./beets-plugin-xtractor.nix {
     inherit lib;
     inherit (pkgs) fetchPypi essentia-extractor python3Packages;
-    beets = pkgs.beetsPackages.beets-minimal;
+    beets = pkgs.python313Packages.beets-minimal;
   };
 
   beets-plugin-lidarrfields = pkgs.callPackage ./beets-plugin-lidarrfields.nix {
     inherit lib;
     inherit (pkgs) fetchPypi python3Packages;
-    beets = pkgs.beetsPackages.beets-minimal;
+    beets = pkgs.python313Packages.beets-minimal;
   };
 
   beets-plugin-check = pkgs.callPackage ./beets-plugin-check.nix {
     inherit lib;
     inherit (pkgs) fetchPypi python3Packages;
-    beets = pkgs.beetsPackages.beets-minimal;
+    beets = pkgs.python313Packages.beets-minimal;
   };
 
   beets-plugin-dependencies =
