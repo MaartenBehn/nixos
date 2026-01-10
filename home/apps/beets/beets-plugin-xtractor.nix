@@ -18,6 +18,9 @@ python3Packages.buildPythonApplication rec {
     essentia-extractor
   ];
 
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
+
   meta = with lib; {
     description = "A beets plugin to add low and high level musical information to songs.";
     homepage = "https://github.com/adamjakab/BeetsPluginXtractor";

@@ -16,6 +16,9 @@ python3Packages.buildPythonApplication rec {
     python3Packages.poetry-core
   ];
 
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
+
   meta = with lib; {
     description = "beets plugin verifying file integrity with checksums";
     homepage = "http://www.github.com/geigerzaehler/beets-check";
