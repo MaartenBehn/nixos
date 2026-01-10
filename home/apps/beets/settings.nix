@@ -186,8 +186,8 @@
     copy = false;
     write = false;
 
-    resume = true;
-    incremental = true;
+    resume = false;
+    incremental = false;
 
     # Controlling whether skipped directories are recorded in the
     # incremental list. When set to yes, skipped directories won’t
