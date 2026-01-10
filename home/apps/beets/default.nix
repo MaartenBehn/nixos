@@ -99,7 +99,7 @@ in
 
           installPhase = ''
             mkdir -p $out/bin
-            install -m755 $src $out/bin/my-binary
+            install -m755 $src $out/bin/streaming_extractor_music
           '';
         };
        });
