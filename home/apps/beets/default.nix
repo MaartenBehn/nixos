@@ -90,7 +90,7 @@ in
   home.files."${essentia-extractor-SVM-models-dir}" = {
     enable = true;
     recursive = true;
-    source = lib.fetchurl {
+    source = pkgs.fetchzip {
       url = "https://essentia.upf.edu/svm_models/essentia-extractor-svm_models-v2.1_beta5.tar.gz";
       hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
     };
