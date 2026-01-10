@@ -99,6 +99,7 @@ in
     };
     "${essentia-extractor}" = {
       enable = true;
+      executable = true;
       source = pkgs.fetchurl {
         url = "https://github.com/p-laranjinha/essentia-nix/raw/f4566b964dfd1c23f880f2bb1a6fe382b7d6e114/streaming_extractor_music";
         hash = "sha256-5HLUF1RXbOMQumTQ1GAfN8HcNn14xORitJP9Npvh3X8=";
