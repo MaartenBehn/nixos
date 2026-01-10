@@ -184,7 +184,7 @@
   import = {
     move = false;
     copy = false;
-    write = true;
+    write = false;
 
     resume = true;
     incremental = true;
