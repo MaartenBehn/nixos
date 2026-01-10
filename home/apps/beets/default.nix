@@ -82,7 +82,10 @@ in
     settings =
       (import ./settings.nix {
         inherit (pkgs) keyfinder-cli;
-        inherit cache-dir music-dir playlist-dir essentia-extractor-SVM-models-dir; 
+        inherit cache-dir music-dir playlist-dir essentia-extractor-SVM-models-dir;
+        
+        # Use newer veriosn not in nixpkgs
+        #essentia-extractor = pkgs.essentia-extractor;
         essentia-extractor = pkgs.stdenv.mkDerivation {
           pname = "streaming_extractor_music";
           version = "2.1_beta5";
