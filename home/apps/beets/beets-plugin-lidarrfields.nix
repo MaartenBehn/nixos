@@ -12,6 +12,9 @@ python3Packages.buildPythonApplication rec {
     beets
   ];
 
+  pyproject = true;
+  build-system = [ python3Packages.setuptools ];
+
   meta = with lib; {
     description = ''
     Beets plugin that defines some useful template fields to customize
