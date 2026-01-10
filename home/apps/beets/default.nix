@@ -67,6 +67,11 @@ let
           propagatedBuildInputs = (prev.propagatedBuildInputs or [ ]) ++ beets-plugin-dependencies;
         }
       );
+
+  cache-dir = "/home/stroby/.config/beets";
+  music-dir = "/media/music";
+  playlist-dir = "${cache-dir}/playlists";
+  essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
 in
 {
   home.packages = (with pkgs; [ flac ]);
@@ -77,13 +82,20 @@ in
     settings =
       (import ./settings.nix rec {
         inherit (pkgs) essentia-extractor keyfinder-cli;
-        cache-dir = "/home/stroby/.config/beets";
-        music-dir = "/media/music";
-        playlist-dir = "${cache-dir}/playlists";
-        essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
+        inherit cache-dir music-dir playlist-dir essentia-extractor-SVM-models-dir; 
       });
       #// (import ../../../../secrets/sun/beets.nix { });
   };
+
+  home.files."${essentia-extractor-SVM-models-dir}" = {
+    enable = true;
+    recursive = true;
+    source = lib.fetchurl {
+      url = "https://essentia.upf.edu/svm_models/essentia-extractor-svm_models-v2.1_beta5.tar.gz";
+      hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
+    };
+  }
+
 
   # TODO: Download the models to the beets cache dir:
   #       https://essentia.upf.edu/svm_models/

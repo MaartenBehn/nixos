@@ -80,7 +80,7 @@
 
     # Obtain low and high level musical information from your songs
     # (bpm, danceability, etc).
-    #"xtractor"
+    "xtractor"
 
     # Useful template fields to customize your path formats in a more
     # lidarr way
