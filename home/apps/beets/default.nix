@@ -87,7 +87,7 @@ in
       #// (import ../../../../secrets/sun/beets.nix { });
   };
 
-  home.files."${essentia-extractor-SVM-models-dir}" = {
+  home.file."${essentia-extractor-SVM-models-dir}" = {
     enable = true;
     recursive = true;
     source = pkgs.fetchzip {
