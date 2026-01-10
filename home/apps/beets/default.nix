@@ -97,6 +97,14 @@ in
 
           dontUnpack = true;
 
+          nativeBuildInputs = [
+            pkgs.autoPatchelfHook
+          ];
+
+          buildInputs = [
+            pkgs.glibc
+          ];
+
           installPhase = ''
             mkdir -p $out/bin
             install -m755 $src $out/bin/streaming_extractor_music
