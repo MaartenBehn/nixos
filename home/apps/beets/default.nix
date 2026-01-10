@@ -83,12 +83,9 @@ in
       (import ./settings.nix {
         inherit (pkgs) keyfinder-cli;
         inherit cache-dir music-dir playlist-dir essentia-extractor-SVM-models-dir; 
-        essentia-extractor = pkgs.stdenv.mkDerivation {
-          name = "streaming_extractor_music";
-          src = pkgs.fetchurl {
-            url = "https://github.com/p-laranjinha/essentia-nix/raw/f4566b964dfd1c23f880f2bb1a6fe382b7d6e114/streaming_extractor_music";
-            hash = "sha256-5HLUF1RXbOMQumTQ1GAfN8HcNn14xORitJP9Npvh3X8=";
-          };
+        essentia-extractor = pkgs.fetchurl {
+          url = "https://github.com/p-laranjinha/essentia-nix/raw/f4566b964dfd1c23f880f2bb1a6fe382b7d6e114/streaming_extractor_music";
+          hash = "sha256-5HLUF1RXbOMQumTQ1GAfN8HcNn14xORitJP9Npvh3X8=";
         }; 
       });
       #// (import ../../../../secrets/sun/beets.nix { });

@@ -95,7 +95,7 @@
   };
 
   xtractor = {
-    essentia_extractor = "${essentia-extractor}/bin/streaming_extractor_music";
+    essentia_extractor = "${essentia-extractor}";
     output_path = "${cache-dir}/xtractor-extraction-data";
     extractor_profile = {
       highlevel = {
