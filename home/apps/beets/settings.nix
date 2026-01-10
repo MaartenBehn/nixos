@@ -186,9 +186,9 @@
   };
 
   import = {
-    move = false;
+    move = true;
     copy = false;
-    write = true;
+    write = false;
 
     resume = true;
     incremental = true;
