@@ -100,31 +100,31 @@
         factor = 0.0 
         min_mood = 0.5
 
-        if mood_acoustic > min_mood:
+        if item['mood_acoustic'] > min_mood:
           mood = "acoustic"
-          factor = mood_acoustic
+          factor = item['mood_acoustic']
 
-        if mood_aggressive > min_mood and mood_aggressive > factor:
+        if item['mood_aggressive'] > min_mood and item['mood_aggressive'] > factor:
           mood = "aggressive"
-          factor = mood_aggressive
+          factor = item['mood_aggressive']
 
-        if mood_electronic > min_mood and mood_electronic > factor:
+        if item['mood_electronic'] > min_mood and item['mood_electronic'] > factor:
           mood = "electronic"
-          factor = mood_electronic
+          factor = item['mood_electronic']
 
-        if mood_happy > min_mood and mood_happy > factor:
+        if item['mood_happy'] > min_mood and item['mood_happy'] > factor:
           mood = "happy"
-          factor = mood_happy
+          factor = item['mood_happy']
 
-        if mood_party > min_mood and mood_party > factor:
+        if item['mood_party'] > min_mood and item['mood_party'] > factor:
           mood = "party"
-          factor = mood_party
+          factor = item['mood_party']
 
-        if mood_relaxed > min_mood and mood_relaxed > factor:
+        if item['mood_relaxed'] > min_mood and item['mood_relaxed'] > factor:
           mood = "relaxed"
-          factor = mood_relaxed
+          factor = item['mood_relaxed']
 
-        if mood_sad > min_mood and mood_sad > factor:
+        if item['mood_sad'] > min_mood and item['mood_sad'] > factor:
           mood = "sad"
 
         return mood
