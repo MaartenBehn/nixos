@@ -1,7 +1,7 @@
 { lib, pkgs, beets, python3Packages }:
 python3Packages.buildPythonApplication rec {
   pname = "beets-mood-writer";
-  version = "1.1.2";
+  version = "1";
 
   src = pkgs.fetchFromGitHub {
     owner = "MaartenBehn";
