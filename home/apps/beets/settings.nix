@@ -91,7 +91,7 @@
 
     "info"
 
-    "moodwriter"
+    "moodswriter"
 
   ];
 
