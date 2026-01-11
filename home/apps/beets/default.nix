@@ -13,8 +13,8 @@ let
   };
 
   beets-plugin-mood-writer = pkgs.callPackage ./beets-plugin-mood-writer.nix {
-    inherit lib;
-    inherit (pkgs) fetchPypi python3Packages;
+    inherit lib pkgs;
+    inherit (pkgs) python3Packages;
     beets = pkgs.python3Packages.beets-minimal;
   };
 
