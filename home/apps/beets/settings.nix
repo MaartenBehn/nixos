@@ -88,7 +88,14 @@
 
     # Verify and store checksums
     #"check"
+
+    "info"
+
+    #"inline"
   ];
+
+  inline = {
+  };
 
   keyfinder = {
     bin = "${keyfinder-cli}/bin/keyfinder-cli";
