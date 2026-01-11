@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
   src = pkgs.fetchFromGitHub {
     owner = "MaartenBehn";
     repo = "beets-mood";
-    rev = "1f098666b8682d227232f2ba8ee7744bcfca9de1";
+    rev = "edeae040c23b5b794becdfc04274c0790c27c1d3";
     hash = "sha256-u5nv77NIVEuO/DU1pDL3CcYa1OURkcjsKv+4rrpMLfI=";
   };
 
