@@ -95,7 +95,8 @@
 
     "discogs"
 
-    "beatport"
+    #"beatport"
+    "fromfilename"
   ];
 
   keyfinder = {
