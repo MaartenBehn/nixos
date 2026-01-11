@@ -11,7 +11,7 @@
   directory = music-dir;
   library = "${cache-dir}/library.db";
 
-  art_filename = "cover";
+  art_filename = "thumbnail";
   per_disc_numbering = true; # For better alignment with lidarr's format
 
   plugins = [
@@ -93,11 +93,14 @@
 
     "moodswriter"
 
+    "discogs"
   ];
 
   keyfinder = {
     bin = "${keyfinder-cli}/bin/keyfinder-cli";
   };
+
+  discogs.user_token = "VLbHHdRPoocqxRnlSrhthdbWqJEMLqbYyhdMIXkt";
 
   xtractor = {
     essentia_extractor = "${essentia-extractor}";
