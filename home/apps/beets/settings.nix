@@ -91,10 +91,46 @@
 
     "info"
 
-    #"inline"
+    "inline"
   ];
 
   inline = {
+    item_fields = {
+      mood = ''
+        mood = ""
+        factor = 0.0 
+        min_mood = 0.5
+
+        if mood_acoustic > min_mood:
+          mood = "acoustic"
+          factor = mood_acoustic
+
+        if mood_aggressive > min_mood and mood_aggressive > factor:
+          mood = "aggressive"
+          factor = mood_aggressive
+
+        if mood_electronic > min_mood and mood_electronic > factor:
+          mood = "electronic"
+          factor = mood_electronic
+
+        if mood_happy > min_mood and mood_happy > factor:
+          mood = "happy"
+          factor = mood_happy
+
+        if mood_party > min_mood and mood_party > factor:
+          mood = "party"
+          factor = mood_party
+
+        if mood_relaxed > min_mood and mood_relaxed > factor:
+          mood = "relaxed"
+          factor = mood_relaxed
+
+        if mood_sad > min_mood and mood_sad > factor:
+          mood = "sad"
+
+        return mood
+      '';
+    };
   };
 
   keyfinder = {
