@@ -12,6 +12,12 @@ let
     beets = pkgs.python3Packages.beets-minimal;
   };
 
+  beets-plugin-mood-writer = pkgs.callPackage ./beets-plugin-mood-writer.nix {
+    inherit lib;
+    inherit (pkgs) fetchPypi python3Packages;
+    beets = pkgs.python3Packages.beets-minimal;
+  };
+
   beets-plugin-check = pkgs.callPackage ./beets-plugin-check.nix {
     inherit lib;
     inherit (pkgs) fetchPypi python3Packages;
@@ -53,6 +59,11 @@ let
         lidarrfields = {
           enable = true;
           propagatedBuildInputs = [ beets-plugin-lidarrfields ];
+        };
+
+        mood-writer = {
+          enable = true;
+          propagatedBuildInputs = [ beets-plugin-mood-writer ];
         };
 
         #check = {
