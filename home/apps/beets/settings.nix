@@ -97,6 +97,8 @@
 
     #"beatport"
     "fromfilename"
+
+    "fish"
   ];
 
   keyfinder = {
