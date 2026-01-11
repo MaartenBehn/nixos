@@ -94,6 +94,8 @@
     "moodswriter"
 
     "discogs"
+
+    "beatport"
   ];
 
   keyfinder = {
