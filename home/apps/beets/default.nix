@@ -61,7 +61,7 @@ let
           propagatedBuildInputs = [ beets-plugin-lidarrfields ];
         };
 
-        mood-writer = {
+        moodwriter = {
           enable = true;
           propagatedBuildInputs = [ beets-plugin-mood-writer ];
         };
