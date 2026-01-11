@@ -94,9 +94,8 @@
     "inline"
   ];
 
-  inline = {
-    item_fields = {
-      mood = ''
+  item_fields = {
+    mood = ''
         mood = ""
         factor = 0.0 
         min_mood = 0.5
@@ -129,8 +128,7 @@
           mood = "sad"
 
         return mood
-      '';
-    };
+    '';
   };
 
   keyfinder = {
