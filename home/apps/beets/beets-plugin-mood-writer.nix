@@ -7,7 +7,7 @@ python3Packages.buildPythonApplication rec {
     owner = "MaartenBehn";
     repo = "beets-mood";
     rev = "15a94d64e5c5bcc28ba7281f9cc37a8d05a884c2";
-    hash = "";
+    hash = "sha256-PGry5q10ZPV/6d/odUzOAfeB2s9Hy33q95zg0JGSFgk=";
   };
 
   nativeBuildInputs = [
