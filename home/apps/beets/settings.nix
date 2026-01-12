@@ -109,6 +109,14 @@
 
   musicbrainz = {
     data_source_mismatch_penalty = 0.5;
+    external_ids = {
+      discogs = true;
+      spotify = true;
+      bandcamp = true;
+      beatport = true;
+      deezer = true;
+      tidal = true;
+    };
   };
   discogs = {
     data_source_mismatch_penalty = 0.3;
@@ -185,18 +193,7 @@
     auto = false;
     forward_slash = false;
   };
-
-  musicbrainz = {
-    external_ids = {
-      #discogs = true;
-      spotify = true;
-      bandcamp = true;
-      beatport = true;
-      deezer = true;
-      tidal = true;
-    };
-  };
-
+ 
   paths = {
     # For better alignment with lidarr's format
     default = "%the{$releasegroupartist}/$lidarralbum ($year)/%if{$audiodisctotal,$disc - }$\{track}. $title";
