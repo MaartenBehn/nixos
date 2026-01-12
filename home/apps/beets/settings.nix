@@ -108,7 +108,7 @@
   };
 
   musicbrainz = {
-    data_source_mismatch_penalty = 0.5;
+    data_source_mismatch_penalty = 0.2;
     external_ids = {
       discogs = true;
       spotify = true;
