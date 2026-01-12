@@ -93,6 +93,7 @@
 
     "moodswriter"
 
+    "musicbrainz"
     "discogs"
 
     #"beatport"
@@ -106,7 +107,13 @@
     bin = "${keyfinder-cli}/bin/keyfinder-cli";
   };
 
-  discogs.user_token = "VLbHHdRPoocqxRnlSrhthdbWqJEMLqbYyhdMIXkt";
+  musicbrainz = {
+    data_source_mismatch_penalty = 0.5;
+  };
+  discogs = {
+    data_source_mismatch_penalty = 0.3;
+    user_token = "VLbHHdRPoocqxRnlSrhthdbWqJEMLqbYyhdMIXkt";
+  };
 
   xtractor = {
     essentia_extractor = "${essentia-extractor}";
