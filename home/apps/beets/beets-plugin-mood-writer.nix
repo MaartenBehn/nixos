@@ -1,13 +1,13 @@
 { lib, pkgs, beets, python3Packages }:
 python3Packages.buildPythonApplication rec {
   pname = "beets-mood-writer";
-  version = "0.0.5";
+  version = "0.0.6";
 
   src = pkgs.fetchFromGitHub {
     owner = "MaartenBehn";
     repo = "beets-mood";
-    rev = "c8eb13eb7056b37072b8ccf801d5c78a5cdd3d05";
-    hash = "sha256-9tVt18Q93jY5eIBAaM0FoQ8NC3DYGcXkIRSpiRw8+Zk=";
+    rev = "9a0476502f7c32c9649461c41f0d022d5830f6ad";
+    hash = "";
   };
 
   nativeBuildInputs = [
