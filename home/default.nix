@@ -44,7 +44,7 @@
     ++ (if host == "asus" then
       [
         ./cli/minimal.nix
-        #./apps/beets
+        ./apps/beets
 
       ] else [])
     ++ (if host == "wsl" then
