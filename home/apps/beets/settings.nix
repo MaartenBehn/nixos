@@ -26,7 +26,7 @@
     # cool to make some DJ-oriented lists, as well as replicating
     # "newly released", "liked tracks", and "highly rated"
     # playlists.
-    "smartplaylist"
+    #"smartplaylist"
 
     # Build an m3u playlist based on newly imported music - a
     # "just in" playlist, basically.
