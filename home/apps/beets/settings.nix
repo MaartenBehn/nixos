@@ -91,7 +91,7 @@
 
     "info"
 
-    "moodswriter"
+    #"moodswriter"
 
     "musicbrainz"
     "discogs"
