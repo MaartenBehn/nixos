@@ -26,7 +26,7 @@
     # cool to make some DJ-oriented lists, as well as replicating
     # "newly released", "liked tracks", and "highly rated"
     # playlists.
-    #"smartplaylist"
+    "smartplaylist"
 
     # Build an m3u playlist based on newly imported music - a
     # "just in" playlist, basically.
@@ -148,6 +148,10 @@
     };
   };
 
+  types = {
+    
+  };
+
   ui = {
     color = true;
     terminal_width = 140;
@@ -182,6 +186,10 @@
       # https://beets.readthedocs.io/en/stable/plugins/smartplaylist.html
       {
         name = "all.m3u";
+        query = "";
+      }
+      {
+        name = "turnbeutel.m3u";
         query = "";
       }
     ];
