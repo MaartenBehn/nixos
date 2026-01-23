@@ -62,7 +62,7 @@ let
         };
 
         moodswriter = {
-          enable = false;
+          enable = true;
           propagatedBuildInputs = [ beets-plugin-mood-writer ];
         };
 
