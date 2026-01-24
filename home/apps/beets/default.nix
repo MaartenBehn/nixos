@@ -85,7 +85,7 @@ let
   essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
 in
 {
-  home.packages = (with pkgs; [ flac ]);
+  home.packages = (with pkgs; [ flac mp3val ]);
 
   programs.beets = {
     enable = true;

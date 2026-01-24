@@ -101,6 +101,8 @@
 
     "fish"
     "edit"
+
+    "bad"
   ];
 
   keyfinder = {
