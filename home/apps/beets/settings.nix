@@ -160,7 +160,7 @@
   };
 
   badfiles = {
-    check_on_import = true;
+    #check_on_import = true;
   };
 
   permissions = {

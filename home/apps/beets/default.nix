@@ -80,7 +80,7 @@ let
       );
 
   cache-dir = "/home/stroby/.config/beets";
-  music-dir = "/media/music";
+  music-dir = "/media/music/beets";
   playlist-dir = "${cache-dir}/playlists";
   essentia-extractor-SVM-models-dir = "${cache-dir}/essentia-extractor-svm_models-v2.1_beta5";
 in
