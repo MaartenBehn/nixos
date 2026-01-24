@@ -50,7 +50,7 @@
     # Could be really cool to use this:
     #  - To add key metadata to all files
     #  - To Build smart playlists by BPM + Key
-    "keyfinder"
+    #"keyfinder"
 
     # If you tag your music using MusicBrainz, you’ll have tracks
     # in your library like “Tellin’ Me Things” by the artist
@@ -84,14 +84,14 @@
 
     # Useful template fields to customize your path formats in a more
     # lidarr way
-    "lidarrfields"
+    #"lidarrfields"
 
     # Verify and store checksums
     #"check"
 
     "info"
 
-    "moodswriter"
+    #"moodswriter"
 
     "musicbrainz"
     "discogs"
