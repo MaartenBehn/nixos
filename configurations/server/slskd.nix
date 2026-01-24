@@ -14,7 +14,7 @@ in {
   services.slskd = { 
     enable = true;
     openFirewall = false;
-    domain = "slskd.${local_domain}";
+    domain = "slskd.local";
     environmentFile = env_file;
     settings = {
       directories = {
