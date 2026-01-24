@@ -102,7 +102,7 @@
     "fish"
     "edit"
 
-    "bad"
+    "badfiles"
   ];
 
   keyfinder = {
