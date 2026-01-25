@@ -47,8 +47,6 @@
 
         ./smb.nix
 
-        ./bitwarden.nix
-
       ] else [])
     ++ (if host == "desktop" then
       [
