@@ -16,10 +16,8 @@
     interfaces.enp3s0f3u1 = {
       macAddress = "02:11:22:33:44:55";
     };
+    
+    resolvconf.enable = false;
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
-
-  #systemd.network.networks."enp3s0f3u1".ipv6AcceptRAConfig.Token = [
-  #  "static:::1111:1111:1111:1111"
-  #  "eui64"
-  #];
 } 

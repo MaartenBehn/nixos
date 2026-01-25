@@ -16,7 +16,6 @@
         ./graphics.nix
         ./monitor_cpu_temp.nix
         ./networking.nix
-        ./networking.nix
         ./audio.nix
         ./printing.nix
         ./bluetooh.nix
