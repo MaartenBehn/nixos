@@ -33,7 +33,7 @@
           name = domain; 
           value = "192.168.178.2,2a00:1f:ef04:7301:3e59:650b:4c40:f405";
         }) config.domains.all) // {
-            "fritz.box" = "192.168.178.1";
+            #"fritz.box" = "192.168.178.1";
           };
       };
 
