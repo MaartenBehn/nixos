@@ -14,12 +14,16 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [
+        24727 # Ausweiß App
       ];
       allowedUDPPorts = [
+        24727 # Ausweiß App
       ];
     };
   };
 
   services.gnome.gnome-keyring.enable = true;
   #security.pam.services.sddm.enableGnomeKeyring = true;
+
+
 }

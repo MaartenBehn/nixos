@@ -1,4 +1,5 @@
 { host, ... }: {
+
   imports = [
     # Base
     ./nix_stuff.nix
@@ -33,7 +34,7 @@
 
         # Gaming
         ./steam.nix
-        ./lutris.nix
+        #./lutris.nix
 
         # Other
         ./server/debug_tools.nix 
@@ -42,10 +43,10 @@
         #./filebrowser.nix
         ./set_kitty_default.nix
 
-        ./server/algo_trading.nix
-        ./virtualbox.nix
+        #./server/algo_trading.nix
+        #./virtualbox.nix
 
-        ./smb.nix
+        #./smb.nix
 
       ] else [])
     ++ (if host == "desktop" then
