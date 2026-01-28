@@ -2,6 +2,7 @@
 let
   secrets = [
     "jellyfin/key"
+    "jellyseer/key"
     "qbittorrent/username"
     "qbittorrent/password"
 
@@ -104,6 +105,18 @@ in {
             };
           }
           {
+            Jellyseer = {
+              href = "http://seer.local/";
+              description = "Media Requester";
+              icon = "http://seerr.local/logo_full.svg";
+              widget = {
+                type = "jellyseer";
+                url = "http://seer.local/";
+                key = "{{${secret_vars.jellyseer.key}}}";
+              };
+            };
+          }
+          {
             Qbittorrent = {
               href = "http://qbittorrent.local/";
               description = "Torrent Downloader";
@@ -176,7 +189,7 @@ in {
         ];
       }
       {
-        Data = [
+        Home = [
           {
             HomeAssistant = {
               href = "http://home.local/";
@@ -200,6 +213,35 @@ in {
             };
           }
           {
+            Immich = {
+              href = "https://immich.stroby.org/";
+              description = "Fotos";
+              icon = "https://immich.app/favicon.ico";
+              widget = {
+                type = "immich";
+                url = "https://immich.stroby.org/";
+                key = "{{${secret_vars.immich.key}}}";
+                version = 2;
+              };
+            };
+          }
+          {
+            Calendar = {
+              href = "http://calendar.stroby.org";
+              icon = "https://calendar.stroby.org/_next/image?url=%2Flogo.png&w=32&q=75";
+            };
+          }
+          {
+            Baikal = {
+              href = "http://baikal.stroby.org";
+              icon = "http://baikal.stroby.org/res/core/Baikal/Images/logo-baikal.png";
+            };
+          }
+        ];
+      }
+      {
+        Data = [
+                    {
             Notes = {
               href = "http://notes.stroby.org";
               icon = "https://obsidian.md/favicon.svg";
@@ -223,19 +265,6 @@ in {
               #icon = "https://www.nesabamedia.com/wp-content/uploads/2019/08/Visual-Studio-Code-Logo-1.png";
            #};
           #}
-          {
-            Immich = {
-              href = "https://immich.stroby.org/";
-              description = "Fotos";
-              icon = "https://immich.app/favicon.ico";
-              widget = {
-                type = "immich";
-                url = "https://immich.stroby.org/";
-                key = "{{${secret_vars.immich.key}}}";
-                version = 2;
-              };
-            };
-          }
         ];
       }
     ];
