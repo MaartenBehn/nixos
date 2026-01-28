@@ -186,6 +186,13 @@ in {
               icon = "https://whisparr.org/wp-content/uploads/2024/12/256.png";
             };
           }
+          {
+            AudioMuse = {
+              href = "http://audio_muse.local/";
+              description = "Music Embedding Engine";
+              icon = "https://neptunehub.github.io/AudioMuse-AI/screenshot/AM-AI-MAP.png?raw=true";
+            };
+          }
         ];
       }
       {
