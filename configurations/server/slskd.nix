@@ -57,6 +57,9 @@ in {
             lidarr = {
               key = "nuewbginjie5623vh";
             };
+            homepage = {
+              key = "KdAv1xDuHxH5YNDHLHtvx1OqXpovPAOnaksRoR/EZ6MDM8CVNY0P2f9Qp9LZCJkg";
+            };
           };
         };
       };

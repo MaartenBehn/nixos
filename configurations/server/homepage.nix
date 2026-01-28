@@ -5,6 +5,7 @@ let
     "jellyseer/key"
     "qbittorrent/username"
     "qbittorrent/password"
+    "slskd/key"
 
     "prowlarr/key"
     "sonarr/key"
@@ -131,6 +132,19 @@ in {
             };
           }
           {
+            Slskd = {
+              href = "http://slskd.local/";
+              description = "Usenet Downloader";
+              icon = "http://slskd.local/favicon.ico";
+              widget = {
+                type = "slskd";
+                url = "http://slskd.local/";
+                key = "{{${secret_vars.slskd.key}}}";
+              };
+            };
+          }
+
+          {
             Prowlarr = {
               href = "http://prowlarr.local/";
               description = "Indexer Manager";
@@ -220,6 +234,12 @@ in {
             };
           }
           {
+            "Actual Budget" = {
+              href = "http://budget.stroby.org";
+              icon = "https://budget.stroby.org/favicon-16x16.png";
+            };
+          }
+          {
             Immich = {
               href = "https://immich.stroby.org/";
               description = "Fotos";
@@ -244,6 +264,13 @@ in {
               icon = "http://baikal.stroby.org/res/core/Baikal/Images/logo-baikal.png";
             };
           }
+          {
+            ntfy = {
+              href = "http://ntfy.stroby.org";
+              icon = "https://ntfy.sh/_next/static/media/logo.077f6a13.svg";
+            };
+          }
+
         ];
       }
       {
@@ -262,10 +289,17 @@ in {
           }
           {
             Syncthing = {
-              href = "http://syncthing.stroby.org/";
+              href = "http://syncthing.local/";
               icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
             };
           }
+          {
+            NextCloud = {
+              href = "https://cloud.stroby.org/";
+              icon = "https://cloud.stroby.org/core/img/logo/logo.svg";
+            };
+          }
+
           #{
             #VSCode = {
               #href = "http://code.stroby.org/?tkn=voZ2d5c7o7lJ6l4C7FDqoaOcWVo2QGzvyf6&folder=/home/stroby/dev";
