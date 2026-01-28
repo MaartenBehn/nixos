@@ -108,9 +108,9 @@ in {
             Jellyseer = {
               href = "http://seer.local/";
               description = "Media Requester";
-              icon = "http://seerr.local/logo_full.svg";
+              icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyseerr.png";
               widget = {
-                type = "jellyseer";
+                type = "jellyseerr";
                 url = "http://seer.local/";
                 key = "{{${secret_vars.jellyseer.key}}}";
               };
