@@ -105,13 +105,13 @@ in {
             };
           }
           {
-            Jellyseer = {
-              href = "http://seer.local/";
+            Jellyseerr = {
+              href = "http://seerr.local/";
               description = "Media Requester";
               icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyseerr.png";
               widget = {
                 type = "jellyseerr";
-                url = "http://seer.local/";
+                url = "http://seerr.local/";
                 key = "{{${secret_vars.jellyseer.key}}}";
               };
             };
