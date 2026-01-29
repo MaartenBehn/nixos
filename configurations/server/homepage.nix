@@ -236,7 +236,7 @@ in {
           {
             "Actual Budget" = {
               href = "http://budget.stroby.org";
-              icon = "https://budget.stroby.org/favicon-16x16.png";
+              icon = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/actual-budget.svg";
             };
           }
           {
