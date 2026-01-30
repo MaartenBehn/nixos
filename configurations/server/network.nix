@@ -17,7 +17,7 @@
       macAddress = "02:11:22:33:44:55";
     };
 
-    nameservers = [ "127.0.0.1" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
     dhcpcd.extraConfig = '' nohook resolv.conf '';
   };
 } 
