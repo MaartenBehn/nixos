@@ -44,7 +44,7 @@
     qalculate-gtk
 
     #soulseekqt
-    tradingview
+    webull-desktop
 
     ausweisapp
  ]);

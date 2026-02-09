@@ -89,9 +89,6 @@
         "$mainMod, C, exec, hyprpicker -a"
         "$mainMod, Z, exec, woomer-current"
         
-        #"$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
-        #"$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
-        
         # screenshot
         ",Print, exec, screenshot --copy"
         "$mainMod, Print, exec, screenshot --md-copy"
@@ -136,49 +133,44 @@
  
       # windowrule
       windowrule = [
-        "float,title:^(Viewnior)$"
-        "float,title:^(imv)$"
-        "float,title:^(mpv)$"
-        "tile,title:^(Aseprite)$"
-        "float,title:^(audacious)$"
+        # System 
         "pin,title:^(rofi)$"
         "pin,title:^(waypaper)$"
-        "tile,title:^(neovide)$"
-        "idleinhibit focus,title:^(mpv)$"
-        "float,title:^(udiskie)$"
-        "float,title:^(Transmission)$"
+        "float,class:^(waypaper)$"
 
-        "float,title:^(Firefox — Sharing Indicator)$"
-        "move 0 0,title:^(Firefox — Sharing Indicator)$"
-        
-        "float,title:^(Volume Control)$"
-        "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
-        "${if host == "laptop" then "move 55% 55%,title:^(Volume Control)$" else "move 35% 35%,title:^(Volume Control)$"}"
-       
+
+        # Task Bar Programms
+        "float,class:^(nm-connection-editor)$"
+        "move 100%-w-10 100%-w-40,class:^(nm-connection-editor)$"
+
         "move 100%-w-10 100%-w-40,title:^(Mullvad VPN)$"
-
+        
         "float,title:^(Bluetooth)"
         "move 100%-w-10 100%-w-40,title:^(Bluetooth)$"
 
+        "float,class:^(org.pulseaudio.pavucontrol)$"
+        "move 100%-w-10 100%-w-40,class:^(org.pulseaudio.pavucontrol)$"
+
+        "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
+
+        # Overlays
         "float, title:^(Picture-in-Picture)$"
         "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
         "pin, title:^(Picture-in-Picture)$"
-        
-        "opacity 1.0 override 1.0 override, title:^(.*imv.*)$"
-        "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
-        "opacity 1.0 override 1.0 override, class:(Aseprite)"
-        "opacity 1.0 override 1.0 override, class:(Unity)"
-        "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit fullscreen, class:^(firefox)$"
-        
-        "float,class:^(waypaper)$"
-        "float,class:^(zenity)$"
-        "size 850 500,class:^(zenity)$"
-        "size 725 330,class:^(SoundWireServer)$"
-        "float,class:^(org.gnome.FileRoller)$"
-        "float,class:^(org.pulseaudio.pavucontrol)$"
-        "float,class:^(SoundWireServer)$"
-        "float,class:^(.sameboy-wrapped)$"
+
+        "float,title:^(Firefox — Sharing Indicator)$"
+        "move 0 0,title:^(Firefox — Sharing Indicator)$"
+
+
+        # Sharing popup
+        "float, title:^(Select what to share)$"
+
+        "opacity 0.0 override,class:^(xwaylandvideobridge)$"
+        "noanim,class:^(xwaylandvideobridge)$"
+        "noinitialfocus,class:^(xwaylandvideobridge)$"
+        "maxsize 1 1,class:^(xwaylandvideobridge)$"
+        "noblur,class:^(xwaylandvideobridge)$"
+
 
         # File Popups
         "float,class:^(file_progress)$"
@@ -197,18 +189,44 @@
         "float,title:^(branchdialog)$"
         "float,title:^(Confirm to replace files)$"
         "float,title:^(File Operation Progress)$"
-        "float,title:^(Save As)$"
+        "float,title:^(Save As)$" 
 
-        "opacity 0.0 override,class:^(xwaylandvideobridge)$"
-        "noanim,class:^(xwaylandvideobridge)$"
-        "noinitialfocus,class:^(xwaylandvideobridge)$"
-        "maxsize 1 1,class:^(xwaylandvideobridge)$"
-        "noblur,class:^(xwaylandvideobridge)$"
- 
+
         # Remove context menu transparency in chromium based apps
         "opaque,class:^()$,title:^()$"
         "noshadow,class:^()$,title:^()$"
         "noblur,class:^()$,title:^()$"
+
+
+        # Programms 
+        "float,title:^(imv)$"
+        "opacity 1.0 override 1.0 override, title:^(.*imv.*)$"
+
+        "float,title:^(mpv)$"
+        "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
+        "idleinhibit focus, title:^(mpv)$"
+        "idleinhibit focus, class:^(mpv)$"
+
+        "tile,title:^(Aseprite)$"
+        "opacity 1.0 override 1.0 override, class:(Aseprite)"
+
+        "opacity 1.0 override 1.0 override, class:(Unity)"
+
+        # Other ?
+        "float,title:^(audacious)$"
+
+        "float,title:^(Viewnior)$" 
+        "tile,title:^(neovide)$"
+        "float,title:^(udiskie)$"
+ 
+        "idleinhibit fullscreen, class:^(firefox)$"
+        
+        #"float,class:^(zenity)$"
+        #"size 850 500,class:^(zenity)$"
+        #"size 725 330,class:^(SoundWireServer)$"
+        #"float,class:^(org.gnome.FileRoller)$"
+        #"float,class:^(SoundWireServer)$"
+        #"float,class:^(.sameboy-wrapped)$"  
       ];
     };
 
