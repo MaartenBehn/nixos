@@ -171,6 +171,9 @@
         "maxsize 1 1,class:^(xwaylandvideobridge)$"
         "noblur,class:^(xwaylandvideobridge)$"
 
+        # Bitwarden Popup
+        # "float, title:(.*)(Bitwarden)(.*)"
+        # Not possible as the inital Window is Firefox
 
         # File Popups
         "float,class:^(file_progress)$"
