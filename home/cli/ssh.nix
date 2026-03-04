@@ -20,6 +20,11 @@
         hostname = "138.199.203.38";
         user = "root";
       };
+
+      txt = {
+        hostname = "192.168.178.28";
+        user = "root";
+      };
     }; 
   };
 }
