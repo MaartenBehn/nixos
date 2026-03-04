@@ -43,7 +43,7 @@
         #./filebrowser.nix
         ./set_kitty_default.nix
 
-        ./server/algo_trading.nix
+        #./server/algo_trading.nix
         ./server/txt_server.nix
         #./virtualbox.nix
 

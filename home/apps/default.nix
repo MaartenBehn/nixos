@@ -5,11 +5,10 @@
     ./gonme-text-editor.nix
     ./obsidian.nix
     ./thunderbird.nix
-    ./unity.nix
-    ./blender.nix
-    ./blender.nix
+    #./unity.nix
+    #./blender.nix
     ./wine.nix
-    ./arduino.nix
+    #./arduino.nix
  ];
 
   home.packages = (with pkgs; [
@@ -22,11 +21,11 @@
     xdg-utils
 
     # GUI Apps
-    vlc                               # video player 
-    libreoffice
+    #vlc                               # video player 
+    #libreoffice
     
     webcamoid
-    obs-studio
+    #obs-studio
     
     #spotify
     #signal-desktop
@@ -36,15 +35,15 @@
     
     #filezilla        
     gimp                              # image editing
-    pitivi                            # video editing
-    audacity                          # Audio editing
+    #pitivi                            # video editing
+    #audacity                          # Audio editing
     
     bleachbit                         # cache cleaner
     #gnome-calculator                 # calculator  Good but Ui is buggy
     qalculate-gtk
 
     #soulseekqt
-    webull-desktop
+    #webull-desktop
 
     ausweisapp
  ]);

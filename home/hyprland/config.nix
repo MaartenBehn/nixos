@@ -3,6 +3,8 @@
     settings = {
       # autostart
       exec-once = [
+        (if host != "iso" then "hyprlock &" else "")
+
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
          
@@ -19,8 +21,6 @@
         "sleep 0.6 && wl-clip-persist --clipboard both &"
         "sleep 0.6 && wl-paste --watch cliphist store &"
         "sleep 0.6 && swaync &"
-
-        (if host != "iso" then "hyprlock" else "echo done")
       ];
 
       input = {

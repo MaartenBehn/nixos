@@ -29,7 +29,7 @@
       no_fade_in = false
       grace = 0
       disable_loading_bar = false
-      ignore_empty_input = true
+      ignore_empty_input = false
       fractional_scaling = 0
     }
 
