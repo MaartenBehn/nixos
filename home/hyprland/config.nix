@@ -3,24 +3,23 @@
     settings = {
       # autostart
       exec-once = [
-        (if host != "iso" then "hyprlock &" else "")
-
         "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
         "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
          
         # Needed to look fine
-        "sleep 0.4 && swww-daemon &"
-        "sleep 0.4 && guess-layout &"
-        "sleep 0.4 && hyprctl setcursor Bibata-Modern-Ice 24 &"
-        "sleep 0.4 && waybar &"
+        "guess-layout &"
+        "waybar &"
+        "swww-daemon &"
+        "hyprctl setcursor Bibata-Modern-Ice 24 &"
        
         # Rest
-        "sleep 0.6 && hyprctl plugin load \"$HYPR_PLUGIN_DIR/lib/libhyprexpo.so\"" 
         "sleep 0.6 && nm-applet &"
-        "sleep 0.6 && poweralertd -s &"
+        "sleep 0.6 && poweralertd -s -i \"line power\" &"
         "sleep 0.6 && wl-clip-persist --clipboard both &"
         "sleep 0.6 && wl-paste --watch cliphist store &"
         "sleep 0.6 && swaync &"
+
+        #(if host != "iso" then "hyprlock" else "")
       ];
 
       input = {
@@ -233,24 +232,7 @@
       ];
     };
 
-    extraConfig = "
-      ${if host == "laptop" then "
-        monitor=eDP-1,2256x1504,0x0,1
-
-        monitor=DP-5,1920x1080,-1920x0,1
-        monitor=DP-6,1920x1080,-3840x0,1
-        monitor=DP-7,1920x1080,-1920x0,1
-        monitor=DP-8,1920x1080,-3840x0,1
-
-        monitor=DP-3,highres,auto,1,mirror,eDP-1
- 
-      " else (if host == "desktop" then "
-        monitor=HDMI-A-1,1920x1080,0x0,1
-        monitor=HDMI-A-2,1920x1080,1920x0,1
-      "else "
-        monitor=,preferred,auto,1
-      ")}
-
+    extraConfig = " 
       xwayland {
         force_zero_scaling = true
       }

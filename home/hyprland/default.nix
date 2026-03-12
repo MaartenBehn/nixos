@@ -14,7 +14,6 @@
     ./rofi.nix
     ./swayosd.nix                     # brightness / volume wiget
     ./hyprscrolling.nix
-    #./hyprexpro.nix
     ./window_decorations.nix
     ./workspaces.nix
     
