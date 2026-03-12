@@ -8,22 +8,30 @@ let
   monitor_commands = n: lib.strings.concatLines (builtins.map (m: "hyprctl keyword monitor ${m}") (get_layout n).monitors);
   workspace_commands = n: lib.strings.concatLines (builtins.map (w: "hyprctl keyword workspace ${w}") (get_layout n).workspaces);
   extra_command = n: (get_layout n).command;
-  extra_post_command = n: (get_layout n).post_command;
+  leave_command = n: (get_layout n).leave_command;
 
   if_statments = lib.strings.concatLines (builtins.map (n: ''
     if [ "$1" == "${n}" ]; then 
-    ${extra_command n}
     ${monitor_commands n}
     ${workspace_commands n}
-    ${extra_post_command n}
+    ${extra_command n}
     fi
     '') layout_names);
+
+  levae_if_statments = lib.strings.concatLines (builtins.map (n: if (leave_command n) != "" then ''
+    if [ "$layout" == "${n}" ]; then 
+    ${leave_command n}
+    fi
+    '' else "") layout_names);
 
   set-monitors = pkgs.writeShellScriptBin "set-monitors" ''
     if [ $# -eq 0 ]; then
       echo "No arg of: ${layout_names_text}"
       exit
     fi
+
+    layout=$(current-layout)
+    ${levae_if_statments}
 
     ${if_statments}
     '';
@@ -34,14 +42,19 @@ let
       exit
     fi
 
-    other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | first')
-    echo "Selcted present monitor: $other"
+    other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | .[]')
+    first=$(printf "%s\n" "$other" | head -n 1)
+    tail=$(printf "%s\n" "$other" | tail -n +2)
+    echo "Selcted present monitor: $first"
 
-    hyprctl keyword monitor $other,highres,auto,1
-    hyprctl keyword monitor $1,highres,auto,1,mirror,$other
+    hyprctl keyword monitor $first,highres,auto,1
+    hyprctl keyword monitor $1,highres,auto,1,mirror,$first
 
-    hyprctl keyword workspace 1, monitor:$1, default:true
-    hyprctl keyword workspace r[2-15], monitor:$1
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      echo "Also mirroring: $line"
+       hyprctl keyword monitor $line,highres,auto,1,mirror,$first
+    done <<< "$tail"
   '';
 
   disable-other-monitors = pkgs.writeShellScriptBin "disable-other-monitors" ''
@@ -53,9 +66,20 @@ let
     other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | .[]')
 
     while IFS= read -r line; do
+      [ -z "$line" ] && continue
       echo "Disabling: $line"
       hyprctl keyword monitor $line,disable
     done <<< "$other"
+  '';
+
+  disable-all-monitors = pkgs.writeShellScriptBin "disable-all-monitors" ''
+    monitors=$(hyprctl monitors all -j | jq -r '.[].name')
+
+    while IFS= read -r line; do
+      [ -z "$line" ] && continue
+      echo "Disabling: $line"
+      hyprctl keyword monitor $line,disable
+    done <<< "$monitors"
   '';
 
   set-other-monitors-auto = pkgs.writeShellScriptBin "set-other-monitors-auto" ''
@@ -146,9 +170,9 @@ in {
                   default = "";
                 };
 
-                post_command = lib.mkOption {
+                leave_command = lib.mkOption {
                   type = lib.types.str;
-                  description = "Command to run when swicting to layout";
+                  description = "Command to run when leaving the layout";
                   default = "";
                 };
               };
@@ -177,10 +201,10 @@ in {
 
           workspaces = [
             "1, monitor:eDP-1, default:true" 
-            "r[2-15], monitor:eDP-1"
+            "r[2-3], monitor:eDP-1"
           ];
           
-          post_command = "disable-other-monitors eDP-1";
+          command = "disable-other-monitors eDP-1";
         };
 
         extend = {
@@ -193,7 +217,7 @@ in {
             "1, monitor:eDP-1, default:true" 
           ];
           
-          post_command = "set-other-monitors-auto eDP-1";
+          command = "set-other-monitors-auto eDP-1";
         }; 
 
         home = {
@@ -236,14 +260,12 @@ in {
             "DP-11,highres,auto,1,mirror,eDP-1"
           ];
 
-          workspaces = [
-            "1, monitor:eDP-1, default:true "
-            "r[2-15], monitor:eDP-1"
-          ];
+          leave_command = "disable-all-monitors";
         };
 
         present = {
           command = "set-monitors-present eDP-1";
+          leave_command = "disable-all-monitors";
         };
       };
     } else {
@@ -281,6 +303,7 @@ in {
       set-monitors-present
       disable-other-monitors
       set-other-monitors-auto
+      disable-all-monitors
       restore-layout
       guess-layout
     ];
