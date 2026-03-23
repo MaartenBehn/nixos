@@ -38,6 +38,7 @@
     ./vaultwarden.nix
     ./audio_muse.nix
     ./qbittorrnt.nix
+    ./sabnzbd.nix
     #./texlyre.nix
     #./kodi.nix
    
