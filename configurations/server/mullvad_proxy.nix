@@ -1,8 +1,6 @@
 { pkgs, ... }: 
 let
   configFile = pkgs.writeText "nginx.conf" ''
-error_log syslog:server=unix:/dev/log info;
-
 events {}
 
 http {
@@ -35,7 +33,7 @@ in {
     path = with pkgs; [
       nginx
     ];
-    script = "nginx -c ${configFile} -g 'daemon off;'";
+    script = "nginx -c ${configFile} -g 'error_log syslog:server=unix:/dev/log info; daemon off;'";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
 
