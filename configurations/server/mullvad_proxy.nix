@@ -17,6 +17,7 @@ http {
       proxy_pass https://scenenzbs.com;
     }
   }
+}
   '';
 in {
   users.users.mullvad_proxy = {
