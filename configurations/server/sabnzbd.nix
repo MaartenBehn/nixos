@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   users.groups.media.members = [ "sabnzbd" ];
 
-  systemd.services.radarr = {
+  systemd.services.sabnzbd = {
     vpnConfinement = {
       enable = true;
       vpnNamespace = "mullvad";
