@@ -39,6 +39,7 @@
     ./audio_muse.nix
     ./qbittorrnt.nix
     ./sabnzbd.nix
+    ./mullvad_proxy.nix
     #./texlyre.nix
     #./kodi.nix
    

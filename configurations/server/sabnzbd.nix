@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-
   users.users.sabnzbd = {
     isNormalUser = true;
     group = "media";
@@ -22,6 +21,7 @@
       User = "sabnzbd";
     };
   };
+
 
   vpnNamespaces.mullvad = {
     portMappings = [
