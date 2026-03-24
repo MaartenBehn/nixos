@@ -2,12 +2,13 @@
 let
   configFile = pkgs.writeText "nginx.conf" ''
 events {}
+error_log /proc/self/fd/2 info;
 
 http {
   access_log /proc/self/fd/1;
+  
   server {
     listen 0.0.0.0:1111;
-    error_log /proc/self/fd/2 info;
     location / {
       proxy_pass https://scenenzbs.com;
     }
@@ -36,6 +37,8 @@ in {
 
     serviceConfig = {
       User = "mullvad_proxy";
+      StandardOutput = "journal";
+      StandardError = "journal";
     };
   };
 
