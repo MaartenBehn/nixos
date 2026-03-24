@@ -4,8 +4,6 @@ let
 events {}
 
 http {
-  access_log syslog:server=unix:/dev/log;
-
   resolver 1.1.1.1;
 
   server {
@@ -24,6 +22,10 @@ in {
   };
   users.groups.mullvad_proxy = {};
 
+  systemd.tmpfiles.rules = [
+    "d /tmp/nginx 0755 mullvad_proxy mullvad_proxy -"
+  ];
+
   systemd.services.mullvad_proxy = {
     vpnConfinement = {
       enable = true;
@@ -33,7 +35,7 @@ in {
     path = with pkgs; [
       nginx
     ];
-    script = "nginx -c ${configFile} -g 'error_log syslog:server=unix:/dev/log info; daemon off;'";
+    script = "nginx -p /tmp/nginx -c ${configFile} -g 'daemon off;'";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
 
@@ -41,8 +43,6 @@ in {
       User = "mullvad_proxy";
       StandardOutput = "journal";
       StandardError = "journal";
-
-      BindReadOnlyPaths = [ "/dev/log" ];
     };
   };
 
