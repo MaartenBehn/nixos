@@ -26,9 +26,9 @@ in {
     };
 
     path = with pkgs; [
-      nignx
+      nginx
     ];
-    script = "nignx -c ${configFile} -g 'daemon off;'";
+    script = "nginx -c ${configFile} -g 'daemon off;'";
     wantedBy = [ "network-online.target" ];
     after = [ "network.target" ];
 
