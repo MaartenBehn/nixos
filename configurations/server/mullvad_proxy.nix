@@ -4,12 +4,14 @@ let
 events {}
 
 http {
-    server {
-        listen 0.0.0.0:1111;
-        location / {
-            proxy_pass https://scenenzbs.com;
-        }
+  access_log /dev/stdout;
+  server {
+    listen 0.0.0.0:1111;
+    error_log /dev/stderr warn;
+    location / {
+      proxy_pass https://scenenzbs.com;
     }
+  }
 }
   '';
 in {
