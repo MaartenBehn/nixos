@@ -1,5 +1,9 @@
 { pkgs, ... }: {
-  users.groups.media.members = [ "sabnzbd" ];
+
+  users.users.sabnzbd = {
+    isSystemUser = true;
+    group = "media";
+  };
 
   systemd.services.sabnzbd = {
     vpnConfinement = {
