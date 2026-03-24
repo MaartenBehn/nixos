@@ -17,6 +17,7 @@ in {
     isNormalUser = true;
     group = "mullvad_proxy";
   };
+  users.groups.mullvad_proxy = {};
 
   systemd.services.mullvad_proxy = {
     vpnConfinement = {
