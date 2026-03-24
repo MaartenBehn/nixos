@@ -1,19 +1,9 @@
 { pkgs, ... }: 
 let
-  configFile = pkgs.writeText "nginx.conf" ''
-events {}
-
-http {
-  resolver 1.1.1.1;
-
-  server {
-    listen 0.0.0.0:1111;
-
-    location / {
-      proxy_pass https://scenenzbs.com;
+  configFile = pkgs.writeText "Caddyfile" ''
+    :1111 {
+      reverse_proxy https://scenenzbs.com
     }
-  }
-}
   '';
 in {
   users.users.mullvad_proxy = {
@@ -32,18 +22,19 @@ in {
       vpnNamespace = "mullvad";
     };
 
-    path = with pkgs; [
-      nginx
-    ];
-    script = "nginx -p /tmp/nginx -c ${configFile} -g 'daemon off;'";
-    wantedBy = [ "network-online.target" ];
-    after = [ "network.target" ];
+    path = [ pkgs.caddy ];
+
+    script = ''
+      caddy run --config ${configFile} --adapter caddyfile
+    '';
 
     serviceConfig = {
       User = "mullvad_proxy";
       StandardOutput = "journal";
       StandardError = "journal";
     };
+
+    wantedBy = [ "multi-user.target" ];
   };
 
   web_services."scenenzbs" = {
