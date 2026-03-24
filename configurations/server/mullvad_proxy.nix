@@ -4,10 +4,10 @@ let
 events {}
 
 http {
-  access_log /dev/stdout;
+  access_log /proc/self/fd/1;
   server {
     listen 0.0.0.0:1111;
-    error_log /dev/stderr warn;
+    error_log /proc/self/fd/2 info;
     location / {
       proxy_pass https://scenenzbs.com;
     }
