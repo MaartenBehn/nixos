@@ -11,6 +11,8 @@
       sabnzbd
     ];
     script = "sabnzbd -s 0.0.0.0:7979";
+    wantedBy = [ "network-online.target" ];
+    after = [ "network.target" ];
 
     serviceConfig = {
       User = "sabnzbd";
