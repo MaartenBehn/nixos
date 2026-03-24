@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   users.users.sabnzbd = {
-    isSystemUser = true;
+    isNormalUser = true;
     group = "media";
   };
 
