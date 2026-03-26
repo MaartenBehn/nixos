@@ -12,10 +12,6 @@ in {
   };
   users.groups.mullvad_proxy = {};
 
-  systemd.tmpfiles.rules = [
-    "d /tmp/nginx 0755 mullvad_proxy mullvad_proxy -"
-  ];
-
   systemd.services.mullvad_proxy = {
     vpnConfinement = {
       enable = true;
@@ -30,8 +26,6 @@ in {
 
     serviceConfig = {
       User = "mullvad_proxy";
-      StandardOutput = "journal";
-      StandardError = "journal";
     };
 
     wantedBy = [ "multi-user.target" ];
