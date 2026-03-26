@@ -31,6 +31,15 @@ in {
     wantedBy = [ "multi-user.target" ];
   };
 
+  vpnNamespaces.mullvad = {
+    portMappings = [
+      { 
+        from = 1111;
+        to = 1111;
+      }
+    ];
+  };
+
   web_services."scenenzbs" = {
     domains = "local";
     loc = {
