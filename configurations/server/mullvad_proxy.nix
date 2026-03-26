@@ -4,6 +4,7 @@ let
     plugins = [
       "github.com/caddyserver/replace-response@master"
     ];
+    hash = "sha256-VvUK813XSf7itorzjJO5CfDl482M0kDbuvbAec/BsuI=";
   };
 
   configFile = pkgs.writeText "Caddyfile" ''
