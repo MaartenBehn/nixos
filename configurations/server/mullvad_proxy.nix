@@ -1,9 +1,20 @@
 { pkgs, ... }: 
 let
+  caddyWithPlugins = pkgs.caddy.withPlugins {
+    plugins = [
+      "github.com/caddyserver/replace-response"
+    ];
+  };
+
   configFile = pkgs.writeText "Caddyfile" ''
     :1111 {
-      reverse_proxy https://scenenzbs.com {
-        header_up Host scenenzbs.com
+      route {
+        reverse_proxy https://scenenzbs.com {
+          header_up Host scenenzbs.com
+          header_down Location scenenzbs.local
+        }
+
+        replace_response scenenzbs.com scenenzbs.local
       }
     }
   '';
@@ -20,7 +31,7 @@ in {
       vpnNamespace = "mullvad";
     };
 
-    path = [ pkgs.caddy ];
+    path = [ caddyWithPlugins ];
 
     script = ''
       caddy run --config ${configFile} --adapter caddyfile
