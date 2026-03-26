@@ -2,7 +2,7 @@
 let
   caddyWithPlugins = pkgs.caddy.withPlugins {
     plugins = [
-      "github.com/caddyserver/replace-response@v0.0.3"
+      "github.com/caddyserver/replace-response@master"
     ];
   };
 
