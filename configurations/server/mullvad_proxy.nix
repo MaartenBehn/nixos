@@ -1,8 +1,10 @@
 { pkgs, ... }: 
 let
   configFile = pkgs.writeText "Caddyfile" ''
-    :1111 {
-      reverse_proxy https://scenenzbs.com
+    0.0.0.0:1111 {
+      reverse_proxy https://scenenzbs.com {
+        header_up Host scenenzbs.com
+      }
     }
   '';
 in {
