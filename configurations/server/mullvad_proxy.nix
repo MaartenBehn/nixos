@@ -14,9 +14,9 @@ let
           header_up Host scenenzbs.com
           header_down Location scenenzbs.local
         }
-
-        replace_response scenenzbs.com scenenzbs.local
       }
+
+      replace_response scenenzbs.com scenenzbs.local
     }
   '';
 in {
