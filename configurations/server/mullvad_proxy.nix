@@ -2,7 +2,7 @@
 let
   caddyWithPlugins = pkgs.caddy.withPlugins {
     plugins = [
-      "github.com/caddyserver/replace-response@master"
+      "github.com/caddyserver/replace-response@v0.0.0-20250618171559-80962887e4c6"
     ];
     hash = "sha256-VvUK813XSf7itorzjJO5CfDl482M0kDbuvbAec/BsuI=";
   };
