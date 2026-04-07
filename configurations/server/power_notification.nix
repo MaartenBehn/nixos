@@ -26,7 +26,7 @@ in
     path = with pkgs; [
       batteryListener
       upower
-      dbus-monitor
+      dbus
     ];
     script = "battery-listener";
 
