@@ -27,6 +27,7 @@ in
       batteryListener
       upower
       dbus
+      gawk
     ];
     script = "battery-listener";
 
