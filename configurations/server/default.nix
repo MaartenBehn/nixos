@@ -6,6 +6,7 @@
     # System
     ./data_drive.nix
     ./error_notify.nix
+    ./power_notification.nix
     ./debug_tools.nix
 
     # DNS

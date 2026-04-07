@@ -1,4 +1,4 @@
-{ local_domain, ... }: {
+{ ... }: {
   users.groups.media.members = [ "sonarr" ];
 
   services.sonarr = { 
