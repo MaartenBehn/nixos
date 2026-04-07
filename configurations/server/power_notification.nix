@@ -37,7 +37,7 @@ in {
     description = "Battery D-Bus listener for low/critical alerts";
     after = [ "upower.service" ];
     wants = [ "upower.service" ];
-    wantedBy = [ "upower.service" ];
+    wantedBy = [ "network-online.target" ];
 
     path = with pkgs; [
       batteryListener
