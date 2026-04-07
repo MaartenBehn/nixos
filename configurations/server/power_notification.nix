@@ -26,6 +26,8 @@ while true; do
             curl -s http://localhost:8090/status -d "Server Power at $PERC%"
             NEXT_SENT=$((PERC - 10))
         fi
+    else 
+        NEXT_SENT=$((PERC - 10))
     fi
 
     # Wait before next check
