@@ -30,6 +30,7 @@ in
       upower
       dbus
       gawk
+      curl
     ];
     script = "battery-listener";
 
