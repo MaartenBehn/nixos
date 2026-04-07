@@ -11,11 +11,7 @@ let
 
       if [ "$STATE" = "discharging" ]; then
         if [ "$PERC" -le 10 ]; then
-          curl http://localhost:8090/status -d "Server Power below 10%"
-        elif [ "$PERC" -le 50 ]; then
-          curl http://localhost:8090/status -d "Server Power below 50%"
-        elif [ "$PERC" -le 95 ]; then
-          curl http://localhost:8090/status -d "Server Power below 95%"
+          curl http://localhost:8090/status -d "Server Power at $PERC"
         fi
       fi
     done < <(dbus-monitor --system "type='signal',interface='org.freedesktop.UPower.Device'")
@@ -35,7 +31,7 @@ in
     serviceConfig = {
       Type = "simple";
       Restart = "always";
-      RestartSec = 10;
+      RestartSec = 240;
     };
   };
 }
