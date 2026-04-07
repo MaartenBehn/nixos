@@ -8,7 +8,7 @@ let
 BAT_PATH=$(upower -e | grep BAT)
 
 # Initialize last sent 10% step
-LAST_SENT=-1
+NEXT_SENT=-1
 
 # Poll interval in seconds
 INTERVAL=30
@@ -22,13 +22,10 @@ while true; do
     echo "$STATE $PERC%"
 
     if [ "$STATE" = "discharging" ]; then
-        # Round down to nearest 10%
-        CURRENT_STEP=$((PERC / 10 * 10))
-
         # Send update only if step changed
-        if [ "$CURRENT_STEP" -ne "$LAST_SENT" ] && [ "$PERC" -le 98 ]; then
-            curl -s http://localhost:8090/status -d "Server Power at $PERC%!"
-            LAST_SENT=$CURRENT_STEP
+        if [ "$PERC" -ne "$NEXT_SENT" ] && [ "$PERC" -le 98 ]; then
+            curl -s http://localhost:8090/status -d "Server Power at $PERC%"
+            NEXT_SENT=$((CURRENT_STEP - 10))
         fi
     fi
 
