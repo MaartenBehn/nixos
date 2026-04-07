@@ -27,7 +27,7 @@ while true; do
             NEXT_SENT=$((PERC - 10))
         fi
     else 
-        NEXT_SENT=$((PERC - 10))
+        NEXT_SENT=$PERC
     fi
 
     # Wait before next check
