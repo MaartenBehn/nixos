@@ -28,11 +28,11 @@ let
   '';
 in
 {
-  environment.systemPackages = [
-    batteryLow
-    batteryCritical
-    batteryListener
-  ];
+  #environment.systemPackages = [
+  #  batteryLow
+  #  batteryCritical
+  #  batteryListener
+  #];
 
   systemd.services.batteryListener = {
     description = "Battery D-Bus listener for low/critical alerts";
