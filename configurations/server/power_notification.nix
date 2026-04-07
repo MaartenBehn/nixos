@@ -1,14 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  batteryLow = pkgs.writeShellScriptBin "battery-low" ''
-    curl http://localhost:8090/status -d "Server Power below 50%"
-  '';
-
-  batteryCritical = pkgs.writeShellScriptBin "battery-critical" ''
-    curl http://localhost:8090/status -d "Server Power below 10%"
-  '';
-
   batteryListener = pkgs.writeShellScriptBin "battery-listener" ''
 
     BAT_PATH=$(upower -e | grep BAT)
@@ -19,9 +11,11 @@ let
 
       if [ "$STATE" = "discharging" ]; then
         if [ "$PERC" -le 10 ]; then
-          ${batteryCritical}
+          curl http://localhost:8090/status -d "Server Power below 10%"
         elif [ "$PERC" -le 50 ]; then
-          ${batteryLow}
+          curl http://localhost:8090/status -d "Server Power below 50%"
+        elif [ "$PERC" -le 95 ]; then
+          curl http://localhost:8090/status -d "Server Power below 95%"
         fi
       fi
     done < <(dbus-monitor --system "type='signal',interface='org.freedesktop.UPower.Device'")
