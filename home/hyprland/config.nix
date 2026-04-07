@@ -14,7 +14,7 @@
        
         # Rest
         "sleep 0.6 && nm-applet &"
-        "sleep 0.6 && poweralertd -s -i \"line power\" &"
+        "sleep 0.6 && poweralertd -s -i 'line power' &"
         "sleep 0.6 && wl-clip-persist --clipboard both &"
         "sleep 0.6 && wl-paste --watch cliphist store &"
         "sleep 0.6 && swaync &"
