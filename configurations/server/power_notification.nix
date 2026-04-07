@@ -23,15 +23,17 @@ in
     after = [ "upower.service" ];
     wants = [ "upower.service" ];
 
-    path = [
+    path = with pkgs; [
       batteryListener
+      upower
+      dbus-monitor
     ];
     script = "battery-listener";
 
     serviceConfig = {
       Type = "simple";
       Restart = "always";
-      RestartSec = 240;
+      RestartSec = 10;
     };
   };
 }
