@@ -2,28 +2,41 @@
 
 let
   batteryListener = pkgs.writeShellScriptBin "battery-listener" ''
+#!/bin/bash
+
+# Get battery path
 BAT_PATH=$(upower -e | grep BAT)
-LAST_SENT=-1   # Initialize with an impossible value
 
-while read -r line; do
-    PERC=$(upower -i "$BAT_PATH" | grep percentage | awk '{print $2}' | tr -d '%')
-    STATE=$(upower -i "$BAT_PATH" | grep state | awk '{print $2}')
+# Initialize last sent 10% step
+LAST_SENT=-1
 
-    echo "$STATE $PERC"
+# Poll interval in seconds
+INTERVAL=30
+
+while true; do
+    # Read battery percentage and state
+    BAT_INFO=$(upower -i "$BAT_PATH")
+    PERC=$(echo "$BAT_INFO" | awk '/percentage/ {gsub("%",""); print $2}')
+    STATE=$(echo "$BAT_INFO" | awk '/state/ {print $2}')
+
+    echo "$STATE $PERC%"
 
     if [ "$STATE" = "discharging" ]; then
-        # Calculate 10% step
+        # Round down to nearest 10%
         CURRENT_STEP=$((PERC / 10 * 10))
 
+        # Send update only if step changed
         if [ "$CURRENT_STEP" -ne "$LAST_SENT" ] && [ "$PERC" -le 98 ]; then
             curl -s http://localhost:8090/status -d "Server Power at $PERC%!"
             LAST_SENT=$CURRENT_STEP
         fi
     fi
-done < <(dbus-monitor --system "type='signal',interface='org.freedesktop.UPower.Device'")  
+
+    # Wait before next check
+    sleep $INTERVAL
+done  
   '';
-in
-{
+in {
   systemd.services.batteryListener = {
     description = "Battery D-Bus listener for low/critical alerts";
     after = [ "upower.service" ];
