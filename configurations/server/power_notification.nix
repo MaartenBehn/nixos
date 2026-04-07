@@ -14,7 +14,6 @@ NEXT_SENT=-1
 INTERVAL=30
 
 while true; do
-    # Read battery percentage and state
     BAT_INFO=$(upower -i "$BAT_PATH")
     PERC=$(echo "$BAT_INFO" | awk '/percentage/ {gsub("%",""); print $2}')
     STATE=$(echo "$BAT_INFO" | awk '/state/ {print $2}')
@@ -22,8 +21,8 @@ while true; do
     echo "$STATE $PERC%"
 
     if [ "$STATE" = "discharging" ]; then
-        # Send update only if step changed
-        if [ "$PERC" -ne "$NEXT_SENT" ] && [ "$PERC" -le 98 ]; then
+
+        if [ "$PERC" -le "$NEXT_SENT" ] && [ "$PERC" -le 98 ]; then
             curl -s http://localhost:8090/status -d "Server Power at $PERC%"
             NEXT_SENT=$((CURRENT_STEP - 10))
         fi
