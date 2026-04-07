@@ -8,6 +8,8 @@ let
     while read -r line; do
       PERC=$(upower -i $BAT_PATH | grep percentage | awk '{print $2}' | tr -d '%')
       STATE=$(upower -i $BAT_PATH | grep state | awk '{print $2}')
+      
+      echo "$STATE $PERC"
 
       if [ "$STATE" = "discharging" ]; then
         if [ "$PERC" -le 10 ]; then
