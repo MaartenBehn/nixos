@@ -12,7 +12,7 @@ let
       echo "$STATE $PERC"
 
       if [ "$STATE" = "discharging" ]; then
-        if [ "$PERC" -le 10 ]; then
+        if [ "$PERC" -le 98 ]; then
           curl http://localhost:8090/status -d "Server Power at $PERC"
         fi
       fi
