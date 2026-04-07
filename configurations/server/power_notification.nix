@@ -30,10 +30,10 @@ in
     path = [
       batteryListener
     ];
+    script = "battery-listener";
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${batteryListener}";
       Restart = "always";
       RestartSec = 10;
     };
