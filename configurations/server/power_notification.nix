@@ -1,19 +1,14 @@
 { config, pkgs, ... }:
 
 let
-  # Script for low battery
   batteryLow = pkgs.writeShellScriptBin "battery-low" ''
-    notify-send "Battery Low" "Battery below 50%"
     curl http://localhost:8090/status -d "Server Power below 50%"
   '';
 
-  # Script for critical battery
   batteryCritical = pkgs.writeShellScriptBin "battery-critical" ''
-    notify-send "Battery Critical" "Battery below 10%"
     curl http://localhost:8090/status -d "Server Power below 10%"
   '';
 
-  # D-Bus listener script
   batteryListener = pkgs.writeShellScriptBin "battery-listener" ''
 
     BAT_PATH=$(upower -e | grep BAT)
