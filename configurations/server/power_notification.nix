@@ -22,20 +22,12 @@ let
   '';
 in
 {
-  #environment.systemPackages = [
-  #  batteryLow
-  #  batteryCritical
-  #  batteryListener
-  #];
-
   systemd.services.batteryListener = {
     description = "Battery D-Bus listener for low/critical alerts";
     after = [ "upower.service" ];
     wants = [ "upower.service" ];
 
     path = [
-      batteryLow
-      batteryCritical
       batteryListener
     ];
 
