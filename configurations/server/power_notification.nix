@@ -2,21 +2,25 @@
 
 let
   batteryListener = pkgs.writeShellScriptBin "battery-listener" ''
+BAT_PATH=$(upower -e | grep BAT)
+LAST_SENT=-1   # Initialize with an impossible value
 
-    BAT_PATH=$(upower -e | grep BAT)
+while read -r line; do
+    PERC=$(upower -i "$BAT_PATH" | grep percentage | awk '{print $2}' | tr -d '%')
+    STATE=$(upower -i "$BAT_PATH" | grep state | awk '{print $2}')
 
-    while read -r line; do
-      PERC=$(upower -i $BAT_PATH | grep percentage | awk '{print $2}' | tr -d '%')
-      STATE=$(upower -i $BAT_PATH | grep state | awk '{print $2}')
-      
-      echo "$STATE $PERC"
+    echo "$STATE $PERC"
 
-      if [ "$STATE" = "discharging" ]; then
-        if [ "$PERC" -le 98 ]; then
-          curl http://localhost:8090/status -d "Server Power at $PERC"
+    if [ "$STATE" = "discharging" ]; then
+        # Calculate 10% step
+        CURRENT_STEP=$((PERC / 10 * 10))
+
+        if [ "$CURRENT_STEP" -ne "$LAST_SENT" ] && [ "$PERC" -le 98 ]; then
+            curl -s http://localhost:8090/status -d "Server Power at $PERC%!"
+            LAST_SENT=$CURRENT_STEP
         fi
-      fi
-    done < <(dbus-monitor --system "type='signal',interface='org.freedesktop.UPower.Device'")
+    fi
+done < <(dbus-monitor --system "type='signal',interface='org.freedesktop.UPower.Device'")  
   '';
 in
 {
