@@ -7,6 +7,7 @@
     proxy_wg = {
       ips = [ "10.0.0.2/24" ];
       privateKeyFile = config.sops.secrets."wireguard/proxy/private_key".path;
+      allowedIPsAsRoutes = true;
 
       peers = [
         {
