@@ -20,6 +20,13 @@
           persistentKeepalive = 25;
         }
       ];
+
+      postSetup = [
+        "iptables -t mangle -A FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
+      ];
+      postShutdown = [
+        "iptables -t mangle -D FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
+      ];
     };
   };
 }
