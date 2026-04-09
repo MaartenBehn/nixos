@@ -12,6 +12,7 @@
       ips = [ "10.0.0.2/24" ];
       privateKeyFile = config.sops.secrets."wireguard/proxy/private_key".path;
       allowedIPsAsRoutes = true;
+      mtu = 1420;
 
       peers = [
         {
