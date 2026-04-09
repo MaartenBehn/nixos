@@ -6,7 +6,7 @@
     # SSL 
     security.acme = {
       acceptTerms = true;
-      defaults.email = "admin@stroby.org";
+      defaults.email = "maarten.behn@gmail.com";
     };
 
     # Open http and https ports

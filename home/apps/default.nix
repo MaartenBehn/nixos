@@ -22,7 +22,7 @@
 
     # GUI Apps
     #vlc                               # video player 
-    #libreoffice
+    libreoffice
     
     webcamoid
     #obs-studio

@@ -8,6 +8,7 @@
     ./error_notify.nix
     ./power_notification.nix
     ./debug_tools.nix
+    ./proxy_vpn.nix
 
     # DNS
     ./network.nix
@@ -18,7 +19,6 @@
    
     # Used by others
     ./ntfy.nix
-    ./mail.nix
     ./notes.nix
     ./backup_music.nix
    
