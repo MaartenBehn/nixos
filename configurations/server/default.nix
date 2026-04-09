@@ -13,9 +13,9 @@
     # DNS
     ./network.nix
     ./blocky.nix
-    ./cloudflare_dyndns.nix
-    ./ipv64.nix
-    ./duckdns.nix
+    #./cloudflare_dyndns.nix
+    #./ipv64.nix
+    #./duckdns.nix
    
     # Used by others
     ./ntfy.nix
