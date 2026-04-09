@@ -7,11 +7,6 @@
     allowedUDPPorts = [ 51820 ];
   };
 
-  environment.systemPackages = with pkgs; [
-    iptables
-  ];
-
-
   networking.wireguard.interfaces = {
     proxy_wg = {
       ips = [ "10.0.0.2/24" ];
@@ -27,10 +22,10 @@
       ];
 
       postSetup = [
-        "iptables -t mangle -A FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
+        "${pkgs.iptables}/bin/iptables -t mangle -A FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
       ];
       postShutdown = [
-        "iptables -t mangle -D FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
+        "${pkgs.iptables}/bin/iptables -t mangle -D FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
       ];
     };
   };
