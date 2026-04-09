@@ -20,6 +20,7 @@
     # Used by others
     ./ntfy.nix
     ./notes.nix
+    ./mail.nix
     ./backup_music.nix
    
     # Web services
