@@ -11,6 +11,7 @@
     proxy_wg = {
       ips = [ "10.0.0.2/24" ];
       privateKeyFile = config.sops.secrets."wireguard/proxy/private_key".path;
+      mtu = 1380;
 
       peers = [
         {
@@ -19,13 +20,6 @@
           allowedIPs = [ "10.0.0.0/24" ];
           persistentKeepalive = 25;
         }
-      ];
-
-      postSetup = [
-        "${pkgs.iptables}/bin/iptables -t mangle -A FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
-      ];
-      postShutdown = [
-        "${pkgs.iptables}/bin/iptables -t mangle -D FORWARD -o proxy_wg -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1380"
       ];
     };
   };
