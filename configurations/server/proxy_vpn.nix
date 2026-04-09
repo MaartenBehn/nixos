@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
 
   sops.secrets."wireguard/proxy/private_key" = {};
 
@@ -6,6 +6,11 @@
     trustedInterfaces = [ "proxy_wg" ];
     allowedUDPPorts = [ 51820 ];
   };
+
+  environment.systemPackages = with pkgs; [
+    iptables
+  ];
+
 
   networking.wireguard.interfaces = {
     proxy_wg = {
