@@ -8,7 +8,7 @@
     ./error_notify.nix
     ./power_notification.nix
     ./debug_tools.nix
-    ./proxy_vpn.nix
+    #./proxy_vpn.nix
 
     # DNS
     ./network.nix
