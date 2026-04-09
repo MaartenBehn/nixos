@@ -2,6 +2,7 @@
 
   sops.secrets."wireguard/proxy/private_key" = {};
 
+  networking.firewall.allowedUDPPorts = [ 51820 ];
   networking.wireguard.interfaces = {
     proxy_wg = {
       ips = [ "10.0.0.2/24" ];
