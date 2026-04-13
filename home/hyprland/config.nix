@@ -48,7 +48,7 @@
         animate_manual_resizes = false;
         enable_swallow = true;
         focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
+        #new_window_takes_over_fullscreen = 2;
         middle_click_paste = false;
         enable_anr_dialog = false;
       };
@@ -133,95 +133,72 @@
       # windowrule
       windowrule = [
         # System 
-        "pin,title:^(rofi)$"
-        "pin,title:^(waypaper)$"
-        "float,class:^(waypaper)$"
-
+        "match:title ^(rofi)$, pin on"
+        "match:title ^(waypaper)$, pin on, float on"
 
         # Task Bar Programms
-        "float,class:^(nm-connection-editor)$"
-        "move 100%-w-10 100%-w-40,class:^(nm-connection-editor)$"
+        "match:class ^(nm-connection-editor)$, float on, move 100%-w-10 100%-w-40"
 
-        "move 100%-w-10 100%-w-40,title:^(Mullvad VPN)$"
+        "match:title ^(Mullvad VPN)$, move 100%-w-10 100%-w-40"
         
-        "float,title:^(Bluetooth)"
-        "move 100%-w-10 100%-w-40,title:^(Bluetooth)$"
+        "match:title ^(Bluetooth)$, float on"
+        "match:title ^(Bluetooth)$, move 100%-w-10 100%-w-40"
 
-        "float,class:^(org.pulseaudio.pavucontrol)$"
-        "move 100%-w-10 100%-w-40,class:^(org.pulseaudio.pavucontrol)$"
+        "match:class ^(org.pulseaudio.pavucontrol)$, float on, move 100%-w-10 100%-w-40"
 
-        "${if host == "laptop" then "size 40% 40%,title:^(Volume Control)$" else "size 60% 60%,title:^(Volume Control)$"}"
+        "${if host == "laptop" then "match:title ^(Volume Control)$, size 40% 40%" else "match:title ^(Volume Control)$, size 60% 60%"}"
 
         # Overlays
-        "float, title:^(Picture-in-Picture)$"
-        "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
-
-        "float,title:^(Firefox — Sharing Indicator)$"
-        "move 0 0,title:^(Firefox — Sharing Indicator)$"
-
+        "match:title ^(Picture-in-Picture)$, float on, opacity 1.0 override 1.0 override, pin on"
+        "match:title ^(Firefox — Sharing Indicator)$, float on, move 0 0"
 
         # Sharing popup
-        "float, title:^(Select what to share)$"
-
-        "opacity 0.0 override,class:^(xwaylandvideobridge)$"
-        "noanim,class:^(xwaylandvideobridge)$"
-        "noinitialfocus,class:^(xwaylandvideobridge)$"
-        "maxsize 1 1,class:^(xwaylandvideobridge)$"
-        "noblur,class:^(xwaylandvideobridge)$"
+        "match:title ^(Select what to share)$, float on"
+        "match:class ^(xwaylandvideobridge)$, opacity 0.0 override, no_anim on, no_initial_focus on, max_size 1 1, no_blur on"
 
         # Bitwarden Popup
         # "float, title:(.*)(Bitwarden)(.*)"
         # Not possible as the inital Window is Firefox
 
         # File Popups
-        "float,class:^(file_progress)$"
-        "float,class:^(confirm)$"
-        "float,class:^(dialog)$"
-        "float,class:^(download)$"
-        "float,class:^(notification)$"
-        "float,class:^(error)$"
-        "float,class:^(confirmreset)$"
+        "match:class ^(file_progress)$, float on"
+        "match:class ^(confirm)$, float on"
+        "match:class ^(dialog)$, float on"
+        "match:class ^(download)$, float on"
+        "match:class ^(notification)$, float on"
+        "match:class ^(error)$, float on"
+        "match:class ^(confirmreset)$, float on"
 
-        "float,title:^(Open File)$"
-        "size <90% <90%,title:^(Open File)$"
-        "float,title:^(File Upload)$"
-        "size <90% <90%,title:^(File Upload)$"
+        "match:title ^(Open File)$, float on, size <90% <90%"
+        "match:title ^(File Upload)$, float on, size <90% <90%"
         
-        "float,title:^(branchdialog)$"
-        "float,title:^(Confirm to replace files)$"
-        "float,title:^(File Operation Progress)$"
-        "float,title:^(Save As)$" 
-
+        "match:title ^(branchdialog)$, float on"
+        "match:title ^(Confirm to replace files)$, float on"
+        "match:title ^(File Operation Progress)$, float on"
+        "match:title ^(Save As)$, float on" 
 
         # Remove context menu transparency in chromium based apps
-        "opaque,class:^()$,title:^()$"
-        "noshadow,class:^()$,title:^()$"
-        "noblur,class:^()$,title:^()$"
-
+        "match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
 
         # Programms 
-        "float,title:^(imv)$"
-        "opacity 1.0 override 1.0 override, title:^(.*imv.*)$"
+        "match:title ^(imv)$, float on"
+        "match:title ^(.*imv.*)$, opacity 1.0 override 1.0 override"
 
-        "float,title:^(mpv)$"
-        "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
-        "idleinhibit focus, title:^(mpv)$"
-        "idleinhibit focus, class:^(mpv)$"
+        "match:title ^(mpv)$, float on, idle_inhibit on"
+        "match:title ^(.*mpv.*)$, opacity 1.0 override 1.0 override"
 
-        "tile,title:^(Aseprite)$"
-        "opacity 1.0 override 1.0 override, class:(Aseprite)"
+        "match:title ^(Aseprite)$, tile on, opacity 1.0 override 1.0 override"
 
-        "opacity 1.0 override 1.0 override, class:(Unity)"
+        "match:class (Unity), opacity 1.0 override 1.0 override"
 
         # Other ?
-        "float,title:^(audacious)$"
+        "match:title ^(audacious)$, float on"
 
-        "float,title:^(Viewnior)$" 
-        "tile,title:^(neovide)$"
-        "float,title:^(udiskie)$"
+        "match:title ^(Viewnior)$, float on" 
+        "match:title ^(neovide)$, tile on"
+        "match:title ^(udiskie)$, float on"
  
-        "idleinhibit fullscreen, class:^(firefox)$"
+        "match:class ^(firefox)$, idle_inhibit on, fullscreen on"
         
         #"float,class:^(zenity)$"
         #"size 850 500,class:^(zenity)$"

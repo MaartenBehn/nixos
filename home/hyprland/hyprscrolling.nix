@@ -1,13 +1,12 @@
 { inputs, pkgs, ... }: {
   wayland.windowManager.hyprland.plugins = [
-    inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+    pkgs.hyprlandPlugins.hyprscrolling
   ];
 
   wayland.windowManager.hyprland.settings = {
     general.layout = "scrolling";
 
-    # https://github.com/hyprwm/hyprland-plugins/tree/main/hyprscrolling
-    plugin.hyprscrolling = {
+    scrolling = {
       fullscreen_on_one_column = true;
       column_width = 1.0;
       explicit_column_widths = "0.25, 0.5, 1.0";

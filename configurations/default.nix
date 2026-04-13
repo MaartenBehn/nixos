@@ -23,6 +23,7 @@
         ./fingerprint.nix
         ./usb_auto_mount.nix
         ./battery.nix
+        ./framework_update.nix
 
         # Windows
         ./window_manager
