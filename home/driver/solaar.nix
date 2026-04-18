@@ -38,19 +38,19 @@ in {
 ---
 - Key: [MultiPlatform Gesture Button, pressed]
 - KeyPress:
-  - [Super_L, d]
+  - Z
   - click
 ...
 ---
 - Key: [Forward Button, pressed]
 - KeyPress:
-  - K
+  - U
   - click
 ...
 ---
 - Key: [Back Button, pressed]
 - KeyPress:
-  - L
+  - I
   - click
 ...
 ---
