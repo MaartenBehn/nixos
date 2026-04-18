@@ -68,6 +68,7 @@
         ./usb_auto_mount.nix
         ./fix_stuck_on_tpmrm0.nix
         ./sops.nix
+        ./logitech.nix
 
         # Windows
         ./window_manager
