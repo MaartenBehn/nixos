@@ -24,6 +24,7 @@
         ./usb_auto_mount.nix
         ./battery.nix
         ./framework_update.nix
+        ./logitech.nix
 
         # Windows
         ./window_manager
