@@ -136,8 +136,8 @@
 
         # Task Bar Programms
         "match:class ^(nm-connection-editor)$, float on, move (monitor_w*0.4) (monitor_h*0.4)"
-
-      "match:title ^(Mullvad VPN)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
+  
+        "match:title ^(Mullvad VPN)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
         
         "match:title ^(Bluetooth)$, float on"
         "match:title ^(Bluetooth)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
