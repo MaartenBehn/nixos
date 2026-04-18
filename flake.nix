@@ -102,8 +102,11 @@
         inherit system;
         config.allowUnfree = true;
     };
+    pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+    };
 
-    pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     nix-version = "25.11";
 
     configs = [

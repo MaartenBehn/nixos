@@ -24,7 +24,7 @@
 
       ${if desktop == "hyprland" then ''
         if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
-          exec hyprland 
+          exec start-hyprland 
         end
       '' else ""}
 

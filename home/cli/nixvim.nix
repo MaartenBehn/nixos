@@ -1,7 +1,7 @@
-{ pkgs, inputs, system, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
-    inputs.nixvim.packages."${system}".default
+    inputs.nixvim.packages."${pkgs.stdenv.hostPlatform.system}".default
     xclip
     lazygit
     lldb

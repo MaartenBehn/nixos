@@ -1,6 +1,7 @@
 { ... }: {
   programs.ssh = { 
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       ropelab = {
         hostname = "betelgeuse.uberspace.de";

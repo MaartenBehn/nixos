@@ -15,16 +15,20 @@
     };
 
     bind = [
+      # move focus
+      "$mainMod, right, layoutmsg, focus r"
+      "$mainMod, left, layoutmsg, focus l"
+
       # window control
-      "$mainMod ALT, left, layoutmsg, movewindowto l"
-      "$mainMod ALT, right, layoutmsg, movewindowto r"
-      "$mainMod ALT, up, layoutmsg, movewindowto u"
-      "$mainMod ALT, down, layoutmsg, movewindowto d"
+      "$mainMod ALT, left, layoutmsg, swapcol l"
+      "$mainMod ALT, right, layoutmsg, swapcol r"
+      #"$mainMod ALT, up, layoutmsg, movewindowto up"
+      #"$mainMod ALT, down, layoutmsg, movewindowto down"
 
       "$mainMod CTRL, left, layoutmsg, colresize -conf"
       "$mainMod CTRL, right, layoutmsg, colresize +conf"
-      "$mainMod CTRL, up, resizeactive, 0 -80"
-      "$mainMod CTRL, down, resizeactive, 0 80"
+      #"$mainMod CTRL, up, resizeactive, 0 -80"
+      #"$mainMod CTRL, down, resizeactive, 0 80"
     ];
   };
 }

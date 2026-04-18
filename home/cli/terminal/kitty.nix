@@ -24,6 +24,8 @@
       enable_audio_bell = false;
       mouse_hide_wait = 60;
       window_padding_width = 5;
+      copy_on_select = "yes";
+      clear_all_shortcuts = "yes";
 
       ## Tabs
       tab_title_template = "{index}";
@@ -38,15 +40,8 @@
     };
 
     keybindings = {
-      ## Tabs
-      "alt+1" = "goto_tab 1";
-      "alt+2" = "goto_tab 2";
-      "alt+3" = "goto_tab 3";
-      "alt+4" = "goto_tab 4";
-
-      ## Unbind
-      "ctrl+shift+left" = "no_op";
-      "ctrl+shift+right" = "no_op";
+      "ctrl+shift+c" = "copy_to_clipboard";
+      "ctrl+shift+v" = "paste_from_clipboard";
     };
   };
 

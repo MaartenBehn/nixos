@@ -79,8 +79,8 @@
         "$mainMod, Space, exec, kitty -d $(hyprcwd)"
         "$mainMod, B, exec, firefox"
         "$mainMod, O, exec, obsidian"
-        "$mainMod, E, exec, nemo"
-        "$mainMod SHIFT, E, exec, hyprctl dispatch exec '[float; size 1111 700] ${terminal} -e yazi'"
+        "$mainMod, E, exec, kitty -d $(hyprcwd) -e yazi"
+        "$mainMod SHIFT, E, exec, nemo"
         "$mainMod, M, exec, thunderbird"
         "$mainMod SHIFT, V, exec, open_vim_cheat_sheet"
         
@@ -92,9 +92,7 @@
         ",Print, exec, screenshot --copy"
         "$mainMod, Print, exec, screenshot --md-copy"
 
-        "$mainMod, right, layoutmsg, focus r"
-        "$mainMod, left, layoutmsg, focus l"
-
+       
         # media and volume controls
         # ",XF86AudioMute,exec, pamixer -t"
         ",XF86AudioPlay,exec, playerctl play-pause"
@@ -137,16 +135,14 @@
         "match:title ^(waypaper)$, pin on, float on"
 
         # Task Bar Programms
-        "match:class ^(nm-connection-editor)$, float on, move 100%-w-10 100%-w-40"
+        "match:class ^(nm-connection-editor)$, float on, move (monitor_w*0.4) (monitor_h*0.4)"
 
-        "match:title ^(Mullvad VPN)$, move 100%-w-10 100%-w-40"
+      "match:title ^(Mullvad VPN)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
         
         "match:title ^(Bluetooth)$, float on"
-        "match:title ^(Bluetooth)$, move 100%-w-10 100%-w-40"
+        "match:title ^(Bluetooth)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
 
-        "match:class ^(org.pulseaudio.pavucontrol)$, float on, move 100%-w-10 100%-w-40"
-
-        "${if host == "laptop" then "match:title ^(Volume Control)$, size 40% 40%" else "match:title ^(Volume Control)$, size 60% 60%"}"
+        "match:class org.pulseaudio.pavucontrol, float on, size (monitor_w*0.4) (monitor_h*0.4), move (monitor_w-monitor_w*0.4-10) (monitor_h-monitor_h*0.4-40)"
 
         # Overlays
         "match:title ^(Picture-in-Picture)$, float on, opacity 1.0 override 1.0 override, pin on"
@@ -169,8 +165,8 @@
         "match:class ^(error)$, float on"
         "match:class ^(confirmreset)$, float on"
 
-        "match:title ^(Open File)$, float on, size <90% <90%"
-        "match:title ^(File Upload)$, float on, size <90% <90%"
+        "match:title ^(Open File)$, float on, size <(monitor_w*0.9) <(monitor_h*0.9)"
+        "match:title ^(File Upload)$, float on, size <(monitor_w*0.9) <(monitor_h*0.9)"
         
         "match:title ^(branchdialog)$, float on"
         "match:title ^(Confirm to replace files)$, float on"
@@ -181,6 +177,7 @@
         "match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
 
         # Programms 
+        "match:class ^(firefox)$, idle_inhibit on"
         "match:title ^(imv)$, float on"
         "match:title ^(.*imv.*)$, opacity 1.0 override 1.0 override"
 
@@ -189,7 +186,7 @@
 
         "match:title ^(Aseprite)$, tile on, opacity 1.0 override 1.0 override"
 
-        "match:class (Unity), opacity 1.0 override 1.0 override"
+        "match:class (Unity), opacity 1.0 override 1.0 override, idle_inhibit on"
 
         # Other ?
         "match:title ^(audacious)$, float on"
@@ -197,8 +194,6 @@
         "match:title ^(Viewnior)$, float on" 
         "match:title ^(neovide)$, tile on"
         "match:title ^(udiskie)$, float on"
- 
-        "match:class ^(firefox)$, idle_inhibit on, fullscreen on"
         
         #"float,class:^(zenity)$"
         #"size 850 500,class:^(zenity)$"

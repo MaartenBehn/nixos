@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   home.packages = with pkgs; [
     # For uni VPN 
@@ -9,7 +9,6 @@
     android-tools # needed for gnirehtet
 
     vaultwarden
-
   ];  
   imports = [
     ./tools
