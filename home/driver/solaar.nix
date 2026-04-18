@@ -1,4 +1,4 @@
-{ username, lib, inputs, ... }: 
+{ lib, config, ... }: 
 
 let 
   writableFile = path: text: (
@@ -10,7 +10,7 @@ let
     '');
 in { 
   home.activation = {
-    write_solaar_config = (writableFile "/home/${username}/.config/solaar/config.yaml" ''
+    write_solaar_config = (writableFile "/home/${config.home.username}/.config/solaar/config.yaml" ''
 - 1.1.13
 - _NAME: M720 Triathlon Multi-Device Mouse
   _absent: [hi-res-scroll, lowres-scroll-mode, scroll-ratchet, smart-shift, thumb-scroll-invert, thumb-scroll-mode, onboard_profiles, report_rate, report_rate_extended,
@@ -33,7 +33,7 @@ in {
   reprogrammable-keys: {80: 80, 81: 81, 82: 82, 83: 83, 86: 86, 91: 91, 93: 93, 208: 208}
 '');
   
-  write_solaar_rules = (writableFile "/home/${username}/.config/solaar/rules.yaml" ''
+  write_solaar_rules = (writableFile "/home/${config.home.username}/.config/solaar/rules.yaml" ''
 %YAML 1.3
 ---
 - Key: [MultiPlatform Gesture Button, pressed]

@@ -94,6 +94,9 @@
 
   let 
     system = "x86_64-linux";
+    nix-version = "25.11";
+    hosts = [ "laptop" "desktop" "stroby" "asus" "wsl" "iso" ];
+
     pkgs-2405 = import nixpkgs-2405 {
         inherit system;
         config.allowUnfree = true;
@@ -106,49 +109,15 @@
         inherit system;
         config.allowUnfree = true;
     };
-
-    nix-version = "25.11";
-
-    configs = [
-      {
-        host = "laptop";
-        username = "stroby"; 
-        terminal = "kitty";
-        desktop = "hyprland";
-      }
-      {
-        host = "desktop";
-        username = "stroby";
-        terminal = "kitty";
-        desktop = "hyprland";
-      }
-      {
-        host = "asus";
-        username = "stroby"; 
-        domains = [ "stroby.org" "stroby.duckdns.org" "stroby.ipv64.de" ];
-        local_domain = "local";
-      }
-      {
-        host = "wsl";
-        username = "nixos"; 
-      }
-      {
-        host = "iso";
-        username = "stroby"; 
-        terminal = "kitty";
-        desktop = "hyprland";
-      }
-    ];
-
-    add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val));
-    mkSystemName = config: 
-        (if config.host == "iso" then "iso" else   
-        (if config.host == "wsl" then "wsl" else   
-            "${config.username}-${config.host}")); 
+    
+    mkSystemName = host: 
+        (if host == "iso" then "iso" else   
+        (if host == "wsl" then "wsl" else   
+            "stroby-${host}")); 
     in   
       {
       # Generate configs
-      nixosConfigurations = builtins.listToAttrs (builtins.map (config:
+      nixosConfigurations = builtins.listToAttrs (builtins.map (host:
         let 
           args = {
             inherit nix-version;
@@ -156,20 +125,13 @@
             inherit inputs;
             inherit pkgs-2405;
             inherit pkgs-2505;
-            inherit pkgs-unstable;   
-            username = config.username;
-            host = config.host;
-            system_name = mkSystemName config;
-            terminal = (add_optional "terminal" config null);
-            desktop = (add_optional "desktop" config null);
-            domains = (add_optional "domains" config null);
-            local_domain = (add_optional "local_domain" config null);
-
-            add_optional = add_optional;
+            inherit pkgs-unstable;  
+            host = host;
+            system_name = mkSystemName host;
           }; 
         in { 
           # Name of the config
-          name = mkSystemName config; 
+          name = mkSystemName host; 
           # Content of the config
           value = nixpkgs.lib.nixosSystem {
             inherit system; # system = system
@@ -183,11 +145,11 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.users."${config.username}" = import ./home;
+                home-manager.users."stroby" = import ./home;
                 home-manager.extraSpecialArgs = args;
               }
             ];
           };
-        } ) configs);
+        } ) hosts);
     };
 }

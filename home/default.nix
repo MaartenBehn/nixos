@@ -1,36 +1,25 @@
-{ desktop, username, host, nix-version, ... }: {
+{ host, nix-version, ... }: {
   programs.home-manager.enable = true;
   home.stateVersion = nix-version;
 
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home.username = "stroby";
+  home.homeDirectory = "/home/stroby";
 
-  imports = 
-    (if desktop == "hyprland" then 
-      [ 
-        ./hyprland 
-        ./scripts/scripts.nix             # personal scripts
-        ./apps/minimal.nix
-      ] else [ ])
-    ++ (if desktop == "hyprland" && host != "iso" then 
-      [ 
-        ./apps
-      ] else [ ])
-    ++ (if desktop == "plasma" then 
-      [ 
-        ./plasma/plasma.nix 
-      ] else [ ])
-
-
-    ++ (if host == "laptop" then
+  imports = (if host == "laptop" then
       [
+        ./hyprland 
+        ./scripts/scripts.nix                   
+        ./apps
         ./driver/solaar.nix
         ./programming_languages
         ./apps/minecraft.nix
         ./cli
       ] else [])
     ++ (if host == "desktop" then
-      [
+      [  
+        ./hyprland 
+        ./scripts/scripts.nix        
+        ./apps
         ./driver/solaar.nix
         ./apps/minecraft.nix
         ./cli
@@ -45,7 +34,6 @@
       [
         ./cli/minimal.nix
         ./apps/beets
-
       ] else [])
     ++ (if host == "wsl" then
       [

@@ -1,4 +1,4 @@
-{ pkgs, lib, terminal, ... }:
+{ lib, config, ... }:
 with lib;
 let
   defaultApps = {
@@ -11,7 +11,7 @@ let
     directory = [ "nemo.desktop" ];
     office = [ "libreoffice.desktop" ];
     pdf = [ "org.gnome.Evince.desktop" ];
-    terminal = [ "${terminal}.desktop" ];
+    terminal = [ "${config.home.sessionVariables.TERMINAL}.desktop" ];
     archive = [ "org.gnome.FileRoller.desktop" ];
     discord = [ "discord.desktop" ];
   };

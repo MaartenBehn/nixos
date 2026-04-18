@@ -1,7 +1,7 @@
-{ username, ... }:
+{ ... }:
 {
   virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ username ];
+  users.extraGroups.vboxusers.members = [ "stroby" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   # WARN: This causes long sysinit-reactivation.target times

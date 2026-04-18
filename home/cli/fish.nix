@@ -1,4 +1,4 @@
-{ pkgs, desktop, ... }:
+{ pkgs, desktop, config, ... }:
 {
   home.packages = with pkgs; [
     # shell env programms
@@ -22,7 +22,7 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      ${if desktop == "hyprland" then ''
+      ${if config.wayland.windowManager.hyprland.enable then ''
         if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
           exec start-hyprland 
         end

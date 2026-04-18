@@ -1,6 +1,6 @@
-{ config, pkgs, lib, add_optional, ... }:
-
+{ config, pkgs, lib, ... }:
 let 
+  add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val));
   gmail_configs = [
     {
       mail = "maarten.behn@gmail.com";

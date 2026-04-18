@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, config, ... }:
 let 
   wallpaper-picker = pkgs.writeShellScriptBin "wallpaper-picker" ''
     hyprctl dispatch exec '[float; size 925 615] waypaper'
@@ -27,7 +27,7 @@ let
     mkdir -p ~/.config/layout/
     cd ~/.config/layout/
     if [ ! -f $file ]; then
-      echo "/home/${username}/nixos/wallpapers/others/nixos.png"
+      echo "/home/${config.home.username}/nixos/wallpapers/others/nixos.png"
     else 
       cat $file
     fi

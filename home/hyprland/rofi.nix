@@ -1,4 +1,4 @@
-{ pkgs, terminal, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = (with pkgs; [ rofi ]);
 
@@ -24,7 +24,7 @@
       font: "JetBrains Mono Bold 16";
       show-icons: true;
       icon-theme: "Papirus-dark";
-      terminal: "${terminal}";
+      terminal: "${config.home.sessionVariables.TERMINAL}";
       drun-display-format: "{icon} {name}";
       location: 0;
       disable-history: true;

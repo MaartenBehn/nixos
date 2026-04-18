@@ -1,6 +1,5 @@
-{ lib, pkgs, inputs, username, ... }: {
+{ pkgs, inputs, ... }: {
  
-  #services.xserver.enable = false;
   services.libinput.enable = true;
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -8,7 +7,7 @@
     variant = "";
   }; 
 
-  services.getty.autologinUser = username;
+  services.getty.autologinUser = "stroby";
   console.enable = true;
 
   # Disable wait for online befor login

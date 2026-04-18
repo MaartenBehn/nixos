@@ -1,8 +1,8 @@
-{ username, pkgs, ... }:
+{ pkgs, ... }:
 {
-  users.users.${username} = {
+  users.users."stroby" = {
     isNormalUser = true;
-    description = username;
+    description = "stroby";
     extraGroups = [
       "networkmanager"
       "wheel"

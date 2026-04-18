@@ -27,7 +27,7 @@
         ./logitech.nix
 
         # Windows
-        ./window_manager
+        ./hyprland.nix
 
         # Apps
         ./syncthing.nix
@@ -41,12 +41,12 @@
         # Other
         ./server/debug_tools.nix 
         ./server/hotspot.nix 
-
-        #./filebrowser.nix
         ./set_kitty_default.nix
 
+        #./filebrowser.nix
+
         #./server/algo_trading.nix
-        ./server/txt_server.nix
+        #./server/txt_server.nix
         #./virtualbox.nix
 
         #./smb.nix
@@ -70,7 +70,7 @@
         ./sops.nix
 
         # Windows
-        ./window_manager
+        ./hyprland.nix
 
         # Apps
         ./syncthing.nix
@@ -102,7 +102,7 @@
         ./battery.nix
 
         # Windows
-        ./window_manager
+        ./hyprland.nix
 
         #./calamares.nix
       ] else [])

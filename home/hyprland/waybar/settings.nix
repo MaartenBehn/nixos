@@ -1,4 +1,4 @@
-{ terminal, pkgs, ... }:
+{ pkgs, config, ... }:
 let
   custom = {
     font = "JetBrains Mono";
@@ -97,7 +97,6 @@ in {
       "cpu"
       "memory"
       "custom/gpu"
-      #(if (host == "desktop") then "disk" else "")
       "pulseaudio"
       "battery"
       "bluetooth"
@@ -136,18 +135,18 @@ in {
     cpu = {
       format = "<span foreground='${green}'> </span> {usage}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
+      on-click = "hyprctl dispatch exec '${config.home.sessionVariables.TERMINAL} -e btop'";
     };
     memory = {
       format = "<span foreground='${cyan}'> </span> {}%";
       interval = 2;
-      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
+      on-click = "hyprctl dispatch exec '${config.home.sessionVariables.TERMINAL} -e btop'";
     };
     disk = {
       # path = "/";
       format = "<span foreground='${orange}'>󰋊 </span> {percentage_used}%";
       interval = 60;
-      on-click = "hyprctl dispatch exec '${terminal} -e btop'";
+      on-click = "hyprctl dispatch exec '${config.home.sessionVariables.TERMINAL} -e btop'";
     };
     network = {
       format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";
@@ -160,7 +159,7 @@ in {
       icon-size = 20;
       spacing = 8;
     };
-  pulseaudio = {
+    pulseaudio = {
       format = "{icon} {volume}%";
       format-muted = "<span foreground='${blue}'> </span> {volume}%";
       format-icons = {
@@ -225,7 +224,7 @@ in {
       exec = "${gpu_usage}/bin/gpu_usage";
       interval = 5;
       format = "<span foreground=\"#AF8ED6\">󰹑 </span> {}%";
-      on-click = "hyprctl dispatch exec '${terminal} -e nvtop'";
+      on-click = "hyprctl dispatch exec ${config.home.sessionVariables.TERMINAL} -e nvtop'";
     };
   };
 }

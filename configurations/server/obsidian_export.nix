@@ -1,4 +1,4 @@
-{ pkgs, domains, local_domain, ... }:
+{ pkgs, ... }:
 let 
   valid_check = pkgs.writeShellScriptBin "valid_check" ''
     if [ ! -d "/srv/obsidian_export" ]; then

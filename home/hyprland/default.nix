@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, host, ... }:
+{ pkgs, host, ... }:
 {
   imports = [
     ./hyprland.nix
