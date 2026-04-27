@@ -23,7 +23,7 @@
         };
         #Configure what block categories are used
         clientGroupsBlock = {
-          default = [ "ads" ];
+          default = [ ];
         };
       };
 
