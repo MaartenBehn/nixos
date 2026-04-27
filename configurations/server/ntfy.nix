@@ -1,4 +1,4 @@
-{ local_domain, domains, ... }: {
+{ ... }: {
   services.ntfy-sh = {
     enable = true;
     settings = {
@@ -7,21 +7,11 @@
     };
   };
 
-  services.nginx.virtualHosts = builtins.listToAttrs (builtins.map (domain: {
-    name = "ntfy.${domain}"; 
-    value = {
-      enableACME = domain != local_domain;
-      forceSSL = domain != local_domain;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8090/"; 
-        proxyWebsockets = true;
-      };
-
-      serverAliases = [
-        "www.ntfy.${domain}"
-      ];
+  web_services."ntfy" = {
+    domains = "all";
+    loc = {
+      proxyPass = "http://127.0.0.1:8090/"; 
+      proxyWebsockets = true; 
     };
-  }) (domains ++ [ local_domain ]));
-
+  }; 
 }
