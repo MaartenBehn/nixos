@@ -16,7 +16,7 @@ let
     
     src = pkgs.fetchFromGitHub {
       owner = "Lidarr";
-      repo = "patsh";
+      repo = "Lidarr";
       rev = "e42a7ca4fd633e021d69da7daa0368b870b0282e";
       hash = "";
     };
