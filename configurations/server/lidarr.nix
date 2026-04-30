@@ -18,7 +18,7 @@ let
       owner = "Lidarr";
       repo = "Lidarr";
       rev = "e42a7ca4fd633e021d69da7daa0368b870b0282e";
-      hash = "";
+      hash = "sha256-vjLoMU7Ow9rFFcZjCUvqoKZnrmg3TeB8Cqh1nSF8shM=";
     };
   });
   # https://github.com/blampe/hearring-aid/blob/main/docs/self-hosted-mirror-setup.md#101-configure-tubifarry-plugin-in-lidarr
