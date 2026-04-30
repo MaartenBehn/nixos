@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, local_domain, ... }: 
+{ pkgs, pkgs-unstable, ... }: 
 let 
   # Local build from plugins branch
   plugin_branch = pkgs-unstable.lidarr.overrideAttrs (old: {
@@ -7,13 +7,19 @@ let
     # git clone git@github.com:Lidarr/Lidarr.git
     # cd Lidarr 
     # git checkout plugins
-    # uncomment other systems
-    # nix-shell -p dotnet-sdk yarn --command "sh build.sh"
-    # cd _artifacts/linux-x64/net8.0 
-    # compress Lidarr
-    # scp Lidarr.tar.gz asus:Downloads
+    # export NuGetAudit=false
+    # nix-shell -p dotnet-sdk yarn --command "sh build.sh --backend --framework net8.0 --runtime linux-x64"
+    # cp -r src _output/net8.0/linux-x64/
+    # cd _output/net8.0/linux-x64 
+    # tar -cvzf "Lidarr.tar.gz" .
+    # mv Lidarr.tar.gz ~/Downloads
     
-    src = /home/stroby/Downloads/Lidarr.tar.gz;
+    src = pkgs.fetchFromGitHub {
+      owner = "Lidarr";
+      repo = "patsh";
+      rev = "e42a7ca4fd633e021d69da7daa0368b870b0282e";
+      hash = "";
+    };
   });
   # https://github.com/blampe/hearring-aid/blob/main/docs/self-hosted-mirror-setup.md#101-configure-tubifarry-plugin-in-lidarr
 

@@ -147,6 +147,15 @@ let
   
   config_file = pkgs.writeText "config.json" (builtins.toJSON swaync_config);  
 in {
+
+  wayland.windowManager.hyprland = {
+    settings = {
+      exec-once = [ 
+        "sleep 0.6 && poweralertd -s -i 'line power'"
+      ];
+    };
+  };
+
   home.packages = (with pkgs; [ swaynotificationcenter ]);
   xdg.configFile."swaync/style.css".source = ./style.css;
   xdg.configFile."swaync/config.json".source = config_file;
