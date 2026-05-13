@@ -43,6 +43,8 @@
         ./server/hotspot.nix 
         ./set_kitty_default.nix
 
+        ./platform_io.nix
+
         #./filebrowser.nix
 
         #./server/algo_trading.nix

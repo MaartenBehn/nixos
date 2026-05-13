@@ -97,6 +97,17 @@
     nix-version = "25.11";
     hosts = [ "laptop" "desktop" "stroby" "asus" "wsl" "iso" ];
 
+    pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          allowUnsupportedSystem = true;
+          permittedInsecurePackages = [
+            "ventoy-1.1.05"
+          ];
+        };
+    }; 
+
     pkgs-2405 = import nixpkgs-2405 {
         inherit system;
         config.allowUnfree = true;
@@ -135,6 +146,7 @@
           # Content of the config
           value = nixpkgs.lib.nixosSystem {
             inherit system; # system = system
+            inherit pkgs;
             specialArgs = args;
             modules = [
               ./configurations

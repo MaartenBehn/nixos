@@ -6,7 +6,7 @@
     ./obsidian.nix
     ./thunderbird.nix
     #./unity.nix
-    #./blender.nix
+    ./blender.nix
     ./wine.nix
     #./arduino.nix
  ];
@@ -37,6 +37,8 @@
     gimp                              # image editing
     #pitivi                            # video editing
     #audacity                          # Audio editing
+    blender                          # 3d modling software
+    kicad                            # schematic and bcd desinger
     
     bleachbit                         # cache cleaner
     #gnome-calculator                 # calculator  Good but Ui is buggy
