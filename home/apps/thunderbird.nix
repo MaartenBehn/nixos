@@ -12,14 +12,6 @@ let
       mail = "stroby241@gmail.com";
       name = "Stroby";
     }
-    {
-      mail = "strobyburn@gmail.com";
-      name = "Stroby";
-    }
-    #{
-    #  mail = "socialropelab@gmail.com";
-    #  name = "Social Rope Lab";
-    #}
   ];
   imap_configs = [
     {
@@ -32,20 +24,6 @@ let
       name = "Stroby";
       username = "stroby"; # Optional if username is not mail
       host = "web.smjg.org";
-    }
-  ];
-  rope_lab_configs = [
-    {
-      username = "social";
-      name = "Social Rope Lab";
-    }
-    {
-      username = "status";
-      name = "Social Rope Lab Status";
-    }
-    {
-      username = "stroby";
-      name = "Stroby";
     }
   ];
 in
@@ -109,32 +87,7 @@ in
           primary = add_optional "primary" config false;
         };
       }) imap_configs)
-    ++ (builtins.map (config: 
-      { 
-        name = "${config.username}@ropelab.de"; 
-        value = {
-          thunderbird = {
-            enable = true;
-          };
-
-          realName = config.name;
-          address = "${config.username}@ropelab.de";
-          userName = "${config.username}@ropelab.de";
-          
-          imap = {
-            host = "betelgeuse.uberspace.de";
-            port = 993;
-          };         
-          smtp = {
-            host = "betelgeuse.uberspace.de";
-            port = 465; 
-          };
-
-          primary = add_optional "primary" config false;
-        };
-      }) rope_lab_configs)
   );
-
   accounts.calendar.accounts = builtins.listToAttrs ( 
     (builtins.map (config: 
       { 

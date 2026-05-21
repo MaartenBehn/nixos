@@ -48,5 +48,6 @@
     #webull-desktop
 
     ausweisapp
+    zoom-us
  ]);
 }

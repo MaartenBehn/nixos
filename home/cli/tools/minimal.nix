@@ -7,6 +7,7 @@
     ./fastfetch.nix                   # fetch tool
     ./fzf.nix                         # fuzzy finder
     ./lazygit.nix
+    ./yazi.nix                        # explorer
   ];
 
   home.packages = (with pkgs; [ 

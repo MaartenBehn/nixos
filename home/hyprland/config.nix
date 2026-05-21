@@ -173,7 +173,7 @@
         "match:title ^(Save As)$, float on" 
 
         # Remove context menu transparency in chromium based apps
-        "match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
+        #"match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
 
         # Programms 
         "match:class ^(firefox)$, idle_inhibit on"
@@ -185,7 +185,9 @@
 
         "match:title ^(Aseprite)$, tile on, opacity 1.0 override 1.0 override"
 
-        "match:class (Unity), opacity 1.0 override 1.0 override, idle_inhibit on"
+        "match:class ^(Unity)$, opacity 1.0 override 1.0 override, idle_inhibit on"
+        
+        "match:class ^(blender)$, float off"
 
         # Other ?
         "match:title ^(audacious)$, float on"

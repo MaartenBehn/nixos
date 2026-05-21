@@ -16,7 +16,6 @@
     libnotify                         # notify-send used to send desktop notifications
     yt-dlp-light                      # Youtube
     tdf                               # cli pdf viewer
-    yazi
     ncspot                            # Neo curses Spotify    
      
     ## Fun CLI 
