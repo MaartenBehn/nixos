@@ -17,8 +17,6 @@
         "sleep 0.6 && wl-clip-persist --clipboard both"
         "sleep 0.6 && wl-paste --watch cliphist store"
         "sleep 0.6 && swaync"
-
-        #(if host != "iso" then "hyprlock" else "")
       ];
 
       input = {

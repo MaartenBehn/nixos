@@ -18,12 +18,14 @@
       # move focus
       "$mainMod, right, layoutmsg, focus r"
       "$mainMod, left, layoutmsg, focus l"
+      "$mainMod, up, layoutmsg, focus u"
+      "$mainMod, down, layoutmsg, focus d"
 
       # window control
-      "$mainMod ALT, left, layoutmsg, swapcol l"
-      "$mainMod ALT, right, layoutmsg, swapcol r"
-      #"$mainMod ALT, up, layoutmsg, movewindowto up"
-      #"$mainMod ALT, down, layoutmsg, movewindowto down"
+      "$mainMod ALT, left, layoutmsg, consume_or_expel prev"
+      "$mainMod ALT, right, layoutmsg, consume_or_expel next"
+      "$mainMod ALT, up, layoutmsg, swap up"
+      "$mainMod ALT, down, layoutmsg, swap down"
 
       "$mainMod CTRL, left, layoutmsg, colresize -conf"
       "$mainMod CTRL, right, layoutmsg, colresize +conf"

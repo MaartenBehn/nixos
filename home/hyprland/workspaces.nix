@@ -3,8 +3,8 @@
 
     bind = [
       # switch workspace
-      "$mainMod, up, workspace, -1"
-      "$mainMod, down, workspace, +1"
+      #"$mainMod, up, workspace, -1"
+      #"$mainMod, down, workspace, +1"
       "$mainMod, 1, workspace, 1"
       "$mainMod, 2, workspace, 2"
       "$mainMod, 3, workspace, 3"
@@ -17,8 +17,8 @@
       "$mainMod, 0, workspace, 10"
 
       # same as above, but switch to the workspace
-      "$mainMod SHIFT, up, movetoworkspacesilent, -1"
-      "$mainMod SHIFT, down, movetoworkspacesilent, +1"
+      #"$mainMod SHIFT, up, movetoworkspacesilent, -1"
+      #"$mainMod SHIFT, down, movetoworkspacesilent, +1"
       "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
       "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
       "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
@@ -29,7 +29,7 @@
       "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
       "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
       "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-      "$mainMod CTRL, c, movetoworkspace, empty"
+      #"$mainMod CTRL, c, movetoworkspace, empty"
     ];
   };
 }
