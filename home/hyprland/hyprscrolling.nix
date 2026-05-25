@@ -24,8 +24,10 @@
       # window control
       "$mainMod ALT, left, layoutmsg, consume_or_expel prev"
       "$mainMod ALT, right, layoutmsg, consume_or_expel next"
-      "$mainMod ALT, up, layoutmsg, swap up"
-      "$mainMod ALT, down, layoutmsg, swap down"
+      
+      # not working till until hrprland v55
+      #"$mainMod ALT, up, layoutmsg, swap up"
+      #"$mainMod ALT, down, layoutmsg, swap down"
 
       "$mainMod CTRL, left, layoutmsg, colresize -conf"
       "$mainMod CTRL, right, layoutmsg, colresize +conf"
