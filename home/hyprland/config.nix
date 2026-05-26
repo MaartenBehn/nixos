@@ -1,4 +1,4 @@
-{ host, terminal, ... }: {
+{ ... }: {
   wayland.windowManager.hyprland = {
     settings = {
       # autostart
@@ -174,16 +174,16 @@
         #"match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
 
         # Programms 
-        "match:class ^(firefox)$, idle_inhibit on"
+        "match:class ^(firefox)$, idle_inhibit always"
         "match:title ^(imv)$, float on"
         "match:title ^(.*imv.*)$, opacity 1.0 override 1.0 override"
 
-        "match:title ^(mpv)$, float on, idle_inhibit on"
+        "match:title ^(mpv)$, float on, idle_inhibit always"
         "match:title ^(.*mpv.*)$, opacity 1.0 override 1.0 override"
 
         "match:title ^(Aseprite)$, tile on, opacity 1.0 override 1.0 override"
 
-        "match:class ^(Unity)$, opacity 1.0 override 1.0 override, idle_inhibit on"
+        "match:class ^(Unity)$, opacity 1.0 override 1.0 override, idle_inhibit always"
         
         "match:class ^(blender)$, float off"
 
