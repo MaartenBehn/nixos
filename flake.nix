@@ -2,6 +2,9 @@
   description = "Nixos config flake";
 
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     nixpkgs-2405.url = "github:nixos/nixpkgs/release-24.05";
     nixpkgs-2505.url = "github:nixos/nixpkgs/release-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
@@ -90,78 +93,5 @@
     };
   };
   
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-2405, nixpkgs-2505, plasma-manager, solaar, vpn-confinement, ... }@inputs:
-
-  let 
-    system = "x86_64-linux";
-    nix-version = "25.11";
-    hosts = [ "laptop" "desktop" "stroby" "asus" "wsl" "iso" ];
-
-    pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          allowUnsupportedSystem = true;
-          permittedInsecurePackages = [
-            "ventoy-1.1.05"
-          ];
-        };
-    }; 
-
-    pkgs-2405 = import nixpkgs-2405 {
-        inherit system;
-        config.allowUnfree = true;
-    };
-    pkgs-2505 = import nixpkgs-2505 {
-        inherit system;
-        config.allowUnfree = true;
-    };
-    pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-    };
-    
-    mkSystemName = host: 
-        (if host == "iso" then "iso" else   
-        (if host == "wsl" then "wsl" else   
-            "stroby-${host}")); 
-    in   
-      {
-      # Generate configs
-      nixosConfigurations = builtins.listToAttrs (builtins.map (host:
-        let 
-          args = {
-            inherit nix-version;
-            inherit system;
-            inherit inputs;
-            inherit pkgs-2405;
-            inherit pkgs-2505;
-            inherit pkgs-unstable;  
-            host = host;
-            system_name = mkSystemName host;
-          }; 
-        in { 
-          # Name of the config
-          name = mkSystemName host; 
-          # Content of the config
-          value = nixpkgs.lib.nixosSystem {
-            inherit system; # system = system
-            inherit pkgs;
-            specialArgs = args;
-            modules = [
-              ./configurations
-
-              inputs.home-manager.nixosModules.default
-              inputs.home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-
-                home-manager.users."stroby" = import ./home;
-                home-manager.extraSpecialArgs = args;
-              }
-            ];
-          };
-        } ) hosts);
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }

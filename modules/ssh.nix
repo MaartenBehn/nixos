@@ -1,0 +1,31 @@
+{
+  flake.modules.homeManager.core.programs.ssh = { 
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      ropelab = {
+        hostname = "betelgeuse.uberspace.de";
+        user = "ropelab";
+      };
+      behnserver = {
+        hostname = "192.168.178.39";
+        user = "Stroby";
+      };
+
+      asus = {
+        hostname = "192.168.178.2";
+        user = "stroby";
+      };
+
+      proxy = {
+        hostname = "138.199.203.38";
+        user = "root";
+      };
+
+      txt = {
+        hostname = "192.168.178.28";
+        user = "root";
+      };
+    }; 
+  };
+}
