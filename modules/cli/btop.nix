@@ -1,6 +1,5 @@
-{ pkgs, ... }:
 {
-  programs.btop = {
+ flake.modules.homeManager.core.programs.btop = {
     enable = true;
 
     settings = {
@@ -10,8 +9,4 @@
       rounded_corners = false;
     };
   };
-
-  home.packages = (with pkgs; [ 
-    btop
-  ]);
 }

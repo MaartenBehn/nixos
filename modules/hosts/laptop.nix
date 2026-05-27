@@ -36,9 +36,6 @@ let
     ../../configurations
 
     {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
       home-manager.users."stroby" = import ../../home;
       home-manager.extraSpecialArgs = args;
     }

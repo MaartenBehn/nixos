@@ -1,17 +1,17 @@
-{ pkgs, ... }:
 {
-  home.packages = (with pkgs; [
-    fastfetch
-  ]);
+  flake.modules.homeManager.core = { pkgs, ... }: {
+    home.packages = (with pkgs; [
+      fastfetch
+    ]);
 
-  home.shellAliases = {
-    neofetch="fastfetch";
-  };
+    home.shellAliases = {
+      neofetch="fastfetch";
+    };
 
-  xdg.configFile."fastfetch/config.jsonc".text = ''
+    xdg.configFile."fastfetch/config.jsonc".text = ''
     {
       "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-      
+
       "logo": {
         "source": "nix",
         "type": "auto",
@@ -152,5 +152,6 @@
         },
       ]
     }
-  '';
+    '';
+  };
 }

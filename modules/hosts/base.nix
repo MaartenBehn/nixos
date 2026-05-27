@@ -1,4 +1,4 @@
-{ inputs, lib, config, ... }: {
+{ inputs, lib, self, config, ... }: {
   options = {
     hosts = lib.mkOption {
         type = lib.types.attrsOf (lib.types.submodule {
@@ -43,8 +43,8 @@
 
           specialArgs = { inherit inputs; } // options.args;
           modules = [
-            config.flake.modules.nixos.core
-            (config.flake.modules.nixos."${hostname}" or { })
+            self.modules.nixos.core
+            self.modules.nixos."${hostname}" or { }
             {
               networking.hostName = "${hostname}";
             }

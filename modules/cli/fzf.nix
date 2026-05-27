@@ -1,9 +1,6 @@
-{ ... }:
 {
-  programs.fzf = {
+  flake.modules.homeManager.core.programs.fzf = {
     enable = true;
-
-    enableZshIntegration = true;
 
     defaultCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
     fileWidgetOptions = [

@@ -1,14 +1,12 @@
 { inputs, config, ... }: 
 let 
   version = config.version;
-in {
-  
+in { 
+  imports = [ inputs.home-manager.flakeModules.home-manager ];
+
   flake.modules = {
     nixos.core = {
-      imports = [ 
-        inputs.home-manager.nixosModules.default
-        inputs.home-manager.nixosModules.home-manager 
-      ];
+      imports = [ inputs.home-manager.nixosModules.home-manager ];
 
       home-manager = {
         useGlobalPkgs = true;

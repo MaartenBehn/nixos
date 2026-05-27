@@ -1,32 +1,32 @@
-{ pkgs, desktop, config, ... }:
 {
-  home.packages = with pkgs; [
-    # shell env programms
-    fish
-    fishPlugins.done
-    fishPlugins.fzf-fish
-    fishPlugins.forgit
-    fishPlugins.hydro
-    fishPlugins.grc
-    grc
-    dwt1-shell-color-scripts
+  flake.modules.homeManager.core = { pkgs, config, ... }: {
+    home.packages = with pkgs; [
+      # shell env programms
+      #fish
+      fishPlugins.done
+      fishPlugins.fzf-fish
+      fishPlugins.forgit
+      fishPlugins.hydro
+      fishPlugins.grc
+      grc
+      dwt1-shell-color-scripts
 
-    # used in config
-    killall
-    git
-  ];
+      # used in config
+      killall
+      git
+    ];
 
-  programs.fish = {
-    enable = true;
+    programs.fish = {
+      enable = true;
 
-    interactiveShellInit = ''
+      interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
-      ${if config.wayland.windowManager.hyprland.enable then ''
+        ${if config.wayland.windowManager.hyprland.enable then ''
         if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
           exec start-hyprland 
         end
-      '' else ""}
+        '' else ""}
 
       function fish_title
         set -q argv[1]; or set argv fish
@@ -56,6 +56,8 @@
       alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
 
       starship init fish | source
-    '';
-  };   
+      '';
+    };   
+
+  };
 }
