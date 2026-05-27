@@ -46,7 +46,6 @@
             config.flake.modules.nixos.core
             (config.flake.modules.nixos."${hostname}" or { })
             {
-              imports = [ ../../hardware-configuration.nix ];
               networking.hostName = "${hostname}";
             }
           ];

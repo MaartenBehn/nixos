@@ -10,8 +10,6 @@
   ] 
     ++ (if host == "laptop" then
       [
-        ../hardware-configuration.nix
-        
         # Drivers
         ./bootloader.nix
         ./graphics.nix

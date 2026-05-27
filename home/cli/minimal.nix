@@ -10,7 +10,6 @@
     ./nix.nix
     ./nixvim.nix
 
-    ./ssh.nix   
     ./git.nix
   ];
 }
