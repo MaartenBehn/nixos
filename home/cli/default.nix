@@ -12,8 +12,6 @@
   ];  
   imports = [
     ./tools
-    ./terminal
-    ./tmux.nix
     #./man.nix
   ];
 }

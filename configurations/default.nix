@@ -24,9 +24,6 @@
         ./framework_update.nix
         ./logitech.nix
 
-        # Windows
-        ./hyprland.nix
-
         # Apps
         ./syncthing.nix
         ./wireguard.nix

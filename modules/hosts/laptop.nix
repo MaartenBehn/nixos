@@ -1,4 +1,4 @@
-{ inputs, ... }: 
+{ inputs, self, ... }: 
 let 
   system = "x86_64-linux";
   nix-version = "25.11";
@@ -46,6 +46,19 @@ in {
   };
 
   flake.modules.nixos.stroby-laptop = {
-    imports = old-imports;
+    imports = old-imports ++ [
+      self.modules.nixos.hyprland or {}
+    ];  
+
+    host = "stroby-laptop";
+  };
+
+  flake.modules.homeManager.stroby-laptop = {
+    imports = [
+      self.modules.homeManager.hyprland or {}
+    ];
+
+    host = "stroby-laptop";
+    home.sessionVariables.terminal = "kitty";
   };
 }
