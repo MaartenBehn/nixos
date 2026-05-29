@@ -1,28 +1,54 @@
 { inputs, lib, self, config, ... }: {
   options = {
     hosts = lib.mkOption {
-        type = lib.types.attrsOf (lib.types.submodule {
-          options = {
-            system = lib.mkOption {
-              type = lib.types.str;
-              default = "x86_64-linux";
-            };
-
-            unstable = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-            };
-
-            args = lib.mkOption {
-              type = lib.types.attrs;
-              default = {};
-            };
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          system = lib.mkOption {
+            type = lib.types.str;
+            default = "x86_64-linux";
           };
-        });
-      };
+
+          unstable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
+
+          args = lib.mkOption {
+            type = lib.types.attrs;
+            default = {};
+          };
+
+          nixos = lib.mkOption {
+            type = lib.types.listOf (lib.types.submodule {});
+            default = [];
+          };
+
+          homeManager = lib.mkOption {
+            type = lib.types.listOf (lib.types.submodule {});
+            default = [];
+          };
+        };
+      });
+    };
   };
 
   config.flake = {
+    modules.nixos.core = {
+      options = {
+        host = lib.mkOption {
+          type = lib.types.str;
+        };
+      };
+    };
+
+    modules.homeManager.core = {
+      options = {
+        host = lib.mkOption {
+          type = lib.types.str;
+        };
+      };
+    };
+
     nixosConfigurations = lib.mapAttrs (hostname: options:
       let
         nixpkgs' = if options.unstable then inputs.nixpkgs-unstable else inputs.nixpkgs;
@@ -43,30 +69,15 @@
 
           specialArgs = { inherit inputs; } // options.args;
           modules = [
-            self.modules.nixos.core
-            self.modules.nixos."${hostname}" or { }
             {
+              host = hostname;
               networking.hostName = "${hostname}";
             }
+            options.nixos
+            self.modules.nixos.core
+            self.modules.nixos."${hostname}" or { }
           ];
         }) 
       config.hosts;
-    
-    # So it allways exists
-    modules.nixos.core = {
-      options = {
-        host = lib.mkOption {
-          type = lib.types.str;
-        };
-      };
-    };
-
-    modules.homeManager.core = {
-      options = {
-        host = lib.mkOption {
-          type = lib.types.str;
-        };
-      };
-    };
   };
 }

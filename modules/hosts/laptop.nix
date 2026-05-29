@@ -43,21 +43,17 @@ let
 in {
   hosts.stroby-laptop = {
     args = args;
-  };
 
-  flake.modules.nixos.stroby-laptop = {
-    host = "stroby-laptop";
-    imports = old-imports ++ [
+    nixos.imports = old-imports ++ [
       self.modules.nixos.hyprland or {}
-    ];  
-  };
-
-  flake.modules.homeManager.stroby-laptop = {
-    host = "stroby-laptop";
-    imports = [
-      self.modules.homeManager.hyprland or {}
     ];
 
-    home.sessionVariables.terminal = "kitty";
+    homeManager = {
+      imports = [
+        self.modules.homeManager.hyprland or {}
+      ];
+
+      home.sessionVariables.terminal = "kitty";
+    };
   };
 }
