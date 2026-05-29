@@ -44,13 +44,21 @@ in {
   hosts.stroby-laptop = {
     args = args;
 
-    nixos.imports = old-imports ++ [
-      self.modules.nixos.hyprland or {}
-    ];
+    nixos = {
+      imports = old-imports ++ 
+      (with self.modules.nixos; [
+        hyprland
+      ]);
+    };
 
     homeManager = {
-      imports = [
-        self.modules.homeManager.hyprland or {}
+      imports = with self.modules.homeManager; [
+        hyprland
+        cli
+        full-cli
+        apps-minimal
+        apps
+        code
       ];
 
       home.sessionVariables.terminal = "kitty";

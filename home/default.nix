@@ -3,8 +3,6 @@
       [
         ./scripts/scripts.nix                   
         ./driver/solaar.nix
-        ./programming_languages
-        ./cli
       ] else [])
     ++ (if host == "desktop" then
       [  
@@ -12,7 +10,6 @@
         ./scripts/scripts.nix        
         ./driver/solaar.nix
         ./apps/minecraft.nix
-        ./cli
       ] else [])
     ++ (if host == "iso" then
       [

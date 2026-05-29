@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core = { pkgs, ... }: {
+  flake.modules.homeManager.cli-full = { pkgs, ... }: {
     home.packages = (with pkgs; [    
       tldr                              # Better man
       man-pages       

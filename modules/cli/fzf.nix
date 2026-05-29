@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core.programs.fzf = {
+  flake.modules.homeManager.cli-full.programs.fzf = {
     enable = true;
 
     defaultCommand = "fd --hidden --strip-cwd-prefix --exclude .git";

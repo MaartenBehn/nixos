@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core = { pkgs, config, ... }: {
+  flake.modules.homeManager.cli = { pkgs, config, ... }: {
     home.packages = with pkgs; [
       # shell env programms
       #fish

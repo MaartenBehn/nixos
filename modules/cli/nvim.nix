@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.modules.homeManager.core = { pkgs, ... }: {
+  flake.modules.homeManager.cli = { pkgs, ... }: {
     home.packages = with pkgs; [
       inputs.nixvim.packages."${pkgs.stdenv.hostPlatform.system}".default
       xclip

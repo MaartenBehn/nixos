@@ -19,13 +19,13 @@
           };
 
           nixos = lib.mkOption {
-            type = lib.types.listOf (lib.types.submodule {});
-            default = [];
+            type = lib.types.attrs;
+            default = {};
           };
 
           homeManager = lib.mkOption {
-            type = lib.types.listOf (lib.types.submodule {});
-            default = [];
+            type = lib.types.attrs;
+            default = {};
           };
         };
       });
@@ -38,12 +38,18 @@
         host = lib.mkOption {
           type = lib.types.str;
         };
+        system_type = lib.mkOption {
+          type = lib.types.str;
+        };
       };
     };
 
     modules.homeManager.core = {
       options = {
         host = lib.mkOption {
+          type = lib.types.str;
+        };
+        system_type = lib.mkOption {
           type = lib.types.str;
         };
       };
@@ -71,11 +77,11 @@
           modules = [
             {
               host = hostname;
+              system_type = options.system; 
               networking.hostName = "${hostname}";
             }
-            options.nixos
             self.modules.nixos.core
-            self.modules.nixos."${hostname}" or { }
+            options.nixos
           ];
         }) 
       config.hosts;

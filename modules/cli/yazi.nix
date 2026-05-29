@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core = { pkgs, ... }: {
+  flake.modules.homeManager.cli = { pkgs, ... }: {
     programs.yazi = {
       enable = true;
       enableFishIntegration = true;

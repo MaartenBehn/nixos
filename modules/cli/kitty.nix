@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.core = { config, ... }: {
+  flake.modules.homeManager.cli = { config, ... }: {
     programs.kitty = {
       enable = config.home.sessionVariables.terminal == "kitty";
 

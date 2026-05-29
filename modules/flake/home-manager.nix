@@ -20,8 +20,9 @@ in {
         enable = true;
       };
 
+      home.username = config.username;
       home.stateVersion = version;  
-      home.homeDirectory = "/home/${config.home.username}";
+      home.homeDirectory = "/home/${config.username}";
     };
   };
 }
