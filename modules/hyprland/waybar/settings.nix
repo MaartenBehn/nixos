@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hyprland = { pkgs, config, ... }:
+  flake.modules.homeManager.hyprland = { pkgs, config, ... }:
     let
       custom = {
         font = "JetBrains Mono";

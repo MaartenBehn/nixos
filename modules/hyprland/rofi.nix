@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hyprland = { pkgs, config, ... }: {
+  flake.modules.homeManager.hyprland = { pkgs, config, ... }: {
       home.packages = (with pkgs; [ rofi ]);
 
       xdg.configFile."rofi/theme.rasi".text = ''

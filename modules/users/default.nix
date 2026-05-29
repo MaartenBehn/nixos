@@ -8,25 +8,35 @@
       };
   };
 
-  config.flake.modules = (lib.mergeAttrsList (lib.mapAttrsToList (username: options: {
-    nixos.core = { config, ... }: {
-      users.users."${username}" = {
-        isNormalUser = true;
-        description = "${username}";
+  config.flake = {
+    modules = (lib.mergeAttrsList (lib.mapAttrsToList (username: options: {
+      nixos.core = { config, ... }: {
+        users.users."${username}" = {
+          isNormalUser = true;
+          description = "${username}";
+        };
+
+        imports = [
+          self.modules.nixos."${username}" or {}
+        ];
+
+        home-manager.users."${username}".imports = [
+          self.modules.homeManager.core or {}
+          self.modules.homeManager."${username}" or {}
+          self.modules.homeManager."${config.networking.hostName}" or {}
+          {
+            home.username = "${username}";
+          }
+        ];
       };
-
-      imports = [
-        self.modules.nixos."${username}" or {}
-      ];
-
-      home-manager.users."${username}".imports = [
-        self.modules.homeManager.core or {}
-        self.modules.homeManager."${username}" or {}
-        self.modules.homeManager."${config.networking.hostName}" or {}
-        {
-          home.username = "${username}";
-        }
-      ];
-    };
-  }) config.users));
+    }) config.users)) // {
+        homeManager.core = {
+          options = {
+            username = lib.mkOption {
+              type = lib.types.str;
+            };
+          };
+        };
+      };
+  };
 }

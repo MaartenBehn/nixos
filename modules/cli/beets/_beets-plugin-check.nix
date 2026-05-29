@@ -1,6 +1,4 @@
-{ lib, fetchPypi, beets, python3Packages }:
-
-python3Packages.buildPythonApplication rec {
+{ lib, fetchPypi, beets, python3Packages }: python3Packages.buildPythonApplication rec {
   pname = "beets-check";
   version = "0.15.0";
   pyproject = true;

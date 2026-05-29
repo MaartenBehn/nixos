@@ -1,0 +1,123 @@
+{
+  flake.modules.homeManager.apps = { config, pkgs, lib, ... }:
+    let 
+      add_optional = name: (val: (else_val:  if (builtins.hasAttr name val) then val."${name}" else else_val));
+      gmail_configs = [
+        {
+          mail = "maarten.behn@gmail.com";
+          name = "Maarten Behn";
+          primary = true; # Can be undefined 
+          calender_url = "https://apidata.googleusercontent.com/caldav/v2/maarten.behn%40gmail.com/events/";
+        }
+        {
+          mail = "stroby241@gmail.com";
+          name = "Stroby";
+        }
+      ];
+      imap_configs = [
+        {
+          mail = "behn@uni-bremen.de";
+          name = "Maarten Behn";
+          host = "smtp.uni-bremen.de";
+        }
+        {
+          mail = "stroby@smjg.org";
+          name = "Stroby";
+          username = "stroby"; # Optional if username is not mail
+          host = "web.smjg.org";
+        }
+      ];
+    in
+      {
+      # https://nix-community.github.io/home-manager/options.xhtml
+      home.packages = [
+        pkgs.thunderbird
+      ];
+
+      programs.thunderbird = {
+        enable = true;
+        profiles."Default" = {
+          isDefault = true;
+        };
+      };
+
+      accounts.email.accounts = builtins.listToAttrs ( 
+        (builtins.map (config: 
+          { 
+            name = config.mail; 
+            value = {
+              thunderbird = {
+                enable = true;
+
+                # Enable OAuth2
+                settings = id: {
+                  "mail.smtpserver.smtp_${id}.authMethod" = 10;
+                  "mail.server.server_${id}.authMethod" = 10;
+                };
+              };
+
+              realName = config.name;
+              address = config.mail;
+              userName = config.mail;
+              flavor = "gmail.com";
+
+              primary = add_optional "primary" config false;
+            };
+          }) gmail_configs)
+        ++ (builtins.map (config: 
+          { 
+            name = config.mail; 
+            value = {
+              thunderbird = {
+                enable = true;
+              };
+
+              realName = config.name;
+              address = config.mail;
+              userName = if (builtins.hasAttr "username" config) then config.username else config.mail;
+
+              imap = {
+                host = config.host;
+                port = 993;
+              };         
+              smtp = {
+                host = config.host;
+                port = 465; 
+              };
+
+              primary = add_optional "primary" config false;
+            };
+          }) imap_configs)
+      );
+      accounts.calendar.accounts = builtins.listToAttrs ( 
+        (builtins.map (config: 
+          { 
+            name = config.mail; 
+            value = {
+              primary = add_optional "primary" config false;
+              remote.url = config.calender_url;
+              remote.userName = config.mail;
+            };
+          }) 
+          (builtins.filter (config: builtins.hasAttr "calender_url" config) gmail_configs)
+        )
+      );
+
+      programs.thunderbird.settings =
+        let
+          cal = map (calendar: 
+            let
+              safeName = builtins.replaceStrings [ "." ] [ "-" ] calendar.name;
+            in {
+              "calendar.registry.${safeName}.cache.enabled" = true;
+              "calendar.registry.${safeName}.calendar-main-default" = calendar.primary;
+              "calendar.registry.${safeName}.calendar-main-in-composite" = calendar.primary;
+              "calendar.registry.${safeName}.name" = calendar.name;
+              "calendar.registry.${safeName}.type" = "caldav";
+              "calendar.registry.${safeName}.uri" = calendar.remote.url;
+              "calendar.registry.${safeName}.username" = calendar.remote.userName;
+            }) (builtins.attrValues config.accounts.calendar.accounts);
+        in builtins.foldl' lib.recursiveUpdate { } cal;
+    };
+}
+

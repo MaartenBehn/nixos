@@ -1,19 +1,15 @@
 { host, nix-version, ... }: {
   imports = (if host == "laptop" then
       [
-        ./hyprland 
         ./scripts/scripts.nix                   
-        ./apps
         ./driver/solaar.nix
         ./programming_languages
-        ./apps/minecraft.nix
         ./cli
       ] else [])
     ++ (if host == "desktop" then
       [  
         ./hyprland 
         ./scripts/scripts.nix        
-        ./apps
         ./driver/solaar.nix
         ./apps/minecraft.nix
         ./cli

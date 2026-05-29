@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hyprland = { pkgs, ... }: {
+  flake.modules.homeManager.hyprland = { pkgs, ... }: {
     programs.waybar = {
       enable = true;
     };

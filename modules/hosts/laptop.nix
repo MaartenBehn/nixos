@@ -46,19 +46,18 @@ in {
   };
 
   flake.modules.nixos.stroby-laptop = {
+    host = "stroby-laptop";
     imports = old-imports ++ [
       self.modules.nixos.hyprland or {}
     ];  
-
-    host = "stroby-laptop";
   };
 
   flake.modules.homeManager.stroby-laptop = {
+    host = "stroby-laptop";
     imports = [
       self.modules.homeManager.hyprland or {}
     ];
 
-    host = "stroby-laptop";
     home.sessionVariables.terminal = "kitty";
   };
 }
