@@ -59,6 +59,7 @@ in {
         apps-minimal
         apps
         code
+        solaar
       ];
 
       home.sessionVariables.terminal = "kitty";

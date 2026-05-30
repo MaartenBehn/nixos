@@ -1,8 +1,6 @@
 { host, nix-version, ... }: {
   imports = (if host == "laptop" then
       [
-        ./scripts/scripts.nix                   
-        ./driver/solaar.nix
       ] else [])
     ++ (if host == "desktop" then
       [  
