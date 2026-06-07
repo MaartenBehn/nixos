@@ -50,6 +50,9 @@
       alias private-vpn-start="sudo systemctl start wg-quick-private.service"
       alias private-vpn-stop="sudo systemctl stop wg-quick-private.service"
 
+      alias private_local-vpn-start="sudo systemctl start wg-quick-private_local.service"
+      alias private_local-vpn-stop="sudo systemctl stop wg-quick-private_local.service"
+
       alias rev-tether="gnirehtet run";
 
       alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"

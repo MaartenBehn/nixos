@@ -3,9 +3,9 @@
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = "proxy_wg";
+      interface = [ "proxy_wg" "private_incoming_ips" ];
       bind-interfaces = true;
-      listen-address = config.private_incoming_ip;
+      listen-address = [ "10.1.0.2" "10.2.0.1" ];
 
       domain-needed = true;
       bogus-priv = true;
@@ -14,7 +14,7 @@
       local = map (domain: "/${domain}/") config.domains.local;
 
       # Resolve *.{domain} → VPN IP for every local domain
-      address = map (domain: "/.${domain}/${config.private_incoming_ip}") config.domains.all;
+      address = map (domain: "/.${domain}/10.1.0.2") config.domains.all;
     };
   };
 

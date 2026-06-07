@@ -46,53 +46,50 @@ PostDown = iptables -t nat -D POSTROUTING -s 10.1.0.0/24 -o wg0 -j MASQUERADE
 PublicKey = +8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=
 AllowedIPs = 10.1.0.3/32
 
-wg1.conf on client
-[Interface]
-PrivateKey = <key> 
-Address = 10.1.0.3/24
-DNS = 10.1.0.2         
-
-[Peer]
-PublicKey = y/Up4Ps6jIdZHzOL2LDYnkZB3JL03MZtZmGLZXESr1U=
-Endpoint = 138.199.203.38:51821
-AllowedIPs = 10.1.0.0/24   
-PersistentKeepalive = 25
 */
 
-{ lib, config, ... }: {
-  options = {
-    private_incoming_ip = lib.mkOption {
-      type = lib.types.str;
-      default = "10.1.0.2";
-    };
+{ config, ... }: {
+
+  sops.secrets = {
+    "wireguard/tunnel/asus/private_key" = {};
+    "wireguard/private_local/asus/private_key" = {};
   };
 
-  config = {
-    sops.secrets."wireguard/tunnel/asus/private_key" = {};
+  networking.firewall = {
+    trustedInterfaces = [ "proxy_wg" "private_local_wg" ];
+    allowedUDPPorts = [ 51820 51821 ];
+  };
 
-    networking.firewall = {
-      trustedInterfaces = [ "proxy_wg" ];
-      allowedUDPPorts = [ 51820 ];
+  networking.wireguard.interfaces = {
+    proxy_wg = {
+      ips = [ 
+        "10.0.0.2/24" # public incoming traffic
+        "10.1.0.2/24" # traffic coming from wg1 vpn on proxy
+      ];
+      privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
+      mtu = 1380;
+
+      peers = [
+        {
+          publicKey = "DpmJigVkK0f+wK7PRWymhxouBAIrqrVdArpMdPTuOkk=";
+          endpoint = "138.199.203.38:51820";
+          allowedIPs = [ "10.0.0.0/24" ];
+          persistentKeepalive = 25;
+        }
+      ];
     };
 
-    networking.wireguard.interfaces = {
-      proxy_wg = {
-        ips = [ 
-          "10.0.0.2/24" # public incoming traffic
-          "${config.private_incoming_ip}/24" # traffic coming from wg1 vpn on proxy
-        ];
-        privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
-        mtu = 1380;
+    private_local_wg = {
+      ips = [ "10.2.0.1/24" ];
+      listenPort = 51821;
+      privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
 
-        peers = [
-          {
-            publicKey = "DpmJigVkK0f+wK7PRWymhxouBAIrqrVdArpMdPTuOkk=";
-            endpoint = "138.199.203.38:51820";
-            allowedIPs = [ "10.0.0.0/24" ];
-            persistentKeepalive = 25;
-          }
-        ];
-      };
+      peers = [
+        {
+          publicKey = "+8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=";
+          allowedIPs = [ "10.2.0.2/32" ];
+        }
+      ];
     };
   };
 }

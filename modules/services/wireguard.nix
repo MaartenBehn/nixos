@@ -5,6 +5,7 @@
       };
 
       sops.secrets."wireguard/private.conf" = { owner = "stroby"; };
+      sops.secrets."wireguard/private_local.conf" = { owner = "stroby"; };
       sops.secrets."wireguard/dont_panic.conf" = { owner = "stroby"; };
       sops.secrets."wireguard/fritz_behns_stroby.conf" = { owner = "stroby"; };
 
@@ -13,6 +14,11 @@
         private = {  
           autostart = false;
           configFile = config.sops.secrets."wireguard/private.conf".path;
+        };
+
+        private_local = {  
+          autostart = false;
+          configFile = config.sops.secrets."wireguard/private_local.conf".path;
         };
 
         dont_panic = {  

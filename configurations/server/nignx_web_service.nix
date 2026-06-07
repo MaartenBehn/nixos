@@ -41,7 +41,7 @@
           forceSSL   = !local;
 
           # Local vhosts only listen on the VPN IP — never exposed publicly
-          listenAddresses = lib.mkIf local [ config.private_incoming_ip ];
+          listenAddresses = lib.mkIf local [ "10.1.0.2" ];
 
           locations."/" = svc.loc;
           serverAliases = [ "www.${sub_domain}.${domain}" ];
