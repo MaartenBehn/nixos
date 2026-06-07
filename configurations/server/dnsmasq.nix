@@ -3,7 +3,7 @@
   services.dnsmasq = {
     enable = true;
     settings = {
-      interface = [ "proxy_wg" "private_incoming_ips" ];
+      interface = [ "proxy_wg" "local_wg" ];
       bind-interfaces = true;
       listen-address = [ "10.1.0.2" "10.2.0.1" ];
 
