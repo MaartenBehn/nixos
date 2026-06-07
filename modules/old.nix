@@ -2,7 +2,7 @@
 let 
   system = "x86_64-linux";
   nix-version = "25.11";
-  hosts = [ "desktop" "asus" "wsl" "iso" ];
+  hosts = [ "desktop" "wsl" "iso" ];
 
   pkgs = import inputs.nixpkgs {
     inherit system;
