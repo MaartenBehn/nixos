@@ -14,7 +14,7 @@
       local = map (domain: "/${domain}/") config.domains.local;
 
       # Resolve *.{domain} → VPN IP for every local domain
-      address = map (domain: "/.${domain}/${config.private_incoming_ip}") config.domains.local;
+      address = map (domain: "/.${domain}/${config.private_incoming_ip}") config.domains.all;
     };
   };
 
