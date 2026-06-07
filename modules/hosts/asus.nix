@@ -28,8 +28,8 @@ let
     inherit pkgs-2405;
     inherit pkgs-2505;
     inherit pkgs-unstable;  
-    host = "laptop";
-    system_name = mkSystemName "laptop";
+    host = "asus";
+    system_name = mkSystemName "asus";
   };
 
   old-imports = [
@@ -40,26 +40,18 @@ let
     }
   ];
 in {
-  hosts.stroby-laptop = {
+  hosts.stroby-asus = {
     args = args;
 
     nixos = {
       imports = old-imports ++ 
         (with self.modules.nixos; [
-          hyprland
-          networking_vpn
         ]);
     };
 
     homeManager = {
       imports = with self.modules.homeManager; [
-        hyprland
         cli
-        full-cli
-        apps-minimal
-        apps
-        code
-        solaar
       ];
 
       home.sessionVariables.terminal = "kitty";

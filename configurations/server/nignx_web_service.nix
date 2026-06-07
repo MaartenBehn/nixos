@@ -20,22 +20,40 @@
   };
 
   config = let
-      get_webservice = sub_domain: builtins.getAttr sub_domain config.web_services;
-      get_domains = sub_domain: if (get_webservice sub_domain).domains == "local" then [ "local" ] else (
-        if (get_webservice sub_domain).domains == "public" then config.domains.public else config.domains.all);
-    in {
-    services.nginx.virtualHosts = builtins.listToAttrs (lib.lists.flatten (builtins.map (sub_domain: 
-      builtins.map (domain: {
-        name = "${sub_domain}.${domain}"; 
+
+    get_webservice = sub_domain: builtins.getAttr sub_domain config.web_services;
+
+    get_domains = sub_domain:
+      let svc = get_webservice sub_domain;
+      in if svc.domains == "local"  then config.domains.local
+      else if svc.domains == "public" then config.domains.public
+      else config.domains.all;
+
+    is_domain_local = domain: builtins.elem domain config.domains.local;
+
+    make_vhost = sub_domain: domain:
+      let svc = get_webservice sub_domain;
+        local = is_domain_local domain;
+      in {
+        name = "${sub_domain}.${domain}";
         value = {
-          enableACME = domain != "local";
-          forceSSL = domain != "local";
-          locations."/" = (get_webservice sub_domain).loc; 
-          serverAliases = [
-            "www.${sub_domain}.${domain}"
-          ];
+          enableACME = !local;
+          forceSSL   = !local;
+
+          # Local vhosts only listen on the VPN IP — never exposed publicly
+          listenAddresses = lib.mkIf local [ config.private_incoming_ip ];
+
+          locations."/" = svc.loc;
+          serverAliases = [ "www.${sub_domain}.${domain}" ];
         };
-      }) (get_domains sub_domain))
-      (builtins.attrNames config.web_services)));
+      };
+  in {
+    services.nginx.virtualHosts = builtins.listToAttrs (
+      lib.lists.flatten (
+        builtins.map (sub_domain:
+          builtins.map (make_vhost sub_domain) (get_domains sub_domain)
+        ) (builtins.attrNames config.web_services)
+      )
+    );
   };
 }

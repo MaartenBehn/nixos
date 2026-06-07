@@ -43,7 +43,7 @@
           sudo chmod o+rx /mnt
           sudo nixos-install --flake .#$1 --impure      
       '')
-      (writeShellScriptBin "make_install_partitions" ''
+      (writeShellScriptBin "after_install" ''
         sudo swapon /.swapfile
 
         ssk-keygen

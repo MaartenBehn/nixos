@@ -26,7 +26,6 @@
 
         # Apps
         ./syncthing.nix
-        ./wireguard.nix
         ./mullvad_gui.nix
 
         # Gaming

@@ -1,5 +1,6 @@
 { lib, self, config, ... }: 
-let 
+let
+  username = "stroby";
   global_config = config;
 in {
   config.flake.modules = {
@@ -12,19 +13,30 @@ in {
     };
 
     nixos.core = { config, ... }: {
-      users.users.stroby = {
-        isNormalUser = true;
+      options = {
+        username = lib.mkOption {
+          type = lib.types.str;
+        };
       };
 
-      home-manager.users.stroby.imports = [
-        {
-          username = "stroby";
-          host = config.host;
-          system_type = config.system_type;
-        }
-        self.modules.homeManager.core or {}
-        global_config.hosts."${config.host}".homeManager
-      ];
+      config = {
+        username = username;
+
+        users.users."${username}" = {
+          isNormalUser = true;
+        };
+
+        home-manager.users."${username}".imports = [
+          {
+            username = username;
+            host = config.host;
+            system_type = config.system_type;
+          }
+          self.modules.homeManager.core or {}
+          global_config.hosts."${config.host}".homeManager
+        ];
+      };
     };
-  };
+
+      };
 }

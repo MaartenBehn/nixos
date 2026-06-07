@@ -7,13 +7,14 @@
     }; 
 
     services.getty.autologinUser = "stroby";
-    console.enable = true;
+    #console.enable = true;
 
     # Disable wait for online befor login
     systemd.services."NetworkManager-wait-online".enable = false;
 
     programs.hyprland = {
       enable = true;
+      withUWSM = true;
 
       package = inputs.hyprland.packages.${pkgs.system}.default;
       portalPackage =

@@ -4,7 +4,7 @@
       (writeShellScriptBin "screenshot" '' 
         dir="$HOME/Pictures/Screenshots"
         time=$(date +'%Y_%m_%d_at_%Hh%Mm%Ss')
-        file="${dir}/Screenshot_${time}.png"
+        file="$${dir}/Screenshot_$${time}.png"
 
         copy() {
           grimblast --notify --freeze copy area
