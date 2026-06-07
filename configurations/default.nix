@@ -113,7 +113,6 @@
         ./monitor_cpu_temp.nix
         ./battery.nix
         ./keep_on_with_closed_lid.nix
-        ./wireguard.nix
         
         ./server        
       ] else [])
