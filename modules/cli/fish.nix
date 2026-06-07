@@ -47,6 +47,9 @@
       alias fritz_behns-vpn-start="sudo systemctl start wg-quick-fritz_behns.service"
       alias fritz_behns-vpn-stop="sudo systemctl stop wg-quick-fritz_behns.service"
 
+      alias private-vpn-start="sudo systemctl start wg-quick-private.service"
+      alias private-vpn-stop="sudo systemctl stop wg-quick-private.service"
+
       alias rev-tether="gnirehtet run";
 
       alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"

@@ -1,13 +1,19 @@
 {
   flake.modules.nixos.networking_vpn = { config, ... }: {
       networking.firewall = {
-        allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
+      #allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
       };
 
+      sops.secrets."wireguard/private.conf" = { owner = "stroby"; };
       sops.secrets."wireguard/dont_panic.conf" = { owner = "stroby"; };
       sops.secrets."wireguard/fritz_behns_stroby.conf" = { owner = "stroby"; };
 
       networking.wg-quick.interfaces = {
+
+        private = {  
+          autostart = false;
+          configFile = config.sops.secrets."wireguard/private.conf".path;
+        };
 
         dont_panic = {  
           autostart = false;
