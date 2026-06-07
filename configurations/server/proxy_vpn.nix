@@ -28,24 +28,35 @@ PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 13471 -j DNAT --
 
 [Peer]
 PublicKey = by9caER0IW6jSFfqNCD6CAN8SddjqB1GP7ylb2r6kw8=
-AllowedIPs = 10.0.0.2/32
-
+AllowedIPs = 10.0.0.2/32, 10.1.0.2/32
 
 wg1.conf on proxy
 [Interface]
 Address = 10.1.0.1/24
-PrivateKey = <new-proxy-private-key>
+PrivateKey = <key>
 ListenPort = 51821
 
-PostUp = iptables -t nat -A PREROUTING -s 10.2.0.0/24 -i wg1 -j DNAT --to-destination 10.1.0.2
-PostDown = iptables -t nat -D PREROUTING -s 10.2.0.0/24 -i wg1 -j DNAT --to-destination 10.1.0.2
+PostUp = ip route add 10.1.0.2/32 dev wg0
+PostDown = ip route del 10.1.0.2/32 dev wg0
 
-PostUp = iptables -t nat -A POSTROUTING -s 10.2.0.0/24 -o wg0 -j MASQUERADE
-PostDown = iptables -t nat -D POSTROUTING -s 10.2.0.0/24 -o wg0 -j MASQUERADE
+PostUp = iptables -t nat -A POSTROUTING -s 10.1.0.0/24 -o wg0 -j MASQUERADE
+PostDown = iptables -t nat -D POSTROUTING -s 10.1.0.0/24 -o wg0 -j MASQUERADE
 
 [Peer]
-PublicKey = <phone-public-key>
-AllowedIPs = 10.1.0.2/32
+PublicKey = +8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=
+AllowedIPs = 10.1.0.3/32
+
+wg1.conf on client
+[Interface]
+PrivateKey = <key> 
+Address = 10.1.0.3/24
+DNS = 10.1.0.2         
+
+[Peer]
+PublicKey = y/Up4Ps6jIdZHzOL2LDYnkZB3JL03MZtZmGLZXESr1U=
+Endpoint = 138.199.203.38:51821
+AllowedIPs = 10.1.0.0/24   
+PersistentKeepalive = 25
 */
 
 { lib, config, ... }: {
@@ -57,7 +68,7 @@ AllowedIPs = 10.1.0.2/32
   };
 
   config = {
-    sops.secrets."wireguard/proxy/private_key" = {};
+    sops.secrets."wireguard/tunnel/asus/private_key" = {};
 
     networking.firewall = {
       trustedInterfaces = [ "proxy_wg" ];
@@ -70,7 +81,7 @@ AllowedIPs = 10.1.0.2/32
           "10.0.0.2/24" # public incoming traffic
           "${config.private_incoming_ip}/24" # traffic coming from wg1 vpn on proxy
         ];
-        privateKeyFile = config.sops.secrets."wireguard/proxy/private_key".path;
+        privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
         mtu = 1380;
 
         peers = [

@@ -9,7 +9,7 @@
 
     # DNS
     ./network.nix
-    ./blocky.nix
+    ./dnsmasq.nix
     #./cloudflare_dyndns.nix
     #./ipv64.nix
     #./duckdns.nix
