@@ -1,8 +1,5 @@
 { config, ... }: {
   imports = [
-    # Options
-    ../../options/domains.nix
-
     # System
     ./data_drive.nix
     ./error_notify.nix
