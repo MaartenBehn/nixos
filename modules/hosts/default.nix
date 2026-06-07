@@ -67,6 +67,7 @@
             config = {
               allowUnfree = true;
               allowUnsupportedSystem = true;
+              allowBroken = true;
               permittedInsecurePackages = [
                 "ventoy-1.1.05"
               ];

@@ -2,7 +2,7 @@
 let 
   system = "x86_64-linux";
   nix-version = "25.11";
-  
+
   pkgs-2405 = import inputs.nixpkgs-2405 {
     inherit system;
     config.allowUnfree = true;
