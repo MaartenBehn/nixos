@@ -52,7 +52,7 @@ AllowedIPs = 10.1.0.2/32
   options = {
     private_incoming_ip = lib.mkOption {
       type = lib.types.str;
-      default = [ "10.1.0.2" ];
+      default = "10.1.0.2";
     };
   };
 
