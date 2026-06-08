@@ -29,7 +29,7 @@ let
   scan_once() {
     local tmpfile
     tmpfile=$(mktemp)
-    log "Scanning for $${SCAN_SECONDS}s..."
+    log "Scanning for ''${SCAN_SECONDS}s..."
 
     timeout "$SCAN_SECONDS" \
       ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
@@ -87,7 +87,7 @@ let
     log "Seen table has ''${#seen[@]} entries:"
     for eid in "''${!seen[@]}"; do
       local age=$(( now - ''${seen[$eid]} ))
-      log "  EID $eid age=$${age}s window=$${SEEN_WINDOW}s"
+      log "  EID $eid age=''${age}s window=''${SEEN_WINDOW}s"
       if (( age <= SEEN_WINDOW )); then
         (( count++ )) || true
       else
