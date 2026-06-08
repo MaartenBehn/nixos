@@ -1,115 +1,120 @@
 { pkgs, ... }:
 let
-  find_hub_scanner = pkgs.writeShellScriptBin "find_hub_scanner" ''
-  export PATH="${pkgs.bash}/bin:${pkgs.bluez}/bin:${pkgs.gawk}/bin:${pkgs.gnugrep}/bin:${pkgs.gnused}/bin:${pkgs.curl}/bin:$PATH"
+  find_hub_scanner = pkgs.writeTextFile {
+  name = "find_hub_scanner";
+  executable = true;
+  destination = "/bin/find_hub_scanner";
+  text = ''
+    #!${pkgs.python3}/bin/python3
+    import asyncio
+    import os
+    import time
+    import logging
+    import requests
+    from bleak import BleakScanner
 
-  HA_URL="''${HA_URL:-http://localhost:8123}"
-  HA_TOKEN="$(cat ''${HA_TOKEN_FILE:-/run/secrets/ha_token})"
-  SCAN_SECONDS="''${SCAN_SECONDS:-10}"
-  SEEN_WINDOW="''${SEEN_WINDOW:-60}"
-  LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
+    logging.basicConfig(
+      level=logging.DEBUG,
+      format="[%(asctime)s] %(levelname)s %(message)s",
+      datefmt="%H:%M:%S"
+    )
+    log = logging.getLogger("findhub")
 
-  declare -A seen
+    HA_URL        = os.environ.get("HA_URL", "http://localhost:8123")
+    HA_TOKEN_FILE = os.environ.get("HA_TOKEN_FILE", "/run/secrets/ha_token")
+    SCAN_SECONDS  = int(os.environ.get("SCAN_SECONDS", "10"))
+    SEEN_WINDOW   = int(os.environ.get("SEEN_WINDOW", "60"))
+    LOOP_INTERVAL = int(os.environ.get("LOOP_INTERVAL", "15"))
 
-  log() { echo "[$(date '+%H:%M:%S')] $*"; }
+    with open(HA_TOKEN_FILE) as f:
+      HA_TOKEN = f.read().strip()
 
-  post_ha() {
-    local entity="$1" state="$2" attrs="$3"
-    log "POST $entity = $state"
-    local response
-    response=$(curl -sf -X POST \
-      -H "Authorization: Bearer $HA_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
-      "$HA_URL/api/states/$entity" 2>&1) \
-      && log "POST ok" \
-      || log "POST failed: $response"
-  }
+    # key -> last seen epoch
+    seen: dict[str, float] = {}
 
-  scan_once() {
-    local tmpfile
-    tmpfile=$(mktemp)
-    log "Scanning for ''${SCAN_SECONDS}s..."
+    def post_ha(entity: str, state: str, attributes: dict):
+      url = f"{HA_URL}/api/states/{entity}"
+      headers = {
+        "Authorization": f"Bearer {HA_TOKEN}",
+        "Content-Type": "application/json",
+      }
+      payload = {"state": state, "attributes": attributes}
+      log.info(f"POST {entity} = {state}")
+      try:
+        r = requests.post(url, headers=headers, json=payload, timeout=10)
+        r.raise_for_status()
+        log.info(f"POST ok ({r.status_code})")
+      except Exception as e:
+        log.error(f"POST failed: {e}")
 
-    # Use decoded text output (no flags) and track bdaddr + service data type
-    timeout "''${SCAN_SECONDS}" \
-      hcidump -i hci0 2>/dev/null \
-    | awk '
-        /^>/ {
-          if (buf) print buf
-          buf = $0
-          next
-        }
-        { buf = buf "\n" $0 }
-        END { if (buf) print buf }
-      ' > "$tmpfile" || true
+    def detection_callback(device, advertisement_data):
+      log.debug(
+        f"Device: {device.address} "
+        f"name={device.name!r} "
+        f"rssi={advertisement_data.rssi} "
+        f"service_uuids={advertisement_data.service_uuids} "
+        f"service_data={advertisement_data.service_data!r} "
+        f"manufacturer_data={advertisement_data.manufacturer_data!r}"
+      )
 
-    local total_events found=0
-    total_events=$(grep -c "^>" "$tmpfile" || true)
-    log "HCI events captured: $total_events"
+      for uuid, data in advertisement_data.service_data.items():
+        log.debug(f"  Service data UUID={uuid} data={data.hex()} len={len(data)}")
+        if "feaa" in uuid.lower():
+          log.info(f"  FEAA service found! first byte=0x{data[0]:02x}")
+          if len(data) > 0 and data[0] == 0x40:
+            eid = data[2:22].hex() if len(data) >= 22 else data.hex()
+            log.info(f"  FMDN frame confirmed! EID={eid} addr={device.address}")
+            seen[eid] = time.time()
 
-    # Each record is a full multi-line event joined by \n
-    # Find events that contain BOTH a bdaddr AND "Unknown type 0x16 with 24 bytes"
-    # (the FMDN frame is always 24 bytes via service data type 0x16)
-    while IFS= read -r record; do
-      if echo "$record" | grep -q "Unknown type 0x16 with 24 bytes"; then
-        # Extract the bdaddr as a stable-enough identifier within scan window
-        bdaddr=$(echo "$record" | grep -o "bdaddr [0-9A-F:]*" | head -1 | awk '{print $2}')
-        if [[ -n "$bdaddr" ]]; then
-          (( found++ )) || true
-          log "Find Hub tag detected at bdaddr: $bdaddr"
-          seen["$bdaddr"]=$(date +%s)
-        fi
-      fi
-    done < <(awk 'BEGIN{RS="^>"} NR>1 {print}' "$tmpfile")
+    async def scan_cycle():
+      log.info(f"Starting scan for {SCAN_SECONDS}s...")
+      scanner = BleakScanner(detection_callback=detection_callback)
+      await scanner.start()
+      await asyncio.sleep(SCAN_SECONDS)
+      await scanner.stop()
+      log.info("Scan complete")
 
-    log "Find Hub tags detected this scan: $found"
-    rm -f "$tmpfile"
-  }
+      now = time.time()
+      expired = [k for k, t in seen.items() if now - t > SEEN_WINDOW]
+      for k in expired:
+        log.info(f"Expiring EID {k}")
+        del seen[k]
 
-  report() {
-    local now count=0
-    now=$(date +%s)
-    local -a expired=()
+      active = {k: v for k, v in seen.items() if now - v <= SEEN_WINDOW}
+      count = len(active)
+      log.info(f"Active tags: {count}")
+      for eid, t in active.items():
+        log.info(f"  EID={eid} age={now-t:.0f}s")
 
-    log "Seen table has ''${#seen[@]} entries:"
-    for key in "''${!seen[@]}"; do
-      local age=$(( now - ''${seen[$key]} ))
-      log "  $key age=''${age}s"
-      if (( age <= SEEN_WINDOW )); then
-        (( count++ )) || true
-      else
-        expired+=("$key")
-        log "  -> expired"
-      fi
-    done
+      post_ha("sensor.findhub_tags_home", str(count), {
+        "friendly_name": "Find Hub Tags Home",
+        "icon": "mdi:tag-multiple",
+        "unit_of_measurement": "tags",
+      })
+      post_ha("binary_sensor.tags_home", "on" if count > 0 else "off", {
+        "friendly_name": "Any Tag Home",
+        "device_class": "presence",
+      })
 
-    for key in "''${expired[@]:-}"; do
-      unset "seen[$key]"
-    done
+    async def main():
+      log.info(f"Find Hub scanner starting")
+      log.info(f"HA_URL={HA_URL} SCAN_SECONDS={SCAN_SECONDS} SEEN_WINDOW={SEEN_WINDOW} LOOP_INTERVAL={LOOP_INTERVAL}")
+      while True:
+        try:
+          await scan_cycle()
+        except Exception as e:
+          log.error(f"Scan error: {e}", exc_info=True)
+        log.info(f"Sleeping {LOOP_INTERVAL}s...")
+        await asyncio.sleep(LOOP_INTERVAL)
 
-    log "Tags in range: $count"
+    asyncio.run(main())
+    '';
+  };
 
-    post_ha "sensor.findhub_tags_home" "$count" \
-      '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
-
-    local presence="off"
-    (( count > 0 )) && presence="on" || true
-    post_ha "binary_sensor.tags_home" "$presence" \
-      '{"friendly_name":"Any Tag Home","device_class":"presence"}'
-  }
-
-  log "Shell: $BASH_VERSION"
-  log "Find Hub scanner starting..."
-  hciconfig hci0 up || true
-
-  while true; do
-    scan_once
-    report
-    sleep "''${LOOP_INTERVAL}"
-  done
-'';
-
+  pythonEnv = pkgs.python3.withPackages (ps: with ps; [
+    bleak
+    requests
+  ]);
 in {
   imports = [
     ./mosquitto.nix
@@ -196,10 +201,12 @@ in {
     };
 
     serviceConfig = {
-      ExecStart  = "${pkgs.bash}/bin/bash ${find_hub_scanner}/bin/find_hub_scanner";
-      Restart    = "on-failure";
-      RestartSec = "10s";
-      User       = "root";
+      serviceConfig = {
+        ExecStart  = "${pythonEnv}/bin/python3 ${find_hub_scanner}/bin/find_hub_scanner";
+        Restart    = "on-failure";
+        RestartSec = "10s";
+        User       = "root";
+      };    
     };  
   };
 }
