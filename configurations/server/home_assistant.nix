@@ -174,7 +174,7 @@ in {
     environment = {
       HA_URL        = "http://localhost:8123";
       HA_TOKEN_FILE = "/run/secrets/home_assistant/token";
-      SCAN_SECONDS  = "5";
+      SCAN_SECONDS  = "20";
       SEEN_WINDOW   = "400";
       LOOP_INTERVAL = "200";
     };
