@@ -58,6 +58,26 @@
     };
   };
 
+  environment.etc."hass/known_devices.yaml" = {
+    target = "hass/known_devices.yaml";
+    text = ''
+      ble_ecd5c07c38a6:
+        name: Wallet
+        mac: EC:D5:C0:7C:38:A6
+        track: true
+        icon: mdi:wallet
+
+      ble_e089b7183343:
+        name: Keys
+        mac: E0:89:B7:18:33:43
+        track: true
+        icon: mdi:key
+    '';
+    user = "hass";
+    group = "hass";
+    mode = "0644";
+  };
+
   web_services."home" = {
     domains = "local";
     loc = {
