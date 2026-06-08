@@ -1,4 +1,91 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  find_hub_scanner = pkgs.writeShellScriptBin "find_hub_scanner" ''
+    set -euo pipefail
+
+    HA_URL="''${HA_URL:-http://localhost:8123}"
+    HA_TOKEN="$(cat ''${HA_TOKEN_FILE:-/run/secrets/ha_token})"
+    SCAN_SECONDS="''${SCAN_SECONDS:-10}"
+    SEEN_WINDOW="''${SEEN_WINDOW:-60}"
+    LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
+
+    declare -A seen
+
+    post_ha() {
+      local entity="$1"
+      local state="$2"
+      local attrs="$3"
+      ${pkgs.curl}/bin/curl -sf -X POST \
+        -H "Authorization: Bearer $HA_TOKEN" \
+        -H "Content-Type: application/json" \
+        -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
+        "$HA_URL/api/states/$entity" > /dev/null
+    }
+
+    scan_once() {
+      local tmpfile
+      tmpfile=$(mktemp)
+
+      timeout "$SCAN_SECONDS" \
+        ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
+        | ${pkgs.gnugrep}/bin/grep --line-buffered -i "aa fe" > "$tmpfile" || true
+
+      while IFS= read -r line; do
+        if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
+          eid=$(echo "$line" \
+            | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40 \([0-9a-f][0-9a-f] \)\{1,20\}" \
+            | ${pkgs.gnused}/bin/sed 's/16 aa fe 40 //' \
+            | tr -d ' \n' \
+            | cut -c1-40)
+          if [[ -n "$eid" ]]; then
+            echo "Detected EID: $eid"
+            seen["$eid"]=$(date +%s)
+          fi
+        fi
+      done < "$tmpfile"
+      rm -f "$tmpfile"
+    }
+
+    report() {
+      local now count=0
+      now=$(date +%s)
+      local expired=()
+
+      for eid in "''${!seen[@]}"; do
+        local age=$(( now - ''${seen[$eid]} ))
+        if (( age <= SEEN_WINDOW )); then
+          (( count++ )) || true
+        else
+          expired+=("$eid")
+        fi
+      done
+
+      for eid in "''${expired[@]:-}"; do
+        unset "seen[$eid]"
+      done
+
+      echo "Tags in range: $count"
+
+      post_ha "sensor.findhub_tags_home" "$count" \
+        '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
+
+      local presence="off"
+      (( count > 0 )) && presence="on" || true
+      post_ha "binary_sensor.tags_home" "$presence" \
+        '{"friendly_name":"Any Tag Home","device_class":"presence"}'
+    }
+
+    echo "Find Hub scanner starting..."
+    ${pkgs.bluez}/bin/hciconfig hci0 up || true
+
+    while true; do
+      scan_once
+      report
+      sleep "$LOOP_INTERVAL"
+    done
+  '';
+
+in {
   imports = [
     ./mosquitto.nix
   ];
@@ -11,6 +98,7 @@
   # Use dbus-broker (required by HA's bluetooth integration)
   services.dbus.implementation = "broker";
 
+  
   services.home-assistant = {
     enable = true;
     extraComponents = [
@@ -57,74 +145,39 @@
       logger.default = "info";
     };
   };
-
-    # Store the seed file in /etc (read-only, managed by Nix)
-  environment.etc."hass/known_devices_seed.yaml" = {
-    text = ''
-      ble_ecd5c07c38a6:
-        name: Wallet
-        mac: EC:D5:C0:7C:38:A6
-        track: true
-        icon: mdi:wallet
-
-      ble_e089b7183343:
-        name: Keys
-        mac: E0:89:B7:18:33:43
-        track: true
-        icon: mdi:key
-    '';
-    user = "hass";
-    group = "hass";
-    mode = "0644";
-  };
-
-  # On every HA start, overwrite known_devices.yaml from the seed,
-  # preserving any extra entries HA has added at runtime by merging them.
-  systemd.services.home-assistant.serviceConfig.ExecStartPre =
-    let
-      mergeScript = pkgs.writeShellScript "seed-known-devices" ''
-        SEED="/etc/hass/known_devices_seed.yaml"
-        DEST="/var/lib/hass/known_devices.yaml"
-
-        if [ ! -f "$DEST" ]; then
-          # First boot — just copy the seed
-          cp "$SEED" "$DEST"
-          chown hass:hass "$DEST"
-        else
-          # Merge: seed entries overwrite existing, unknown runtime entries are kept
-          ${pkgs.python3}/bin/python3 - <<'EOF'
-import yaml, os
-
-seed_path = "/etc/hass/known_devices_seed.yaml"
-dest_path = "/var/lib/hass/known_devices.yaml"
-
-with open(seed_path) as f:
-    seed = yaml.safe_load(f) or {}
-
-with open(dest_path) as f:
-    existing = yaml.safe_load(f) or {}
-
-# Runtime entries first, then seed overwrites tracked devices
-merged = {**existing, **seed}
-
-with open(dest_path, "w") as f:
-    yaml.dump(merged, f, default_flow_style=False, allow_unicode=True)
-
-os.chown(dest_path, 
-  __import__("pwd").getpwnam("hass").pw_uid,
-  __import__("grp").getgrnam("hass").gr_gid
-)
-EOF
-        fi
-      '';
-    in
-    "+${mergeScript}"; # '+' prefix runs with elevated privileges for chown  
-
+ 
   web_services."home" = {
     domains = "local";
     loc = {
       proxyPass = "http://127.0.0.1:8123/";
       proxyWebsockets = true;
+    };
+  };
+
+  sops.secrets."home_assistant/token" = {
+    owner = "root";
+    path  = "/run/secrets/ha_token";
+  };
+
+  systemd.services.findhub-scanner = {
+    description = "Find Hub BLE presence scanner";
+    after    = [ "bluetooth.target" "home-assistant.service" "sops-nix.service" ];
+    wants    = [ "bluetooth.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    environment = {
+      HA_URL        = "http://localhost:8123";
+      HA_TOKEN_FILE = "/run/secrets/ha_token";
+      SCAN_SECONDS  = "10";
+      SEEN_WINDOW   = "60";
+      LOOP_INTERVAL = "15";
+    };
+
+    serviceConfig = {
+      ExecStart  = "${find_hub_scanner}/bin/find_hub_scanner";
+      Restart    = "on-failure";
+      RestartSec = "10s";
+      User       = "root";
     };
   };
 }
