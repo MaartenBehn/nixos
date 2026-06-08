@@ -74,12 +74,12 @@ let
       log.info("Scan complete")
 
       now = time.time()
-      post_ha("binary_sensor.tags_home", "on" if (now - seen_key) <= SEEN_WINDOW else "off", {
+      post_ha("binary_sensor.key_home", "on" if (now - seen_key) <= SEEN_WINDOW else "off", {
         "friendly_name": "Key Home",
         "device_class": "presence",
       })
 
-      post_ha("binary_sensor.tags_home", "on" if (now - seen_wallet) <= SEEN_WINDOW else "off", {
+      post_ha("binary_sensor.wallet_home", "on" if (now - seen_wallet) <= SEEN_WINDOW else "off", {
         "friendly_name": "Wallet Home",
         "device_class": "presence",
       })
