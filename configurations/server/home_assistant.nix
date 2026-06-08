@@ -148,8 +148,8 @@ in {
           unit_time = "h";
           time_window = "00:30:00";
           device_class = "energy";
-          state_class = "measurement";
-          unit_of_measurement = "kW";
+          #state_class = "measurement";
+          #unit_of_measurement = "kW";
         }
       ];
     };
