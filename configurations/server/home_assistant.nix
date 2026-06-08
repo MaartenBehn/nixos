@@ -195,9 +195,9 @@ in {
     environment = {
       HA_URL        = "http://localhost:8123";
       HA_TOKEN_FILE = "/run/secrets/home_assistant/token";
-      SCAN_SECONDS  = "10";
-      SEEN_WINDOW   = "60";
-      LOOP_INTERVAL = "15";
+      SCAN_SECONDS  = "20";
+      SEEN_WINDOW   = "600";
+      LOOP_INTERVAL = "310";
     };
 
     serviceConfig = {
