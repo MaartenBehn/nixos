@@ -185,7 +185,7 @@ in {
       HA_URL        = "http://localhost:8123";
       HA_TOKEN_FILE = "/run/secrets/home_assistant/token";
       SCAN_SECONDS  = "5";
-      SEEN_WINDOW   = "600";
+      SEEN_WINDOW   = "400";
       LOOP_INTERVAL = "200";
     };
 
