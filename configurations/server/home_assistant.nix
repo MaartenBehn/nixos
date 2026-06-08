@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./mosquitto.nix
   ];
@@ -58,8 +58,8 @@
     };
   };
 
-  environment.etc."hass/known_devices.yaml" = {
-    target = "hass/known_devices.yaml";
+    # Store the seed file in /etc (read-only, managed by Nix)
+  environment.etc."hass/known_devices_seed.yaml" = {
     text = ''
       ble_ecd5c07c38a6:
         name: Wallet
@@ -77,6 +77,48 @@
     group = "hass";
     mode = "0644";
   };
+
+  # On every HA start, overwrite known_devices.yaml from the seed,
+  # preserving any extra entries HA has added at runtime by merging them.
+  systemd.services.home-assistant.serviceConfig.ExecStartPre =
+    let
+      mergeScript = pkgs.writeShellScript "seed-known-devices" ''
+        SEED="/etc/hass/known_devices_seed.yaml"
+        DEST="/var/lib/hass/known_devices.yaml"
+
+        if [ ! -f "$DEST" ]; then
+          # First boot — just copy the seed
+          cp "$SEED" "$DEST"
+          chown hass:hass "$DEST"
+        else
+          # Merge: seed entries overwrite existing, unknown runtime entries are kept
+          ${pkgs.python3}/bin/python3 - <<'EOF'
+          import yaml, os
+
+          seed_path = "/etc/hass/known_devices_seed.yaml"
+          dest_path = "/var/lib/hass/known_devices.yaml"
+
+          with open(seed_path) as f:
+              seed = yaml.safe_load(f) or {}
+
+          with open(dest_path) as f:
+              existing = yaml.safe_load(f) or {}
+
+          # Runtime entries first, then seed overwrites tracked devices
+          merged = {**existing, **seed}
+
+          with open(dest_path, "w") as f:
+              yaml.dump(merged, f, default_flow_style=False, allow_unicode=True)
+
+          os.chown(dest_path, 
+            __import__("pwd").getpwnam("hass").pw_uid,
+            __import__("grp").getgrnam("hass").gr_gid
+          )
+          EOF
+        fi
+      '';
+    in
+    "+${mergeScript}"; # '+' prefix runs with elevated privileges for chown  
 
   web_services."home" = {
     domains = "local";
