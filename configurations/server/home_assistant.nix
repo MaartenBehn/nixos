@@ -29,8 +29,8 @@ let
     with open(HA_TOKEN_FILE) as f:
       HA_TOKEN = f.read().strip()
 
-    seen_key = 0
-    seen_wallet = 0
+    seen_key = 0.0
+    seen_wallet = 0.0
 
     def post_ha(entity: str, state: str, attributes: dict):
       url = f"{HA_URL}/api/states/{entity}"
@@ -56,11 +56,13 @@ let
           eid = data[1:21].hex()
           flag = data[21:22].hex()
           log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
-          if "0x40" in t: 
+          if "0x40" in t:
+            nonlocal seen_key
             seen_key = time.time();
             log.info(f"  Key detected!")
 
           if "0x41" in t: 
+            nonlocal seen_wallet
             seen_wallet = time.time();
             log.info(f"  Wallet detected!")
 
