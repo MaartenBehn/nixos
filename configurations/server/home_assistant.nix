@@ -123,14 +123,7 @@ in {
     extraComponents = [
       # Components required to complete the onboarding
       "esphome"
-      "met"
-      "radio_browser"
-      "google_translate"
       "tasmota"
-
-      "bluetooth"
-      "bluetooth_le_tracker"
-      "bluetooth_adapters"
     ];
     config = {
       # Includes dependencies for a basic setup
@@ -147,21 +140,14 @@ in {
         trusted_proxies = "127.0.0.1";
       };
 
-      # Enable the bluetooth integration
-      bluetooth = {};
-
-      # BLE device tracker
-      device_tracker = [
-        {
-          platform = "bluetooth_le_tracker";
-          interval_seconds = 12;
-          consider_home = 180;  # seconds before marking "away"
-          track_new_devices = true;
-        }
-      ];
-
-      # Optional: enable the default logger to see BLE discovery
-      logger.default = "info";
+      sensor = {
+        "derivative" = {
+          source = "sensor.sensor.plug_asus_energy_total";
+          name = "Asus Power per hour";
+          unit_time = "h";
+          time_window = "00:30:00";
+        };
+      };
     };
   };
  
