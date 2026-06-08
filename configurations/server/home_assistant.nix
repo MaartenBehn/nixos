@@ -11,21 +11,26 @@ let
 
   declare -A seen
 
+  log() { echo "[$(date '+%H:%M:%S')] $*"; }
+
   post_ha() {
     local entity="$1" state="$2" attrs="$3"
-    ${pkgs.curl}/bin/curl -sf -X POST \
+    log "POST $entity = $state"
+    local response
+    response=$(${pkgs.curl}/bin/curl -sf -X POST \
       -H "Authorization: Bearer $HA_TOKEN" \
       -H "Content-Type: application/json" \
       -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
-      "$HA_URL/api/states/$entity" > /dev/null
+      "$HA_URL/api/states/$entity" 2>&1) \
+      && log "POST ok" \
+      || log "POST failed: $response"
   }
 
   scan_once() {
     local tmpfile
     tmpfile=$(mktemp)
+    log "Scanning for $${SCAN_SECONDS}s..."
 
-    # Collect raw dump, join continuation lines (lines starting with spaces
-    # are continuations of the previous HCI event), into single lines
     timeout "$SCAN_SECONDS" \
       ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
     | ${pkgs.gawk}/bin/awk '
@@ -34,21 +39,43 @@ let
         END { if (buf) print buf }
       ' > "$tmpfile" || true
 
-    # Now each HCI event is one line — search for FEAA + 0x40
+    local total_lines found_feaa=0 found_fmdn=0
+    total_lines=$(wc -l < "$tmpfile")
+    log "Raw HCI events captured: $total_lines lines"
+
+    # Debug: show any line containing AA FE
+    log "--- Lines containing AA FE ---"
+    ${pkgs.gnugrep}/bin/grep -i "aa fe" "$tmpfile" || log "(none found)"
+    log "--- End AA FE lines ---"
+
     while IFS= read -r line; do
-      if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
-        # Extract EID: 20 bytes after "16 aa fe 40"
-        eid=$(echo "$line" \
-          | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40\( [0-9a-f][0-9a-f]\)\{1,20\}" \
-          | ${pkgs.gnused}/bin/sed 's/16 aa fe 40//' \
-          | tr -d ' \n' \
-          | cut -c1-40)
-        if [[ -n "$eid" ]]; then
-          echo "Detected Find Hub tag EID: $eid"
-          seen["$eid"]=$(date +%s)
+      if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "aa fe"; then
+        (( found_feaa++ )) || true
+        log "FEAA line: $line"
+
+        if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
+          (( found_fmdn++ )) || true
+          log "FMDN match!"
+
+          eid=$(echo "$line" \
+            | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40\( [0-9a-f][0-9a-f]\)\{1,20\}" \
+            | ${pkgs.gnused}/bin/sed 's/16 aa fe 40//' \
+            | tr -d ' \n' \
+            | cut -c1-40)
+
+          log "Extracted EID: '$eid'"
+
+          if [[ -n "$eid" ]]; then
+            seen["$eid"]=$(date +%s)
+            log "Stored EID: $eid"
+          else
+            log "WARNING: EID extraction failed from line: $line"
+          fi
         fi
       fi
     done < "$tmpfile"
+
+    log "FEAA lines seen: $found_feaa, FMDN (0x40) matches: $found_fmdn"
     rm -f "$tmpfile"
   }
 
@@ -57,12 +84,15 @@ let
     now=$(date +%s)
     local expired=()
 
+    log "Seen table has ''${#seen[@]} entries:"
     for eid in "''${!seen[@]}"; do
       local age=$(( now - ''${seen[$eid]} ))
+      log "  EID $eid age=$${age}s window=$${SEEN_WINDOW}s"
       if (( age <= SEEN_WINDOW )); then
         (( count++ )) || true
       else
         expired+=("$eid")
+        log "  -> expired"
       fi
     done
 
@@ -70,7 +100,7 @@ let
       unset "seen[$eid]"
     done
 
-    echo "Tags in range: $count"
+    log "Tags in range: $count"
 
     post_ha "sensor.findhub_tags_home" "$count" \
       '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
@@ -81,7 +111,8 @@ let
       '{"friendly_name":"Any Tag Home","device_class":"presence"}'
   }
 
-  echo "Find Hub scanner starting..."
+  log "Find Hub scanner starting..."
+  log "HA_URL=$HA_URL SCAN_SECONDS=$SCAN_SECONDS SEEN_WINDOW=$SEEN_WINDOW LOOP_INTERVAL=$LOOP_INTERVAL"
   ${pkgs.bluez}/bin/hciconfig hci0 up || true
 
   while true; do
