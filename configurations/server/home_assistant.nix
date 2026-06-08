@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   find_hub_scanner = pkgs.writeShellScriptBin "find_hub_scanner" ''
+  #!/usr/bin/env bash
   set -euo pipefail
 
   HA_URL="''${HA_URL:-http://localhost:8123}"
@@ -31,8 +32,9 @@ let
     tmpfile=$(mktemp)
     log "Scanning for ''${SCAN_SECONDS}s..."
 
-    timeout "$SCAN_SECONDS" \
-      ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
+    # Use -x (no -R) so output is spaced hex like "aa fe"
+    timeout "''${SCAN_SECONDS}" \
+      ${pkgs.bluez}/bin/hcidump -i hci0 -x 2>/dev/null \
     | ${pkgs.gawk}/bin/awk '
         /^>/ { if (buf) print buf; buf=$0; next }
         { buf = buf " " $0 }
@@ -43,10 +45,9 @@ let
     total_lines=$(wc -l < "$tmpfile")
     log "Raw HCI events captured: $total_lines lines"
 
-    # Debug: show any line containing AA FE
-    log "--- Lines containing AA FE ---"
+    log "--- Lines containing aa fe ---"
     ${pkgs.gnugrep}/bin/grep -i "aa fe" "$tmpfile" || log "(none found)"
-    log "--- End AA FE lines ---"
+    log "--- End aa fe lines ---"
 
     while IFS= read -r line; do
       if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "aa fe"; then
@@ -82,7 +83,7 @@ let
   report() {
     local now count=0
     now=$(date +%s)
-    local expired=()
+    local -a expired=()
 
     log "Seen table has ''${#seen[@]} entries:"
     for eid in "''${!seen[@]}"; do
@@ -112,16 +113,15 @@ let
   }
 
   log "Find Hub scanner starting..."
-  log "HA_URL=$HA_URL SCAN_SECONDS=$SCAN_SECONDS SEEN_WINDOW=$SEEN_WINDOW LOOP_INTERVAL=$LOOP_INTERVAL"
+  log "HA_URL=''${HA_URL} SCAN_SECONDS=''${SCAN_SECONDS} SEEN_WINDOW=''${SEEN_WINDOW} LOOP_INTERVAL=''${LOOP_INTERVAL}"
   ${pkgs.bluez}/bin/hciconfig hci0 up || true
 
   while true; do
     scan_once
     report
-    sleep "$LOOP_INTERVAL"
+    sleep "''${LOOP_INTERVAL}"
   done
-'';
-in {
+'';in {
   imports = [
     ./mosquitto.nix
   ];
