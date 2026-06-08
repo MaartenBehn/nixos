@@ -52,7 +52,7 @@ let
      for uuid, data in advertisement_data.service_data.items():
         log.debug(f"  Service data UUID={uuid} data={data.hex()} len={len(data)}")
         if "feaa" in uuid.lower():
-          t = data[0].hex()
+          t = data[0]
           eid = data[1:21].hex()
           flag = data[21:22].hex()
           log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
