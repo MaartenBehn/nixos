@@ -1,90 +1,95 @@
 { pkgs, ... }:
 let
   find_hub_scanner = pkgs.writeShellScriptBin "find_hub_scanner" ''
-    set -euo pipefail
+  set -euo pipefail
 
-    HA_URL="''${HA_URL:-http://localhost:8123}"
-    HA_TOKEN="$(cat ''${HA_TOKEN_FILE:-/run/secrets/ha_token})"
-    SCAN_SECONDS="''${SCAN_SECONDS:-10}"
-    SEEN_WINDOW="''${SEEN_WINDOW:-60}"
-    LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
+  HA_URL="''${HA_URL:-http://localhost:8123}"
+  HA_TOKEN="$(cat ''${HA_TOKEN_FILE:-/run/secrets/ha_token})"
+  SCAN_SECONDS="''${SCAN_SECONDS:-10}"
+  SEEN_WINDOW="''${SEEN_WINDOW:-60}"
+  LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
 
-    declare -A seen
+  declare -A seen
 
-    post_ha() {
-      local entity="$1"
-      local state="$2"
-      local attrs="$3"
-      ${pkgs.curl}/bin/curl -sf -X POST \
-        -H "Authorization: Bearer $HA_TOKEN" \
-        -H "Content-Type: application/json" \
-        -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
-        "$HA_URL/api/states/$entity" > /dev/null
-    }
+  post_ha() {
+    local entity="$1" state="$2" attrs="$3"
+    ${pkgs.curl}/bin/curl -sf -X POST \
+      -H "Authorization: Bearer $HA_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
+      "$HA_URL/api/states/$entity" > /dev/null
+  }
 
-    scan_once() {
-      local tmpfile
-      tmpfile=$(mktemp)
+  scan_once() {
+    local tmpfile
+    tmpfile=$(mktemp)
 
-      timeout "$SCAN_SECONDS" \
-        ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
-        | ${pkgs.gnugrep}/bin/grep --line-buffered -i "aa fe" > "$tmpfile" || true
+    # Collect raw dump, join continuation lines (lines starting with spaces
+    # are continuations of the previous HCI event), into single lines
+    timeout "$SCAN_SECONDS" \
+      ${pkgs.bluez}/bin/hcidump -i hci0 -R 2>/dev/null \
+    | ${pkgs.gawk}/bin/awk '
+        /^>/ { if (buf) print buf; buf=$0; next }
+        { buf = buf " " $0 }
+        END { if (buf) print buf }
+      ' > "$tmpfile" || true
 
-      while IFS= read -r line; do
-        if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
-          eid=$(echo "$line" \
-            | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40 \([0-9a-f][0-9a-f] \)\{1,20\}" \
-            | ${pkgs.gnused}/bin/sed 's/16 aa fe 40 //' \
-            | tr -d ' \n' \
-            | cut -c1-40)
-          if [[ -n "$eid" ]]; then
-            echo "Detected EID: $eid"
-            seen["$eid"]=$(date +%s)
-          fi
+    # Now each HCI event is one line — search for FEAA + 0x40
+    while IFS= read -r line; do
+      if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
+        # Extract EID: 20 bytes after "16 aa fe 40"
+        eid=$(echo "$line" \
+          | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40\( [0-9a-f][0-9a-f]\)\{1,20\}" \
+          | ${pkgs.gnused}/bin/sed 's/16 aa fe 40//' \
+          | tr -d ' \n' \
+          | cut -c1-40)
+        if [[ -n "$eid" ]]; then
+          echo "Detected Find Hub tag EID: $eid"
+          seen["$eid"]=$(date +%s)
         fi
-      done < "$tmpfile"
-      rm -f "$tmpfile"
-    }
+      fi
+    done < "$tmpfile"
+    rm -f "$tmpfile"
+  }
 
-    report() {
-      local now count=0
-      now=$(date +%s)
-      local expired=()
+  report() {
+    local now count=0
+    now=$(date +%s)
+    local expired=()
 
-      for eid in "''${!seen[@]}"; do
-        local age=$(( now - ''${seen[$eid]} ))
-        if (( age <= SEEN_WINDOW )); then
-          (( count++ )) || true
-        else
-          expired+=("$eid")
-        fi
-      done
-
-      for eid in "''${expired[@]:-}"; do
-        unset "seen[$eid]"
-      done
-
-      echo "Tags in range: $count"
-
-      post_ha "sensor.findhub_tags_home" "$count" \
-        '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
-
-      local presence="off"
-      (( count > 0 )) && presence="on" || true
-      post_ha "binary_sensor.tags_home" "$presence" \
-        '{"friendly_name":"Any Tag Home","device_class":"presence"}'
-    }
-
-    echo "Find Hub scanner starting..."
-    ${pkgs.bluez}/bin/hciconfig hci0 up || true
-
-    while true; do
-      scan_once
-      report
-      sleep "$LOOP_INTERVAL"
+    for eid in "''${!seen[@]}"; do
+      local age=$(( now - ''${seen[$eid]} ))
+      if (( age <= SEEN_WINDOW )); then
+        (( count++ )) || true
+      else
+        expired+=("$eid")
+      fi
     done
-  '';
 
+    for eid in "''${expired[@]:-}"; do
+      unset "seen[$eid]"
+    done
+
+    echo "Tags in range: $count"
+
+    post_ha "sensor.findhub_tags_home" "$count" \
+      '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
+
+    local presence="off"
+    (( count > 0 )) && presence="on" || true
+    post_ha "binary_sensor.tags_home" "$presence" \
+      '{"friendly_name":"Any Tag Home","device_class":"presence"}'
+  }
+
+  echo "Find Hub scanner starting..."
+  ${pkgs.bluez}/bin/hciconfig hci0 up || true
+
+  while true; do
+    scan_once
+    report
+    sleep "$LOOP_INTERVAL"
+  done
+'';
 in {
   imports = [
     ./mosquitto.nix
