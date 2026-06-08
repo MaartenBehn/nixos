@@ -55,12 +55,12 @@ let
           eid = data[1:21].hex()
           flag = data[21:22].hex()
           log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
-          if "0x40" in t:
+          if "0x41" in t:
             global seen_key
             seen_key = time.time();
             log.info(f"  Key detected!")
 
-          if "0x41" in t: 
+          if "0x40" in t: 
             global seen_wallet
             seen_wallet = time.time();
             log.info(f"  Wallet detected!")
@@ -76,12 +76,12 @@ let
 
       now = time.time()
       post_ha("binary_sensor.key_home", "on" if (now - seen_key) <= SEEN_WINDOW else "off", {
-        "friendly_name": "Key Home",
+        "friendly_name": "Keys",
         "device_class": "presence",
       })
 
       post_ha("binary_sensor.wallet_home", "on" if (now - seen_wallet) <= SEEN_WINDOW else "off", {
-        "friendly_name": "Wallet Home",
+        "friendly_name": "Wallet",
         "device_class": "presence",
       })
 
