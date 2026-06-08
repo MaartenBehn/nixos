@@ -50,7 +50,6 @@ let
     def detection_callback(device, advertisement_data):
      
      for uuid, data in advertisement_data.service_data.items():
-        log.info(f"  Service data UUID={uuid} data={data.hex()} len={len(data)} addr={device.address}")
         if "feaa" in uuid.lower():
           t = hex(data[0])
           eid = data[1:21].hex()
