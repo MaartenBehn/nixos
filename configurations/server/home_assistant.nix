@@ -14,7 +14,7 @@ let
     from bleak import BleakScanner
 
     logging.basicConfig(
-      level=logging.DEBUG,
+      level=logging.INFO,
       format="[%(asctime)s] %(levelname)s %(message)s",
       datefmt="%H:%M:%S"
     )
@@ -50,12 +50,12 @@ let
     def detection_callback(device, advertisement_data):
      
      for uuid, data in advertisement_data.service_data.items():
-        log.debug(f"  Service data UUID={uuid} data={data.hex()} len={len(data)}")
+        log.info(f"  Service data UUID={uuid} data={data.hex()} len={len(data)} addr={device.address}")
         if "feaa" in uuid.lower():
           t = hex(data[0])
           eid = data[1:21].hex()
           flag = data[21:22].hex()
-          log.debug(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
+          log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
           if "0x40" in t: 
             seen_key = time.time();
             log.info(f"  Key detected!")
