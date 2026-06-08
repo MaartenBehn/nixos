@@ -140,13 +140,15 @@ in {
         trusted_proxies = "127.0.0.1";
       };
 
-      sensor = {
-        platform = "derivative";
-        source = "sensor.sensor.plug_asus_energy_total";
-        name = "Asus Power per hour";
-        unit_time = "h";
-        time_window = "00:30:00";
-      };
+      sensor = [
+        {
+          platform = "derivative";
+          source = "sensor.sensor.plug_asus_energy_total";
+          name = "Asus Power per hour";
+          unit_time = "h";
+          time_window = "00:30:00";
+        }
+      ];
     };
   };
  
