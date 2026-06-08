@@ -147,6 +147,9 @@ in {
           name = "Asus Power per hour";
           unit_time = "h";
           time_window = "00:30:00";
+          device_class = "energy";
+          state_class = "measurement";
+          unit_of_measurement = "kW";
         }
       ];
     };
