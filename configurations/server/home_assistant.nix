@@ -56,12 +56,12 @@ let
           flag = data[21:22].hex()
           log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
           if "0x40" in t:
-            nonlocal seen_key
+            global seen_key
             seen_key = time.time();
             log.info(f"  Key detected!")
 
           if "0x41" in t: 
-            nonlocal seen_wallet
+            global seen_wallet
             seen_wallet = time.time();
             log.info(f"  Wallet detected!")
 
