@@ -1,8 +1,7 @@
 { pkgs, ... }:
 let
   find_hub_scanner = pkgs.writeShellScriptBin "find_hub_scanner" ''
-  #!/usr/bin/env bash
-  set -euo pipefail
+  export PATH="${pkgs.bash}/bin:${pkgs.bluez}/bin:${pkgs.gawk}/bin:${pkgs.gnugrep}/bin:${pkgs.gnused}/bin:${pkgs.curl}/bin:$PATH"
 
   HA_URL="''${HA_URL:-http://localhost:8123}"
   HA_TOKEN="$(cat ''${HA_TOKEN_FILE:-/run/secrets/ha_token})"
@@ -10,118 +9,28 @@ let
   SEEN_WINDOW="''${SEEN_WINDOW:-60}"
   LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
 
-  declare -A seen
-
   log() { echo "[$(date '+%H:%M:%S')] $*"; }
 
-  post_ha() {
-    local entity="$1" state="$2" attrs="$3"
-    log "POST $entity = $state"
-    local response
-    response=$(${pkgs.curl}/bin/curl -sf -X POST \
-      -H "Authorization: Bearer $HA_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
-      "$HA_URL/api/states/$entity" 2>&1) \
-      && log "POST ok" \
-      || log "POST failed: $response"
-  }
-
-  scan_once() {
-    local tmpfile
-    tmpfile=$(mktemp)
-    log "Scanning for ''${SCAN_SECONDS}s..."
-
-    # Use -x (no -R) so output is spaced hex like "aa fe"
-    timeout "''${SCAN_SECONDS}" \
-      ${pkgs.bluez}/bin/hcidump -i hci0 -x 2>/dev/null \
-    | ${pkgs.gawk}/bin/awk '
-        /^>/ { if (buf) print buf; buf=$0; next }
-        { buf = buf " " $0 }
-        END { if (buf) print buf }
-      ' > "$tmpfile" || true
-
-    local total_lines found_feaa=0 found_fmdn=0
-    total_lines=$(wc -l < "$tmpfile")
-    log "Raw HCI events captured: $total_lines lines"
-
-    log "--- Lines containing aa fe ---"
-    ${pkgs.gnugrep}/bin/grep -i "aa fe" "$tmpfile" || log "(none found)"
-    log "--- End aa fe lines ---"
-
-    while IFS= read -r line; do
-      if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "aa fe"; then
-        (( found_feaa++ )) || true
-        log "FEAA line: $line"
-
-        if echo "$line" | ${pkgs.gnugrep}/bin/grep -qi "16 aa fe 40"; then
-          (( found_fmdn++ )) || true
-          log "FMDN match!"
-
-          eid=$(echo "$line" \
-            | ${pkgs.gnugrep}/bin/grep -oi "16 aa fe 40\( [0-9a-f][0-9a-f]\)\{1,20\}" \
-            | ${pkgs.gnused}/bin/sed 's/16 aa fe 40//' \
-            | tr -d ' \n' \
-            | cut -c1-40)
-
-          log "Extracted EID: '$eid'"
-
-          if [[ -n "$eid" ]]; then
-            seen["$eid"]=$(date +%s)
-            log "Stored EID: $eid"
-          else
-            log "WARNING: EID extraction failed from line: $line"
-          fi
-        fi
-      fi
-    done < "$tmpfile"
-
-    log "FEAA lines seen: $found_feaa, FMDN (0x40) matches: $found_fmdn"
-    rm -f "$tmpfile"
-  }
-
-  report() {
-    local now count=0
-    now=$(date +%s)
-    local -a expired=()
-
-    log "Seen table has ''${#seen[@]} entries:"
-    for eid in "''${!seen[@]}"; do
-      local age=$(( now - ''${seen[$eid]} ))
-      log "  EID $eid age=''${age}s window=''${SEEN_WINDOW}s"
-      if (( age <= SEEN_WINDOW )); then
-        (( count++ )) || true
-      else
-        expired+=("$eid")
-        log "  -> expired"
-      fi
-    done
-
-    for eid in "''${expired[@]:-}"; do
-      unset "seen[$eid]"
-    done
-
-    log "Tags in range: $count"
-
-    post_ha "sensor.findhub_tags_home" "$count" \
-      '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
-
-    local presence="off"
-    (( count > 0 )) && presence="on" || true
-    post_ha "binary_sensor.tags_home" "$presence" \
-      '{"friendly_name":"Any Tag Home","device_class":"presence"}'
-  }
-
+  log "Shell: $BASH_VERSION"
   log "Find Hub scanner starting..."
-  log "HA_URL=''${HA_URL} SCAN_SECONDS=''${SCAN_SECONDS} SEEN_WINDOW=''${SEEN_WINDOW} LOOP_INTERVAL=''${LOOP_INTERVAL}"
-  ${pkgs.bluez}/bin/hciconfig hci0 up || true
 
-  while true; do
-    scan_once
-    report
-    sleep "''${LOOP_INTERVAL}"
-  done
-'';in {
+  tmpfile=$(mktemp)
+  log "Scanning for ''${SCAN_SECONDS}s, dumping raw output..."
+
+  timeout "''${SCAN_SECONDS}" \
+    hcidump -i hci0 -x 2>/dev/null > "$tmpfile" || true
+
+  log "Raw line count: $(wc -l < "$tmpfile")"
+  log "--- First 20 raw lines ---"
+  head -20 "$tmpfile"
+  log "--- All lines with fe or aa ---"
+  grep -i "fe\|aa" "$tmpfile" | head -20 || log "(none)"
+  log "--- Done ---"
+
+  rm -f "$tmpfile"
+'';
+
+in {
   imports = [
     ./mosquitto.nix
   ];
@@ -207,10 +116,10 @@ let
     };
 
     serviceConfig = {
-      ExecStart  = "${find_hub_scanner}/bin/find_hub_scanner";
+      ExecStart  = "${pkgs.bash}/bin/bash ${find_hub_scanner}/bin/find_hub_scanner";
       Restart    = "on-failure";
       RestartSec = "10s";
       User       = "root";
-    };
+    };  
   };
 }
