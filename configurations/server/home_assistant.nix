@@ -154,10 +154,7 @@ in {
     };
   };
 
-  sops.secrets."home_assistant/token" = {
-    owner = "root";
-    path  = "/run/secrets/ha_token";
-  };
+  sops.secrets."home_assistant/token" = { owner = "root"; };
 
   systemd.services.findhub-scanner = {
     description = "Find Hub BLE presence scanner";
@@ -167,7 +164,7 @@ in {
 
     environment = {
       HA_URL        = "http://localhost:8123";
-      HA_TOKEN_FILE = "/run/secrets/ha_token";
+      HA_TOKEN_FILE = "/run/secrets/home_assistant/token";
       SCAN_SECONDS  = "10";
       SEEN_WINDOW   = "60";
       LOOP_INTERVAL = "15";
