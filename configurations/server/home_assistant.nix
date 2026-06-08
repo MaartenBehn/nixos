@@ -93,28 +93,28 @@
         else
           # Merge: seed entries overwrite existing, unknown runtime entries are kept
           ${pkgs.python3}/bin/python3 - <<'EOF'
-          import yaml, os
+import yaml, os
 
-          seed_path = "/etc/hass/known_devices_seed.yaml"
-          dest_path = "/var/lib/hass/known_devices.yaml"
+seed_path = "/etc/hass/known_devices_seed.yaml"
+dest_path = "/var/lib/hass/known_devices.yaml"
 
-          with open(seed_path) as f:
-              seed = yaml.safe_load(f) or {}
+with open(seed_path) as f:
+    seed = yaml.safe_load(f) or {}
 
-          with open(dest_path) as f:
-              existing = yaml.safe_load(f) or {}
+with open(dest_path) as f:
+    existing = yaml.safe_load(f) or {}
 
-          # Runtime entries first, then seed overwrites tracked devices
-          merged = {**existing, **seed}
+# Runtime entries first, then seed overwrites tracked devices
+merged = {**existing, **seed}
 
-          with open(dest_path, "w") as f:
-              yaml.dump(merged, f, default_flow_style=False, allow_unicode=True)
+with open(dest_path, "w") as f:
+    yaml.dump(merged, f, default_flow_style=False, allow_unicode=True)
 
-          os.chown(dest_path, 
-            __import__("pwd").getpwnam("hass").pw_uid,
-            __import__("grp").getgrnam("hass").gr_gid
-          )
-          EOF
+os.chown(dest_path, 
+  __import__("pwd").getpwnam("hass").pw_uid,
+  __import__("grp").getgrnam("hass").gr_gid
+)
+EOF
         fi
       '';
     in
