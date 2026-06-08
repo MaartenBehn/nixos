@@ -3,6 +3,14 @@
     ./mosquitto.nix
   ];
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Use dbus-broker (required by HA's bluetooth integration)
+  services.dbus.implementation = "broker";
+
   services.home-assistant = {
     enable = true;
     extraComponents = [
@@ -12,6 +20,10 @@
       "radio_browser"
       "google_translate"
       "tasmota"
+
+      "bluetooth"
+      "bluetooth_le_tracker"
+      "bluetooth_adapters"
     ];
     config = {
       # Includes dependencies for a basic setup
@@ -27,6 +39,22 @@
         # Set this to your NGINX machine IP, or localhost if hosted on the same machine.
         trusted_proxies = "127.0.0.1";
       };
+
+      # Enable the bluetooth integration
+      bluetooth = {};
+
+      # BLE device tracker
+      device_tracker = [
+        {
+          platform = "bluetooth_le_tracker";
+          interval_seconds = 12;
+          consider_home = 180;  # seconds before marking "away"
+          track_new_devices = true;
+        }
+      ];
+
+      # Optional: enable the default logger to see BLE discovery
+      logger.default = "info";
     };
   };
 
