@@ -48,23 +48,15 @@ let
         log.error(f"POST failed: {e}")
 
     def detection_callback(device, advertisement_data):
-      log.trace(
-        f"Device: {device.address} "
-        f"name={device.name!r} "
-        f"rssi={advertisement_data.rssi} "
-        f"service_uuids={advertisement_data.service_uuids} "
-        f"service_data={advertisement_data.service_data!r} "
-        f"manufacturer_data={advertisement_data.manufacturer_data!r}"
-      )
-
-      for uuid, data in advertisement_data.service_data.items():
+     
+     for uuid, data in advertisement_data.service_data.items():
         log.debug(f"  Service data UUID={uuid} data={data.hex()} len={len(data)}")
         if "feaa" in uuid.lower():
-          log.debug(f"  FEAA service found! first byte=0x{data[0]:02x}")
-          if len(data) > 0 and data[0] == 0x40:
-            eid = data[2:22].hex() if len(data) >= 22 else data.hex()
-            log.debug(f"  FMDN frame confirmed! EID={eid} addr={device.address}")
-            seen[eid] = time.time()
+          t = data[0].hex()
+          eid = data[1:21].hex()
+          flag = data[21:22].hex()
+          log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
+          seen[eid] = time.time()
 
     async def scan_cycle():
       log.info(f"Starting scan for {SCAN_SECONDS}s...")
