@@ -143,7 +143,7 @@ in {
       sensor = [
         {
           platform = "derivative";
-          source = "sensor.sensor.plug_asus_energy_total";
+          source = "sensor.plug_asus_energy_total";
           name = "Asus Power per hour";
           unit_time = "h";
           time_window = "00:30:00";
