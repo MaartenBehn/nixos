@@ -14,7 +14,7 @@ let
     from bleak import BleakScanner
 
     logging.basicConfig(
-      level=logging.DEBUG,
+      level=logging.INFO,
       format="[%(asctime)s] %(levelname)s %(message)s",
       datefmt="%H:%M:%S"
     )
