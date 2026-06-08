@@ -9,25 +9,105 @@ let
   SEEN_WINDOW="''${SEEN_WINDOW:-60}"
   LOOP_INTERVAL="''${LOOP_INTERVAL:-15}"
 
+  declare -A seen
+
   log() { echo "[$(date '+%H:%M:%S')] $*"; }
+
+  post_ha() {
+    local entity="$1" state="$2" attrs="$3"
+    log "POST $entity = $state"
+    local response
+    response=$(curl -sf -X POST \
+      -H "Authorization: Bearer $HA_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{\"state\":\"$state\",\"attributes\":$attrs}" \
+      "$HA_URL/api/states/$entity" 2>&1) \
+      && log "POST ok" \
+      || log "POST failed: $response"
+  }
+
+  scan_once() {
+    local tmpfile
+    tmpfile=$(mktemp)
+    log "Scanning for ''${SCAN_SECONDS}s..."
+
+    # Use decoded text output (no flags) and track bdaddr + service data type
+    timeout "''${SCAN_SECONDS}" \
+      hcidump -i hci0 2>/dev/null \
+    | awk '
+        /^>/ {
+          if (buf) print buf
+          buf = $0
+          next
+        }
+        { buf = buf "\n" $0 }
+        END { if (buf) print buf }
+      ' > "$tmpfile" || true
+
+    local total_events found=0
+    total_events=$(grep -c "^>" "$tmpfile" || true)
+    log "HCI events captured: $total_events"
+
+    # Each record is a full multi-line event joined by \n
+    # Find events that contain BOTH a bdaddr AND "Unknown type 0x16 with 24 bytes"
+    # (the FMDN frame is always 24 bytes via service data type 0x16)
+    while IFS= read -r record; do
+      if echo "$record" | grep -q "Unknown type 0x16 with 24 bytes"; then
+        # Extract the bdaddr as a stable-enough identifier within scan window
+        bdaddr=$(echo "$record" | grep -o "bdaddr [0-9A-F:]*" | head -1 | awk '{print $2}')
+        if [[ -n "$bdaddr" ]]; then
+          (( found++ )) || true
+          log "Find Hub tag detected at bdaddr: $bdaddr"
+          seen["$bdaddr"]=$(date +%s)
+        fi
+      fi
+    done < <(awk 'BEGIN{RS="^>"} NR>1 {print}' "$tmpfile")
+
+    log "Find Hub tags detected this scan: $found"
+    rm -f "$tmpfile"
+  }
+
+  report() {
+    local now count=0
+    now=$(date +%s)
+    local -a expired=()
+
+    log "Seen table has ''${#seen[@]} entries:"
+    for key in "''${!seen[@]}"; do
+      local age=$(( now - ''${seen[$key]} ))
+      log "  $key age=''${age}s"
+      if (( age <= SEEN_WINDOW )); then
+        (( count++ )) || true
+      else
+        expired+=("$key")
+        log "  -> expired"
+      fi
+    done
+
+    for key in "''${expired[@]:-}"; do
+      unset "seen[$key]"
+    done
+
+    log "Tags in range: $count"
+
+    post_ha "sensor.findhub_tags_home" "$count" \
+      '{"friendly_name":"Find Hub Tags Home","icon":"mdi:tag-multiple","unit_of_measurement":"tags"}'
+
+    local presence="off"
+    (( count > 0 )) && presence="on" || true
+    post_ha "binary_sensor.tags_home" "$presence" \
+      '{"friendly_name":"Any Tag Home","device_class":"presence"}'
+  }
 
   log "Shell: $BASH_VERSION"
   log "Find Hub scanner starting..."
+  hciconfig hci0 up || true
 
-  tmpfile=$(mktemp)
-  log "Scanning for ''${SCAN_SECONDS}s, dumping raw output..."
-
-  timeout "''${SCAN_SECONDS}" \
-    hcidump -i hci0 -x 2>/dev/null > "$tmpfile" || true
-
-  log "Raw line count: $(wc -l < "$tmpfile")"
-  log "--- First 20 raw lines ---"
-  head -20 "$tmpfile"
-  log "--- All lines with fe or aa ---"
-  grep -i "fe\|aa" "$tmpfile" | head -20 || log "(none)"
-  log "--- Done ---"
-
-  rm -f "$tmpfile"
+  while true; do
+    scan_once
+    report
+    sleep "''${LOOP_INTERVAL}"
+  done
 '';
 
 in {
