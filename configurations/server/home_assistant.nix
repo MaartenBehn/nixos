@@ -201,12 +201,10 @@ in {
     };
 
     serviceConfig = {
-      serviceConfig = {
-        ExecStart  = "${pythonEnv}/bin/python3 ${find_hub_scanner}/bin/find_hub_scanner";
-        Restart    = "on-failure";
-        RestartSec = "10s";
-        User       = "root";
-      };    
+      ExecStart  = "${pythonEnv}/bin/python3 ${find_hub_scanner}/bin/find_hub_scanner";
+      Restart    = "on-failure";
+      RestartSec = "10s";
+      User       = "root";
     };  
   };
 }
