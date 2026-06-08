@@ -14,7 +14,7 @@ let
     from bleak import BleakScanner
 
     logging.basicConfig(
-      level=logging.INFO,
+      level=logging.DEBUG,
       format="[%(asctime)s] %(levelname)s %(message)s",
       datefmt="%H:%M:%S"
     )
@@ -29,8 +29,8 @@ let
     with open(HA_TOKEN_FILE) as f:
       HA_TOKEN = f.read().strip()
 
-    # key -> last seen epoch
-    seen: dict[str, float] = {}
+    seen_key = 0
+    seen_wallet = 0
 
     def post_ha(entity: str, state: str, attributes: dict):
       url = f"{HA_URL}/api/states/{entity}"
@@ -55,8 +55,15 @@ let
           t = hex(data[0])
           eid = data[1:21].hex()
           flag = data[21:22].hex()
-          log.info(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
-          seen[eid] = time.time()
+          log.debug(f"  FMDN frame: addr={device.address} Type={t} EID={eid} FLAG={flag}")
+          if "0x40" in t: 
+            seen_key = time.time();
+            log.info(f"  Key detected!")
+
+          if "0x41" in t: 
+            seen_wallet = time.time();
+            log.info(f"  Wallet detected!")
+
 
     async def scan_cycle():
       log.info(f"Starting scan for {SCAN_SECONDS}s...")
@@ -67,24 +74,13 @@ let
       log.info("Scan complete")
 
       now = time.time()
-      expired = [k for k, t in seen.items() if now - t > SEEN_WINDOW]
-      for k in expired:
-        log.info(f"Expiring EID {k}")
-        del seen[k]
-
-      active = {k: v for k, v in seen.items() if now - v <= SEEN_WINDOW}
-      count = len(active)
-      log.info(f"Active tags: {count}")
-      for eid, t in active.items():
-        log.info(f"  EID={eid} age={now-t:.0f}s")
-
-      post_ha("sensor.findhub_tags_home", str(count), {
-        "friendly_name": "Find Hub Tags Home",
-        "icon": "mdi:tag-multiple",
-        "unit_of_measurement": "tags",
+      post_ha("binary_sensor.tags_home", "on" if (now - seen_key) <= SEEN_WINDOW else "off", {
+        "friendly_name": "Key Home",
+        "device_class": "presence",
       })
-      post_ha("binary_sensor.tags_home", "on" if count > 0 else "off", {
-        "friendly_name": "Any Tag Home",
+
+      post_ha("binary_sensor.tags_home", "on" if (now - seen_wallet) <= SEEN_WINDOW else "off", {
+        "friendly_name": "Wallet Home",
         "device_class": "presence",
       })
 
