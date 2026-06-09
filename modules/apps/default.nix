@@ -49,7 +49,7 @@
       #webull-desktop
 
       ausweisapp
-      #zoom-us
+      zoom-us
       prismlauncher
     ]);
   };

@@ -20,7 +20,6 @@
       ls = "exa -l -a --group";
       ping = "ping -c 5";
 
-      grep = "rg";
       disk-usage = "sudo dust /";
     };
   };

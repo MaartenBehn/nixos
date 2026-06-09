@@ -1,14 +1,17 @@
 {
-  flake.modules.homeManager.core = { pkgs, ... }: 
+  flake.modules.homeManager.core = { pkgs, config, lib, ... }: 
     let 
-      nix-shell-init = pkgs.writeShellScriptBin "nix-shell-init" ''
+      init-shell = pkgs.writeShellScriptBin "init-shell" ''
         rm .envrc || true 
         echo 'use nix' >> .envrc && direnv allow      
       '';
 
-      nix-devshell-init = pkgs.writeShellScriptBin "nix-devshell-init" ''
-        rm .envrc || true 
-        echo 'use flake' >> .envrc && direnv allow      
+      init-devshell = pkgs.writeShellScriptBin "init-devshell" ''
+        rm -f .envrc
+        INPUT_NAME=''${1:-nixpkgs}
+        SYS_REV=$(nix flake metadata "$FLAKE_PATH" --json | ${lib.getExe pkgs.jq} -r '.locks.nodes.nixpkgs.locked.rev')
+        echo "use flake . --override-input $INPUT_NAME nixpkgs/$SYS_REV" >> .envrc
+        direnv allow      
       ''; 
 
     in {
@@ -18,15 +21,13 @@
         silent = true;
       };
 
-      home.packages = [
-        nix-shell-init      
-        nix-devshell-init      
-      ];
-
-      home.shellAliases = {
-        init-nix-shell="nix-shell-init";
-        init-shell="nix-shell-init";
-        load-shell="direnv reload";
+      home.sessionVariables = {
+        FLAKE_PATH = "${config.home.homeDirectory}/nixos";       
       };
+
+      home.packages = [
+        init-shell      
+        init-devshell     
+      ];
     };
 }

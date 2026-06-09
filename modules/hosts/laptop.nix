@@ -48,6 +48,7 @@ in {
         (with self.modules.nixos; [
           hyprland
           networking_vpn
+          projects_tauri
         ]);
     };
 
