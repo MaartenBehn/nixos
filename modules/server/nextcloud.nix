@@ -4,8 +4,6 @@
     cloud_domain = "cloud.stroby.org";
     default_borg_settings = import ./borg_settings.nix;
   in {
-    imports = [ ./borg.nix ];
-
     sops.secrets."nextcloud/adminpass" = { 
       owner = "nextcloud";  
     };

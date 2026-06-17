@@ -24,8 +24,6 @@
     # show groups: getent group
     # show facl: getfacl 
 
-    imports = [ ./borg.nix ];
-    
     users.groups.media.members = [ "jellyfin" ];
     
     services.jellyfin.enable = true;

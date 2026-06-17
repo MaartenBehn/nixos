@@ -21,10 +21,6 @@
 
   in {
 
-    imports = [
-      ./slskd.nix
-    ];
-   
     users.groups.media.members = [ "lidarr" ]; 
 
     services.lidarr = { 

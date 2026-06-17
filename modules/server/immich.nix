@@ -7,8 +7,6 @@
     ''; 
 
   in {
-    imports = [ ./borg.nix ];
-
     services.postgresql.ensureUsers = [ 
       { 
         name = "immich";
