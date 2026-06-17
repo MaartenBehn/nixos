@@ -24,6 +24,14 @@ in {
 
         users.users."${username}" = {
           isNormalUser = true;
+
+          extraGroups = [
+            "wheel"
+
+            # Move
+            "media"
+            "nginx"
+          ];
         };
 
         home-manager.users."${username}".imports = [
@@ -37,6 +45,5 @@ in {
         ];
       };
     };
-
-      };
+  };
 }

@@ -79,7 +79,6 @@
             {
               host = hostname;
               system_type = options.system; 
-              networking.hostName = "${hostname}";
             }
             self.modules.nixos.core
             options.nixos

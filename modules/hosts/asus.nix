@@ -46,6 +46,7 @@ in {
     nixos = {
       imports = old-imports ++ 
         (with self.modules.nixos; [
+          keep_on_with_closed_lid
         ]);
     };
 

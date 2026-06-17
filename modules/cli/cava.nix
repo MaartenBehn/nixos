@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.full-cli = {
+  flake.modules.homeManager.cli-full = {
     programs.cava = {
       enable = true;
     };

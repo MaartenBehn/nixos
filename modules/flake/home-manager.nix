@@ -12,6 +12,7 @@ in {
         useGlobalPkgs = true;
         useUserPackages = true; 
         extraSpecialArgs.inputs = inputs;
+        backupFileExtension = "backup";
       };
     };
 

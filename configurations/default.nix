@@ -2,42 +2,20 @@
 
   imports = [
     # Base
-    ./nix_stuff.nix
-    ./local.nix
-    ./user.nix
-    ./clean.nix
-    ./sops.nix
   ] 
     ++ (if host == "laptop" then
       [
         # Drivers
-        ./bootloader.nix
-        ./graphics.nix
-        ./monitor_cpu_temp.nix
-        ./networking.nix
-        ./audio.nix
-        ./printing.nix
-        ./bluetooh.nix
-        ./fingerprint.nix
-        ./usb_auto_mount.nix
-        ./battery.nix
-        ./framework_update.nix
-        ./logitech.nix
 
         # Apps
-        ./syncthing.nix
-        ./mullvad_gui.nix
 
         # Gaming
-        ./steam.nix
         #./lutris.nix
 
         # Other
-        ./server/debug_tools.nix 
-        ./server/hotspot.nix 
-        ./set_kitty_default.nix
+        #./server/debug_tools.nix 
+        #./server/hotspot.nix 
 
-        ./platform_io.nix
 
         #./filebrowser.nix
 

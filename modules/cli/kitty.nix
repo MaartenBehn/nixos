@@ -1,5 +1,18 @@
 {
-  flake.modules.homeManager.cli = { config, ... }: {
+  flake.modules.nixos.apps-minimal = {
+
+    # TODO move to home manager as soon as it become avaliable
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
+    };
+  };
+
+  flake.modules.homeManager.apps-minimal = { config, ... }: {
     programs.kitty = {
       enable = config.home.sessionVariables.terminal == "kitty";
 

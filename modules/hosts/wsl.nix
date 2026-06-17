@@ -2,7 +2,7 @@
 let 
   system = "x86_64-linux";
   nix-version = "25.11";
-  
+
   pkgs-2405 = import inputs.nixpkgs-2405 {
     inherit system;
     config.allowUnfree = true;
@@ -16,11 +16,6 @@ let
     config.allowUnfree = true;
   };
 
-  mkSystemName = host: 
-    (if host == "iso" then "iso" else   
-      (if host == "wsl" then "wsl" else   
-        "stroby-${host}")); 
-  
   args = {
     inherit nix-version;
     inherit system;
@@ -28,8 +23,8 @@ let
     inherit pkgs-2405;
     inherit pkgs-2505;
     inherit pkgs-unstable;  
-    host = "laptop";
-    system_name = mkSystemName "laptop";
+    host = "wsl";
+    system_name = "wsl";
   };
 
   old-imports = [
@@ -40,43 +35,31 @@ let
     }
   ];
 in {
-  hosts.stroby-laptop = {
+  hosts.stroby-asus = {
     args = args;
 
     nixos = {
       imports = old-imports ++ 
         (with self.modules.nixos; [
-          framework
-          fix_tpm2
-          networking
-          networking_vpn
-          bluetooth
-          battery
-          syncthing
-          fingerprint
-          smb
-          cli
-          cli-full
-          hyprland
-          intel-graphics
-          apps-minimal
-          apps
-          code
-          projects_tauri
-          games
-        ]);
+        ]) ++ [
+          {
+            imports = [
+              inputs.nixos-wsl.nixosModules.default
+            ];
+
+            wsl.enable = true;
+            wsl.defaultUser = "stroby";
+
+            #nixpkgs.hostPlatform = lib.mkDefault system;
+
+            wsl.wslConf.network.generateResolvConf = false;
+          }
+        ];
     };
 
     homeManager = {
       imports = with self.modules.homeManager; [
-        solaar
         cli
-        cli-full
-        hyprland
-        battery-hyprland-notifications
-        apps-minimal
-        apps
-        code
       ];
 
       home.sessionVariables.terminal = "kitty";

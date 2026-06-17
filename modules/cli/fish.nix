@@ -1,4 +1,9 @@
 {
+  flake.modules.nixos.cli = { pkgs, config, ... }: {
+    users.users."${config.username}".shell = pkgs.fish;
+    programs.fish.enable = true;
+  };
+
   flake.modules.homeManager.cli = { pkgs, config, ... }: {
     home.packages = with pkgs; [
       # shell env programms
@@ -64,6 +69,5 @@
       starship init fish | source
       '';
     };   
-
   };
 }

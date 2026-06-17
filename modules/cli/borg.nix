@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.full-cli = { pkgs, lib, ... }: 
+  flake.modules.homeManager.cli-full = { pkgs, lib, ... }: 
     let
       backup_folder = "~/backups"; 
 

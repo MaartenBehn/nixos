@@ -48,7 +48,6 @@
       #soulseekqt
       #webull-desktop
 
-      ausweisapp
       zoom-us
       prismlauncher
     ]);
