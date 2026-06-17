@@ -18,10 +18,6 @@
     # show groups: getent group
     # show facl: getfacl 
 
-    imports = [ 
-      ./borg.nix 
-    ];
-
     services.borgbackup.jobs.fritz_behns_notes = default_borg_settings // {
       group = "notes";
       paths = "/notes"; 
