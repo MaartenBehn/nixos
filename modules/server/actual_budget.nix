@@ -90,54 +90,61 @@
         };
       }) backup_names;
 
-    # Joining all services
-    systemd_services = builtins.listToAttrs ([ 
-      {
-        name = "actual-server-init";
-        value = {
-          path = with pkgs; [
-            nodejs
-            yarn-berry
-            git
-            bash
-            actual_enable_banking_init
-          ];
-          script = "actual_enable_banking_init";
+      # Joining all services
+      systemd_services = builtins.listToAttrs ([ 
+        /*
+        {
+          name = "actual-server-init";
+          value = {
+            path = with pkgs; [
+              nodejs
+              yarn-berry
+              git
+              bash
+              actual_enable_banking_init
+            ];
+            script = "actual_enable_banking_init";
 
-          serviceConfig = {
-            User = "actual";
+            serviceConfig = {
+              User = "actual";
+            };
           };
-        };
-      }
-      {
-        name = "actual-server";
-        value = {
-          path = with pkgs; [
-            yarn-berry
-            bash
-            actual_enable_banking
-          ];
-          script = "actual_enable_banking";
-          wantedBy = [ "network-online.target" ];
-          after = [ "network.target" ];
+        }
+        {
+          name = "actual-server-test";
+          value = {
+            path = with pkgs; [
+              yarn-berry
+              bash
+              actual_enable_banking
+            ];
+            script = "actual_enable_banking";
+            wantedBy = [ "network-online.target" ];
+            after = [ "network.target" ];
 
-          serviceConfig = {
-            User = "actual";
+            serviceConfig = {
+              User = "actual";
+            };
           };
-        };
-      }
-    ] ++ backup_jobs_systemd_services_config_names); 
+        }
+        */
+        {
+          name = "actual-server";
+          value = {
+            path = [ pkgs.actual-server ];
+            script = "actual-server --config ${configFile}";
+            wantedBy = [ "network-online.target" ];
+            after = [ "network.target" ];
 
+            serviceConfig = {
+              User = "actual";
+            };
+          };
+        }
+      ] ++ backup_jobs_systemd_services_config_names); 
 
   in {
-      #systemd.services.actual-server = {
-      #  path = [
-      #  pkgs.actual-server
-      #];
-      #script = "actual-server --config ${configFile}";
-      #wantedBy = [ "network-online.target" ];
-      #after = [ "network.target" ];
-      #};
+      #systemd.services.actual-server = ;
 
     users.groups.actual = {};
     users.users.actual = {
