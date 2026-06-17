@@ -1,8 +1,6 @@
 {
   flake.modules.nixos.server = { lib, config, ... }:
   {
-    imports = [ ./nignx_web_service.nix ];
-
     options = {
       domains.public = lib.mkOption {
         type = lib.types.listOf lib.types.str;
