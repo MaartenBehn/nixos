@@ -6,7 +6,6 @@
       battery
       battery-server-notifications
       server
-      syncthing
       cli
       cli-full
     ];
