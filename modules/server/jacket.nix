@@ -1,4 +1,5 @@
 {
+  /*
   flake.modules.nixos.server = { pkgs, ... }: {
     systemd.services.jackett = {
       vpnConfinement = {
@@ -56,4 +57,5 @@
       };
     };
   };
+  */
 }
