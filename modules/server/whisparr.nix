@@ -1,5 +1,5 @@
 {
-  flake.modules.nixo.server = {
+  flake.modules.nixos.server = {
     users.groups.media.members = [ "whisparr" ];
 
     services.whisparr = { 
