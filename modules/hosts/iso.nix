@@ -35,7 +35,7 @@ let
     }
   ];
 in {
-  hosts.stroby-asus = {
+  hosts.iso = {
     args = args;
 
     nixos = {

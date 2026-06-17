@@ -35,7 +35,7 @@ let
     }
   ];
 in {
-  hosts.stroby-asus = {
+  hosts.wsl = {
     args = args;
 
     nixos = {
