@@ -8,11 +8,6 @@
             default = "x86_64-linux";
           };
 
-          unstable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-          };
-
           args = lib.mkOption {
             type = lib.types.attrs;
             default = {};
@@ -57,26 +52,47 @@
 
     nixosConfigurations = lib.mapAttrs (hostname: options:
       let
-        nixpkgs' = if options.unstable then inputs.nixpkgs-unstable else inputs.nixpkgs;
-      in
-        nixpkgs'.lib.nixosSystem {
+        pkgs = import inputs.nixpkgs {
           inherit (options) system;
+          config = {
+            allowUnfree = true;
+            allowUnsupportedSystem = true;
+            allowBroken = true;
+            permittedInsecurePackages = [
+              "ventoy-1.1.05"
+            ];
+          };
+        }; 
 
-          pkgs = import inputs.nixpkgs {
-            inherit (options) system;
-            config = {
-              allowUnfree = true;
-              allowUnsupportedSystem = true;
-              allowBroken = true;
-              permittedInsecurePackages = [
-                "ventoy-1.1.05"
-              ];
-            };
-          }; 
+        pkgs-2405 = import inputs.nixpkgs-2405 {
+          inherit (options) system;
+          config.allowUnfree = true;
+        };
+        pkgs-2505 = import inputs.nixpkgs-2505 {
+          inherit (options) system;
+          config.allowUnfree = true;
+        };
+        pkgs-unstable = import inputs.nixpkgs-unstable {
+          inherit (options) system;
+          config.allowUnfree = true;
+        };
 
-          specialArgs = { inherit inputs; } // options.args;
+        args = { 
+          inherit (options) system;
+          inherit inputs;
+          inherit pkgs-2405;
+          inherit pkgs-2505;
+          inherit pkgs-unstable;
+        }; 
+      in
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit (options) system;
+          inherit pkgs;
+
+          specialArgs = args;
           modules = [
             {
+              home-manager.extraSpecialArgs = args;
               host = hostname;
               system_type = options.system; 
             }
