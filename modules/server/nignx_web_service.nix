@@ -56,7 +56,6 @@
         )
       );
 
-      domains.public = [ "stroby.org" "stroby.duckdns.org" "stroby.ipv64.de" ]; 
     };
   };
 }
