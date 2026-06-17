@@ -28,7 +28,7 @@ let
   };
 
   old-imports = [
-    ../../configurations
+    #../../configurations
 
     {
       home-manager.extraSpecialArgs = args;
