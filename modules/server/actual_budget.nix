@@ -131,6 +131,11 @@
         {
           name = "actual-server";
           value = {
+            environment = {
+              ACTUAL_CONFIG_PATH = configFileTest;
+              ACTUAL_DATA_DIR = data_dir; 
+            };
+
             path = [ pkgs.actual-server ];
             script = "actual-server --config ${configFile}";
             wantedBy = [ "network-online.target" ];
