@@ -33,8 +33,6 @@
       docker compose -f docker-compose.yaml up -d
     '';  
   in {
-    imports = [ ../docker.nix ];
-
     services.postgresql = {
       ensureDatabases = [ "audio_muse" ];
       ensureUsers = [ 
