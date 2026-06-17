@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs, lib, ... }: 
+  flake.modules.nixos.server = { pkgs, pkgs-unstable, lib, ... }: 
   let 
     actual_server_folder = "/var/lib/actual-server/";
     user_files = "user-files";
@@ -136,7 +136,7 @@
               ACTUAL_DATA_DIR = data_dir; 
             };
 
-            path = [ pkgs.actual-server ];
+            path = [ pkgs-unstable.actual-server ];
             script = "actual-server --config ${configFile}";
             wantedBy = [ "network-online.target" ];
             after = [ "network.target" ];
