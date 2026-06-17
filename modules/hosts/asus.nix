@@ -47,6 +47,13 @@ in {
       imports = old-imports ++ 
         (with self.modules.nixos; [
           keep_on_with_closed_lid
+          networking
+          battery
+          battery-server-notifications
+          server
+          syncthing
+          cli
+          cli-full
         ]);
     };
 

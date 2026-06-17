@@ -1,0 +1,168 @@
+{
+  flake.modules.nixos.server = { pkgs, lib, ... }: 
+  let 
+    actual_server_folder = "/var/lib/actual-server/";
+    user_files = "user-files";
+    server_files = "server-files";
+    user_files_test = "${user_files}-test";
+    server_files_test = "${server_files}-test";
+    data_dir = "${actual_server_folder}data";
+
+    configFile = pkgs.writeText "config.json" (builtins.toJSON
+    {
+      trustedProxies = [ "127.0.0.1" ];
+      userFiles = actual_server_folder + user_files;
+      serverFiles = actual_server_folder + server_files;
+    });
+
+    configFileTest = pkgs.writeText "config.json" (builtins.toJSON
+    {
+      trustedProxies = [ "127.0.0.1" ];
+      userFiles = actual_server_folder + user_files_test;
+      serverFiles = actual_server_folder + server_files_test;
+    });
+
+    # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
+    actual_enable_banking_init = pkgs.writeShellScriptBin "actual_enable_banking_init" ''
+      mkdir /var/lib/actual-server 
+      cd /var/lib/actual-server 
+      rm -rf actual/
+      git clone https://github.com/MaartenBehn/actual.git
+      cd actual
+      git checkout feature/enable-banking-integration
+      chmod +x ./bin/package-browser
+      chmod +x ./packages/desktop-client/bin/build-browser
+
+      yarn install
+      yarn build:server
+    '';
+
+    actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
+      cd /var/lib/actual-server/actual
+      export ACTUAL_CONFIG_PATH=${configFileTest}
+      export ACTUAL_DATA_DIR=${data_dir}
+      yarn start:server
+    '';
+
+    # Backup
+    default_borg_settings = import ./borg_settings.nix;
+
+    backup_names = [ 
+      user_files
+      server_files
+      user_files_test
+      server_files_test
+    ];
+
+    backup_jobs = builtins.listToAttrs (lib.lists.flatten (builtins.map (name: 
+      let path = actual_server_folder + name;
+      in [
+        {
+          name = "fritz_behns_actual_server_${name}";
+          value = default_borg_settings // {
+            group = "actual";
+            paths = path;
+            repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/actual-server/${name}";
+            startAt = "*-*-* 03:00";
+          };
+        }
+        {
+          name = "proxy_actual_server_${name}";
+          value = default_borg_settings // {
+            group = "actual";
+            paths = path;
+            repo = "ssh://root@138.199.203.38/backup/actual-server/${name}";
+            startAt = "*-*-* 03:15";
+          };
+        }
+      ]) backup_names));
+
+    backup_jobs_systemd_services_config_names = builtins.map (name: {
+        name = "borgbackup-job-fritz_behns_actual_server_${name}"; 
+        value = {
+          vpnConfinement = {
+            enable = true;
+            vpnNamespace = "fritz";
+          };
+          onFailure = [ "unit-status@%n.service" ];
+          requires = [ "fritz_behns_vpn_check.service" ];
+          after = [ "fritz_behns_vpn_check.service" ];
+        };
+      }) backup_names;
+
+    # Joining all services
+    systemd_services = builtins.listToAttrs ([ 
+      {
+        name = "actual-server-init";
+        value = {
+          path = with pkgs; [
+            nodejs
+            yarn-berry
+            git
+            bash
+            actual_enable_banking_init
+          ];
+          script = "actual_enable_banking_init";
+
+          serviceConfig = {
+            User = "actual";
+          };
+        };
+      }
+      {
+        name = "actual-server";
+        value = {
+          path = with pkgs; [
+            yarn-berry
+            bash
+            actual_enable_banking
+          ];
+          script = "actual_enable_banking";
+          wantedBy = [ "network-online.target" ];
+          after = [ "network.target" ];
+
+          serviceConfig = {
+            User = "actual";
+          };
+        };
+      }
+    ] ++ backup_jobs_systemd_services_config_names); 
+
+
+  in {
+      #systemd.services.actual-server = {
+      #  path = [
+      #  pkgs.actual-server
+      #];
+      #script = "actual-server --config ${configFile}";
+      #wantedBy = [ "network-online.target" ];
+      #after = [ "network.target" ];
+      #};
+
+    imports = [ ./borg.nix ];
+
+    users.groups.actual = {};
+    users.users.actual = {
+      isNormalUser = true;
+      group = "actual";
+    };
+
+    systemd.services = systemd_services;
+
+    web_services."budget" = {
+      domains = "public";
+      loc = {
+        proxyPass = "http://127.0.0.1:5006/";
+        proxyWebsockets = true;
+
+        extraConfig = ''
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header Host $host;
+        '';
+      };
+    };
+    
+    # Backups 
+    services.borgbackup.jobs = backup_jobs;
+  };
+}

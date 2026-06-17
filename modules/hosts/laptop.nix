@@ -22,19 +22,13 @@ let
         "stroby-${host}")); 
   
   args = {
-    inherit nix-version;
-    inherit system;
     inherit inputs;
     inherit pkgs-2405;
     inherit pkgs-2505;
     inherit pkgs-unstable;  
-    host = "laptop";
-    system_name = mkSystemName "laptop";
   };
 
   old-imports = [
-    ../../configurations
-
     {
       home-manager.extraSpecialArgs = args;
     }

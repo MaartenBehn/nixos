@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.server = { pkgs, ... }:
+  flake.modules.nixos.server = { pkgs, ... }:
     {
       environment.systemPackages = [
         (pkgs.writeShellScriptBin "acme-force-renew-all" ''
