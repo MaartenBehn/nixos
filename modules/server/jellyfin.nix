@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.server = let 
-    default_borg_settings = import ./borg_settings.nix;
+    default_borg_settings = import ./_borg_settings.nix;
   in {
 
     # Media Folders: 
