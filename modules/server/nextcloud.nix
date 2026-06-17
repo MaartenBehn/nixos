@@ -2,7 +2,7 @@
   flake.modules.nixos.server = { pkgs, config, ... }: 
   let 
     cloud_domain = "cloud.stroby.org";
-    default_borg_settings = import ./borg_settings.nix;
+    default_borg_settings = import ./_borg_settings.nix;
   in {
     sops.secrets."nextcloud/adminpass" = { 
       owner = "nextcloud";  

@@ -45,7 +45,7 @@
     '';
 
     # Backup
-    default_borg_settings = import ./borg_settings.nix;
+    default_borg_settings = import ./_borg_settings.nix;
 
     backup_names = [ 
       user_files
