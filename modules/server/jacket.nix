@@ -27,7 +27,7 @@
       enable = true;
     };
 
-    vpnNamespaces.wg = {
+    vpnNamespaces.mullvad = {
       portMappings = [
         { 
           from = 9117;
