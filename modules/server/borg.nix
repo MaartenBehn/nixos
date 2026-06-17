@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { inputs, pkgs, ... }: 
+  flake.modules.nixos.server = { inputs, pkgs, config, ... }: 
   let 
     check_fritz_vpn = pkgs.writeShellScriptBin "check_fritz_vpn" ''
       ping -c 2 192.168.178.39 || (systemctl restart fritz.service && sleep 10) 
@@ -26,8 +26,8 @@
     # https://blog.aaronlenoir.com/2018/05/06/ssh-into-synology-nas-with-ssh-key/
     vpnNamespaces.fritz = {
       enable = true;
-      #wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_stroby.conf".path;
-      wireguardConfigFile = /home/borg/fritz_behns_asus_borg.conf;
+      wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_stroby.conf".path;
+        #wireguardConfigFile = /home/borg/fritz_behns_asus_borg.conf;
       namespaceAddress = "192.168.16.1";
       bridgeAddress = "192.168.16.5";
    
