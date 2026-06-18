@@ -144,7 +144,8 @@ User = "actual";
           value = {
             environment = {
               ACTUAL_CONFIG_PATH = configFileTest;
-              ACTUAL_DATA_DIR = data_dir; 
+              ACTUAL_DATA_DIR = data_dir;
+              DEBUG = "*";
             };
 
             path = [ actual-server-master ];
