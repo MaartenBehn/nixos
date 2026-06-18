@@ -51,7 +51,7 @@
           owner = "MaartenBehn";
           repo = "actual";
           rev = "e765767f461c6ce56ff1d2fb5a94ab0bcb8d366a";
-          #hash = "sha256-hK+9Qx11eeZCUyH+StgubVgJsO0XCMQxtWrSAKj8gws=";
+          hash = "sha256-XE8Xkuo3s8qnCaZyqDXKt7QGqrYnk0RxiyuGj5fMV1c=";
         };      
       });
 
