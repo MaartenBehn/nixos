@@ -44,7 +44,8 @@
       yarn start:server
     '';
 
-      actual-server-master = pkgs-unstable.actual-server.override {
+      actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
+        version = "master";
         src = lib.fetchFromGitHub {
           name = "actualbudget-actual-source";
           owner = "actualbudget";
@@ -52,7 +53,7 @@
           rev = "2bec810210fd4bd543da55da4d7c8bb45d332c80";
           hash = "";
         };      
-      };
+      });
 
 
       # Backup
