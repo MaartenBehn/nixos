@@ -45,13 +45,13 @@
       '';
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
-        version = "master";
+        version = "fix";
         src = pkgs-unstable.fetchFromGitHub {
           name = "actualbudget-actual-source";
-          owner = "actualbudget";
+          owner = "MaartenBehn";
           repo = "actual";
-          rev = "2bec810210fd4bd543da55da4d7c8bb45d332c80";
-          hash = "sha256-hK+9Qx11eeZCUyH+StgubVgJsO0XCMQxtWrSAKj8gws=";
+          rev = "e765767f461c6ce56ff1d2fb5a94ab0bcb8d366a";
+          #hash = "sha256-hK+9Qx11eeZCUyH+StgubVgJsO0XCMQxtWrSAKj8gws=";
         };      
       });
 
