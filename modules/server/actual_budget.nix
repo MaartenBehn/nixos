@@ -63,7 +63,9 @@
             hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
           })
           old.passthru.translations          
-        ];      
+        ];     
+
+        patches = [];
       });
 
       # Backup
