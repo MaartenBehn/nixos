@@ -78,7 +78,7 @@
         offlineCache = yarn-berry.fetchYarnBerryDeps {
           src = actual_src;
           missingHashes = ./actual_missing_hashes.json;
-          patches = old.passthru.patches;
+          patches = old.patches;
           hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
         };      
       });
