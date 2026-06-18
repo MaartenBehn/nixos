@@ -63,7 +63,7 @@
           old.passthru.translations          
         ];     
 
-        patches = [];
+        patches = old.patches;
 
         postPatch = ''
           ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
@@ -80,7 +80,7 @@
         offlineCache = yarn-berry.fetchYarnBerryDeps {
           src = actual_src;
           missingHashes = ./actual_missing_hashes.json;
-          patches = [];
+          patches = old.patches;
           hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
         };      
       });
