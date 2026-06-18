@@ -44,34 +44,41 @@
         yarn start:server
       '';
 
+      actual_src = pkgs-unstable.fetchFromGitHub {
+        name = "actualbudget-actual-source";
+        owner = "MaartenBehn";
+        repo = "actual";
+        rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
+        hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
+      };
+
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
         version = "fix_3";
-        src = pkgs-unstable.fetchFromGitHub {
-          name = "actualbudget-actual-source";
-          owner = "MaartenBehn";
-          repo = "actual";
-          rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
-          hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
-        };
-
+        src = actual_src; 
         srcs = [
-          (pkgs-unstable.fetchFromGitHub {
-            name = "actualbudget-actual-source";
-            owner = "MaartenBehn";
-            repo = "actual";
-            rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
-            hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
-          })
+          actual_src
           old.passthru.translations          
         ];     
 
         patches = [];
 
-        postPatch = old.postPatch + ''
-  # manually apply what the yarn patch would have done
-  substituteInPlace .yarnrc.yml \
-    --replace-fail "yarnPath: ..." "yarnPath: ..."
-'';
+  postPatch = ''
+    ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
+    patchShebangs --build ./bin ./packages/*/bin
+    substituteInPlace bin/package-browser \
+      --replace-fail "git" "true"
+    chmod -R u+w ./packages/desktop-client/locale
+    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
+    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
+    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
+  '';
+
+  offlineCache = pkgs-unstable.yarn-berry_4.fetchYarnBerryDeps {
+    src = actual_src;
+    missingHashes = old.missingHashes;
+    patches = [];
+    hash = pkgs-unstable.lib.fakeHash;  # replace with correct hash after first run
+  };      
       });
 
       # Backup
