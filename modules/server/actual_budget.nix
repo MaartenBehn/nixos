@@ -51,8 +51,8 @@
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
         repo = "actual";
-        rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
-        hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
+        rev = "f477c0102c5b579bd02e5d889d5afd0ae58ed407";
+        hash = "sha256-1CINFAa23KuwX0MZsivgEpthgHLWGrl/zAszfhkUiSc=";
       };
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
