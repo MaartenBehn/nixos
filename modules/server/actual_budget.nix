@@ -37,12 +37,12 @@
         yarn build:server
       '';
 
-      actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
+        actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
         cd /var/lib/actual-server/actual
         export ACTUAL_CONFIG_PATH=${configFileTest}
         export ACTUAL_DATA_DIR=${data_dir}
         yarn start:server
-      '';
+        '';
 
       nodejs = pkgs-unstable.pknodejs_22;
       yarn-berry = pkgs-unstable.yarn-berry_4.override { inherit nodejs; };
@@ -65,23 +65,24 @@
 
         patches = [];
 
-  postPatch = ''
-    ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
-    patchShebangs --build ./bin ./packages/*/bin
-    substituteInPlace bin/package-browser \
-      --replace-fail "git" "true"
-    chmod -R u+w ./packages/desktop-client/locale
-    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
-    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
-    cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
-  '';
+        postPatch = ''
+          ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
+          patchShebangs --build ./bin ./packages/*/bin
+          substituteInPlace bin/package-browser \
+          --replace-fail "git" "true"
+          chmod -R u+w ./packages/desktop-client/locale
+          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
+          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
+          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
+          '';
 
-  offlineCache = yarn-berry.fetchYarnBerryDeps {
-    src = actual_src;
-    missingHashes = ./actual_missing_hashes.json;
-    patches = [];
-    hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
-  };      
+        missingHashes = ./actual_missing_hashes.json;
+        offlineCache = yarn-berry.fetchYarnBerryDeps {
+          src = actual_src;
+          missingHashes = ./actual_missing_hashes.json;
+          patches = [];
+          hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
+        };      
       });
 
       # Backup
