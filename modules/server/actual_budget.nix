@@ -51,8 +51,8 @@
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
         repo = "actual";
-        rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
-        hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
+        rev = "eebee624b83b647e53cb9d4e654568c6e47ac123";
+        hash = "sha256-2iyJp75aPIeN8iTg6WE/QhBXheafK3PyRcgSI/Uwhj8=";
       };
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
@@ -62,25 +62,6 @@
           actual_src
           old.passthru.translations          
         ];     
-
-        postPatch = ''
-          ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
-          patchShebangs --build ./bin ./packages/*/bin
-          substituteInPlace bin/package-browser \
-          --replace-fail "git" "true"
-          chmod -R u+w ./packages/desktop-client/locale
-          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."protoc-gen-js".built = false' ./package.json) > ./package.json
-          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."@swc/core".built = false' ./package.json) > ./package.json
-          cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
-          '';
-
-        missingHashes = ./actual_missing_hashes.json;
-        offlineCache = yarn-berry.fetchYarnBerryDeps {
-          src = actual_src;
-          missingHashes = ./actual_missing_hashes.json;
-          patches = old.patches;
-          hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
-        };      
       });
 
       # Backup
