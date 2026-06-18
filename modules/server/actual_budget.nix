@@ -51,8 +51,8 @@
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
         repo = "actual";
-        rev = "e93c1484008329d544710b85e6f4015ed4e0af5d";
-        hash = "sha256-uDTMdEcPGIHeVNLtQuFashNNy569XswYYTf2Ac8s7PI=";
+        rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
+        hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
       };
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
@@ -62,8 +62,6 @@
           actual_src
           old.passthru.translations          
         ];     
-
-        patches = [];
 
         postPatch = ''
           ln -sv ../../../${old.passthru.translations.name} ./packages/desktop-client/locale
@@ -80,8 +78,8 @@
         offlineCache = yarn-berry.fetchYarnBerryDeps {
           src = actual_src;
           missingHashes = ./actual_missing_hashes.json;
-          patches = old.patches;
-          hash = lib.fakeHash;        
+          patches = old.passthru.patches;
+          hash = "sha256-EQVJQHX0AOnsE28XI5Otd6PUvoWWlZnJ8YlPITuhQ9E=";
         };      
       });
 
