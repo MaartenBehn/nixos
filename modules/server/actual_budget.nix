@@ -45,13 +45,13 @@
       '';
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
-        version = "fix_2";
+        version = "fix_3";
         src = pkgs-unstable.fetchFromGitHub {
-          name = "actualbudget-actual-source-fix_2";
+          name = "actualbudget-actual-source-fix_3";
           owner = "MaartenBehn";
           repo = "actual";
-          rev = "f2480b108cbd196b1a19841e31cb899d56922d22";
-          hash = "sha256-wDnhYkm/K/kisnZE0TnLtHCgtkbz+Ns7ebwK2E7jBpA=";
+          rev = "89aa97b869bf4af5c127cb30b6a872323b089575";
+          hash = "sha256-US+ErZjOZ6ku8Op6CrS4wIDgAW3dLUapk1cBaBG083w=";
         };      
       });
 
