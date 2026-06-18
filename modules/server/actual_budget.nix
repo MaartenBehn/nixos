@@ -50,8 +50,8 @@
           name = "actualbudget-actual-source";
           owner = "MaartenBehn";
           repo = "actual";
-          rev = "e765767f461c6ce56ff1d2fb5a94ab0bcb8d366a";
-          hash = "sha256-XE8Xkuo3s8qnCaZyqDXKt7QGqrYnk0RxiyuGj5fMV1c=";
+          rev = "6f400d02ff86143806381923fe838e0152ef01da";
+          hash = "sha256-iBvbY5KpIwzYkLLL9ptaduEHEHCjDdXd5qWs8vEivWw=";
         };      
       });
 
