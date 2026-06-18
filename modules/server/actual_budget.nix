@@ -47,7 +47,7 @@
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
         version = "fix_2";
         src = pkgs-unstable.fetchFromGitHub {
-          name = "actualbudget-actual-source";
+          name = "actualbudget-actual-source-fix_2";
           owner = "MaartenBehn";
           repo = "actual";
           rev = "f2480b108cbd196b1a19841e31cb899d56922d22";
