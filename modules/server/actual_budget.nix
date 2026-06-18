@@ -77,7 +77,7 @@
     src = actual_src;
     missingHashes = ./actual_missing_hashes.json;
     patches = [];
-    hash = "";
+    hash = lib.fakeHash;
   };      
       });
 
