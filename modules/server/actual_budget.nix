@@ -44,6 +44,9 @@
         yarn start:server
       '';
 
+      nodejs = pkgs-unstable.pknodejs_22;
+      yarn-berry = pkgs-unstable.yarn-berry_4.override { inherit nodejs; };
+
       actual_src = pkgs-unstable.fetchFromGitHub {
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
@@ -73,7 +76,7 @@
     cat <<< $(${pkgs-unstable.lib.getExe pkgs-unstable.jq} '.dependenciesMeta."sharp".built = false' ./package.json) > ./package.json
   '';
 
-  offlineCache = pkgs-unstable.yarn-berry.fetchYarnBerryDeps {
+  offlineCache = yarn-berry.fetchYarnBerryDeps {
     src = actual_src;
     missingHashes = ./actual_missing_hashes.json;
     patches = [];
