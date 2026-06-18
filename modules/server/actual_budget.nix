@@ -75,7 +75,7 @@
 
   offlineCache = pkgs-unstable.yarn-berry_4.fetchYarnBerryDeps {
     src = actual_src;
-    missingHashes = old.missingHashes;
+    missingHashes = /tmp/actual-missing-hashes.json;
     patches = [];
     hash = pkgs-unstable.lib.fakeHash;  # replace with correct hash after first run
   };      
