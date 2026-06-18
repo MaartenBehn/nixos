@@ -45,7 +45,7 @@
       '';
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
-        version = "fix 2";
+        version = "fix_2";
         src = pkgs-unstable.fetchFromGitHub {
           name = "actualbudget-actual-source";
           owner = "MaartenBehn";
