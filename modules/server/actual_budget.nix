@@ -66,6 +66,12 @@
         ];     
 
         patches = [];
+
+        postPatch = old.postPatch + ''
+  # manually apply what the yarn patch would have done
+  substituteInPlace .yarnrc.yml \
+    --replace-fail "yarnPath: ..." "yarnPath: ..."
+'';
       });
 
       # Backup
