@@ -44,7 +44,18 @@
       yarn start:server
     '';
 
-    # Backup
+      actual-server-master = pkgs-unstable.actual-server.override {
+        src = lib.fetchFromGitHub {
+          name = "actualbudget-actual-source";
+          owner = "actualbudget";
+          repo = "actual";
+          rev = "2bec810210fd4bd543da55da4d7c8bb45d332c80";
+          hash = "";
+        };      
+      };
+
+
+      # Backup
     default_borg_settings = import ./_borg_settings.nix;
 
     backup_names = [ 
@@ -136,7 +147,7 @@
               ACTUAL_DATA_DIR = data_dir; 
             };
 
-            path = [ pkgs-unstable.actual-server ];
+            path = [ actual-server-master ];
             script = "actual-server --config ${configFile}";
             wantedBy = [ "network-online.target" ];
             after = [ "network.target" ];
