@@ -13,7 +13,7 @@
       };
 
       asus = {
-        hostname = "192.168.178.2";
+        hostname = "192.168.178.169";
         user = "stroby";
       };
 
