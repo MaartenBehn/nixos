@@ -14,6 +14,11 @@
               type = lib.types.attrs;
               description = "Gets passed into services.nginx.virtualHosts.*.locations.\"/\"";
             };
+
+            locations = lib.mkOption {
+              type = lib.types.attrs;
+              description = "To set other locations as services.nginx.virtualHosts.*.locations";
+            };
           };
         });
       };

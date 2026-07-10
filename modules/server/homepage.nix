@@ -344,6 +344,14 @@
       root = {
         proxyPass = "http://127.0.0.1:8085/"; 
       };
+
+      locations."/icons/" = {
+        alias = "${../../assets/icons}";
+        extraConfig = ''
+          allow all;
+          expires 30d;
+        '';
+      };
     };
   };
 }
