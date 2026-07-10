@@ -19,7 +19,7 @@
       # This runs the pre-compiled app instead of building it from scratch
       script = ''
     export OLLAMA_PROXY_URL="http://127.0.0.1:11434/v1"
-    export PORT="3210"
+    export PORT="8088"
 
     # Run the pre-bundled app globally using npx without local compilation
     ${pkgs.nodejs_20}/bin/npx @lobehub/chat
