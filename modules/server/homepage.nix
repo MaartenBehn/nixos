@@ -92,7 +92,7 @@
               Jellyfin = {
                 href = "https://media.stroby.org/";
                 description = "Media Server";
-                icon = "http://main.local/icons/";
+                icon = "http://main.local/icons/jellyfin.svg";
                 widget = {
                   type = "jellyfin";
                   url = "https://media.stroby.org/";
