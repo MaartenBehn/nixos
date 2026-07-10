@@ -75,7 +75,7 @@
       settings = {
         title = "Stroby's Home Server";
         background = {
-          image = "/home/stroby/nixos/wallpapers/others/horizon-zero-dawn-aloy-scenery-game-art-landscape-5k-4480x2520-4414.jpg";
+          image = "http://main.local/wallpapers/horizon-zero-dawn.jpg";
           #blur = "sm";
         };
         cardBlur = "xs";
@@ -236,6 +236,7 @@
             {
               "Actual Budget" = {
                 href = "http://budget.stroby.org";
+                description = "Budgeting App";
                 icon = "http://main.local/icons/actualbudget.svg";
               };
             }
@@ -255,24 +256,28 @@
             {
               Calendar = {
                 href = "http://calendar.stroby.org";
+                description = "Calendar Web App";
                 icon = "http://main.local/icons/mmdl.jpeg";
               };
             }
             {
               Baikal = {
                 href = "http://baikal.stroby.org";
+                description = "Caldav Server";
                 icon = "http://main.local/icons/baikal.svg";
               };
             }
             {
               ntfy = {
                 href = "http://ntfy.stroby.org";
+                description = "Notification Server";
                 icon = "http://main.local/icons/ntfy.svg";
               };
             }
             {
               Vaultwarden = {
                 href = "http://vaultwarden.stroby.org";
+                description = "Password Manager";
                 icon = "http://main.local/icons/vaultwarden.svg";
               };
             }
@@ -344,12 +349,20 @@
         proxyPass = "http://127.0.0.1:8085/"; 
       };
 
-      locations."/icons/" = {
-        alias = "${../../assets/icons}/";
-        extraConfig = ''
-          allow all;
-          expires 30d;
-        '';
+      locations = {
+        "/icons/" = {
+          alias = "${../../assets/icons}/";
+          extraConfig = ''
+            allow all;
+            expires 30d;
+          '';
+        };
+        "/wallpapers/"  = {
+          alias = "${../../assets/wallpapers}/";
+          extraConfig = ''
+            allow all;
+            expires 30d;
+          ''; 
       };
     };
   };
