@@ -21,7 +21,7 @@
 
     web_services."code" = {
       domains = "all";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:8081/"; 
         proxyWebsockets = true;
       };

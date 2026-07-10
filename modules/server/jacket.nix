@@ -44,14 +44,14 @@
     web_services = {
       "jackett" = {
         domains = "local";
-        loc = {
+        root = {
           proxyPass = "http://192.168.15.1:9117/"; 
         };
       };
 
       "flaresolverr" = {
         domains = "local";
-        loc = {
+        root = {
           proxyPass = "http://192.168.15.1:8191/"; 
         };
       };

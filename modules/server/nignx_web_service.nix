@@ -48,7 +48,10 @@
             # Local vhosts only listen on the VPN IP — never exposed publicly
             listenAddresses = lib.mkIf local [ "10.1.0.2" ];
 
-            locations."/" = svc.root;
+            locations = {
+              "/" = svc.root;
+            } // svc.locations;
+
             serverAliases = [ "www.${sub_domain}.${domain}" ];
           };
         };
