@@ -7,7 +7,8 @@
     };
 
     imports = [
-      <nixpkgs-unstable/nixos/modules/services/misc/librechat.nix>
+      # Manually load the raw module logic from unstable into your 25.11 build
+      <nixos-unstable/nixos/modules/services/misc/librechat.nix>
     ];
 
     services.librechat = {
