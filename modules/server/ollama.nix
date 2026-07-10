@@ -1,21 +1,29 @@
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.server = { pkgs, ... }: {
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
       loadModels = [ "llama3.2:3b" "qwen2.5-coder:1.5b" ];
     };
 
-    services.open-webui = {
-      enable = true;
+    environment.systemPackages = with pkgs; [
+      nodejs_20
+    ];
 
-      host = "127.0.0.1";
-      port = 8088; 
+    # Create a native systemd service to keep LobeChat running in the background
+    systemd.services.lobe-chat = {
+      description = "LobeChat Native Service";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-      environment = {
-        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-        WEBUI_AUTH = "true";
-      };
+      # This runs the pre-compiled app instead of building it from scratch
+      script = ''
+    export OLLAMA_PROXY_URL="http://127.0.0.1:11434/v1"
+    export PORT="3210"
+
+    # Run the pre-bundled app globally using npx without local compilation
+    ${pkgs.nodejs_20}/bin/npx @lobehub/chat
+    script'';
     };
 
     web_services."ai" = {
