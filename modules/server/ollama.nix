@@ -1,5 +1,5 @@
-{
-  flake.modules.nixos.server = { pkgs-unstable, nixpkgs-unstable, ... }: {
+{ inputs, ... }: {
+  flake.modules.nixos.server = { pkgs-unstable, ... }: {
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
@@ -7,7 +7,7 @@
     };
 
     imports = [
-      <nixpkgs-unstable/nixos/modules/services/misc/librechat.nix>
+      "${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/librechat.nix"
     ];
 
     services.librechat = {
