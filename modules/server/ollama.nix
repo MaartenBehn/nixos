@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs-unstable, ... }: {
+  flake.modules.nixos.server = { pkgs-unstable, nixpkgs-unstable, ... }: {
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
