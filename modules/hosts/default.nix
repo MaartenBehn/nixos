@@ -60,6 +60,7 @@
             allowBroken = true;
             permittedInsecurePackages = [
               "ventoy-1.1.05"
+              "docker-28.5.2"
             ];
           };
         }; 
