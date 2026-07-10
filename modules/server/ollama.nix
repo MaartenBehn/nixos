@@ -13,10 +13,8 @@
     services.librechat = {
       enable = true;
       package = pkgs-unstable.librechat;
-      host = "127.0.0.1";
-      port = 8088;
+      env.PORT = 8088;
 
-      # Automatically sets up and manages a local MongoDB instance for user/chat storage
       enableLocalDB = true; 
 
       # Server configuration environment variables
