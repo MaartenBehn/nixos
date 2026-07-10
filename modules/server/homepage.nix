@@ -148,7 +148,7 @@
               Prowlarr = {
                 href = "http://prowlarr.local/";
                 description = "Indexer Manager";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/prowlarr.svg";
                 widget = {
                   type = "prowlarr";
                   url = "http://prowlarr.local/";
@@ -172,7 +172,7 @@
               Radarr = {
                 href = "http://radarr.local/";
                 description = "Movie Search Engine";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/radarr.svg";
                 widget = {
                   type = "radarr";
                   url = "http://radarr.local/";
@@ -185,7 +185,7 @@
               Lidarr = {
                 href = "http://lidarr.local/";
                 description = "Music Search Engine";
-                icon = "http://main.local/icons/lidarr.png";
+                icon = "http://main.local/icons/lidarr.svg";
                 widget = {
                   type = "lidarr";
                   url = "http://lidarr.local/";
@@ -197,14 +197,14 @@
               Whisparr = {
                 href = "http://whisparr.local/";
                 description = "Adult Search Engine";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/whisparr.svg";
               };
             }
             {
               AudioMuse = {
                 href = "http://audio_muse.local/";
                 description = "Music Embedding Engine";
-                icon = "https://neptunehub.github.io/AudioMuse-AI/screenshot/AM-AI-MAP.png?raw=true";
+                icon = "http://main.local/icons/audiomuse.png";
               };
             }
           ];
@@ -243,7 +243,7 @@
               Immich = {
                 href = "https://immich.stroby.org/";
                 description = "Fotos";
-                icon = "https://immich.app/favicon.ico";
+                icon = "http://main.local/icons/immich.ico";
                 widget = {
                   type = "immich";
                   url = "https://immich.stroby.org/";
@@ -261,7 +261,7 @@
             {
               Baikal = {
                 href = "http://baikal.stroby.org";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/baikal.svg";
               };
             }
             {
@@ -273,7 +273,7 @@
             {
               Vaultwarden = {
                 href = "http://vaultwarden.stroby.org";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/vaultwarden.svg";
               };
             }
           ];
@@ -295,7 +295,7 @@
             {
               Syncthing = {
                 href = "http://syncthing.local/";
-                icon = "http://main.local/icons/jellyseerr.png";
+                icon = "http://main.local/icons/syncthing.svg";
               };
             }
             {
