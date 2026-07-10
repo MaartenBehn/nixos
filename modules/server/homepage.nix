@@ -144,7 +144,6 @@
                 };
               };
             }
-
             {
               Prowlarr = {
                 href = "http://prowlarr.local/";
