@@ -1,3 +1,17 @@
+/*
+WG: 
+Plug on: 192.168.0.45
+
+mgtt config: 
+host: 192.168.0.117
+port: 1883
+client: asus_plug
+user: stroby
+password: mqtt+240803
+topic: asus_plug
+full topic: %prefix%/%topic%/
+*/
+
 {
   flake.modules.nixos.server = {
     services.mosquitto = {
@@ -21,7 +35,7 @@
 
     web_services."mqtt" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:1883/";
         proxyWebsockets = true;
       };

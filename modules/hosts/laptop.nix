@@ -18,6 +18,8 @@
         apps
         code
         projects_tauri
+        postgres
+        algo_trading
         games
       ];
 

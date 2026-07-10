@@ -35,7 +35,7 @@
 
     web_services."media" = {
       domains = "all";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:8096/";
         proxyWebsockets = true;
       };

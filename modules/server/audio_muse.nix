@@ -82,7 +82,7 @@
     web_services = {
       "audio_muse" = {
         domains = "local";
-        loc = {
+        root = {
           proxyPass = "http://172.17.0.1:8000/";
           proxyWebsockets = true;
         };

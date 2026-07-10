@@ -155,7 +155,7 @@
    
     web_services."home" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:8123/";
         proxyWebsockets = true;
       };

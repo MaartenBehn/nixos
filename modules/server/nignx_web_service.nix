@@ -10,7 +10,7 @@
               default = "all";
             };
    
-            loc = lib.mkOption {
+            root = lib.mkOption {
               type = lib.types.attrs;
               description = "Gets passed into services.nginx.virtualHosts.*.locations.\"/\"";
             };
@@ -43,7 +43,7 @@
             # Local vhosts only listen on the VPN IP — never exposed publicly
             listenAddresses = lib.mkIf local [ "10.1.0.2" ];
 
-            locations."/" = svc.loc;
+            locations."/" = svc.root;
             serverAliases = [ "www.${sub_domain}.${domain}" ];
           };
         };

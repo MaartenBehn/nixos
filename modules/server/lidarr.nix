@@ -54,7 +54,7 @@
     
     web_services."lidarr" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:8686/"; 
       };
     };

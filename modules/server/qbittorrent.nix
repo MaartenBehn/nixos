@@ -41,7 +41,7 @@
 
     web_services."qbittorrent" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:8083/"; 
       };
     };

@@ -21,7 +21,7 @@
 
     web_services."seerr" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:5055/"; 
       };
     };

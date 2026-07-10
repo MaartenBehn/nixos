@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = let
+  flake.modules.nixos.postgres = let
     totalMem = 16384;
     sharedBuffers = toString (totalMem / 4) + "MB";
     workMem = "16MB";

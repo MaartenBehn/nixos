@@ -7,6 +7,7 @@
       server
       cli
       cli-full
+      postgres
     ];
 
     homeManager.imports = with self.modules.homeManager; [

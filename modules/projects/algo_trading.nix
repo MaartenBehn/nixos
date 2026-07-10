@@ -1,6 +1,5 @@
 {
-  /*
-  flake.modules.nixos.server = { config, pkgs, lib, ... }:
+  flake.modules.nixos.algo_trading = { config, pkgs, lib, ... }:
   let 
     # Database connection info
     db_user = "algo_trading";
@@ -9,8 +8,6 @@
     db_passwordFile = config.sops.secrets."algo_trading/marketdata_db/password".path;
   in {
     
-    imports = [ ./postgres.nix ];
-
     users.users.algo_trading = {
       isSystemUser = true;
       group = "algo_trading";
@@ -63,5 +60,4 @@
       script = "psql --file ${config.sops.templates."algo_trading_init.sql".path}";                            
     };
   };
-  */
 }

@@ -10,6 +10,6 @@
       after = [ "network.target" ];
     };
 
-    web_services."files".loc.proxyPass = "http://127.0.0.1:8089/"; 
+    web_services."files".root.proxyPass = "http://127.0.0.1:8089/"; 
   };
 }

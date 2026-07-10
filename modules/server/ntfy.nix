@@ -10,7 +10,7 @@
 
     web_services."ntfy" = {
       domains = "all";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:8090/"; 
         proxyWebsockets = true; 
       };

@@ -85,7 +85,7 @@ SLSKD_PASSWORD=SoulSeek+240803
 
       web_services."slskd" = {
         domains = "local";
-        loc = {
+        root = {
           proxyPass = lib.mkForce "http://192.168.15.1:5030/"; 
         };
       };

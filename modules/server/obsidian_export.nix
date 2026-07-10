@@ -71,7 +71,7 @@
 
     web_services."notes" = {
       domains = "all";
-      loc = {
+      root = {
         root = "/srv/obsidian_export/quartz/public";
         extraConfig = '' 
           try_files $uri $uri.html /index.html =404;

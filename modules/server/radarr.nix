@@ -23,7 +23,7 @@
 
     web_services."radarr" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:7878/"; 
       };
     };

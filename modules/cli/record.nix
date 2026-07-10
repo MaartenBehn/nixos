@@ -1,6 +1,9 @@
 {
   flake.modules.homeManager.cli = { pkgs, ... }: {
     home.packages = with pkgs; [
+      zenity
+      ffmpeg
+      gifsicle
       (writeShellScriptBin "record" '' 
         TMP_FILE_UNOPTIMIZED="/tmp/recording_unoptimized.gif"
         TMP_PALETTE_FILE="/tmp/palette.png"

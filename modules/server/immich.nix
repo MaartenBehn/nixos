@@ -30,7 +30,7 @@
 
     web_services."immich" = {
       domains = "all";
-      loc = {
+      root = {
         proxyPass = "http://[::1]:${toString config.services.immich.port}";
         proxyWebsockets = true;
         recommendedProxySettings = true;

@@ -23,7 +23,7 @@
 
     web_services."sonarr" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:8989/"; 
       };
     };

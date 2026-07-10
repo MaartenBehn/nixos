@@ -34,7 +34,7 @@
 
     web_services."sabnzbd" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://192.168.15.1:7979/"; 
       };
     };

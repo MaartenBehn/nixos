@@ -271,7 +271,12 @@
                 icon = "https://ntfy.sh/_next/static/media/logo.077f6a13.svg";
               };
             }
-
+            {
+              ntfy = {
+                href = "http://vaultwarden.stroby.org";
+                icon = "https://ntfy.sh/_next/static/media/logo.077f6a13.svg";
+              };
+            }
           ];
         }
         {
@@ -336,7 +341,7 @@
 
     web_services."main" = {
       domains = "local";
-      loc = {
+      root = {
         proxyPass = "http://127.0.0.1:8085/"; 
       };
     };

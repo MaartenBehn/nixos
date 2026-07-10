@@ -13,7 +13,8 @@
       };
 
       asus = {
-        hostname = "192.168.178.169";
+        #hostname = "192.168.178.169"; # Fritz-Behns
+        hostname = "192.168.0.117"; # WG 
         user = "stroby";
       };
 
