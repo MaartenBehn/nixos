@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { nixos-unstable, ... }: {
+  flake.modules.nixos.server = { pkgs-unstable, ... }: {
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
@@ -7,12 +7,12 @@
     };
 
     imports = [
-      # Manually load the raw module logic from unstable into your 25.11 build
       <nixos-unstable/nixos/modules/services/misc/librechat.nix>
     ];
 
     services.librechat = {
       enable = true;
+      package = pkgs-unstable.librechat;
       host = "127.0.0.1";
       port = 8088;
 
