@@ -10,20 +10,25 @@
       nodejs_20
     ];
 
-    # Create a native systemd service to keep LobeChat running in the background
-    systemd.services.lobe-chat = {
-      description = "LobeChat Native Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+    services.librechat = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 8088;
 
-      # This runs the pre-compiled app instead of building it from scratch
-      script = ''
-    export OLLAMA_PROXY_URL="http://127.0.0.1:11434/v1"
-    export PORT="8088"
+      # Automatically sets up and manages a local MongoDB instance for user/chat storage
+      enableLocalDB = true; 
 
-    # Run the pre-bundled app globally using npx without local compilation
-    ${pkgs.nodejs_20}/bin/npx @lobehub/chat
-    script'';
+      # Server configuration environment variables
+      settings = {
+        # Points straight to your local native Ollama instance
+        OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+
+        # Restricts the UI to only show your local models
+        OLLAMA_MODELS = "qwen2.5-coder:7b,deepseek-coder:1.3b";
+
+        # Helpful default flags
+        TITLE_CONVO = "true";
+      };
     };
 
     web_services."ai" = {
