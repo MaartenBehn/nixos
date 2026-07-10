@@ -288,24 +288,28 @@
                       {
               Notes = {
                 href = "http://notes.stroby.org";
+                description = "Uni Notes";
                 icon = "http://main.local/icons/obsidian.svg";
               };
             }
             {
               FileBrowser = {
                 href = "https://files.stroby.org";
+                description = "Server Files";
                 icon = "http://main.local/icons/filebrowser.png";
               };
             }
             {
               Syncthing = {
                 href = "http://syncthing.local/";
+                description = "Notes syncing";
                 icon = "http://main.local/icons/syncthing.svg";
               };
             }
             {
               NextCloud = {
                 href = "https://cloud.stroby.org/";
+                description = "Cloude Storage";
                 icon = "http://main.local/icons/nextcloud.svg";
               };
             }
