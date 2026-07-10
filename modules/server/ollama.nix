@@ -15,7 +15,6 @@
       package = pkgs-unstable.librechat;
       env = {
         PORT = 8088;
-        env = {
         # You can replace these strings with 32-byte hex keys later if desired
         CREDS_KEY = "f34ebd568e61298a8a9947c9451bcff5f34ebd568e61298a8a9947c9451bcff5";
         CREDS_IV = "a34ebd568e61298a8a9947c9451bcff5";
