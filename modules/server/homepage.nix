@@ -92,7 +92,7 @@
               Jellyfin = {
                 href = "https://media.stroby.org/";
                 description = "Media Server";
-                icon = "https://jellyfin.org/images/favicon.ico";
+                icon = "http://main.local/icons/";
                 widget = {
                   type = "jellyfin";
                   url = "https://media.stroby.org/";
@@ -110,7 +110,7 @@
               Jellyseerr = {
                 href = "http://seerr.local/";
                 description = "Media Requester";
-                icon = "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/jellyseerr.png";
+                icon = "http://main.local/icons/jellyseerr.png";
                 widget = {
                   type = "jellyseerr";
                   url = "http://seerr.local/";
@@ -122,7 +122,7 @@
               Qbittorrent = {
                 href = "http://qbittorrent.local/";
                 description = "Torrent Downloader";
-                icon = "https://www.qbittorrent.org/favicon.svg";
+                icon = "http://main.local/icons/qbittorrent.svg";
                 widget = {
                   type = "qbittorrent";
                   url = "http://qbittorrent.local/";
@@ -136,7 +136,7 @@
               Slskd = {
                 href = "http://slskd.local/";
                 description = "Usenet Downloader";
-                icon = "http://slskd.local/favicon.ico";
+                icon = "http://main.local/icons/slskd.ico";
                 widget = {
                   type = "slskd";
                   url = "http://slskd.local/";
@@ -149,7 +149,7 @@
               Prowlarr = {
                 href = "http://prowlarr.local/";
                 description = "Indexer Manager";
-                icon = "https://prowlarr.com/logo/128.png";
+                icon = "http://main.local/icons/jellyseerr.png";
                 widget = {
                   type = "prowlarr";
                   url = "http://prowlarr.local/";
@@ -161,7 +161,7 @@
               Sonarr = {
                 href = "http://sonarr.local/";
                 description = "Show Search Engine";
-                icon = "https://sonarr.tv/img/logo.png";
+                icon = "http://main.local/icons/sonarr.png";
                 widget = {
                   type = "sonarr";
                   url = "http://sonarr.local/";
@@ -173,7 +173,7 @@
               Radarr = {
                 href = "http://radarr.local/";
                 description = "Movie Search Engine";
-                icon = "https://radarr.video/img/logo.png";
+                icon = "http://main.local/icons/jellyseerr.png";
                 widget = {
                   type = "radarr";
                   url = "http://radarr.local/";
@@ -186,7 +186,7 @@
               Lidarr = {
                 href = "http://lidarr.local/";
                 description = "Music Search Engine";
-                icon = "https://lidarr.audio/img/logo.png";
+                icon = "http://main.local/icons/lidarr.png";
                 widget = {
                   type = "lidarr";
                   url = "http://lidarr.local/";
@@ -198,7 +198,7 @@
               Whisparr = {
                 href = "http://whisparr.local/";
                 description = "Adult Search Engine";
-                icon = "https://whisparr.org/wp-content/uploads/2024/12/256.png";
+                icon = "http://main.local/icons/jellyseerr.png";
               };
             }
             {
@@ -216,7 +216,7 @@
               HomeAssistant = {
                 href = "http://home.local/";
                 description = "Smart Home";
-                icon = "https://upload.wikimedia.org/wikipedia/commons/a/ab/New_Home_Assistant_logo.svg";
+                icon = "http://main.local/icons/homeassistant.svg";
                 widget = {
                   type = "homeassistant";
                   url = "http://home.local/";
@@ -237,7 +237,7 @@
             {
               "Actual Budget" = {
                 href = "http://budget.stroby.org";
-                icon = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/actual-budget.svg";
+                icon = "http://main.local/icons/actualbudget.svg";
               };
             }
             {
@@ -256,25 +256,25 @@
             {
               Calendar = {
                 href = "http://calendar.stroby.org";
-                icon = "https://calendar.stroby.org/_next/image?url=%2Flogo.png&w=32&q=75";
+                icon = "http://main.local/icons/mmdl.jpeg";
               };
             }
             {
               Baikal = {
                 href = "http://baikal.stroby.org";
-                icon = "http://baikal.stroby.org/res/core/Baikal/Images/logo-baikal.png";
+                icon = "http://main.local/icons/jellyseerr.png";
               };
             }
             {
               ntfy = {
                 href = "http://ntfy.stroby.org";
-                icon = "https://ntfy.sh/_next/static/media/logo.077f6a13.svg";
+                icon = "http://main.local/icons/ntfy.svg";
               };
             }
             {
-              ntfy = {
+              Vaultwarden = {
                 href = "http://vaultwarden.stroby.org";
-                icon = "https://ntfy.sh/_next/static/media/logo.077f6a13.svg";
+                icon = "http://main.local/icons/jellyseerr.png";
               };
             }
           ];
@@ -284,25 +284,25 @@
                       {
               Notes = {
                 href = "http://notes.stroby.org";
-                icon = "https://obsidian.md/favicon.svg";
+                icon = "http://main.local/icons/obsidian.svg";
               };
             }
             {
               FileBrowser = {
                 href = "https://files.stroby.org";
-                icon = "https://filebrowser.org/static/logo.png";
+                icon = "http://main.local/icons/filebrowser.png";
               };
             }
             {
               Syncthing = {
                 href = "http://syncthing.local/";
-                icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Syncthing_Logo.svg/2048px-Syncthing_Logo.svg.png";
+                icon = "http://main.local/icons/jellyseerr.png";
               };
             }
             {
               NextCloud = {
                 href = "https://cloud.stroby.org/";
-                icon = "https://cloud.stroby.org/core/img/logo/logo.svg";
+                icon = "http://main.local/icons/nextcloud.svg";
               };
             }
           ];
