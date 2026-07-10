@@ -75,7 +75,7 @@
       settings = {
         title = "Stroby's Home Server";
         background = {
-          image = "http://main.local/wallpapers/horizon-zero-dawn.jpg";
+          image = "http://main.local/wallpapers/forest_road.jpg";
           #blur = "sm";
         };
         cardBlur = "xs";
