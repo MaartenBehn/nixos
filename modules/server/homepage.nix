@@ -160,7 +160,7 @@
               Sonarr = {
                 href = "http://sonarr.local/";
                 description = "Show Search Engine";
-                icon = "http://main.local/icons/sonarr.png";
+                icon = "http://main.local/icons/sonarr.svg";
                 widget = {
                   type = "sonarr";
                   url = "http://sonarr.local/";
