@@ -24,7 +24,7 @@
         OLLAMA_BASE_URL = "http://127.0.0.1:11434";
 
         # Restricts the UI to only show your local models
-        OLLAMA_MODELS = "qwen2.5-coder:7b,deepseek-coder:1.3b";
+        OLLAMA_MODELS = "llama3.2:3b,qwen2.5-coder:1.5b";
 
         # Helpful default flags
         TITLE_CONVO = "true";
