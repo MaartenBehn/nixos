@@ -7,7 +7,7 @@
     };
 
     imports = [
-      <nixos-unstable/nixos/modules/services/misc/librechat.nix>
+      <nixpkgs-unstable/nixos/modules/services/misc/librechat.nix>
     ];
 
     services.librechat = {
