@@ -362,7 +362,8 @@
           extraConfig = ''
             allow all;
             expires 30d;
-          ''; 
+          '';
+        };
       };
     };
   };
