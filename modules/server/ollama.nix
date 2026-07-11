@@ -3,7 +3,7 @@
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
-      loadModels = [ "llama3.2:3b" "qwen2.5-coder:1.5b" ];
+      loadModels = [ "llama3.2:3b" "deepseek-coder:1.3b" ];
     };
 
     imports = [
