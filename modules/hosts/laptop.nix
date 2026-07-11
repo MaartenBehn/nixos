@@ -20,6 +20,7 @@
         projects_tauri
         postgres
         algo_trading
+        ollama_dev
         games
       ];
 
