@@ -42,6 +42,7 @@
         nix-update
         nh
         nix-prefetch-github
+        nix-weather
 
         git
       ];

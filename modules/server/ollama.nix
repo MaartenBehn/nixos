@@ -10,6 +10,7 @@
       "${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/librechat.nix"
     ];
 
+    /*
     services.librechat = {
       enable = true;
       package = pkgs-unstable.librechat;
@@ -36,6 +37,7 @@
         TITLE_CONVO = "true";
       };
     };
+    */
 
     web_services."ai" = {
       domains = "all";
