@@ -92,6 +92,8 @@
               Jellyfin = {
                 href = "https://media.stroby.org/";
                 description = "Media Server";
+
+                # TODO: Create function for icon urls 
                 icon = "http://main.local/icons/jellyfin.svg";
                 widget = {
                   type = "jellyfin";
