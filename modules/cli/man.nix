@@ -1,10 +1,10 @@
 {
-  flake.modules.nixos.base = {
+  flake.modules.nixos.core = {
     documentation.nixos.enable = false;
     documentation.man.generateCaches = false;
   };
 
-  flake.modules.homeManager.base = {
+  flake.modules.homeManager.core = {
     programs.man.generateCaches = false;
   };
 
