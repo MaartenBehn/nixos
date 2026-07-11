@@ -10,39 +10,22 @@
       "${inputs.nixpkgs-unstable}/nixos/modules/services/web-apps/librechat.nix"
     ];
 
-    /*
-    services.librechat = {
+    services.open-webui = {
       enable = true;
-      package = pkgs-unstable.librechat;
-      env = {
-        PORT = 8088;
-        # You can replace these strings with 32-byte hex keys later if desired
-        CREDS_KEY = "f34ebd568e61298a8a9947c9451bcff5f34ebd568e61298a8a9947c9451bcff5";
-        CREDS_IV = "a34ebd568e61298a8a9947c9451bcff5";
-        JWT_SECRET = "super_secret_jwt_string_change_me_in_production";
-        JWT_REFRESH_SECRET = "super_secret_jwt_refresh_string_change_me_in_production";
-      };
 
-      enableLocalDB = true; 
+      host = "127.0.0.1";
+      port = 8088; 
 
-      # Server configuration environment variables
-      settings = {
-        # Points straight to your local native Ollama instance
-        OLLAMA_BASE_URL = "http://127.0.0.1:11434";
-
-        # Restricts the UI to only show your local models
-        OLLAMA_MODELS = "llama3.2:3b,qwen2.5-coder:1.5b";
-
-        # Helpful default flags
-        TITLE_CONVO = "true";
+      environment = {
+        OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
+        WEBUI_AUTH = "true";      
       };
     };
-    */
 
     web_services."ai" = {
       domains = "all";
       root = {
-        proxyPass = "http://http://127.0.0.1:8088/"; 
+        proxyPass = "http://127.0.0.1:8088/"; 
         proxyWebsockets = true;    
 
         extraConfig = ''
