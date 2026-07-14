@@ -28,7 +28,7 @@
         mkdir -p ~/.config/layout/
         cd ~/.config/layout/
         if [ ! -f $file ]; then
-        echo "/home/${config.username}/nixos/wallpapers/others/nixos.png"
+        echo "/home/${config.username}/nixos/assets/wallpapers/nixos.png"
         else 
         cat $file
         fi

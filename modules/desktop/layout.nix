@@ -244,6 +244,18 @@
               ];
             };
 
+            behns = {
+              monitors = [
+                "eDP-1,2256x1504,0x0,1"
+                "DP-3,3840x2160,-2560x0,1.5"
+              ];
+
+              workspaces = [
+                "1, monitor:eDP-1, default:true" 
+              ];
+            }; 
+ 
+
             mirror = {
               monitors = [
                 "eDP-1,2256x1504,0x0,1"
