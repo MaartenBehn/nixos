@@ -1,5 +1,5 @@
-/*
 {
+  /*
   flake.modules.nixos.server = {
     services.ollama = {
       enable = true;
@@ -33,6 +33,7 @@
       };
     };
   };
+  */
 
   flake.modules.nixos.ollama_dev = {
     services.ollama = {
@@ -44,4 +45,4 @@
     };
   };
 }
-*/
+
