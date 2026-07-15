@@ -254,8 +254,8 @@
                 "1, monitor:eDP-1, default:true" 
               ];
             }; 
- 
-
+              
+              
             mirror = {
               monitors = [
                 "eDP-1,2256x1504,0x0,1"

@@ -28,9 +28,9 @@
         mkdir -p ~/.config/layout/
         cd ~/.config/layout/
         if [ ! -f $file ]; then
-        echo "/home/${config.username}/nixos/assets/wallpapers/nixos.png"
+          echo "/home/${config.username}/nixos/assets/wallpapers/nixos.png"
         else 
-        cat $file
+          cat $file
         fi
       '';
 
@@ -44,9 +44,9 @@
         random_animation=''${animations[RANDOM % ''${#animations[@]}]}
 
         if [[ "$random_animation" == "wipe" ]]; then
-        swww img --transition-type="wipe" --transition-angle=135 $1 &
+          swww img --transition-type="wipe" --transition-angle=135 $1 &
         else
-        swww img --transition-type="$random_animation" $1 &
+          swww img --transition-type="$random_animation" $1 &
         fi  
       ''; 
     in {
