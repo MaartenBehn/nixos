@@ -1,3 +1,4 @@
+/*
 {
   flake.modules.nixos.server = {
     services.ollama = {
@@ -43,3 +44,4 @@
     };
   };
 }
+*/

@@ -100,16 +100,16 @@
         mkdir -p ~/.config/layout/
         cd ~/.config/layout/
         if [ ! -f "current_layout" ]; then
-        echo "${config.layouts.initial}"
+          echo "${config.layouts.initial}"
         else 
-        cat current_layout
+          cat current_layout
         fi
         '';
 
-        set-layout = pkgs.writeShellScriptBin "set-layout" ''
+      set-layout = pkgs.writeShellScriptBin "set-layout" ''
         if [ $# -eq 0 ]; then
-        echo "No layout arg"
-        exit
+          echo "No layout arg"
+          exit
         fi
 
         set-monitors $1
@@ -122,15 +122,7 @@
         cd ~/.config/layout/
         echo "$1" > "current_layout"
       '';
-
-      restore-layout = pkgs.writeShellScriptBin "restore-layout" ''
-        layout="$(current-layout)"
-        set-monitors $layout
-
-        wallpaper="$(wallpaper-for-layout $layout)"
-        set-wallpaper $wallpaper
-      '';
-
+      
       guess-layout = pkgs.writeShellScriptBin "guess-layout" ''
         #network="$(nmcli -c no)"
 
@@ -139,7 +131,7 @@
         #  exit
         #fi
 
-        set-layout "${config.layouts.initial}"
+        set-layout $(current-layout)
       '';
 
       initial_layout = get_layout config.layouts.initial;
@@ -316,7 +308,6 @@
           disable-other-monitors
           set-other-monitors-auto
           disable-all-monitors
-          restore-layout
           guess-layout
         ];
       };
