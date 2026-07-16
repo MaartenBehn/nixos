@@ -57,7 +57,7 @@ AllowedIPs = 10.1.0.3/32
     };
 
     networking.firewall = {
-      trustedInterfaces = [ "tunnel_wg" "local_wg" ];
+      trustedInterfaces = [ "tunnel_wg" "private_local_wg" ];
       allowedUDPPorts = [ 51820 51821 ];
     };
 
@@ -80,7 +80,7 @@ AllowedIPs = 10.1.0.3/32
         ];
       };
 
-      local_wg = {
+      private_local_wg = {
         ips = [ "10.2.0.1/24" ];
         listenPort = 51821;
         privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
