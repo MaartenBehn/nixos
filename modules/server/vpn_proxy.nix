@@ -62,7 +62,7 @@ AllowedIPs = 10.1.0.3/32
     };
 
     networking.wireguard.interfaces = {
-      proxy_wg = {
+      tunnel_wg = {
         ips = [ 
           "10.0.0.2/24" # public incoming traffic
           "10.1.0.2/24" # traffic coming from wg1 vpn on proxy
@@ -80,7 +80,7 @@ AllowedIPs = 10.1.0.3/32
         ];
       };
 
-      local_wg = {
+      private_local_wg = {
         ips = [ "10.2.0.1/24" ];
         listenPort = 51821;
         privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
