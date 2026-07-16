@@ -16,7 +16,7 @@
 
       private = {  
         privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
-        address = "10.1.0.3/24";
+        ips = [ "10.1.0.3/24" ];
         dns = "10.1.0.2";
 
         peers = [
@@ -33,7 +33,7 @@
 
       private_local = {  
         privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
-        address = "10.2.0.2/24";
+        ips = [ "10.2.0.2/24" ];
         dns = "10.2.0.1";
 
         peers = [
