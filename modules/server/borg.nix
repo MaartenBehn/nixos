@@ -14,9 +14,7 @@
       inputs.vpn-confinement.nixosModules.default
     ];
 
-    sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { 
-      owner = "borg";  
-    };
+    sops.secrets."wireguard/fritz_behns_asus_borg.conf" = { owner = "root"; };
 
     users.users.borg = {
       isNormalUser = true;
@@ -26,8 +24,7 @@
     # https://blog.aaronlenoir.com/2018/05/06/ssh-into-synology-nas-with-ssh-key/
     vpnNamespaces.fritz = {
       enable = true;
-        #wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_stroby.conf".path;
-      wireguardConfigFile = /home/stroby/fritz_behns_asus_borg.conf;
+      wireguardConfigFile = config.sops.secrets."wireguard/fritz_behns_asus_borg.conf".path;
       namespaceAddress = "192.168.16.1";
       bridgeAddress = "192.168.16.5";
    
