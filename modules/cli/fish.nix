@@ -46,18 +46,6 @@
       alias uni-vpn="vpn-uni";
       alias kill-vpn="vpn-kill";
 
-      alias dont_panic-vpn-start="sudo systemctl start wg-quick-dont_panic.service"
-      alias dont_panic-vpn-stop="sudo systemctl stop wg-quick-dont_panic.service"
-
-      alias fritz_behns-vpn-start="sudo systemctl start wg-quick-fritz_behns.service"
-      alias fritz_behns-vpn-stop="sudo systemctl stop wg-quick-fritz_behns.service"
-
-      alias private-vpn-start="sudo systemctl start wg-quick-private.service"
-      alias private-vpn-stop="sudo systemctl stop wg-quick-private.service"
-
-      alias private_local-vpn-start="sudo systemctl start wg-quick-private_local.service"
-      alias private_local-vpn-stop="sudo systemctl stop wg-quick-private_local.service"
-
       alias rev-tether="gnirehtet run";
 
       alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"
