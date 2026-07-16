@@ -6,6 +6,7 @@
     ];
 
     sops.secrets."wireguard/mullvad/asus/private_key" = { owner = "root"; };
+    sops.secrets."wireguard/mullvad.conf" = { owner = "root"; };
 
     sops.templates."wireguard/mullvad.conf" = {
       content = ''
