@@ -15,7 +15,8 @@
         sabnzbd
       ];
       script = "sabnzbd -s 0.0.0.0:7979";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {

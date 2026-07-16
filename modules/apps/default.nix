@@ -20,6 +20,7 @@
       #vlc                               # video player 
       #libreoffice
       onlyoffice-desktopeditors
+      pdfarranger
       obsidian
 
       webcamoid

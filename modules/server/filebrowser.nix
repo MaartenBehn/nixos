@@ -6,7 +6,8 @@
         getent
       ];
       script = "filebrowser --address 127.0.0.1 --port 8089 --database /home/stroby/filebrowser.db";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
       after = [ "network.target" ];
     };
 

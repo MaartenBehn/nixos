@@ -52,7 +52,9 @@
         mmdl
       ];
       script = "mmdl";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
+      after = [ "network.target" ];
       serviceConfig.User = "mmdl";
     };
 

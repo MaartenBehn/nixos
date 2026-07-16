@@ -75,7 +75,8 @@
       ];
       script = "run";
       serviceConfig.User = "audio_muse";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network.target" ];
       after = [ "network.target" ];
     };
 

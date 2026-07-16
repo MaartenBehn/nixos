@@ -139,7 +139,7 @@ bash
 actual_enable_banking
 ];
 script = "actual_enable_banking";
-wantedBy = [ "network-online.target" ];
+wantedBy = [ "multi-user.target" ];
 after = [ "network.target" ];
 
 serviceConfig = {
@@ -159,7 +159,8 @@ User = "actual";
 
             path = [ actual-server-master ];
             script = "actual-server --config ${configFile}";
-            wantedBy = [ "network-online.target" ];
+            wantedBy = [ "multi-user.target" ];
+            wants = [ "network.target" ];
             after = [ "network.target" ];
 
             serviceConfig = {
