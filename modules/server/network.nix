@@ -15,7 +15,7 @@
       networkmanager.dns = "none";
       useDHCP = false;
       dhcpcd.enable = false;
-      # dhcpcd.extraConfig = '' nohook resolv.conf '';
+      dhcpcd.extraConfig = '' nohook resolv.conf '';
       nameservers = [ "1.1.1.1" "1.0.0.1" ];
     };
   };
