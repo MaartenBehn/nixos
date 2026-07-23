@@ -57,7 +57,7 @@ AllowedIPs = 10.1.0.3/32
     };
 
     networking.firewall = {
-      trustedInterfaces = [ "tunnel_wg" "private_local_wg" ];
+      trustedInterfaces = [ "tunnel_wg" "local_wg" ];
       allowedUDPPorts = [ 51820 51821 ];
     };
 
