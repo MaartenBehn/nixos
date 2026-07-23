@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.server = let 
-    default_borg_settings = import ./_borg_settings.nix;
+    default_borg_settings = import ../_borg_settings.nix;
   in {
 
     services.borgbackup.jobs.fritz_behns_music_ellie_minibot = default_borg_settings // {
