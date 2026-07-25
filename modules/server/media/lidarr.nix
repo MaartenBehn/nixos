@@ -21,7 +21,8 @@
 
   in {
 
-    users.groups.media.members = [ "lidarr" ]; 
+    users.groups.media.members = [ "lidarr" ];
+    users.users."lidarr".isNormalUser = true;
 
     services.lidarr = { 
       enable = true;
