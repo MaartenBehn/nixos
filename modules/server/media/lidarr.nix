@@ -40,6 +40,7 @@
       # For youtube download plugin
       path = [
         pkgs.ffmpeg
+        pkgs.nodejs
       ];
     };
    
