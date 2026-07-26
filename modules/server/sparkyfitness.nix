@@ -24,6 +24,8 @@
       enableACME = true;
       forceSSL = true;
 
+      sslProtocols = "TLSv1.2 TLSv1.3";
+
       locations = {
         "/".extraConfig = ''
           add_header X-Content-Type-Options "nosniff";
