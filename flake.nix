@@ -101,6 +101,8 @@
       url = "github:MaartenBehn/neko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sparkyfitness.url = "github:CodeWithCJ/SparkyFitness";
   };
   
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
