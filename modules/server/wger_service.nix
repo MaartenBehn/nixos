@@ -66,7 +66,7 @@
             DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite"; # TODO: Can remove?
             DJANGO_DB_DATABASE = "${wgerHome}/db/database.sqlite";
             DJANGO_DB_USER = "wger";
-            DJANGO_DB_PASSWORD = "";
+            DJANGO_DB_PASSWORD = "wger";
             DJANGO_DB_HOST = "localhost";
             DJANGO_DB_PORT = "5433";             
             DJANGO_MEDIA_ROOT = "${wgerHome}/media";
@@ -116,7 +116,6 @@
         cd ..
 
         # Run WSGI server
-        # Run WSGI server with explicit log capturing
         exec gunicorn wger.wsgi:application \
           --preload \
           --bind 127.0.0.1:${toString cfg.port} \
