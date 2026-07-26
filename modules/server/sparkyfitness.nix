@@ -62,7 +62,6 @@
         "^~ /api/".extraConfig = ''
           add_header X-Content-Type-Options "nosniff";
           proxy_set_header X-Forwarded-Ssl on;
-          proxy_set_header Connection "Close";
 
           client_body_buffer_size 128k;
 
