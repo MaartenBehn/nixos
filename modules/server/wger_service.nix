@@ -91,7 +91,7 @@
 
         # Clone or update wger source repository
         if [ ! -d "${wgerSrc}/.git" ]; then
-        git clone git@github.com:mygitname/theproject.git --branch "${cfg.release}" "${wgerSrc}"
+        git clone https://github.com/wger-project/wger.git --branch "${cfg.release}" "${wgerSrc}"
         fi
 
         cd "${wgerSrc}"
@@ -127,7 +127,7 @@
             Group = wgerGroup;
             WorkingDirectory = wgerHome;
             StateDirectory = "wger";
-            Restart = "always";
+            Restart    = "on-failure";
             RestartSec = "5s";
             StartLimitIntervalSec = "60";
             StartLimitBurst = "2";
