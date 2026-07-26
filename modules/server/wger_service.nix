@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { config, pkgs, lib, ... }:
+  flake.modules.nixos.core = { config, pkgs, lib, ... }:
 
     let
       cfg = config.services.wger;
