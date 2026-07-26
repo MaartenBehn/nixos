@@ -50,9 +50,9 @@
         # Systemd service for wger Gunicorn & Setup
         systemd.services.wger = {
           description = "wger Workout & Fitness Manager (Gunicorn)";
-          after = [ "network.target" "sops-nix.service" ];
-          requires = [ "sops-nix.service" ];
           wantedBy = [ "multi-user.target" ];
+          wants = [ "network.target" ];
+          after = [ "network.target" ];
 
           environment = {
             HOME = wgerHome;
