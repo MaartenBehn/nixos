@@ -113,6 +113,7 @@
         # Perform Django setup tasks
         python manage.py migrate --noinput
         python manage.py collectstatic --noinput
+        python manage.py generate-jwt-keys || true
 
         # Compile message catalogs
         cd wger
