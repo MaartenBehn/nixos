@@ -72,7 +72,7 @@
             DJANGO_MEDIA_ROOT = "${wgerHome}/media";
             DJANGO_STATIC_ROOT = "${wgerHome}/static";
             TIME_ZONE = cfg.timeZone;
-            ALLOWED_HOSTS = "${cfg.domain},localhost,127.0.0.1";
+            ALLOWED_HOSTS = "${cfg.domain},www.${cfg.domain},localhost,127.0.0.1";          
           };
 
           path = with pkgs; [
