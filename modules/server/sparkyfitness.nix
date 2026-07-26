@@ -17,8 +17,6 @@
       nginx = {
         enable = true;
         virtualHost = "fitness.stroby.org";
-        enableACME = true;
-        forceSSL = true;
       };
     };
 
