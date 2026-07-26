@@ -71,7 +71,7 @@
           };
 
           path = with pkgs; [
-            python311
+            python3
             uv
             nodejs_22
             nodePackages.sass
@@ -127,10 +127,6 @@
             Group = wgerGroup;
             WorkingDirectory = wgerHome;
             StateDirectory = "wger";
-            Restart    = "on-failure";
-            RestartSec = "5s";
-            StartLimitIntervalSec = "60";
-            StartLimitBurst = "2";
           };
         };   
       };
