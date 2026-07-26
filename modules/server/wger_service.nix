@@ -89,30 +89,29 @@
           script = ''
         set -euo pipefail
 
-        # Read secret key from sops-nix decrypted file
         export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
+        export COREPACK_HOME="${wgerHome}/.cache/corepack"
 
-        # Ensure directory structure
-        mkdir -p ${wgerHome}/{db,static,media}
+        mkdir -p ${wgerHome}/{db,static,media,.cache/corepack}
 
-        # Clone or update wger source repository
         if [ ! -d "${wgerSrc}/.git" ]; then
-        git clone https://github.com/wger-project/wger.git --branch "${cfg.release}" "${wgerSrc}"
+          git clone https://github.com/wger-project/wger.git "${wgerSrc}"
         fi
 
         cd "${wgerSrc}"
 
-        # Sync Python environment using uv with docker group dependencies
-        uv sync --group docker --no-managed-python --python ${pkgs.python312}/bin/python
+        # Sync Python environment using uv
+        uv sync --group docker --no-managed-python --python ${pkgs.python311}/bin/python
 
         # Activate virtualenv
         source .venv/bin/activate
 
-        # Build frontend assets (Node modules & Sass compilation)
-        corepack enable --install-directory "${wgerHome}/.bin"
+        # --- Use localized Corepack home and build assets ---
+        corepack enable --install-directory ${wgerHome}/.bin
         export PATH="${wgerHome}/.bin:$PATH"
         yarn install --frozen-lockfile || yarn install
         sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css
+        # --------------------------------------------------
 
         # Perform Django setup tasks
         python manage.py migrate --noinput
@@ -125,15 +124,14 @@
 
         # Run WSGI server
         exec gunicorn wger.wsgi:application \
-        --preload \
-        --bind 127.0.0.1:${toString cfg.port} \
+          --preload \
+          --bind 127.0.0.1:${toString cfg.port} \
           --workers 3 \
           --threads 2 \
           --worker-class gthread \
           --timeout 240 \
           --access-logfile -
-          '';
-
+      '';
           serviceConfig = {
             User = wgerUser;
             Group = wgerGroup;
