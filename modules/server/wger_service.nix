@@ -101,7 +101,7 @@
         cd "${wgerSrc}"
 
         # Sync Python environment using uv
-        uv sync --group docker --no-managed-python --python ${pkgs.python311}/bin/python
+        uv sync --group docker --no-managed-python --python ${pkgs.python312}/bin/python
 
         # Activate virtualenv
         source .venv/bin/activate
