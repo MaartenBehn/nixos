@@ -1,82 +1,82 @@
-{ config, pkgs, lib, ... }:
-
-let
-  cfg = config.services.wger;
-  wgerUser = "wger";
-  wgerGroup = "wger";
-  wgerHome = "/var/lib/wger";
-  wgerSrc = "${wgerHome}/src";
-in
 {
-  options.services.wger = {
-    enable = lib.mkEnableOption "wger Workout & Fitness Manager";
+  flake.modules.nixos.server = { config, pkgs, lib, ... }:
 
-    domain = lib.mkOption {
-      type = lib.types.str;
-      example = "wger.example.com";
-      description = "The FQDN where wger will be served.";
-    };
+    let
+      cfg = config.services.wger;
+      wgerUser = "wger";
+      wgerGroup = "wger";
+      wgerHome = "/var/lib/wger";
+      wgerSrc = "${wgerHome}/src";
+    in
+      {
+      options.services.wger = {
+        enable = lib.mkEnableOption "wger Workout & Fitness Manager";
 
-    secretKeyFile = lib.mkOption {
-      type = lib.types.path;
-      description = "Path to the file containing DJANGO_SECRET_KEY.";
-    };
+        domain = lib.mkOption {
+          type = lib.types.str;
+          example = "wger.example.com";
+          description = "The FQDN where wger will be served.";
+        };
 
-    timeZone = lib.mkOption {
-      type = lib.types.str;
-      default = "UTC";
-      example = "Europe/Berlin";
-      description = "Time zone for Django.";
-    };
+        secretKeyFile = lib.mkOption {
+          type = lib.types.path;
+          description = "Path to the file containing DJANGO_SECRET_KEY.";
+        };
 
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 8000;
-      description = "Internal port for Gunicorn WSGI server.";
-    };
-  };
+        timeZone = lib.mkOption {
+          type = lib.types.str;
+          default = "UTC";
+          example = "Europe/Berlin";
+          description = "Time zone for Django.";
+        };
 
-  # Wrap configuration in lib.mkIf cfg.enable
-  config = lib.mkIf cfg.enable {
-    # System user and group
-    users.users.${wgerUser} = {
-      isSystemUser = true;
-      group = wgerGroup;
-      home = wgerHome;
-      createHome = true;
-    };
-    users.groups.${wgerGroup} = {};
-
-    # Systemd service for wger Gunicorn & Setup
-    systemd.services.wger = {
-      description = "wger Workout & Fitness Manager (Gunicorn)";
-      after = [ "network.target" "sops-nix.service" ];
-      requires = [ "sops-nix.service" ];
-      wantedBy = [ "multi-user.target" ];
-
-      environment = {
-        HOME = wgerHome;
-        PYTHONPATH = wgerSrc;
-        DJANGO_SETTINGS_MODULE = "settings.main";
-        DJANGO_DB_ENGINE = "django.db.backends.sqlite3";
-        DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite";
-        DJANGO_MEDIA_ROOT = "${wgerHome}/media";
-        DJANGO_STATIC_ROOT = "${wgerHome}/static";
-        TIME_ZONE = cfg.timeZone;
-        ALLOWED_HOSTS = "${cfg.domain},localhost,127.0.0.1";
+        port = lib.mkOption {
+          type = lib.types.port;
+          default = 8000;
+          description = "Internal port for Gunicorn WSGI server.";
+        };
       };
 
-      path = with pkgs; [
-        python311
-        uv
-        nodejs_22
-        nodePackages.sass
-        git
-        ffmpeg
-        gettext
-      ];
+      config = lib.mkIf cfg.enable {
+        # System user and group
+        users.users.${wgerUser} = {
+          isSystemUser = true;
+          group = wgerGroup;
+          home = wgerHome;
+          createHome = true;
+        };
+        users.groups.${wgerGroup} = {};
 
-      script = ''
+        # Systemd service for wger Gunicorn & Setup
+        systemd.services.wger = {
+          description = "wger Workout & Fitness Manager (Gunicorn)";
+          after = [ "network.target" "sops-nix.service" ];
+          requires = [ "sops-nix.service" ];
+          wantedBy = [ "multi-user.target" ];
+
+          environment = {
+            HOME = wgerHome;
+            PYTHONPATH = wgerSrc;
+            DJANGO_SETTINGS_MODULE = "settings.main";
+            DJANGO_DB_ENGINE = "django.db.backends.sqlite3";
+            DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite";
+            DJANGO_MEDIA_ROOT = "${wgerHome}/media";
+            DJANGO_STATIC_ROOT = "${wgerHome}/static";
+            TIME_ZONE = cfg.timeZone;
+            ALLOWED_HOSTS = "${cfg.domain},localhost,127.0.0.1";
+          };
+
+          path = with pkgs; [
+            python311
+            uv
+            nodejs_22
+            nodePackages.sass
+            git
+            ffmpeg
+            gettext
+          ];
+
+          script = ''
         set -euo pipefail
 
         # Read secret key from sops-nix decrypted file
@@ -87,7 +87,7 @@ in
 
         # Clone or update wger source repository
         if [ ! -d "${wgerSrc}/.git" ]; then
-          git clone https://github.com/wger-project/wger.git "${wgerSrc}"
+        git clone https://github.com/wger-project/wger.git "${wgerSrc}"
         fi
 
         cd "${wgerSrc}"
@@ -109,23 +109,24 @@ in
 
         # Run WSGI server
         exec gunicorn wger.wsgi:application \
-          --preload \
-          --bind 127.0.0.1:${toString cfg.port} \
+        --preload \
+        --bind 127.0.0.1:${toString cfg.port} \
           --workers 3 \
           --threads 2 \
           --worker-class gthread \
           --timeout 240 \
           --access-logfile -
-      '';
+          '';
 
-      serviceConfig = {
-        User = wgerUser;
-        Group = wgerGroup;
-        WorkingDirectory = wgerHome;
-        StateDirectory = "wger";
-        Restart = "always";
-        RestartSec = "5s";
+          serviceConfig = {
+            User = wgerUser;
+            Group = wgerGroup;
+            WorkingDirectory = wgerHome;
+            StateDirectory = "wger";
+            Restart = "always";
+            RestartSec = "5s";
+          };
+        };   
       };
-    };   
-  };
+    };
 }
