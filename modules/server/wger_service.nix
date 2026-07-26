@@ -111,7 +111,6 @@
         # --------------------------------------------------
 
         # Perform Django setup tasks
-        manage.py makemigrations
         python manage.py migrate --noinput
         python manage.py collectstatic --noinput
         python manage.py generate-jwt-keys || true
