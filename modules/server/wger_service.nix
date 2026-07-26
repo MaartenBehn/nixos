@@ -17,10 +17,8 @@ in
       description = "The FQDN where wger will be served.";
     };
 
-    secretKeySecret = lib.mkOption {
+    secretKeyFile = lib.mkOption {
       type = lib.types.str;
-      default = "wger_secret_key";
-      description = "The key name in sops.secrets for the DJANGO_SECRET_KEY.";
     };
 
     timeZone = lib.mkOption {
@@ -38,13 +36,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # 1. Register secret requirement in sops-nix
-    sops.secrets."${cfg.secretKeySecret}" = {
-      owner = wgerUser;
-      group = wgerGroup;
-      mode = "0400";
-    };
-
+    
     # 2. System user and group
     users.users.${wgerUser} = {
       isSystemUser = true;
@@ -87,7 +79,7 @@ in
         set -euo pipefail
 
         # Read secret key from sops-nix decrypted file
-        export DJANGO_SECRET_KEY="$(cat ${config.sops.secrets."${cfg.secretKeySecret}".path})"
+        export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
 
         # Ensure directory structure
         mkdir -p ${wgerHome}/{db,static,media}
@@ -133,8 +125,6 @@ in
         Restart = "always";
         RestartSec = "5s";
       };
-    };
-
-    
-     };
+    };   
+  };
 }

@@ -1,11 +1,17 @@
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.server = {config, ... }: {
+    sops.secrets."wger/key" = {
+      owner = "wger";
+      group = "wger";
+      mode = "0400";
+    };
+
     services.wger = {
       enable = true;
       domain = "wger.stroby.org";
-      secretKeySecret = "wger_secret_key"; # Matches your sops secret entry
-      timeZone = "Europe/Berlin";
       port = 8001;
+      secretKeyFile = config.sops.secrets."wger/key".path;       
+      timeZone = "Europe/Berlin";
     };
 
     services.nginx = {
