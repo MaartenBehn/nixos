@@ -79,7 +79,8 @@
             python312
             uv
             nodejs_22
-            nodePackages.sass
+            yarn
+            nodePackages.sass            
             git
             ffmpeg
             gettext
