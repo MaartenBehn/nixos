@@ -125,6 +125,7 @@
           cd ..
         fi
 
+        source .venv/bin/activate
         cd "${wgerSrc}"
         
         # Run WSGI server
