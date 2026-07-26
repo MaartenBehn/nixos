@@ -24,6 +24,9 @@
       enableACME = true;
       forceSSL = true;
 
+      accessLog = "/var/log/nginx/sparkyfitness-access.log";
+      errorLog = "/var/log/nginx/sparkyfitness-error.log";
+
       locations = {
         "/".extraConfig = ''
           add_header X-Content-Type-Options "nosniff";
