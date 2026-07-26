@@ -71,7 +71,7 @@
           };
 
           path = with pkgs; [
-            python3
+            python312
             uv
             nodejs_22
             nodePackages.sass
