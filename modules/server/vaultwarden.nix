@@ -39,7 +39,7 @@
       environmentFile = config.sops.templates."vaultwarden.env".path;
       config = {
         # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
-        DOMAIN = "https://vaultwarden.stroby.ipv64.de";
+        DOMAIN = "https://vaultwarden.stroby.org";
         SIGNUPS_ALLOWED = true;
 
         ROCKET_ADDRESS = "127.0.0.1";
@@ -54,9 +54,9 @@
         SMTP_PORT = 25;
         SMTP_SECURITY = "off";
 
-        SMTP_USERNAME = "vaultwarden@stroby.ipv64.de";
+        SMTP_USERNAME = "vaultwarden@stroby.org";
 
-        SMTP_FROM = "vaultwarden@stroby.ipv64.de";
+        SMTP_FROM = "vaultwarden@stroby.org";
         SMTP_FROM_NAME = "Vaultwarden server";
       };
     };
