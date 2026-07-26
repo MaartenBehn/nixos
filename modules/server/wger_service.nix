@@ -65,6 +65,10 @@
             DJANGO_DB_ENGINE = "django.db.backends.sqlite3";
             DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite"; # TODO: Can remove?
             DJANGO_DB_DATABASE = "${wgerHome}/db/database.sqlite";
+            DJANGO_DB_USER = "";
+            DJANGO_DB_PASSWORD = "";
+            DJANGO_DB_HOST = "";
+            DJANGO_DB_PORT = "";
             DJANGO_MEDIA_ROOT = "${wgerHome}/media";
             DJANGO_STATIC_ROOT = "${wgerHome}/static";
             TIME_ZONE = cfg.timeZone;
