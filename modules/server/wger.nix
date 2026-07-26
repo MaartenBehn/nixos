@@ -1,5 +1,9 @@
 {
   flake.modules.nixos.server = {config, ... }: {
+    imports = [
+      ./wger_service.nix
+    ];
+
     sops.secrets."wger/key" = {
       owner = "wger";
       group = "wger";
