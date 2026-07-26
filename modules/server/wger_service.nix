@@ -83,6 +83,7 @@
             git
             ffmpeg
             gettext
+            bash
           ];
 
           script = ''
