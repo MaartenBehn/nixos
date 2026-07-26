@@ -105,15 +105,12 @@
         # Activate virtualenv
         source .venv/bin/activate
 
-        # --- Use localized Corepack home and build assets ---
-        npm ci || npm install 
-        sass --quiet wger/core/static/scss/main.scss wger/core/static/css/bootstrap-compiled.css
-        # --------------------------------------------------
+        set -a; . ${wgerHome}/wger/wger.env; set +a
 
-        # Perform Django setup tasks
-        python manage.py migrate --noinput
-        python manage.py collectstatic --noinput --clear --verbosity=3
-        python manage.py generate-jwt-keys || true
+        wger bootstrap
+       
+        python manage.py collectstatic --noinput --clear         
+        #python manage.py generate-jwt-keys || true
 
         # Compile message catalogs
         cd wger
