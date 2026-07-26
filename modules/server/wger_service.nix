@@ -125,8 +125,8 @@
           cd ..
         fi
 
-        source .venv/bin/activate
         cd "${wgerSrc}"
+        source .venv/bin/activate
         
         # Run WSGI server
         exec gunicorn wger.wsgi:application \
