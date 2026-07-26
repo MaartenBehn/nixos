@@ -104,7 +104,6 @@
 
     sparkyfitness ={ 
       url = "github:CodeWithCJ/SparkyFitness";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   
