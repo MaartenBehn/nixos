@@ -129,8 +129,9 @@
         source .venv/bin/activate
         python manage.py sync-exercises
         python3 manage.py download-exercise-images
-        python3 manage.py download-exercise-videos
-        web manage.py sync-ingredients-bulk --set-mode update
+        # python3 manage.py download-exercise-videos
+        python3 manage.py sync-ingredients-bulk --set-mode update
+        python3 manage.py setup-powersync-storage
         
         # Run WSGI server
         exec gunicorn wger.wsgi:application \
