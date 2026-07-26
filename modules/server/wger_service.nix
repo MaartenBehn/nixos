@@ -63,7 +63,8 @@
             PYTHONPATH = wgerSrc;
             DJANGO_SETTINGS_MODULE = "settings.main";
             DJANGO_DB_ENGINE = "django.db.backends.sqlite3";
-            DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite";
+            DJANGO_DB_NAME = "${wgerHome}/db/database.sqlite"; # TODO: Can remove?
+            DJANGO_DB_DATABASE = "${wgerHome}/db/database.sqlite";
             DJANGO_MEDIA_ROOT = "${wgerHome}/media";
             DJANGO_STATIC_ROOT = "${wgerHome}/static";
             TIME_ZONE = cfg.timeZone;
