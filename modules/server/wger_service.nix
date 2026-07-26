@@ -107,6 +107,10 @@
         # Activate virtualenv
         source .venv/bin/activate
 
+        # Build frontend assets (Node modules & Sass compilation)
+        yarn install --frozen-lockfile || yarn install
+        sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css
+
         # Perform Django setup tasks
         python manage.py migrate --noinput
         python manage.py collectstatic --noinput
