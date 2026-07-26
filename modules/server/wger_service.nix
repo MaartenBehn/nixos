@@ -18,7 +18,8 @@ in
     };
 
     secretKeyFile = lib.mkOption {
-      type = lib.types.str;
+      type = lib.types.path;
+      description = "Path to the file containing DJANGO_SECRET_KEY.";
     };
 
     timeZone = lib.mkOption {
@@ -35,9 +36,9 @@ in
     };
   };
 
+  # Wrap configuration in lib.mkIf cfg.enable
   config = lib.mkIf cfg.enable {
-    
-    # 2. System user and group
+    # System user and group
     users.users.${wgerUser} = {
       isSystemUser = true;
       group = wgerGroup;
@@ -46,7 +47,7 @@ in
     };
     users.groups.${wgerGroup} = {};
 
-    # 3. Systemd service for wger Gunicorn & Setup
+    # Systemd service for wger Gunicorn & Setup
     systemd.services.wger = {
       description = "wger Workout & Fitness Manager (Gunicorn)";
       after = [ "network.target" "sops-nix.service" ];
