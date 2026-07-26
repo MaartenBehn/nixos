@@ -129,6 +129,8 @@
             StateDirectory = "wger";
             Restart = "always";
             RestartSec = "5s";
+            StartLimitIntervalSec = "60";
+            StartLimitBurst = "2";
           };
         };   
       };
