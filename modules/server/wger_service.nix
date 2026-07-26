@@ -92,7 +92,7 @@
         export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
         export COREPACK_HOME="${wgerHome}/.cache/corepack"
 
-        mkdir -p ${wgerHome}/{db,static,media,.cache/corepack}
+        mkdir -p ${wgerHome}/{db,static,media,.cache/corepack,.bin}
 
         if [ ! -d "${wgerSrc}/.git" ]; then
           git clone https://github.com/wger-project/wger.git "${wgerSrc}"
