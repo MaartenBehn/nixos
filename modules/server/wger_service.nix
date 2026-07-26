@@ -107,7 +107,7 @@
 
         # --- Use localized Corepack home and build assets ---
         npm ci || npm install 
-        sass --quiet wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css
+        sass --quiet wger/core/static/scss/main.scss wger/core/static/css/bootstrap-compiled.css
         # --------------------------------------------------
 
         # Perform Django setup tasks
