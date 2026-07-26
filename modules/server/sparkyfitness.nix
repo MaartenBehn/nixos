@@ -13,14 +13,7 @@
       frontendUrl = "https://fitness.stroby.org";
       environmentFile = config.sops.secrets."sparkyfitness.env".path;
       port = 8002;
+      nginx.virtualHost = "fitness.stroby.org";
     };
-
-    web_services."fitness" = {
-      domains = "all";
-      root = {
-        proxyPass = "http://127.0.0.1:8002/"; 
-        proxyWebsockets = true; 
-      };
-    }; 
   };
 }

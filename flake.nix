@@ -102,7 +102,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sparkyfitness.url = "github:CodeWithCJ/SparkyFitness";
+    sparkyfitness ={ 
+      url = "github:CodeWithCJ/SparkyFitness";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
