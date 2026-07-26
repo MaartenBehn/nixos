@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.modules.nixos.server = { config, ... }: {
+  flake.modules.nixos.server = { config, pkgs, ... }: {
     imports = [
       inputs.sparkyfitness.nixosModules.sparkyfitness
     ];
@@ -13,6 +13,7 @@
       frontendUrl = "https://fitness.stroby.org";
       environmentFile = config.sops.secrets."sparkyfitness.env".path;
       port = 8002;
+      database.package = pkgs.postgresql_17;
       nginx = {
         enable = true;
         virtualHost = "fitness.stroby.org";
