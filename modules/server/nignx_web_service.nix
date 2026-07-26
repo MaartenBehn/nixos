@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { lib, config, ... }: {
+  flake.modules.nixos.core = { lib, config, ... }: {
     options = {
       web_services = lib.mkOption {
         type = lib.types.attrsOf (lib.types.submodule {
