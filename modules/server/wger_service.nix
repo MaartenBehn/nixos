@@ -135,41 +135,6 @@ in
       };
     };
 
-    # 4. Nginx Reverse Proxy
-    services.nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-
-      virtualHosts."${cfg.domain}" = {
-        forceSSL = true;
-        enableACME = true;
-
-        locations."/static/" = {
-          alias = "${wgerHome}/static/";
-          extraConfig = ''
-            expires 30d;
-            add_header Cache-Control "public, no-transform";
-          '';
-        };
-
-        locations."/media/" = {
-          alias = "${wgerHome}/media/";
-        };
-
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          proxyWebsockets = true;
-          extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
-        };
-      };
-    };
-
-    # Allow Nginx worker to read static/media owned by wger group
-    users.users.nginx.extraGroups = [ wgerGroup ];
-  };
+    
+     };
 }
