@@ -36,8 +36,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
 
         "/assets/".extraConfig = ''
@@ -51,8 +49,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
 
         "^~ /api/".extraConfig = ''
@@ -66,8 +62,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
 
         "/health-data".extraConfig = ''
@@ -81,8 +75,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
 
         "^~ /uploads/".extraConfig = ''
@@ -96,8 +88,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
 
         "^~ /mcp".extraConfig = ''
@@ -111,8 +101,6 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-
-          proxy_http_version 1.1;
         '';
       };
     };
