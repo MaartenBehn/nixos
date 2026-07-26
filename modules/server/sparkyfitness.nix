@@ -24,7 +24,14 @@
       nginx = {
         enable = true;
         virtualHost = "fitness.stroby.org";
+        enableACME = true;
+        forceSSL = true;
       };
+    };
+
+    services.nginx.virtualHosts."fitness.stroby.org" = {
+      enableACME = true;
+      forceSSL = true;
     };
   };
 }
