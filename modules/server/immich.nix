@@ -19,7 +19,7 @@
     ]; 
 
     services.immich = {
-      enable = true;
+      enable = false;
       port = 2283;
     };
 
