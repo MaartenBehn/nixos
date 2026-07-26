@@ -35,6 +35,10 @@
           default = 8000;
           description = "Internal port for Gunicorn WSGI server.";
         };
+
+        release = lib.mkOption {
+          type = lib.types.str;
+        };
       };
 
       config = lib.mkIf cfg.enable {
@@ -87,7 +91,7 @@
 
         # Clone or update wger source repository
         if [ ! -d "${wgerSrc}/.git" ]; then
-        git clone https://github.com/wger-project/wger.git "${wgerSrc}"
+        git clone git@github.com:mygitname/theproject.git --branch "${cfg.release}" "${wgerSrc}"
         fi
 
         cd "${wgerSrc}"

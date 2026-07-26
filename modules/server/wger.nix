@@ -13,6 +13,7 @@
       port = 8001;
       secretKeyFile = config.sops.secrets."wger/key".path;       
       timeZone = "Europe/Berlin";
+      release = "2.6";
     };
 
     web_services."wger" = {
