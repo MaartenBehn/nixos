@@ -24,8 +24,10 @@
       enableACME = true;
       forceSSL = true;
 
-      accessLog = "/var/log/nginx/sparkyfitness-access.log";
-      errorLog = "/var/log/nginx/sparkyfitness-error.log";
+      extraConfig = ''
+        access_log /var/log/nginx/sparkyfitness-access.log;
+        error_log /var/log/nginx/sparkyfitness-error.log warn;
+      '';
 
       locations = {
         "/".extraConfig = ''
