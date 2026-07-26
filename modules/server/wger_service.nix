@@ -111,6 +111,7 @@
         # --------------------------------------------------
 
         # Perform Django setup tasks
+        manage.py makemigrations
         python manage.py migrate --noinput
         python manage.py collectstatic --noinput
         python manage.py generate-jwt-keys || true
@@ -121,6 +122,7 @@
         cd ..
 
         # Run WSGI server
+        # Run WSGI server with explicit log capturing
         exec gunicorn wger.wsgi:application \
           --preload \
           --bind 127.0.0.1:${toString cfg.port} \
@@ -128,7 +130,9 @@
           --threads 2 \
           --worker-class gthread \
           --timeout 240 \
-          --access-logfile -
+          --access-logfile - \
+          --error-logfile - \
+          --capture-output      
       '';
           serviceConfig = {
             User = wgerUser;
