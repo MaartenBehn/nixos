@@ -105,17 +105,15 @@
         # Activate virtualenv
         source .venv/bin/activate
 
-        set -a; . ${wgerSrc}/wger.env; set +a
-
         wger bootstrap
        
         python manage.py collectstatic --noinput --clear         
         #python manage.py generate-jwt-keys || true
 
         # Compile message catalogs
-        cd ${wgerSrc}
+        cd wger
         django-admin compilemessages || true
-        cd ${wgerHome}
+        cd ..
 
         # Run WSGI server
         # Run WSGI server with explicit log capturing
