@@ -23,6 +23,13 @@
     services.nginx.virtualHosts."fitness.stroby.org" = {
       enableACME = true;
       forceSSL = true;
+
+      location."/" = {
+        extraConfig = ''
+          proxy_set_header Connection "Close";
+          proxy_set_header X-Forwarded-Ssl on; 
+        '';
+      };
     };
   };
 }
