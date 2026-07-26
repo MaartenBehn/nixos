@@ -5,6 +5,7 @@
       domain = "wger.stroby.org";
       secretKeySecret = "wger_secret_key"; # Matches your sops secret entry
       timeZone = "Europe/Berlin";
+      port = 8001;
     };
 
     services.nginx = {
@@ -28,7 +29,7 @@
         };
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyPass = "http://127.0.0.1:8001";
           proxyWebsockets = true;
           extraConfig = ''
             proxy_set_header Host $host;
