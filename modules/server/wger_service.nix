@@ -20,7 +20,14 @@
 
         secretKeyFile = lib.mkOption {
           type = lib.types.path;
-          description = "Path to the file containing DJANGO_SECRET_KEY.";
+        };
+
+        jwt_private_key_file = lib.mkOption {
+          type = lib.types.path;
+        };
+
+        jwt_public_key_file = lib.mkOption {
+          type = lib.types.path;
         };
 
         timeZone = lib.mkOption {
@@ -91,31 +98,35 @@
 
         export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
         export SECRET_KEY="$(cat ${cfg.secretKeyFile})"
+        export JWT_PRIVATE_KEY="$(cat ${cfg.jwt_private_key_file})"
+        export JWT_PUBLIC_KEY="$(cat ${cfg.jwt_public_key_file})"
 
         mkdir -p ${wgerHome}/{db,static,media}
 
         if [ ! -d "${wgerSrc}/.git" ]; then
           git clone https://github.com/wger-project/wger.git "${wgerSrc}"
+
+          cd "${wgerSrc}"
+
+          # Sync Python environment using uv
+          uv sync --group docker --no-managed-python --python ${pkgs.python312}/bin/python
+
+          # Activate virtualenv
+          source .venv/bin/activate
+
+          wger bootstrap
+
+          python manage.py collectstatic --noinput --clear         
+          #python manage.py generate-jwt-keys || true
+
+          # Compile message catalogs
+          cd wger
+          django-admin compilemessages || true
+          cd ..
         fi
 
         cd "${wgerSrc}"
-
-        # Sync Python environment using uv
-        uv sync --group docker --no-managed-python --python ${pkgs.python312}/bin/python
-
-        # Activate virtualenv
-        source .venv/bin/activate
-
-        wger bootstrap
-       
-        python manage.py collectstatic --noinput --clear         
-        #python manage.py generate-jwt-keys || true
-
-        # Compile message catalogs
-        cd wger
-        django-admin compilemessages || true
-        cd ..
-
+        
         # Run WSGI server
         exec gunicorn wger.wsgi:application \
           --preload \

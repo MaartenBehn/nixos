@@ -7,11 +7,25 @@
       mode = "0400";
     };
 
+    sops.secrets."wger/jwt_private_key" = {
+      owner = "wger";
+      group = "wger";
+      mode = "0400";
+    };
+
+    sops.secrets."wger/jwt_public_key" = {
+      owner = "wger";
+      group = "wger";
+      mode = "0400";
+    };
+
     services.wger = {
       enable = true;
       domain = "wger.stroby.org";
       port = 8001;
-      secretKeyFile = config.sops.secrets."wger/key".path;       
+      secretKeyFile = config.sops.secrets."wger/key".path;   
+      jwt_private_key_file = config.sops.secrets."wger/jwt_private_key".path;   
+      jwt_public_key_file = config.sops.secrets."wger/jwt_public_key".path;   
       timeZone = "Europe/Berlin";
       release = "2.6";
     };
