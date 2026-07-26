@@ -79,7 +79,6 @@
             python312
             uv
             nodejs_22
-            yarn
             nodePackages.sass            
             git
             ffmpeg
@@ -90,9 +89,8 @@
         set -euo pipefail
 
         export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
-        export COREPACK_HOME="${wgerHome}/.cache/corepack"
 
-        mkdir -p ${wgerHome}/{db,static,media,.cache/corepack,.bin}
+        mkdir -p ${wgerHome}/{db,static,media}
 
         if [ ! -d "${wgerSrc}/.git" ]; then
           git clone https://github.com/wger-project/wger.git "${wgerSrc}"
@@ -107,9 +105,7 @@
         source .venv/bin/activate
 
         # --- Use localized Corepack home and build assets ---
-        corepack enable --install-directory ${wgerHome}/.bin
-        export PATH="${wgerHome}/.bin:$PATH"
-        yarn install --frozen-lockfile || yarn install
+        npm ci || npm install 
         sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css
         # --------------------------------------------------
 
