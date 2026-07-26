@@ -37,7 +37,6 @@
           proxy_buffers 4 32k;
           client_max_body_size 0;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
 
@@ -53,7 +52,6 @@
           proxy_buffers 4 32k;
           client_max_body_size 0;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
 
@@ -69,7 +67,6 @@
           proxy_buffers 4 32k;
           client_max_body_size 0;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
 
@@ -85,7 +82,6 @@
           proxy_buffers 4 32k;
           client_max_body_size 0;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
 
@@ -101,7 +97,6 @@
           proxy_buffers 4 32k;
           client_max_body_size 0;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
 
@@ -116,9 +111,7 @@
           proxy_read_timeout 90;
           proxy_buffers 4 32k;
           client_max_body_size 0;
-          proxy_pass_header Authorization;
 
-          proxy_redirect off;
           proxy_http_version 1.1;
         '';
       };
