@@ -89,6 +89,7 @@
         set -euo pipefail
 
         export DJANGO_SECRET_KEY="$(cat ${cfg.secretKeyFile})"
+        export SECRET_KEY="$(cat ${cfg.secretKeyFile})"
 
         mkdir -p ${wgerHome}/{db,static,media}
 
