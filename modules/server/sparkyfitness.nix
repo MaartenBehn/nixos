@@ -8,13 +8,6 @@
       owner = "sparkyfitness";  
     };
 
-    ensureDatabases = [ "sparkyfitness" ];
-    ensureUsers = [
-      {
-        name = "sparkyfitness";
-      }
-    ];
-
     services.sparkyfitness = {
       enable = true;
       frontendUrl = "https://fitness.stroby.org";
