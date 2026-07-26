@@ -109,7 +109,8 @@
         source .venv/bin/activate
 
         # Build frontend assets (Node modules & Sass compilation)
-        corepack enable
+        corepack enable --install-directory "${wgerHome}/.bin"
+        export PATH="${wgerHome}/.bin:$PATH"
         yarn install --frozen-lockfile || yarn install
         sass wger/core/static/scss/main.scss wger/core/static/yarn/bootstrap-compiled.css
 
