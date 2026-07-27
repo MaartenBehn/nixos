@@ -14,9 +14,9 @@
       "lidarr/key"
       "whisparr/key"
       
-      "home_assistant/key"
-      
+      "home_assistant/key" 
       "immich/key"
+      "sparkyfitness/key"
     ];
 
     to_var = (s: "HOMEPAGE_FILE_${lib.toUpper (builtins.replaceStrings ["/"] ["_"] s)}");
@@ -213,6 +213,18 @@
         }
         {
           Home = [
+            {
+              Fitness = {
+                href = "https://fitness.stroby.org/";
+                description = "Fitness and Nutrition Tracker";
+                icon = "http://main.local/icons/sparkyfitness.webp";
+                widget = {
+                  type = "sparkyfitness";
+                  url = "https://fitness.stroby.org/";
+                  key = "{{${secret_vars.sparkyfitness.key}}}";
+                };
+              }; 
+            }
             {
               HomeAssistant = {
                 href = "http://home.local/";
