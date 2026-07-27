@@ -218,11 +218,11 @@
                 href = "https://fitness.stroby.org/";
                 description = "Fitness and Nutrition Tracker";
                 icon = "http://main.local/icons/sparkyfitness.webp";
-                widget = {
+                  /*widget = {
                   type = "sparkyfitness";
                   url = "https://fitness.stroby.org/";
                   key = "{{${secret_vars.sparkyfitness.key}}}";
-                };
+                };*/
               }; 
             }
             {
