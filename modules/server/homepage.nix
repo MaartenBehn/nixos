@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { config, lib, inputs, ... }: 
+  flake.modules.nixos.server = { config, lib, inputs,  pkgs-unstable, ... }: 
   let
     secrets = [
       "jellyfin/key"
@@ -68,7 +68,7 @@
       # https://gethomepage.dev/
 
       enable = true;
-      #package = pkgs-unstable.homepage-dashboard;
+      package = pkgs-unstable.homepage-dashboard;
       listenPort = 8085;
       allowedHosts = "main.local,127.0.0.1:8085";
 
