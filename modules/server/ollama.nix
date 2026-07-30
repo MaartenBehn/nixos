@@ -1,9 +1,20 @@
 {
   flake.modules.nixos.server = {
+    zramSwap = {
+      enable = true;
+      memoryPercent = 50; # Creates ~2GB compressed swap in RAM
+    };
+
     services.ollama = {
       enable = true;
-      acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
-      loadModels = [ "moondream:v2" "deepseek-coder:1.3b" ];
+      acceleration = false;       
+      loadModels = [ "moondream:v2" ];
+
+      environmentVariables = {
+        OLLAMA_MAX_LOADED_MODELS = "1";
+        OLLAMA_NUM_PARALLEL = "1";
+        OLLAMA_KEEP_ALIVE = "5m"; # Unloads model after 5m of inactivity to free RAM
+      };
     };
 
     services.open-webui = {
