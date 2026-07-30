@@ -1,34 +1,29 @@
 /*
 wg0.conf on proxy
 [Interface]
-Address = 10.0.0.1/24
+Address = 10.0.0.1/24, fd00:10::1/64
 PrivateKey = <key> 
 ListenPort = 51820
 MTU = 1380
 
 PostUp = sysctl -w net.ipv4.ip_forward=1
+PostUp = sysctl -w net.ipv6.conf.all.forwarding=1
 
 PostUp = iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
-PostDown = iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE
+PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 25,80,443,13470,13471 -j DNAT --to-destination 10.0.0.2
 
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.2:80
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.2:80
+PostDown = iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE || true
+PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 25,80,443,13470,13471 -j DNAT --to-destination 10.0.0.2
 
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 10.0.0.2:443
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 443 -j DNAT --to-destination 10.0.0.2:443
+PostUp = ip6tables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
+PostUp = ip6tables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 25,80,443,13470,13471 -j DNAT --to-destination [fd00:10::2]
 
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j DNAT --to-destination 10.0.0.2:25
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 25 -j DNAT --to-destination 10.0.0.2:25
-
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 13470 -j DNAT --to-destination 10.0.0.2:13470
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 13470 -j DNAT --to-destination 10.0.0.2:13470
-
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 13471 -j DNAT --to-destination 10.0.0.2:13471
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 13471 -j DNAT --to-destination 10.0.0.2:13471
+PostDown = ip6tables -t nat -D POSTROUTING -o wg0 -j MASQUERADE || true
+PostDown = ip6tables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 25,80,443,13470,13471 -j DNAT --to-destination [fd00:10::2]
 
 [Peer]
 PublicKey = by9caER0IW6jSFfqNCD6CAN8SddjqB1GP7ylb2r6kw8=
-AllowedIPs = 10.0.0.2/32, 10.1.0.2/32
+AllowedIPs = 10.0.0.2/32, 10.1.0.2/32, fd00:10::2/128
 
 wg1.conf on proxy
 [Interface]
@@ -64,8 +59,12 @@ AllowedIPs = 10.1.0.3/32
     networking.wireguard.interfaces = {
       tunnel_wg = {
         ips = [ 
-          "10.0.0.2/24" # public incoming traffic
-          "10.1.0.2/24" # traffic coming from wg1 vpn on proxy
+          # public incoming traffic
+          "10.0.0.2/24"           
+          "fd00:10::2/64"
+
+          # traffic coming from wg1 vpn on proxy
+          "10.1.0.2/24"         
         ];
         privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
         mtu = 1380;
@@ -74,7 +73,7 @@ AllowedIPs = 10.1.0.3/32
           {
             publicKey = "DpmJigVkK0f+wK7PRWymhxouBAIrqrVdArpMdPTuOkk=";
             endpoint = "138.199.203.38:51820";
-            allowedIPs = [ "10.0.0.0/24" ];
+            allowedIPs = [ "10.0.0.0/24" "fd00:10::/64" ];
             persistentKeepalive = 25;
           }
         ];
