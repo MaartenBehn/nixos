@@ -31,7 +31,7 @@
         peers = [
           {
             # asus
-            publicKey = "y/Up4Ps6jIdZHzOL2LDYnkZB3JL03MZtZmGLZXESr1U=";
+            publicKey = "KenBhqafo/s2SXctzBoccAB5Cy8vbTLe+olokTTM1iE=";
             endpoint = "192.168.0.117:51821";
             allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
             persistentKeepalive = 25;

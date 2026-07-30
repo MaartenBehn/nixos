@@ -75,6 +75,10 @@ PostDown = ip6tables -t nat -D POSTROUTING -s fd00:11::/64 -o wg0 -j MASQUERADE 
 PublicKey = +8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=
 AllowedIPs = 10.1.0.3/32, fd00:11::3/128
 
+# phone
+[Peer]
+PublicKey = LyvcC36v0jZrStd2YnWIFB7iTc0ujwtDlr5C6xYGpQk=
+AllowedIPs = 10.1.0.4/32, fd00:11::4/128
       
 */
 
@@ -124,8 +128,13 @@ AllowedIPs = 10.1.0.3/32, fd00:11::3/128
         peers = [
           {
             # laptop
-            publicKey = "+8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=";
+            publicKey = "rcFazibB7nshttMzpY8TIgGHgwFuXkky8+E/zG4knS8=";
             allowedIPs = [ "10.2.0.2/32" "fd00:12::2/128" ];
+          }
+          {
+            # phone
+            publicKey = "MkVmp26gVpD+weCXVRGpcF0B6z6V5lkjmZzfuxDCRn4=";
+            allowedIPs = [ "10.2.0.3/32" "fd00:12::3/128" ];
           }
         ];
       };
