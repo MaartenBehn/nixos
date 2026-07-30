@@ -1,5 +1,29 @@
 /*
+                   ┌─────────┐          tunnel           ┌────────┐                
+                   │  proxy  │ ───────────────────────── │  asus  │                
+       private     │         │                           │        │   private_local
+    ┌────────────► ┼─────────┼─────────────────────────► │        │ ◄──────────┐   
+    │  10.1.0.1    │         │               10.1.0.2    │        │ 10.2.0.1   │   
+    │  fd00:11::2  │         │               fd00:11::2  │        │ fd00:12::1 │   
+    │              │         │                           │        │            │   
+    │              │         │ ───────────────────────── │        │            │   
+    │              └─────────┘  10.0.0.1     10.0.0.2    └────────┘            │   
+    │                           fd00:10::1   fd00:10::2                        │   
+    │                                                                          │   
+    │                                                                          │   
+    │                                ┌──────────┐                              │   
+    ├──────────────────────────────► │  laptop  │ ◄────────────────────────────┤   
+    │                    10.1.0.3    │          │  10.2.0.2                    │   
+    │                    fd00:11::3  └──────────┘  fd00:12::2                  │   
+    │                                                                          │   
+    │                                ┌──────────┐                              │   
+    └──────────────────────────────► │  phone   │ ◄────────────────────────────┘   
+                         10.1.0.4    │          │  10.2.0.3                        
+                         fd00:11::4  └──────────┘  fd00:12::3 
+
+
 wg0.conf on proxy
+
 [Interface]
 Address = 10.0.0.1/24, fd00:10::1/64
 PrivateKey = <key> 
@@ -26,7 +50,9 @@ PostDown = ip6tables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 2
 PublicKey = by9caER0IW6jSFfqNCD6CAN8SddjqB1GP7ylb2r6kw8=
 AllowedIPs = 10.0.0.2/32, 10.1.0.2/32, fd00:10::2/128, fd00:11::2/128
 
+
 wg1.conf on proxy
+
 [Interface]
 Address = 10.1.0.1/24, fd00:11::1/64
 PrivateKey = <key>
@@ -49,6 +75,7 @@ PostDown = ip6tables -t nat -D POSTROUTING -s fd00:11::/64 -o wg0 -j MASQUERADE 
 PublicKey = +8tnywj+wDGQz8mkJE/9eECh2QBLy7yJwoQpQ6sgsBk=
 AllowedIPs = 10.1.0.3/32, fd00:11::3/128
 
+      
 */
 
 {
