@@ -8,7 +8,7 @@
     services.ollama = {
       enable = true;
       acceleration = false;       
-      loadModels = [ "moondream:v2" ];
+      loadModels = [ "qwen2-vl:2b" ];
 
       environmentVariables = {
         OLLAMA_MAX_LOADED_MODELS = "1";
