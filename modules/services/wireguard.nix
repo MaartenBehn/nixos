@@ -24,14 +24,14 @@
       };
 
       private_local = {  
-        privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
+        privateKeyFile = config.sops.secrets."wireguard/private_local/laptop/private_key".path;
         address = [ "10.2.0.2/24" "fd00:12::2/64" ];
         dns = [ "10.2.0.1" ];
 
         peers = [
           {
             # asus
-            publicKey = "KenBhqafo/s2SXctzBoccAB5Cy8vbTLe+olokTTM1iE=";
+            publicKey = "nX/bkTRB30KdpeDsKlw9ZjQhVSd7hGLzbnVM9exwyF4=";
             endpoint = "192.168.0.117:51821";
             allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
             persistentKeepalive = 25;
