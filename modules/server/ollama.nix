@@ -3,7 +3,7 @@
     services.ollama = {
       enable = true;
       acceleration = "rocm"; # cuda (nvidia) or rocm (amd)
-      loadModels = [ "llama3.2:3b" "deepseek-coder:1.3b" ];
+      loadModels = [ "moondream:v2" "deepseek-coder:1.3b" ];
     };
 
     services.open-webui = {
