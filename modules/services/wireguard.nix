@@ -8,14 +8,15 @@
     networking.wg-quick.interfaces = {
       private = {  
         privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
-        address = [ "10.1.0.3/24" ];
+        address = [ "10.1.0.3/24" "fd00:11::3/64" ];
         dns = [ "10.1.0.2" ];
 
         peers = [
           {
+            # proxy
             publicKey = "y/Up4Ps6jIdZHzOL2LDYnkZB3JL03MZtZmGLZXESr1U=";
             endpoint = "138.199.203.38:51821";
-            allowedIPs = [ "10.1.0.0/24" ]; 
+            allowedIPs = [ "10.1.0.0/24" "fd00:11::/64" ]; 
             persistentKeepalive = 25;
           }
         ];
@@ -24,14 +25,15 @@
 
       private_local = {  
         privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
-        address = [ "10.2.0.2/24" ];
+        address = [ "10.2.0.2/24" "fd00:12::2/64" ];
         dns = [ "10.2.0.1" ];
 
         peers = [
           {
+            # asus
             publicKey = "y/Up4Ps6jIdZHzOL2LDYnkZB3JL03MZtZmGLZXESr1U=";
             endpoint = "192.168.0.117:51821";
-            allowedIPs = [ "10.2.0.0/24" "10.1.0.0/24" ];
+            allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
             persistentKeepalive = 25;
           }
         ];
