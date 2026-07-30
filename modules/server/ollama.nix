@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.server_ollama = {
     zramSwap = {
       enable = true;
       memoryPercent = 50; # Creates ~2GB compressed swap in RAM
