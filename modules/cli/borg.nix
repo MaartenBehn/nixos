@@ -1,4 +1,8 @@
 {
+  flake.modules.nixos.cli-full = {
+    sops.secrets."borg_passphrase" = { owner = "stroby"; };
+  };
+
   flake.modules.homeManager.cli-full = { pkgs, lib, ... }: 
     let
       backup_folder = "~/backups"; 
@@ -7,7 +11,7 @@
       make_repo = repo_folder: server_name: (if server_name == "fritz_behns" then 
         "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/${repo_folder}" 
       else 
-        "ssh://root@138.199.203.38/backup/${repo_folder}");
+        "ssh://root@138.199.203.38/backup/none_encryption/${repo_folder}");
 
       make_script_inner = repo_folder: server_name: folder: pkgs.writeShellScriptBin 
         "borg_mount_${server_name}_${repo_folder_to_name repo_folder}" 
@@ -52,9 +56,80 @@
       ) ++ builtins.map (repo_folder: 
           make_script repo_folder "fritz_behns"
         ) only_fritz_folders;
+
+      borg_import = pkgs.writeShellScriptBin "borg-import" ''
+        set -eu
+
+        # Usage helper
+        if [ "''${1:-}" = "-h" ] || [ "''${1:-}" = "--help" ] || [ $# -lt 2 ]; then
+            echo "Usage: sudo borg-import <OLD_REPO_PATH> <NEW_REPO_PATH>"
+            echo ""
+            echo "Example:"
+            echo "  sudo borg-import /mnt/backups/old-none /mnt/backups/new-encrypted"
+            exit 1
+        fi
+
+        OLD_REPO="$1"
+        NEW_REPO="$2"
+        SECRET_PATH="/run/secrets/borg_passphrase"
+        MOUNT_POINT="/tmp/borg-import-mount-$$"
+
+        # Path safety for binaries in Nix sandbox
+        BORG="${pkgs.borgbackup}/bin/borg"
+        MOUNTPOINT="${pkgs.util-linux}/bin/mountpoint"
+        BASENAME="${pkgs.coreutils}/bin/basename"
+
+        if [ ! -f "$SECRET_PATH" ]; then
+            echo "Error: Passphrase secret file not found at $SECRET_PATH" >&2
+            exit 1
+        fi
+
+        export BORG_PASSPHRASE="$(cat "$SECRET_PATH")"
+
+        cleanup() {
+            echo "Cleaning up mount point..."
+            if "$MOUNTPOINT" -q "$MOUNT_POINT" 2>/dev/null; then
+                "$BORG" umount "$MOUNT_POINT" || true
+            fi
+            if [ -d "$MOUNT_POINT" ]; then
+                rmdir "$MOUNT_POINT" || true
+            fi
+        }
+        trap cleanup EXIT INT TERM
+
+        echo "=== Borg v1 Archive Migration Script ==="
+        echo "Old Repo:    $OLD_REPO"
+        echo "New Repo:    $NEW_REPO"
+        echo "Secret Path: $SECRET_PATH"
+        echo "----------------------------------------"
+
+        mkdir -p "$MOUNT_POINT"
+
+        echo "[1/3] Mounting old repository..."
+        "$BORG" mount "$OLD_REPO" "$MOUNT_POINT"
+
+        echo "[2/3] Transferring archives to new encrypted repository..."
+        for archive_path in "$MOUNT_POINT"/*; do
+            [ -e "$archive_path" ] || continue
+
+            archive_name=$("$BASENAME" "$archive_path")
+            echo "--> Importing archive: $archive_name"
+
+            "$BORG" create \
+                --stats \
+                --progress \
+                "$NEW_REPO::$archive_name" \
+                "$archive_path"
+        done
+
+        echo "[3/3] Migration completed successfully!"
+      '';
     in {
+ 
+
       home.packages = (with pkgs; [
         borgbackup
+        borg_import
       ] ++ scripts);
     };
 }

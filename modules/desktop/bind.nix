@@ -23,8 +23,8 @@
         "$mainMod, Space, exec, kitty -d $(hyprcwd)"
         "$mainMod, B, exec, firefox"
         "$mainMod, O, exec, obsidian"
-        "$mainMod, E, exec, kitty -d $(hyprcwd) -e yazi"
-        "$mainMod SHIFT, E, exec, nemo"
+        "$mainMod SHIFT, E, exec, kitty -d $(hyprcwd) -e yazi"
+        "$mainMod, E, exec, nemo"
         "$mainMod, M, exec, thunderbird"
         "$mainMod SHIFT, V, exec, open_vim_cheat_sheet"
 
