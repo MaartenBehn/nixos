@@ -1,5 +1,7 @@
 { inputs, ... }: {
-  flake.modules.nixos.server = { config, pkgs, ... }: {
+  flake.modules.nixos.server = { config, pkgs, ... }: let 
+    default_borg_settings = import ./_borg_settings.nix;
+  in {
     imports = [
       inputs.sparkyfitness.nixosModules.sparkyfitness
     ];
@@ -133,5 +135,33 @@
         '';
       };
     };
+
+
+    services.borgbackup.jobs.fritz_behns_sparkyfitness = default_borg_settings // {
+      group = "sparkyfitness";
+      paths = "/var/lib/sparkyfitness"; 
+      repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/sparkyfitness";
+      startAt = "*-*-* 06:00";
+    };
+
+    services.borgbackup.jobs.proxy_sparkyfitness = default_borg_settings // {
+      group = "sparkyfitness";
+      paths = "/var/lib/sparkyfitness";
+      repo = "ssh://root@138.199.203.38/backup/sparkyfitness";
+      startAt = "*-*-* 06:00";
+    };
+   
+    systemd.services.borgbackup-job-fritz_behns_sparkyfitness = {
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "fritz";
+      };
+
+      onFailure = [ "unit-status@%n.service" ];
+      requires = [ "fritz_behns_vpn_check.service" ];
+      after = [ "fritz_behns_vpn_check.service" ];
+    };
+
+    systemd.services.borgbackup-job-proxy_sparkyfitness.onFailure = [ "unit-status@%n.service" ];
   };
 }
