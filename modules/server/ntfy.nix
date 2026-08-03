@@ -2,9 +2,10 @@
   flake.modules.nixos.server = {
     services.ntfy-sh = {
       enable = true;
+      openFirewall = false;
       settings = {
         base-url = "https://ntfy.stroby.org";
-        listen-http = ":8090";
+        listen-http = "127.0.0.1:8090";
       };
     };
 
