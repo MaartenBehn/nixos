@@ -78,6 +78,14 @@
       };
     };
 
+    # Give the group borg access to /var/lib/vaultwarden and all future files
+    systemd.tmpfiles.rules = [
+      # Set access ACL recursively on existing directory & files
+      "A+ /var/lib/vaultwarden - - - - group:borg:r-x"
+      
+      # Set default ACL on directory (so new files inherit group:borg:r-x)
+      "a+ /var/lib/vaultwarden - - - - group:borg:r-x"
+    ];
 
     services.borgbackup.jobs.fritz_behns_vaultwarden = default_borg_settings // {
       group = "vaultwarden";
