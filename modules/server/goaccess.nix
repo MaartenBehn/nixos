@@ -39,8 +39,8 @@
       locations = {
         "/goaccess-ws" = {
           proxyPass = "http://127.0.0.1:7890";
-          proxyHttpVersion = "1.1";
           extraConfig = ''
+          proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "Upgrade";
           '';
