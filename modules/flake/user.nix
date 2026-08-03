@@ -1,6 +1,5 @@
 { lib, self, config, ... }: 
 let
-  username = "stroby";
   global_config = config;
 in {
   config.flake.modules = {
@@ -16,13 +15,12 @@ in {
       options = {
         username = lib.mkOption {
           type = lib.types.str;
+          default = "stroby";
         };
       };
 
       config = {
-        username = username;
-
-        users.users."${username}" = {
+        users.users."${config.username}" = {
           isNormalUser = true;
 
           extraGroups = [
@@ -34,9 +32,9 @@ in {
           ];
         };
 
-        home-manager.users."${username}".imports = [
+        home-manager.users."${config.username}".imports = [
           {
-            username = username;
+            username = config.username;
             host = config.host;
             system_type = config.system_type;
           }

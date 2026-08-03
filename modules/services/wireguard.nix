@@ -1,9 +1,9 @@
 {
   flake.modules.nixos.networking_vpn = { config, lib, pkgs, ... }: {
-    sops.secrets."wireguard/private/laptop/private_key" = { owner = "stroby"; };
-    sops.secrets."wireguard/private_local/laptop/private_key" = { owner = "stroby"; };
-    sops.secrets."wireguard/fritz_behns_stroby/laptop/private_key" = { owner = "stroby"; };
-    sops.secrets."wireguard/fritz_behns_stroby/laptop/preshared_key" = { owner = "stroby"; };
+    sops.secrets."wireguard/private/laptop/private_key" = { owner = config.username; };
+    sops.secrets."wireguard/private_local/laptop/private_key" = { owner = config.username; };
+    sops.secrets."wireguard/fritz_behns_stroby/laptop/private_key" = { owner = config.username; };
+    sops.secrets."wireguard/fritz_behns_stroby/laptop/preshared_key" = { owner = config.username; };
 
     networking.wg-quick.interfaces = {
       private = {  

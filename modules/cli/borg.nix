@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.cli-full = {
-    sops.secrets."borg_passphrase" = { owner = "stroby"; };
+  flake.modules.nixos.cli-full = { config, ... }: {
+    sops.secrets."borg_passphrase" = { owner = config.username; };
   };
 
   flake.modules.homeManager.cli-full = { pkgs, lib, ... }: 

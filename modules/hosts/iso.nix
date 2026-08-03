@@ -6,16 +6,20 @@
   };
 
   hosts.iso = {
-    nixos.imports = with self.modules.nixos; [
-      iso
-      networking
-      networking_vpn
-      bluetooth
-      battery
-      cli
-      hyprland
-      apps-minimal
-    ];
+    nixos = {
+      imports = with self.modules.nixos; [
+        iso
+        networking
+        networking_vpn
+        bluetooth
+        battery
+        cli
+        hyprland
+        apps-minimal
+      ];
+
+      username = "nixos";
+    };
 
     homeManager = {
       imports = with self.modules.homeManager; [

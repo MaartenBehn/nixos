@@ -1,12 +1,12 @@
 { inputs, ... }: {
-  flake.modules.nixos.hyprland = { pkgs, ... }:{
+  flake.modules.nixos.hyprland = { pkgs, config, ... }:{
     services.libinput.enable = true;
     services.xserver.xkb = {
       layout = "de";
       variant = "";
     }; 
 
-    services.getty.autologinUser = "stroby";
+    services.getty.autologinUser = config.username;
     #console.enable = true;
 
     # Disable wait for online befor login
