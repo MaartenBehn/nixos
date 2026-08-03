@@ -1,5 +1,5 @@
-{ self, modulesPath, ... }: {
-  flake.modules.nixos.iso = {
+{ self, ... }: {
+  flake.modules.nixos.iso = { modulesPath, ... }: {
     imports = [
       "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
     ];  
