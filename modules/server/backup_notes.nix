@@ -1,6 +1,6 @@
 {
-  flake.modules.nixos.server = { username, pkgs, ... }: let 
-    default_borg_settings = import ./_borg_settings.nix;
+  flake.modules.nixos.server = { username, pkgs, config, ... }: let 
+    default_borg_settings = import ./_borg_settings.nix { inherit config; };
   in {
     # Notes Folders: 
     # /notes

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs, pkgs-unstable, lib, ... }: 
+  flake.modules.nixos.server = { pkgs, pkgs-unstable, lib, config, ... }: 
     let 
       actual_server_folder = "/var/lib/actual-server/";
       user_files = "user-files";
@@ -65,7 +65,7 @@
       });
 
       # Backup
-      default_borg_settings = import ./_borg_settings.nix;
+      default_borg_settings = import ./_borg_settings.nix { inherit config; };
 
       backup_names = [ 
         user_files

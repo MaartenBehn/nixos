@@ -76,6 +76,7 @@
 
         # Path safety for binaries in Nix sandbox
         BORG="${pkgs.borgbackup}/bin/borg"
+        BORGFS="${pkgs.borgbackup}/bin/borgfs"
         MOUNTPOINT="${pkgs.util-linux}/bin/mountpoint"
         BASENAME="${pkgs.coreutils}/bin/basename"
 
@@ -105,24 +106,47 @@
 
         mkdir -p "$MOUNT_POINT"
 
-        echo "[1/3] Mounting old repository..."
-        "$BORG" mount "$OLD_REPO" "$MOUNT_POINT"
+        echo "[1/3] Mounting old repository with root access..."
+        # -o allow_other ensures root can read all files regardless of internal archive ownership
+        "$BORGFS" -o allow_other -p "$OLD_REPO" "$MOUNT_POINT"
 
-        echo "[2/3] Transferring archives to new encrypted repository..."
+        echo "[2/3] Fetching list of existing archives in destination repo..."
+        EXISTING_ARCHIVES=$("$BORG" list --short "$NEW_REPO" 2>/dev/null || true)
+
+        echo "[3/3] Transferring archives to new encrypted repository..."
         for archive_path in "$MOUNT_POINT"/*; do
             [ -e "$archive_path" ] || continue
 
             archive_name=$("$BASENAME" "$archive_path")
+
+            # Check if archive exists and verify it isn't an empty 0-file placeholder
+            if echo "$EXISTING_ARCHIVES" | grep -qxF "$archive_name"; then
+                echo "--> Checking integrity of existing archive: $archive_name"
+
+                # Get JSON info to verify file count > 0
+                NFILES=$("$BORG" info --json "$NEW_REPO::$archive_name" 2>/dev/null | ${pkgs.jq}/bin/jq '.archives[0].stats.nfiles' 2>/dev/null || echo "0")
+
+                if [ "$NFILES" -gt 0 ]; then
+                    echo "    [VALID] $archive_name is intact ($NFILES files). Skipping."
+                    continue
+                else
+                    echo "    [EMPTY/BROKEN] $archive_name has $NFILES files. Deleting empty archive..."
+                    "$BORG" delete "$NEW_REPO::$archive_name" || true
+                fi
+            fi
+
             echo "--> Importing archive: $archive_name"
 
+            # --exit-on-warning stops creation if permission errors happen
             "$BORG" create \
                 --stats \
                 --progress \
+                --exit-on-warning \
                 "$NEW_REPO::$archive_name" \
                 "$archive_path"
         done
 
-        echo "[3/3] Migration completed successfully!"
+        echo "Migration completed successfully!"
       '';
     in {
  

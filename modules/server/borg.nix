@@ -11,5 +11,7 @@
     users.users.borg = {
       isNormalUser = true;
     };
+
+    sops.secrets."borg_passphrase" = { owner = "borg"; };
   };
 }

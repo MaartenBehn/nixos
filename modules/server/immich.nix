@@ -1,7 +1,7 @@
 {
   flake.modules.nixos.server = { config, pkgs, ... }: 
-  let 
-    default_borg_settings = import ./_borg_settings.nix;
+  let
+    default_borg_settings = import ./_borg_settings.nix { inherit config; };
     fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
       chmod -R 750 /var/lib/immich 
     ''; 
