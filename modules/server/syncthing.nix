@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.server = {
-    users.groups.meida.members = [ "syncthing" ];
+    users.groups.media.members = [ "syncthing" ];
 
     services = {
       syncthing = {
