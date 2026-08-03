@@ -41,7 +41,7 @@
         recommendedProxySettings = true;
         recommendedTlsSettings = true;
 
-        # Return 444 (Close Connection) for any request hitting raw IP or unknown domains
+        # Block all other domains
         virtualHosts."_" = {
           default = true;
           rejectSSL = true;
