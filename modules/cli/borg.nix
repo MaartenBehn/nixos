@@ -11,7 +11,7 @@
       make_repo = repo_folder: server_name: (if server_name == "fritz_behns" then 
         "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/${repo_folder}" 
       else 
-        "ssh://root@138.199.203.38/backup/none_encryption/${repo_folder}");
+        "ssh://root@138.199.203.38/backup/${repo_folder}");
 
       make_script_inner = repo_folder: server_name: folder: pkgs.writeShellScriptBin 
         "borg_mount_${server_name}_${repo_folder_to_name repo_folder}" 
@@ -35,13 +35,20 @@
 
       both_folders = [
         "notes"
+        "none_encryption/notes"
+        "sparkyfitness"
+        "none_encryption/sparkyfitness"
       ] ++ actual_folders;
 
       only_fritz_folders = [
         "study"
+        "none_encryption/study"
         "immich"
+        "none_encryption/immich"
         "nextcloud"
+        "none_encryption/nextcloud"
         "ellie_minibot_music"
+        "none_encryption/ellie_minibot_music"
       ];
 
       servers = [
@@ -59,97 +66,69 @@
           make_script repo_folder "fritz_behns"
         ) only_fritz_folders;
 
-      borg_import = pkgs.writeShellScriptBin "borg-import" ''
-        set -eu
+    borg_import = pkgs.writeShellScriptBin "borg-import" ''
+      set -eu
 
-        # Usage helper
-        if [ "''${1:-}" = "-h" ] || [ "''${1:-}" = "--help" ] || [ $# -lt 2 ]; then
-            echo "Usage: sudo borg-import <OLD_REPO_PATH> <NEW_REPO_PATH>"
-            echo ""
-            echo "Example:"
-            echo "  sudo borg-import /mnt/backups/old-none /mnt/backups/new-encrypted"
-            exit 1
-        fi
+      if [ "''${1:-}" = "-h" ] || [ "''${1:-}" = "--help" ] || [ $# -lt 2 ]; then
+          echo "Usage: sudo borg-import-tar <OLD_REPO_PATH> <NEW_REPO_PATH>"
+          echo ""
+          echo "Example:"
+          echo "  sudo borg-import-tar ssh://root@138.199.203.38/backup/notes /mnt/backups/notes-encrypted"
+          exit 1
+      fi
 
-        OLD_REPO="$1"
-        NEW_REPO="$2"
-        SECRET_PATH="/run/secrets/borg_passphrase"
-        MOUNT_POINT="/tmp/borg-import-mount-$$"
+      OLD_REPO="$1"
+      NEW_REPO="$2"
+      SECRET_PATH="/run/secrets/borg_passphrase"
 
-        # Path safety for binaries in Nix sandbox
-        BORG="${pkgs.borgbackup}/bin/borg"
-        BORGFS="${pkgs.borgbackup}/bin/borgfs"
-        MOUNTPOINT="${pkgs.util-linux}/bin/mountpoint"
-        BASENAME="${pkgs.coreutils}/bin/basename"
+      BORG="${pkgs.borgbackup}/bin/borg"
+      JQ="${pkgs.jq}/bin/jq"
 
-        if [ ! -f "$SECRET_PATH" ]; then
-            echo "Error: Passphrase secret file not found at $SECRET_PATH" >&2
-            exit 1
-        fi
+      if [ ! -f "$SECRET_PATH" ]; then
+          echo "Error: Passphrase secret file not found at $SECRET_PATH" >&2
+          exit 1
+      fi
 
-        export BORG_PASSPHRASE="$(cat "$SECRET_PATH")"
+      export BORG_PASSPHRASE="$(cat "$SECRET_PATH")"
 
-        cleanup() {
-            echo "Cleaning up mount point..."
-            if "$MOUNTPOINT" -q "$MOUNT_POINT" 2>/dev/null; then
-                "$BORG" umount "$MOUNT_POINT" || true
-            fi
-            if [ -d "$MOUNT_POINT" ]; then
-                rmdir "$MOUNT_POINT" || true
-            fi
-        }
-        trap cleanup EXIT INT TERM
+      echo "=== Borg v1 Import ==="
+      echo "Old Repo:    $OLD_REPO"
+      echo "New Repo:    $NEW_REPO"
+      echo "Secret Path: $SECRET_PATH"
+      echo "----------------------------------------"
 
-        echo "=== Borg v1 Archive Migration Script ==="
-        echo "Old Repo:    $OLD_REPO"
-        echo "New Repo:    $NEW_REPO"
-        echo "Secret Path: $SECRET_PATH"
-        echo "----------------------------------------"
+      echo "[1/3] Fetching list of archives from OLD repo..."
+      OLD_ARCHIVES=$("$BORG" list --short "$OLD_REPO")
 
-        mkdir -p "$MOUNT_POINT"
+      echo "[2/3] Fetching list of existing archives in NEW repo..."
+      NEW_ARCHIVES=$("$BORG" list --short "$NEW_REPO" 2>/dev/null || true)
 
-        echo "[1/3] Mounting old repository with root access..."
-        # -o allow_other ensures root can read all files regardless of internal archive ownership
-        "$BORGFS" -o allow_other -p "$OLD_REPO" "$MOUNT_POINT"
+      echo "[3/3] Streaming archives via Tar-Pipe..."
+      for archive_name in $OLD_ARCHIVES; do
 
-        echo "[2/3] Fetching list of existing archives in destination repo..."
-        EXISTING_ARCHIVES=$("$BORG" list --short "$NEW_REPO" 2>/dev/null || true)
+          # 1. Prüfen, ob Archiv im Ziel-Repo existiert und valide ist
+          if echo "$NEW_ARCHIVES" | grep -qxF "$archive_name"; then
+              echo "--> Checking integrity of existing archive: $archive_name"
 
-        echo "[3/3] Transferring archives to new encrypted repository..."
-        for archive_path in "$MOUNT_POINT"/*; do
-            [ -e "$archive_path" ] || continue
+              NFILES=$("$BORG" info --json "$NEW_REPO::$archive_name" 2>/dev/null | "$JQ" '.archives[0].stats.nfiles' 2>/dev/null || echo "0")
 
-            archive_name=$("$BASENAME" "$archive_path")
+              if [ "$NFILES" -gt 0 ]; then
+                  echo "    [VALID] $archive_name is intact ($NFILES files). Skipping."
+                  continue
+              else
+                  echo "    [EMPTY/BROKEN] $archive_name has $NFILES files. Deleting..."
+                  "$BORG" delete "$NEW_REPO::$archive_name" || true
+              fi
+          fi
 
-            # Check if archive exists and verify it isn't an empty 0-file placeholder
-            if echo "$EXISTING_ARCHIVES" | grep -qxF "$archive_name"; then
-                echo "--> Checking integrity of existing archive: $archive_name"
+          echo "--> Streaming archive: $archive_name"
 
-                # Get JSON info to verify file count > 0
-                NFILES=$("$BORG" info --json "$NEW_REPO::$archive_name" 2>/dev/null | ${pkgs.jq}/bin/jq '.archives[0].stats.nfiles' 2>/dev/null || echo "0")
+          "$BORG" export-tar "$OLD_REPO::$archive_name" - | \
+          "$BORG" import-tar "$NEW_REPO::$archive_name" -
+      done
 
-                if [ "$NFILES" -gt 0 ]; then
-                    echo "    [VALID] $archive_name is intact ($NFILES files). Skipping."
-                    continue
-                else
-                    echo "    [EMPTY/BROKEN] $archive_name has $NFILES files. Deleting empty archive..."
-                    "$BORG" delete "$NEW_REPO::$archive_name" || true
-                fi
-            fi
-
-            echo "--> Importing archive: $archive_name"
-
-            # --exit-on-warning stops creation if permission errors happen
-            "$BORG" create \
-                --stats \
-                --progress \
-                --exit-on-warning \
-                "$NEW_REPO::$archive_name" \
-                "$archive_path"
-        done
-
-        echo "Migration completed successfully!"
-      '';
+      echo "Migration completed successfully!"
+    '';
     in {
  
 

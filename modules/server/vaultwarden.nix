@@ -1,5 +1,7 @@
 {
-  flake.modules.nixos.server = { config, pkgs, ... }: {
+  flake.modules.nixos.server = { config, pkgs, ... }: let 
+    default_borg_settings = import ./_borg_settings.nix { inherit config; };
+  in {
 
     sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
 
@@ -75,5 +77,33 @@
         '';      
       };
     };
+
+
+    services.borgbackup.jobs.fritz_behns_vaultwarden = default_borg_settings // {
+      group = "vaultwarden";
+      paths = "/var/lib/vaultwarden"; 
+      repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/vaultwarden";
+      startAt = "*-*-* 04:45";
+    };
+
+    services.borgbackup.jobs.proxy_vaultwarden = default_borg_settings // {
+      group = "vaultwarden";
+      paths = "/var/lib/vaultwarden";
+      repo = "ssh://root@138.199.203.38/backup/vaultwarden";
+      startAt = "*-*-* 04:50";
+    };
+   
+    systemd.services.borgbackup-job-fritz_behns_vaultwarden = {
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "fritz";
+      };
+
+      onFailure = [ "unit-status@%n.service" ];
+      requires = [ "fritz_behns_vpn_check.service" ];
+      after = [ "fritz_behns_vpn_check.service" ];
+    };
+
+    systemd.services.borgbackup-job-proxy_vaultwarden.onFailure = [ "unit-status@%n.service" ];
   };
 }

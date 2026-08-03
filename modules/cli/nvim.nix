@@ -1,4 +1,8 @@
 { inputs, ... }: {
+  flake.modules.nixos.cli = {
+    sops.secrets."avante_nvim/gemini_api_key" = { owner = "stroby"; };
+  };
+
   flake.modules.homeManager.cli = { pkgs, ... }: {
     home.packages = with pkgs; [
       inputs.nixvim.packages."${pkgs.stdenv.hostPlatform.system}".default
