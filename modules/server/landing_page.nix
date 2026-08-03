@@ -1,4 +1,5 @@
 {
+  /*
   flake.modules.nixos.server = {
     services.nginx.virtualHosts."stroby.org" = {
       enableACME = true;
@@ -12,4 +13,5 @@
       ];
     };
   };
+  */
 }

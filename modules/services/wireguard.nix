@@ -59,17 +59,18 @@
       };
     };
 
-    environment.systemPackages = lib.flatten (
-      map (name: [
-        (pkgs.writeShellScriptBin "${name}_vpn_u" ''
-        echo "Starting wg-quick interface: ${name}..."
-        sudo systemctl start wg-quick-${name}.service
-        '')
-        (pkgs.writeShellScriptBin "${name}_vpn_d" ''
-        echo "Stopping wg-quick interface: ${name}..."
-        sudo systemctl stop wg-quick-${name}.service
-        '')
-      ]) (builtins.attrNames config.networking.wg-quick.interfaces)
-    );
+    environment.systemPackages = map (name:
+      pkgs.writeShellScriptBin "${name}_vpn" ''
+        SERVICE="wg-quick-${name}.service"
+
+        if systemctl is-active --quiet "$SERVICE"; then
+          echo "Stopping wg-quick interface: ${name}..."
+          sudo systemctl stop "$SERVICE"
+        else
+          echo "Starting wg-quick interface: ${name}..."
+          sudo systemctl start "$SERVICE"
+        fi
+      ''
+    ) (builtins.attrNames config.networking.wg-quick.interfaces);  
   };
 }
