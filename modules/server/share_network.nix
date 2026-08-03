@@ -5,7 +5,7 @@
       # Allready set by vpm namespace
     };
 
-    networking.interfaces."eth0" = {
+    networking.interfaces."enp3s0f3u1" = {
       useDHCP = false;
       ipv4.addresses = [{
         address = "192.168.100.1";
@@ -15,14 +15,14 @@
 
     networking.nat = {
       enable = true;
-      internalInterfaces = [ "eth0" ];
-      externalInterface = "wlan0";
+      internalInterfaces = [ "enp3s0f3u1" ];
+      externalInterface = "wlp1s0";
     };
 
     services.dnsmasq = {
       enable = true;
       settings = {
-        interface = [ "eth0" ];
+        interface = [ "enp3s0f3u1" ];
         dhcp-range = [ "192.168.100.10,192.168.100.100,12h" ];
       };
     };
