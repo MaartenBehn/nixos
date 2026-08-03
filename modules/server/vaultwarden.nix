@@ -78,7 +78,7 @@
       };
     };
 
-    # Give the group borg access to /var/lib/vaultwarden and all future files
+    # Give the group vaultwarden access to /var/lib/vaultwarden and all future files
     systemd.tmpfiles.rules = [
       # Set access ACL recursively on existing directory & files
       "A+ /var/lib/vaultwarden - - - - group:vaultwarden:r-x"
