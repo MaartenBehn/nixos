@@ -12,6 +12,9 @@
       isNormalUser = true;
     };
 
-    sops.secrets."borg_passphrase" = { owner = "borg"; };
+    sops.secrets."borg_server_passphrase" = { 
+      key = "borg_passphrase";
+      owner = "borg"; 
+    };
   };
 }

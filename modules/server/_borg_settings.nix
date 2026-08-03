@@ -1,7 +1,7 @@
 { config, ... }: {
   encryption = {
     mode = "repokey-blake2";
-    passCommand = "cat ${config.sops.secrets.borg_passphrase.path}";
+    passCommand = "cat ${config.sops.secrets."borg_server_passphrase".path}";
   };
 
   environment.BORG_RSH = "ssh -i /home/borg/.ssh/id_ed25519 -o StrictHostKeychecking=no";
