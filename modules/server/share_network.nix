@@ -5,6 +5,8 @@
       # Allready set by vpm namespace
     };
 
+    networking.nftables.enable = true;
+
     networking.interfaces."enp3s0f3u1" = {
       useDHCP = false;
       ipv4.addresses = [{
@@ -15,9 +17,12 @@
 
     networking.nat = {
       enable = true;
+      enableIPv6 = false;
       internalInterfaces = [ "enp3s0f3u1" ];
       externalInterface = "wlp1s0";
     };
+
+    networking.firewall.checkReversePath = false;
 
     services.dnsmasq = {
       enable = true;
