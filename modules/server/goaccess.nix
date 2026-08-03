@@ -12,7 +12,7 @@
         ExecStart = ''
           ${pkgs.goaccess}/bin/goaccess /var/log/nginx/access.log \
           -o /var/lib/goaccess/index.html \
-          --log-format=COMBINED \
+          --log-format=VHOST_COMBINED \
           --real-time-html \
           --ws-url=ws://stats.local:80/goaccess-ws \
           --port=7890
@@ -25,7 +25,11 @@
     };
 
     services.nginx.appendHttpConfig = ''
-    access_log /var/log/nginx/access.log combined;
+      log_format vhost_combined '$host:$server_port $remote_addr - $remote_user [$time_local] '
+                                '"$request" $status $body_bytes_sent '
+                                '"$http_referer" "$http_user_agent"';
+
+      access_log /var/log/nginx/access.log vhost_combined;
     '';
 
     web_services.stats = {
