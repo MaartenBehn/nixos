@@ -16,10 +16,12 @@
       make_script_inner = repo_folder: server_name: folder: pkgs.writeShellScriptBin 
         "borg_mount_${server_name}_${repo_folder_to_name repo_folder}" 
         ''
-      mkdir -p ${folder}
-      uid=$(id -u)
-      borgfs -o uid=$uid -p ${make_repo repo_folder server_name} ${folder}
-      '';
+          SECRET_PATH="/run/secrets/borg_passphrase"
+          export BORG_PASSPHRASE="$(cat "$SECRET_PATH")"
+          mkdir -p ${folder}
+          uid=$(id -u)
+          borgfs -o uid=$uid -p ${make_repo repo_folder server_name} ${folder}
+        '';
 
       make_script = repo_folder: server_name: (make_script_inner repo_folder server_name 
         ("${backup_folder}/${server_name}/${repo_folder_to_name repo_folder}")); 
