@@ -8,6 +8,7 @@
       cli
       cli-full
       postgres
+      share_network
     ];
 
     homeManager.imports = with self.modules.homeManager; [
