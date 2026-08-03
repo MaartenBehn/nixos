@@ -31,6 +31,12 @@
         "192.168.0.0/24"
       ];
     };
+
+    networking.firewall.extraCommands = ''
+      # Drop any forwarded traffic to the mullvad-br network 
+      # UNLESS it originated from the host's loopback interface (lo).
+      iptables -I FORWARD -o mullvad-br ! -i lo -j DROP
+    '';
   };
 }
 
