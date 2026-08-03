@@ -22,8 +22,6 @@
       externalInterface = "wlp1s0";
     };
 
-    networking.firewall.checkReversePath = false;
-
     services.dnsmasq = {
       enable = true;
       settings = {
@@ -32,7 +30,21 @@
       };
     };
 
-    networking.firewall.allowedUDPPorts = [ 53 67 ];
-    networking.firewall.allowedTCPPorts = [ 53 ]; 
+    networking.firewall = {
+      enable = true;
+
+      checkReversePath = false;
+
+      allowedUDPPorts = [ 53 67 ];
+      allowedTCPPorts = [ 53 ];
+
+      extraInputRules = ''
+        iifname "enp3s0f3u1" accept
+      '';
+      extraForwardRules = ''
+        iifname "enp3s0f3u1" oifname "wlp1s0" accept
+        iifname "wlp1s0" oifname "enp3s0f3u1" ct state established,related accept
+      '';
+    };  
   };
 }
