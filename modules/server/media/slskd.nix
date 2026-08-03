@@ -50,8 +50,8 @@ SLSKD_PASSWORD=SoulSeek+240803
           };
 
           web = {
-            host = "127.0.0.1";
-            port = 5030;
+            #host = "127.0.0.1";
+            #port = 5030;
             authentication = {
               disabled = false;
               apiKeys = {
