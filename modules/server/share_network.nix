@@ -1,7 +1,8 @@
 {
   flake.modules.nixos.share_network = {
     boot.kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
+      # "net.ipv4.ip_forward" = 1; 
+      # Allready set by vpm namespace
     };
 
     networking.interfaces."eth0" = {
