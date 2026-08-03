@@ -1,70 +1,37 @@
-{ inputs, self, ... }: 
-let 
-  system = "x86_64-linux";
-  nix-version = "25.11";
-
-  pkgs-2405 = import inputs.nixpkgs-2405 {
-    inherit system;
-    config.allowUnfree = true;
-  };
-  pkgs-2505 = import inputs.nixpkgs-2505 {
-    inherit system;
-    config.allowUnfree = true;
-  };
-  pkgs-unstable = import inputs.nixpkgs-unstable {
-    inherit system;
-    config.allowUnfree = true;
+{ self, modulesPath, ... }: {
+  flake.modules.nixos.iso = {
+    imports = [
+      "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
+    ];  
   };
 
-  args = {
-    inherit nix-version;
-    inherit system;
-    inherit inputs;
-    inherit pkgs-2405;
-    inherit pkgs-2505;
-    inherit pkgs-unstable;  
-    host = "wsl";
-    system_name = "wsl";
-  };
-
-  old-imports = [
-    ../../configurations
-
-    {
-      home-manager.extraSpecialArgs = args;
-    }
-  ];
-in {
   hosts.iso = {
-    args = args;
-
-    nixos = {
-      imports = old-imports ++ 
-        (with self.modules.nixos; [
-        ]) ++ [
-          ({ system, username, modulesPath, ... }: {
-
-            imports = [
-              "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
-            ];
-
-            nixpkgs.hostPlatform = system; 
-
-            services.displayManager.autoLogin = {
-              enable = true;
-              user = "${username}";
-            }; 
-
-          })
-        ];
-    };
+    nixos.imports = with self.modules.nixos; [
+      iso
+      networking
+      networking_vpn
+      bluetooth
+      battery
+      cli
+      hyprland
+      apps-minimal
+    ];
 
     homeManager = {
       imports = with self.modules.homeManager; [
+        solaar
         cli
+        hyprland
+        battery-hyprland-notifications
+        apps-minimal
       ];
 
       home.sessionVariables.terminal = "kitty";
     };
+  };
+
+  # Expose a direct shortcut package
+  perSystem = { self', pkgs, ... }: {
+    packages.iso = self.nixosConfigurations.iso.config.system.build.isoImage;
   };
 }
