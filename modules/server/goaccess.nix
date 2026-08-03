@@ -14,7 +14,7 @@
           -o /var/lib/goaccess/index.html \
           --log-format=COMBINED \
           --real-time-html \
-          --ws-url=ws://stats.local.yourdomain:80/goaccess-ws \
+          --ws-url=ws://stats.local:80/goaccess-ws \
           --port=7890
         '';
         Restart = "always";
