@@ -1,4 +1,5 @@
-/*{
+{
+  /*
   flake.modules.nixos.iso = { pkgs, ... }: {
 
     ## Needs to the on sytem level otherwse it does not find the settings.conf file and the nixos module
@@ -36,4 +37,5 @@
       recursive = true;
     }; 
   };
-}*/
+  */
+}
