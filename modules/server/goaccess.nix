@@ -12,7 +12,9 @@
         ExecStart = ''
           ${pkgs.goaccess}/bin/goaccess /var/log/nginx/access.log \
           -o /var/lib/goaccess/index.html \
-          --log-format=VHOST_COMBINED \
+          --log-format='%v:%^ %h %^[%d:%t %^] "%r" %s %b "%R" "%u"' \
+          --date-format='%d/%b/%Y' \
+          --time-format='%H:%M:%S' \
           --real-time-html \
           --ws-url=ws://stats.local:80/goaccess-ws \
           --port=7890
