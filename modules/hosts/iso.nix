@@ -1,8 +1,10 @@
 { self, ... }: {
-  flake.modules.nixos.iso = { modulesPath, ... }: {
+  flake.modules.nixos.iso = { modulesPath, pkgs, lib, ... }: {
     imports = [
       "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"
-    ];  
+    ]; 
+
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
   };
 
   hosts.iso = {

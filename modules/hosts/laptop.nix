@@ -21,6 +21,7 @@
         postgres
         algo_trading
         games
+        solaar
       ];
 
     homeManager = {
@@ -33,6 +34,7 @@
         apps-minimal
         apps
         code
+        solaar
       ];
 
       home.sessionVariables.terminal = "kitty";

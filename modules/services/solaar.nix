@@ -55,31 +55,31 @@
 ---
 - Key: [MultiPlatform Gesture Button, pressed]
 - KeyPress:
-  - Z
+  - z
   - click
 ...
 ---
 - Key: [Forward Button, pressed]
 - KeyPress:
-  - U
+  - u
   - click
 ...
 ---
 - Key: [Back Button, pressed]
 - KeyPress:
-  - I
+  - i
   - click
 ...
 ---
 - Key: [Left Tilt, pressed]
 - KeyPress:
-  - O
+  - o
   - click
 ...
 ---
 - Key: [Right Tilt, pressed]
 - KeyPress:
-  - P
+  - p
   - click
 ...      
         '');
