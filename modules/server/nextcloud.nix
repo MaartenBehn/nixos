@@ -42,6 +42,11 @@
       }
     ];
 
+    services.redis.servers."nextcloud" = {
+      bind = "127.0.0.1";
+      openFirewall = false;
+    };
+
     services.nginx.virtualHosts = {
       "${cloud_domain}" = {
         forceSSL = true;

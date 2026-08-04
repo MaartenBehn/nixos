@@ -43,6 +43,11 @@
       };
     };
 
+    services.redis.servers."immich" = {
+      bind = "127.0.0.1";
+      openFirewall = false;
+    };
+
     systemd.services.borgbackup-job-fritz_behns_immich = {
       vpnConfinement = {
         enable = true;
