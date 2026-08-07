@@ -13,8 +13,7 @@
 
       wandererPkg = pkgs.buildNpmPackage {
         pname = "wanderer";
-        version = version;
-        src = src;
+        inherit version src;
         sourceRoot = "${src.name}/web";
         npmDepsHash = "sha256-G+Ozwt8ir2StIFU/I4cMF77alNkW4sp28WJeTnBnBFk=";
         nodejs = pkgs.nodejs_22;
@@ -26,15 +25,15 @@
           cp -r build package.json node_modules $out/share/wanderer/
 
           runHook postInstall
-          '';
-      };   
+        '';
+      };    
 
       wandererDbPkg = pkgs.buildGoModule {
         pname = "wanderer-db";
-        version = version;
-        src = src;
+        inherit version src;
         sourceRoot = "${src.name}/db"; 
-        vendorHash = null;
+        proxyVendor = true;
+        vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with true hash after first build failure
       };
 
     in {
@@ -57,6 +56,12 @@
           type = lib.types.str;
           default = "http://localhost:3000";
           description = "Canonical origin URL for CORS and frontend redirects.";
+        };
+
+        publicPbUrl = lib.mkOption {
+          type = lib.types.str;
+          default = "http://localhost:8091";
+          description = "URL used by client browsers to communicate with PocketBase.";
         };
 
         dataDir = lib.mkOption {
@@ -121,7 +126,7 @@
             User = "wanderer";
             Group = "wanderer";
             EnvironmentFile = config.sops.templates."wanderer.env".path;
-            ExecStart = "${wandererDbPkg}/bin/wanderer serve --http=127.0.0.1:${toString cfg.pbPort} --dir=${cfg.dataDir}/pb_data";
+            ExecStart = "${wandererDbPkg}/bin/pocketbase serve --http=127.0.0.1:${toString cfg.pbPort} --dir=${cfg.dataDir}/pb_data";
             Restart = "always";
             RestartSec = "5s";
 
@@ -144,9 +149,13 @@
             HOST = "127.0.0.1";
             ORIGIN = cfg.origin;
             BODY_SIZE_LIMIT = "Infinity";
-            PUBLIC_POCKETBASE_URL = "http://127.0.0.1:${toString cfg.pbPort}";
+            PUBLIC_POCKETBASE_URL = cfg.publicPbUrl;
             UPLOAD_FOLDER = "${cfg.dataDir}/uploads";
             MEILI_URL = "http://127.0.0.1:7700";
+            OVERPASS_API_URL = "https://overpass-api.de";
+            VALHALLA_URL = "https://valhalla1.openstreetmap.de";
+            NOMINATIM_URL = "https://nominatim.openstreetmap.org";
+            PUBLIC_MAP_MAX_POLYLINES = "100";
             NODE_ENV = "production";
           };
 
