@@ -10,7 +10,7 @@
         src = pkgs.fetchFromGitHub {
           owner = "open-wanderer";
           repo = "wanderer";
-          rev = "main"; # Recommendation: Use a tagged release commit or exact hash for reproducibility
+          rev = version; # Recommendation: Use a tagged release commit or exact hash for reproducibility
           hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
         };
 
