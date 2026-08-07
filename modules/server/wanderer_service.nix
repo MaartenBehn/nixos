@@ -67,7 +67,7 @@
           enable = true;
           listenAddress = "127.0.0.1";
           listenPort = 7700;
-          environmentFile = lib.mkIf (cfg.meiliKeyFile != null) cfg.meiliKeyFile;
+          masterKeyEnvironmentFile = lib.mkIf (cfg.meiliKeyFile != null) cfg.meiliKeyFile;
         };
 
         users.users.wanderer = {

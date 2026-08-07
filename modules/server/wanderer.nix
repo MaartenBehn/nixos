@@ -14,7 +14,7 @@
       port = 8003;
       origin = "http://192.168.1.100:3000"; # Your server IP / Domain
       dataDir = "/var/lib/wanderer";
-      masterKeyEnvironmentFile = config.sops.secrets.meili_master_key.path;
+      meiliKeyFile = config.sops.secrets.meili_master_key.path;
     };
 
     web_services."wanderer" = {
