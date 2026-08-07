@@ -14,11 +14,9 @@
       wandererPkg = pkgs.buildNpmPackage {
         pname = "wanderer";
         version = version;
-
+        src = src;
         sourceRoot = "${src.name}/web";
-
         npmDepsHash = "sha256-G+Ozwt8ir2StIFU/I4cMF77alNkW4sp28WJeTnBnBFk=";
-
         nodejs = pkgs.nodejs_22;
 
         installPhase = ''
@@ -34,14 +32,7 @@
       wandererDbPkg = pkgs.buildGoModule {
         pname = "wanderer-db";
         version = version;
-
-        src = pkgs.fetchFromGitHub {
-          owner = "open-wanderer";
-          repo = "wanderer";
-          rev = "v0.20.0";
-          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
-        };
-
+        src = src;
         sourceRoot = "${src.name}/db"; 
         vendorHash = null;
       };
