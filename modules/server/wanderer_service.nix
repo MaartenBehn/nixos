@@ -5,7 +5,7 @@
 
       wandererPkg = pkgs.buildNpmPackage rec {
         pname = "wanderer";
-        version = "v0.20.0";
+        version = "v0.19.3";
 
         src = pkgs.fetchFromGitHub {
           owner = "open-wanderer";
@@ -105,7 +105,6 @@
             UPLOAD_DIR = "${cfg.dataDir}/uploads";
             MEILI_HOST = "http://127.0.0.1:7700";
             NODE_ENV = "production";
-            NODE_OPTIONS = "--max-old-space-size=4096 --heapsnapshot-near-heap-limit=1";
           };
 
           serviceConfig = {
