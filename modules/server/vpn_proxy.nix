@@ -121,13 +121,13 @@ PersistentKeepalive = 25
             # laptop
             publicKey = "rcFazibB7nshttMzpY8TIgGHgwFuXkky8+E/zG4knS8=";
             allowedIPs = [ "10.2.0.2/32" "fd00:12::2/128" ];
-            PersistentKeepalive = 25;
+            persistentKeepalive = 25;
           }
           {
             # phone
             publicKey = "MkVmp26gVpD+weCXVRGpcF0B6z6V5lkjmZzfuxDCRn4=";
             allowedIPs = [ "10.2.0.3/32" "fd00:12::3/128" ];
-            PersistentKeepalive = 25;
+            persistentKeepalive = 25;
           }
         ];
       };
