@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { config, pkgs, ... }: let 
+  flake.modules.nixos.server = { config, pkgs, lib, ... }: let 
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
   in {
 
@@ -60,7 +60,7 @@
       };
     };
 
-    systemd.services.vaultwarden.serviceConfig.StateDirectoryMode = "0750";
+    systemd.services.vaultwarden.serviceConfig.StateDirectoryMode = lib.mkForce "0750";
 
     web_services."vaultwarden" = {
       domains = "all";
