@@ -55,19 +55,27 @@
           description = "State directory where SQLite DB and uploads are stored.";
         };
 
-        meiliKeyFile = lib.mkOption {
-          type = lib.types.nullOr lib.types.path;
-          default = null;
-          description = "Optional path to file containing Meilisearch Master Key (e.g. via sops-nix).";
+        meiliKeySopsField = lib.mkOption {
+          type = lib.types.str;
+          default = "meili_master_key";
         };
       };
 
       config = lib.mkIf cfg.enable {
+        sops.secrets."${cfg.meiliKeySopsField}" = { owner = "meilisearch"; };
+
+        sops.templates."wanderer_meili_env" = {
+          owner = "wanderer";
+          content = ''
+            MEILI_MASTER_KEY=${config.sops.placeholder."${cfg.meiliKeySopsField}"}
+          '';
+        };
+
         services.meilisearch = {
           enable = true;
           listenAddress = "127.0.0.1";
           listenPort = 7700;
-          masterKeyFile = lib.mkIf (cfg.meiliKeyFile != null) cfg.meiliKeyFile;
+          masterKeyFile = config.sops.secrets."${cfg.meiliKeySopsField}".path;
         };
 
         users.users.wanderer = {
@@ -103,7 +111,7 @@
             RestartSec = "5s";
 
             # EnvironmentFile if using secrets management
-            EnvironmentFile = lib.mkIf (cfg.meiliKeyFile != null) cfg.meiliKeyFile;
+            EnvironmentFile = config.sops.secrets."wanderer_meili_env".path;
 
             # Hardening
             StateDirectory = "wanderer";
