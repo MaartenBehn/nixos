@@ -4,10 +4,6 @@
     borg_settings = default_borg_settings // {
       group = "vaultwarden";
       paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
-      exclude = [
-        "/var/lib/vaultwarden/icon_cache"
-        "/var/lib/vaultwarden/tmp"
-      ];
     };
   in {
 
