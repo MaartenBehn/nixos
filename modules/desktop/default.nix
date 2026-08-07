@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = { pkgs, ... }: {
+  flake.modules.homeManager.hyprland = { pkgs, config, ... }: {
     home.packages = (with pkgs; [
       wl-clipboard                      # clipboard utils for wayland (wl-copy, wl-paste)
       pavucontrol                       # pulseaudio volume controle (GUI)
@@ -9,10 +9,10 @@
       killall
 
       swww
-      #inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+      #inputs.hypr-contrib.packages.${config.system_type}.grimblast
       grimblast
       hyprpicker
-      #inputs.hyprmag.packages.${pkgs.system}.hyprmag
+      #inputs.hyprmag.packages.${config.system_type}.hyprmag
       #hyprmag
       grim
       slurp
