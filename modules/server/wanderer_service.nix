@@ -11,7 +11,7 @@
         hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
       };
 
-      wandererPkg = pkgs.buildNpmPackage rec {
+      wandererPkg = pkgs.buildNpmPackage {
         pname = "wanderer";
         version = version;
 
