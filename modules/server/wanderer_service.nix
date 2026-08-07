@@ -62,7 +62,10 @@
       };
 
       config = lib.mkIf cfg.enable {
-        sops.secrets."${cfg.meiliKeySopsField}" = { owner = "meilisearch"; };
+        sops.secrets."${cfg.meiliKeySopsField}" = { 
+          owner = "meilisearch"; 
+          group = "meilisearch";
+        };
 
         sops.templates."wanderer.env" = {
           owner = "wanderer";
