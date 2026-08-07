@@ -2,50 +2,34 @@
   flake.modules.nixos.core = { config, pkgs, lib, ... }:
     let
       cfg = config.services.wanderer;
-      version = "v0.20.0";
 
-      # Fetch the source cleanly
-      wandererSrc = pkgs.fetchFromGitHub {
-        owner = "open-wanderer";
-        repo = "wanderer";
-        rev = version;
-        hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
-      };
-
-      # Build Wanderer using buildNpmPackage to handle offline dependencies automatically
-      wandererPkg = pkgs.stdenv.mkDerivation (finalAttrs: {
+      wandererPkg = pkgs.buildNpmPackage rec {
         pname = "wanderer";
-        version = version;
+        version = "v0.20.0";
 
-        src = wandererSrc;
-
-        nativeBuildInputs = [
-          pkgs.nodejs_20
-          pkgs.pnpm_9.configHook
-        ];
-
-        pnpmDeps = pkgs.pnpm_9.fetchDeps {
-          pname = finalAttrs.pname;
-          version = finalAttrs.version;
-          src = finalAttrs.src;
-          fetcherVersion = 3;
-          hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Update this hash
+        src = pkgs.fetchFromGitHub {
+          owner = "open-wanderer";
+          repo = "wanderer";
+          rev = "main"; # Recommendation: Use a tagged release commit or exact hash for reproducibility
+          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
         };
 
-        buildPhase = ''
-          runHook preBuild
-          pnpm build
-          runHook postBuild
-        '';
+        sourceRoot = "${src.name}/web";
+
+        npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+
+        nodejs = pkgs.nodejs_20;
 
         installPhase = ''
           runHook preInstall
+
           mkdir -p $out/share/wanderer
           cp -r build package.json node_modules $out/share/wanderer/
+
           runHook postInstall
         '';
-      });    
-    in {
+      };    
+  in {
       options.services.wanderer = {
         enable = lib.mkEnableOption "Wanderer Trail Database Service";
 
