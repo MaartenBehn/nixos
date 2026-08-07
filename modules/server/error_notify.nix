@@ -24,7 +24,7 @@
           description = "Send status report for failed service %i";
           path = with pkgs; [ systemd curl ];
 
-          serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Hostname: %H' 'Machine ID: %m' 'Boot ID: %b'";
+          serviceConfig.ExecStart = "${unit_status}/bin/unit_status %I 'Host: %H'";
           after = [ "network.target" ];
         };
 

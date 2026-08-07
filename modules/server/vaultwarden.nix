@@ -1,6 +1,14 @@
 {
   flake.modules.nixos.server = { config, pkgs, lib, ... }: let 
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
+    borg_settings = default_borg_settings // {
+      group = "vaultwarden";
+      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
+      exclude = [
+        "/var/lib/vaultwarden/icon_cache"
+        "/var/lib/vaultwarden/tmp"
+      ];
+    };
   in {
 
     sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
@@ -77,16 +85,12 @@
       };
     };
 
-    services.borgbackup.jobs.fritz_behns_vaultwarden = default_borg_settings // {
-      group = "vaultwarden";
-      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
+    services.borgbackup.jobs.fritz_behns_vaultwarden = borg_settings // {
       repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/vaultwarden";
       startAt = "*-*-* 04:45";
     };
 
-    services.borgbackup.jobs.proxy_vaultwarden = default_borg_settings // {
-      group = "vaultwarden";
-      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
+    services.borgbackup.jobs.proxy_vaultwarden = borg_settings // {
       repo = "ssh://root@138.199.203.38/backup/vaultwarden";
       startAt = "*-*-* 04:50";
     };
