@@ -3,16 +3,17 @@
     let
       cfg = config.services.wanderer;
 
+      version = "v0.20.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "open-wanderer";
+        repo = "wanderer";
+        rev = version;
+        hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
+      };
+
       wandererPkg = pkgs.buildNpmPackage rec {
         pname = "wanderer";
-        version = "v0.20";
-
-        src = pkgs.fetchFromGitHub {
-          owner = "open-wanderer";
-          repo = "wanderer";
-          rev = version;
-          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
-        };
+        version = version;
 
         sourceRoot = "${src.name}/web";
 
@@ -27,9 +28,25 @@
           cp -r build package.json node_modules $out/share/wanderer/
 
           runHook postInstall
-        '';
-      };    
-  in {
+          '';
+      };   
+
+      wandererDbPkg = pkgs.buildGoModule {
+        pname = "wanderer-db";
+        version = version;
+
+        src = pkgs.fetchFromGitHub {
+          owner = "open-wanderer";
+          repo = "wanderer";
+          rev = "v0.20.0";
+          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
+        };
+
+        sourceRoot = "${src.name}/db"; 
+        vendorHash = null;
+      };
+
+    in {
       options.services.wanderer = {
         enable = lib.mkEnableOption "Wanderer Trail Database Service";
 
@@ -83,7 +100,6 @@
           '';
         };
 
-        # 1. Meilisearch Service
         services.meilisearch = {
           enable = true;
           listenAddress = "127.0.0.1";
@@ -114,7 +130,7 @@
             User = "wanderer";
             Group = "wanderer";
             EnvironmentFile = config.sops.templates."wanderer.env".path;
-            ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http=127.0.0.1:${toString cfg.pbPort} --dir=${cfg.dataDir}/pb_data";
+            ExecStart = "${wandererDbPkg}/bin/wanderer serve --http=127.0.0.1:${toString cfg.pbPort} --dir=${cfg.dataDir}/pb_data";
             Restart = "always";
             RestartSec = "5s";
 
