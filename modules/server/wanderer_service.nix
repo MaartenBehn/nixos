@@ -5,12 +5,12 @@
 
       wandererPkg = pkgs.buildNpmPackage rec {
         pname = "wanderer";
-        version = "v0.19.3";
+        version = "v0.20";
 
         src = pkgs.fetchFromGitHub {
           owner = "open-wanderer";
           repo = "wanderer";
-          rev = version; # Recommendation: Use a tagged release commit or exact hash for reproducibility
+          rev = version;
           hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
         };
 
@@ -39,6 +39,12 @@
           description = "Port Wanderer HTTP server listens on.";
         };
 
+        pbPort = lib.mkOption {
+          type = lib.types.port;
+          default = 8091;
+          description = "Port PocketBase listens on.";
+        };
+
         origin = lib.mkOption {
           type = lib.types.str;
           default = "http://localhost:3000";
@@ -48,7 +54,7 @@
         dataDir = lib.mkOption {
           type = lib.types.path;
           default = "/var/lib/wanderer";
-          description = "State directory where SQLite DB and uploads are stored.";
+          description = "State directory where PocketBase data and uploads are stored.";
         };
 
         meiliKeySopsField = lib.mkOption {
@@ -56,31 +62,33 @@
           default = "meili_master_key";
           description = "Sops secret field containing the Meilisearch master key.";
         };
+
+        pbEncryptionKeySopsField = lib.mkOption {
+          type = lib.types.str;
+          default = "wanderer_pb_encryption_key";
+          description = "Sops secret field containing PocketBase encryption key.";
+        };
       };
 
       config = lib.mkIf cfg.enable {
-        sops.secrets."${cfg.meiliKeySopsField}" = {
-          mode = "0444";
-        };
+        sops.secrets."${cfg.meiliKeySopsField}" = { mode = "0444"; };
+        sops.secrets."${cfg.pbEncryptionKeySopsField}" = { mode = "0444"; };
 
         sops.templates."wanderer.env" = {
           owner = "wanderer";
           group = "wanderer";
           content = ''
             MEILI_MASTER_KEY=${config.sops.placeholder."${cfg.meiliKeySopsField}"}
+            POCKETBASE_ENCRYPTION_KEY=${config.sops.placeholder."${cfg.pbEncryptionKeySopsField}"}
           '';
         };
 
+        # 1. Meilisearch Service
         services.meilisearch = {
           enable = true;
           listenAddress = "127.0.0.1";
           listenPort = 7700;
           masterKeyFile = config.sops.secrets."${cfg.meiliKeySopsField}".path;
-        };
-
-        systemd.services.meilisearch = {
-          after = [ "sops-nix.service" ];
-          wants = [ "sops-nix.service" ];
         };
 
         users.users.wanderer = {
@@ -91,19 +99,47 @@
         };
         users.groups.wanderer = {};
 
+        systemd.services.wanderer-db = {
+          description = "Wanderer PocketBase Backend";
+          after = [ "network.target" "meilisearch.service" "sops-nix.service" ];
+          wants = [ "meilisearch.service" "sops-nix.service" ];
+          wantedBy = [ "multi-user.target" ];
+
+          environment = {
+            MEILI_URL = "http://127.0.0.1:7700";
+            ORIGIN = cfg.origin;
+          };
+
+          serviceConfig = {
+            User = "wanderer";
+            Group = "wanderer";
+            EnvironmentFile = config.sops.templates."wanderer.env".path;
+            ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http=127.0.0.1:${toString cfg.pbPort} --dir=${cfg.dataDir}/pb_data";
+            Restart = "always";
+            RestartSec = "5s";
+
+            StateDirectory = "wanderer";
+            ProtectSystem = "strict";
+            ProtectHome = true;
+            PrivateTmp = true;
+            ReadWritePaths = [ cfg.dataDir ];
+          };
+        };
+
         systemd.services.wanderer = {
-          description = "Wanderer Trail Database Engine";
-          after = [ "network.target" "meilisearch.service" ];
-          requires = [ "meilisearch.service" ];
+          description = "Wanderer Trail Database Web Engine";
+          after = [ "network.target" "wanderer-db.service" ];
+          requires = [ "wanderer-db.service" ];
           wantedBy = [ "multi-user.target" ];
 
           environment = {
             PORT = toString cfg.port;
             HOST = "127.0.0.1";
             ORIGIN = cfg.origin;
-            DATABASE_PATH = "${cfg.dataDir}/wanderer.db";
-            UPLOAD_DIR = "${cfg.dataDir}/uploads";
-            MEILI_HOST = "http://127.0.0.1:7700";
+            BODY_SIZE_LIMIT = "Infinity";
+            PUBLIC_POCKETBASE_URL = "http://127.0.0.1:${toString cfg.pbPort}";
+            UPLOAD_FOLDER = "${cfg.dataDir}/uploads";
+            MEILI_URL = "http://127.0.0.1:7700";
             NODE_ENV = "production";
           };
 
@@ -111,13 +147,12 @@
             User = "wanderer";
             Group = "wanderer";
             WorkingDirectory = "${wandererPkg}/share/wanderer";
-            ExecStart = "${pkgs.nodejs_20}/bin/node build/index.js";
+            ExecStart = "${pkgs.nodejs_22}/bin/node build/index.js";
             Restart = "always";
             RestartSec = "5s";
 
             EnvironmentFile = config.sops.templates."wanderer.env".path;
 
-            # Hardening & State Permissions
             StateDirectory = "wanderer";
             StateDirectoryMode = "0750";
             ProtectSystem = "strict";
