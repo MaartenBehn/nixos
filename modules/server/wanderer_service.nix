@@ -59,9 +59,8 @@
       };
 
       config = lib.mkIf cfg.enable {
-        sops.secrets."${cfg.meiliKeySopsField}" = { 
-          owner = "meilisearch"; 
-          group = "meilisearch";
+        sops.secrets."${cfg.meiliKeySopsField}" = {
+          mode = "0444";
         };
 
         sops.templates."wanderer.env" = {
@@ -77,6 +76,11 @@
           listenAddress = "127.0.0.1";
           listenPort = 7700;
           masterKeyFile = config.sops.secrets."${cfg.meiliKeySopsField}".path;
+        };
+
+        systemd.services.meilisearch = {
+          after = [ "sops-nix.service" ];
+          wants = [ "sops-nix.service" ];
         };
 
         users.users.wanderer = {
