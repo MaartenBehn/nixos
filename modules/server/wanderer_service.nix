@@ -12,8 +12,7 @@
           owner = "open-wanderer";
           repo = "wanderer";
           rev = "main";
-          # Leave dummy hash or run nix-prefetch-github to get precise hash
-          hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
         };
 
         nativeBuildInputs = [
