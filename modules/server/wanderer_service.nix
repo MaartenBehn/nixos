@@ -33,7 +33,7 @@
         inherit version src;
         sourceRoot = "${src.name}/db"; 
         proxyVendor = true;
-        vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Replace with true hash after first build failure
+        vendorHash = "sha256-WaG+bc9QxgffJGHOaSz0S7/bXDMu57Drvqa7Qk0WMSY=";
       };
 
     in {
