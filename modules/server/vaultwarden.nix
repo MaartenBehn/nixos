@@ -32,12 +32,9 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [ vaultwarden ];
     services.vaultwarden = {
       enable = true;
       backupDir = "/var/local/vaultwarden/backup";
-      # in order to avoid having  ADMIN_TOKEN in the nix store it can be also set with the help of an environment file
-      # be aware that this file must be created by hand (or via secrets management like sops)
       environmentFile = config.sops.templates."vaultwarden.env".path;
       config = {
         # Refer to https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
@@ -63,6 +60,8 @@
       };
     };
 
+    systemd.services.vaultwarden.serviceConfig.StateDirectoryMode = "0750";
+
     web_services."vaultwarden" = {
       domains = "all";
       root = {
@@ -84,14 +83,14 @@
 
     services.borgbackup.jobs.fritz_behns_vaultwarden = default_borg_settings // {
       group = "vaultwarden";
-      paths = "/var/lib/vaultwarden"; 
+      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
       repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/vaultwarden";
       startAt = "*-*-* 04:45";
     };
 
     services.borgbackup.jobs.proxy_vaultwarden = default_borg_settings // {
       group = "vaultwarden";
-      paths = "/var/lib/vaultwarden";
+      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
       repo = "ssh://root@138.199.203.38/backup/vaultwarden";
       startAt = "*-*-* 04:50";
     };
