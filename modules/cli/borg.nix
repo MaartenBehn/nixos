@@ -38,6 +38,7 @@
         "none_encryption/notes"
         "sparkyfitness"
         "none_encryption/sparkyfitness"
+        "vaultwarden"
       ] ++ actual_folders;
 
       only_fritz_folders = [

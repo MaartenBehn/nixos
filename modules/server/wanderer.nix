@@ -1,6 +1,5 @@
 {
-  flake.modules.nixos.core = {config, ... }: {
-    # configuration.nix or secrets.nix
+  flake.modules.nixos.server = {config, ... }: {
     
     services.wanderer = {
       enable = true;
