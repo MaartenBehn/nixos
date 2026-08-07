@@ -70,7 +70,7 @@
 
     # Fix permissons for borg
     systemd.services.vaultwarden.serviceConfig.StateDirectoryMode = lib.mkForce "0750";
-    systemd.services.vaultwarden.serviceConfig.UMask = "0027";
+    systemd.services.vaultwarden.serviceConfig.UMask = lib.mkForce "0027";
     systemd.tmpfiles.rules = [
       "d /var/local/vaultwarden/backup 0750 vaultwarden vaultwarden - -"
       "Z /var/local/vaultwarden/backup 0750 vaultwarden vaultwarden - -"
