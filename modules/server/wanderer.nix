@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.core = {config, }: {
+  flake.modules.nixos.core = {config, ... }: {
     # configuration.nix or secrets.nix
     sops.secrets.meili_master_key = {
       format = "yaml";
