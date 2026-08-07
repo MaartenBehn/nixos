@@ -16,7 +16,7 @@
 
         sourceRoot = "${src.name}/web";
 
-        npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        npmDepsHash = "sha256-G+Ozwt8ir2StIFU/I4cMF77alNkW4sp28WJeTnBnBFk=";
 
         nodejs = pkgs.nodejs_20;
 
