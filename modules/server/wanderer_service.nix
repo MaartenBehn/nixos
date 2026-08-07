@@ -64,7 +64,7 @@
       config = lib.mkIf cfg.enable {
         sops.secrets."${cfg.meiliKeySopsField}" = { owner = "meilisearch"; };
 
-        sops.templates."wanderer_meili_env" = {
+        sops.templates."wanderer.env" = {
           owner = "wanderer";
           content = ''
             MEILI_MASTER_KEY=${config.sops.placeholder."${cfg.meiliKeySopsField}"}
@@ -111,7 +111,7 @@
             RestartSec = "5s";
 
             # EnvironmentFile if using secrets management
-            EnvironmentFile = config.sops.secrets."wanderer_meili_env".path;
+            EnvironmentFile = config.sops.templates."wanderer.env".path;
 
             # Hardening
             StateDirectory = "wanderer";
