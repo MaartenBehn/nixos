@@ -18,7 +18,7 @@
 
         npmDepsHash = "sha256-G+Ozwt8ir2StIFU/I4cMF77alNkW4sp28WJeTnBnBFk=";
 
-        nodejs = pkgs.nodejs_20;
+        nodejs = pkgs.nodejs_22;
 
         installPhase = ''
           runHook preInstall
