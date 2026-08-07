@@ -3,36 +3,36 @@
     let
       cfg = config.services.wanderer;
 
-      # Build Wanderer natively from source using npm
-      wandererPkg = pkgs.stdenv.mkDerivation rec {
+      # Fetch the source cleanly
+      wandererSrc = pkgs.fetchFromGitHub {
+        owner = "open-wanderer";
+        repo = "wanderer";
+        rev = "v0.20.0"; # Use explicit tag instead of main
+        hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
+      };
+
+      # Build Wanderer using buildNpmPackage to handle offline dependencies automatically
+      wandererPkg = pkgs.buildNpmPackage {
         pname = "wanderer";
-        version = "v0.20.0";
+        version = "0.20.0";
 
-        src = pkgs.fetchFromGitHub {
-          owner = "open-wanderer";
-          repo = "wanderer";
-          rev = "main";
-          hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
-        };
+        src = wandererSrc;
 
-        nativeBuildInputs = [
-          pkgs.nodejs_20
-          pkgs.pnpm_9
-        ];
+        # Replace this hash with pkgs.lib.fakeHash on first run if dependency hashes change
+        npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
-        buildPhase = ''
-          export HOME=$TMPDIR
-          pnpm install --frozen-lockfile
-          pnpm build
-          '';
+        nativeBuildInputs = [ pkgs.nodejs_20 ];
 
-            installPhase = ''
+        # Ensure build directory structure is preserved correctly
+        installPhase = ''
+          runHook preInstall
           mkdir -p $out/share/wanderer
           cp -r build package.json node_modules $out/share/wanderer/
+          runHook postInstall
         '';
       };
     in
-      {
+    {
       options.services.wanderer = {
         enable = lib.mkEnableOption "Wanderer Trail Database Service";
 
@@ -57,6 +57,7 @@
         meiliKeySopsField = lib.mkOption {
           type = lib.types.str;
           default = "meili_master_key";
+          description = "Sops secret field containing the Meilisearch master key.";
         };
       };
 
@@ -68,6 +69,7 @@
 
         sops.templates."wanderer.env" = {
           owner = "wanderer";
+          group = "wanderer";
           content = ''
             MEILI_MASTER_KEY=${config.sops.placeholder."${cfg.meiliKeySopsField}"}
           '';
@@ -112,15 +114,16 @@
             Restart = "always";
             RestartSec = "5s";
 
-            # EnvironmentFile if using secrets management
             EnvironmentFile = config.sops.templates."wanderer.env".path;
 
-            # Hardening
+            # Hardening & State Permissions
             StateDirectory = "wanderer";
+            StateDirectoryMode = "0750";
             ProtectSystem = "strict";
             ProtectHome = true;
             PrivateTmp = true;
             NoNewPrivileges = true;
+            ReadWritePaths = [ cfg.dataDir ];
           };
         };
       };
