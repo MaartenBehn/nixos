@@ -8,7 +8,7 @@
       wandererSrc = pkgs.fetchFromGitHub {
         owner = "open-wanderer";
         repo = "wanderer";
-        rev = version; # Use explicit tag instead of main
+        rev = version;
         hash = "sha256-Z4oKOf8bLyoYqjsg/bWWc8GYai2ZUYISFBiu4AHGexY=";
       };
 
@@ -28,6 +28,7 @@
           pname = finalAttrs.pname;
           version = finalAttrs.version;
           src = finalAttrs.src;
+          fetcherVersion = 3;
           hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Update this hash
         };
 
