@@ -77,10 +77,6 @@
       };
     };
 
-    systemd.tmpfiles.rules = [
-      "Z /var/lib/vaultwarden 0750 vaultwarden vaultwarden - -"
-    ];
-
     services.borgbackup.jobs.fritz_behns_vaultwarden = default_borg_settings // {
       group = "vaultwarden";
       paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
