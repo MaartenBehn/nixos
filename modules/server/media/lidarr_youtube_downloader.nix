@@ -6,7 +6,7 @@
       owner = "dmzoneill";
       repo = "lidarr-youtube-downloader";
       rev = version;
-      hash = "sha256-0000000000000000000000000000000000000000000="; # Replace with accurate hash on build
+      hash = "sha256-Cje78NGx+R9ZQKu9h5OY2egfCgu1GAxYi6WP4uBDXHY=";
     };
 
     youtube-search-python = pkgs.python3.pkgs.buildPythonPackage rec {
@@ -41,7 +41,6 @@
       ];
     };
   in {
-
     sops.secrets."lidarr/api_key" = { };
 
     sops.templates."lidarr-yt-downloader.env" = {
