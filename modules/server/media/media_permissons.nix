@@ -11,7 +11,7 @@
       "slskd"
       "sabnzbd"
     ] (name: {
-      serviceConfig.UMask = "0007";
+      serviceConfig.UMask = lib.mkForce "0007";
     });
 
     systemd.tmpfiles.rules = [
