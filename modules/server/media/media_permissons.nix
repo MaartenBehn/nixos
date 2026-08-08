@@ -1,14 +1,22 @@
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.server = { lib, ... }: {
+    systemd.services = lib.genAttrs [
+      "jellyfin"
+      "lidarr"
+      "radarr"
+      "sonarr"
+      "prowlarr"
+      "qbittorrent"
+      "slskd"
+      "whisparr"
+    ] (name: {
+      serviceConfig.UMask = "0007";
+    });
+
     systemd.tmpfiles.rules = [
-      # Recursively set ownership (stroby:media) and mode 2770
       "Z /media 2770 stroby media - -"
-
-      # Set Access ACL recursively so the media group gets rwx on all current items
-      "A+ /media - - - - group:media:rwx"
-
-      # Set Default ACL so all future files/directories inherit group:media:rwx permissions
-      "a+ /media - - - - group:media:rwx"
-    ];
+      "d /media 2770 stroby media - -"
+      "a+ /media - - - - default:group::rwx,default:group:media:rwx,default:mask::rwx,default:other::---"
+    ];  
   };
 }
