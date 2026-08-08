@@ -41,6 +41,9 @@
       ];
     };
   in {
+
+    sops.secrets."lidarr/api_key" = { };
+
     sops.templates."lidarr-yt-downloader.env" = {
       content = ''
       LIDARR_API_KEY='${config.sops.placeholder."lidarr/api_key"}'
