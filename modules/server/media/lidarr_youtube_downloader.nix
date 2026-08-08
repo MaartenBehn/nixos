@@ -79,7 +79,7 @@
 
         ExecStart = "${lidarr-youtube-downloader}/bin/lyd";
 
-        EnvironmentFile = config.sops.template."lidarr-yt-downloader.env".path;
+        EnvironmentFile = config.sops.templates."lidarr-yt-downloader.env".path;
 
         ReadWritePaths = [
           "/media/music"
