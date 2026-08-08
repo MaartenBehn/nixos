@@ -12,14 +12,15 @@
     youtube-search-python = pkgs.python3.pkgs.buildPythonPackage rec {
       pname = "youtube-search-python";
       version = "1.6.6";
+      format = "setuptools";
+
       src = pkgs.python3.pkgs.fetchPypi {
         inherit pname version;
         hash = "sha256-1234567890abcdef1234567890abcdef1234567890a=";         
       };
       doCheck = false;
+      nativeBuildInputs = with pkgs.python3.pkgs; [ setuptools ];
       propagatedBuildInputs = with pkgs.python3.pkgs; [ httpx ];
-      pyproject = true;
-      build-system = [ pkgs.setuptools ];
     };
 
     lidarr-youtube-downloader = pkgs.python3.pkgs.buildPythonApplication {
