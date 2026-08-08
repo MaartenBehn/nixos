@@ -92,7 +92,11 @@
 
         EnvironmentFile = config.sops.templates."lidarr-yt-downloader.env".path;
 
+        StateDirectory = "lidarr-youtube-downloader";
+        WorkingDirectory = "/var/lib/lidarr-youtube-downloader";
+
         ReadWritePaths = [
+          "/var/lib/lidarr-youtube-downloader"
           "/media/music"
           "/var/lib/lidarr"
         ];
