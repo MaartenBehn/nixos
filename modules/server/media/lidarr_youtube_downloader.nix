@@ -16,7 +16,7 @@
 
       src = pkgs.python3.pkgs.fetchPypi {
         inherit pname version;
-        hash = "sha256-1234567890abcdef1234567890abcdef1234567890a=";         
+        hash = "sha256-RWjR12ns1+tLuDZfBO7G42TF9w7sezdl9UPa67E1/PU=";         
       };
       doCheck = false;
       nativeBuildInputs = with pkgs.python3.pkgs; [ setuptools ];
