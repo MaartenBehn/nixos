@@ -30,6 +30,12 @@
 
       src = lidarr-youtube-downloader-src;
 
+      # Patch out the invalid script entrypoint in pyproject.toml
+      postPatch = ''
+        substituteInPlace pyproject.toml \
+          --replace-fail 'lyd-unmapped = "lidarr_youtube_downloader.lyd-unmapped:app"' 'lyd-unmapped = "lidarr_youtube_downloader.lyd_unmapped:app"'
+      '';
+
       nativeBuildInputs = [ pkgs.python3.pkgs.poetry-core ];
 
       propagatedBuildInputs = with pkgs.python3.pkgs; [
@@ -45,7 +51,7 @@
 
     sops.templates."lidarr-yt-downloader.env" = {
       content = ''
-      LIDARR_API_KEY='${config.sops.placeholder."lidarr/api_key"}'
+        LIDARR_API_KEY='${config.sops.placeholder."lidarr/api_key"}'
       '';
       owner = "lidarr-yt-downloader";
     };
@@ -108,4 +114,3 @@
     };
   };
 }
-
