@@ -43,7 +43,7 @@
   in {
     sops.templates."lidarr-yt-downloader.env" = {
       content = ''
-      LIDARR_API_KEY='${config.sops.placeholder."lidarr_youtube_download/lidarr_key"}'
+      LIDARR_API_KEY='${config.sops.placeholder."lidarr/api_key"}'
       '';
       owner = "lidarr-yt-downloader";
     };
