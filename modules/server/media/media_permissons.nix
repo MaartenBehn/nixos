@@ -6,9 +6,10 @@
       "radarr"
       "sonarr"
       "prowlarr"
+      "whisparr"
       "qbittorrent"
       "slskd"
-      "whisparr"
+      "sabnzbd"
     ] (name: {
       serviceConfig.UMask = "0007";
     });
