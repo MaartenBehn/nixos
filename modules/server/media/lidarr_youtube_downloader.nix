@@ -18,6 +18,8 @@
       };
       doCheck = false;
       propagatedBuildInputs = with pkgs.python3.pkgs; [ httpx ];
+      pyproject = true;
+      build-system = [ pkgs.setuptools ];
     };
 
     lidarr-youtube-downloader = pkgs.python3.pkgs.buildPythonApplication {
