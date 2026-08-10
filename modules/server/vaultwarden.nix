@@ -3,7 +3,8 @@
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
     borg_settings = default_borg_settings // {
       group = "vaultwarden";
-      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ]; 
+      paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ];
+      exclude = [ "**/icon_cache/**" "**/tmp/**" ];
     };
   in {
 
