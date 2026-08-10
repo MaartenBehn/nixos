@@ -32,13 +32,6 @@
           script = "exit -1";
           onFailure = [ "unit-status@%n.service" ];
         };
-
-        # Automatically attach OnFailure=unit-status@%n.service to ALL systemd services
-      } // (lib.mapAttrs (name: service: {
-          # Do not attach the handler to itself or template instances to prevent infinite loops
-          onFailure = lib.mkIf (name != "unit-status@" && !(lib.hasPrefix "unit-status@" name)) [
-            "unit-status@%n.service"
-          ];
-        }) {});
+      }; 
     };
 }
