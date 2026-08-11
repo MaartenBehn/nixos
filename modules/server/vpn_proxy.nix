@@ -97,6 +97,7 @@ PersistentKeepalive = 25
           "10.1.0.2/32"        
           "fd00:11::2/128"
         ];
+        listenPort = 51820;
         privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
         mtu = 1380;
 
