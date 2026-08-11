@@ -13,6 +13,7 @@
         # Device: Proper Eagle
         PrivateKey = ${config.sops.placeholder."wireguard/mullvad/asus/private_key"}
         Address = 10.71.6.130/32,fc00:bbbb:bbbb:bb01::8:681/128
+        ListenPort = 51822
         DNS = 10.64.0.1
 
         [Peer]
