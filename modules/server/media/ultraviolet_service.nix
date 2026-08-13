@@ -17,6 +17,7 @@
         pkgs.nodejs
         pkgs.pnpm
         pkgs.pnpmConfigHook
+        pkgs.makeBinaryWrapper
       ];
 
       pnpmDeps = pkgs.fetchPnpmDeps {
@@ -26,14 +27,27 @@
         hash = "sha256-RppQehtcpHwpeJ0nq5nnA/mDM844yvdbiCqzRLXyELQ=";
       };
 
-      dontNpmBuild = true;
+      buildPhase = ''
+        runHook preBuild
+        pnpm build
+        runHook postBuild
+      '';
 
+      # 2. Package built output + node_modules and create a runnable binary wrapper
       installPhase = ''
         runHook preInstall
+
         mkdir -p $out/share/ultraviolet
         cp -r . $out/share/ultraviolet
+
+        # Create a wrapper executable so 'nix run' or a systemd service can start it directly
+        mkdir -p $out/bin
+        makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ultraviolet-app \
+        --add-flags "$out/share/ultraviolet/index.js" \
+        --chdir "$out/share/ultraviolet"
+
         runHook postInstall
-      '';
+      '';    
     };
   in
     {
