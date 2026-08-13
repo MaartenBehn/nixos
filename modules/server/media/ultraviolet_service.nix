@@ -15,8 +15,8 @@
 
       nativeBuildInputs = [
         pkgs.nodejs
-        pkgs.pnpm_9
-        pkgs.pnpm_9.configHook
+        pkgs.pnpm
+        pkgs.pnpmConfigHook
       ];
 
       # Offline cache hash for pnpm dependencies
