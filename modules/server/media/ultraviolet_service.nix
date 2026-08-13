@@ -4,7 +4,7 @@
 
     ultraviolet-app = pkgs.stdenv.mkDerivation rec {
       pname = "ultraviolet-app";
-      version = "46750821262cba54b4bd67b0fb096914daefee51";
+      version = "969ea2ecb6fbcb8f33a0f2d357b1e2a310443777";
 
       src = pkgs.fetchFromGitHub {
         owner = "titaniumnetwork-dev";
@@ -14,10 +14,9 @@
       };
 
       nativeBuildInputs = [
-        pkgs.nodejs_24
+        pkgs.nodejs
         pkgs.pnpm
         pkgs.pnpmConfigHook
-        pkgs.makeBinaryWrapper
       ];
 
       pnpmDeps = pkgs.fetchPnpmDeps {
@@ -27,27 +26,14 @@
         hash = "sha256-RppQehtcpHwpeJ0nq5nnA/mDM844yvdbiCqzRLXyELQ=";
       };
 
-      buildPhase = ''
-        runHook preBuild
-        pnpm build
-        runHook postBuild
-      '';
+      dontNpmBuild = true;
 
-      # 2. Package built output + node_modules and create a runnable binary wrapper
       installPhase = ''
         runHook preInstall
-
         mkdir -p $out/share/ultraviolet
         cp -r . $out/share/ultraviolet
-
-        # Create a wrapper executable so 'nix run' or a systemd service can start it directly
-        mkdir -p $out/bin
-        makeWrapper ${pkgs.nodejs_24}/bin/node $out/bin/ultraviolet-app \
-        --add-flags "$out/share/ultraviolet/src/index.js" \
-        --chdir "$out/share/ultraviolet"
-
         runHook postInstall
-      '';    
+      '';
     };
   in
     {
@@ -106,7 +92,8 @@
         };
 
         serviceConfig = {
-          ExecStart = "${ultraviolet-app}/bin/ultraviolet-app";
+          ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/src/index.js";
+          WorkingDirectory = "${ultraviolet-app}/share/ultraviolet";
           User = cfg.user;
           Group = cfg.group;
           Restart = "always";
