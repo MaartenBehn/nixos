@@ -1,111 +1,117 @@
 {
-  flake.modules.nixos.core = { config, lib, pkgs, ... }: with lib;
+  flake.modules.nixos.core = { config, lib, pkgs, ... }: with lib; let
+      cfg = config.services.ultraviolet;
 
-  let
-    cfg = config.services.ultraviolet;
+      ultraviolet-app = pkgs.buildNpmPackage rec {
+        pname = "ultraviolet-app";
+        version = "a1762248768730d06ffa5a652345aeef7126ab63";
 
-    ultraviolet-app = pkgs.buildNpmPackage rec {
-      pname = "ultraviolet-app";
-      version = "a1762248768730d06ffa5a652345aeef7126ab63";
+        src = pkgs.fetchFromGitHub {
+          owner = "titaniumnetwork-dev";
+          repo = "Ultraviolet-App";
+          rev = version;
+          hash = "sha256-bQGRc8jsiX/Nn1Ol54YCXSD6qNieoDwVeBTazhSmlDM=";
+        };
 
-      src = pkgs.fetchFromGitHub {
-        owner = "titaniumnetwork-dev";
-        repo = "Ultraviolet-App";
-        rev = version;
-        hash = "sha256-bQGRc8jsiX/Nn1Ol54YCXSD6qNieoDwVeBTazhSmlDM=";
+        pnpmDeps = pkgs.pnpm.fetchDeps {
+          inherit pname version src;
+          hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fake hash first
+        };   
+
+        nativeBuildInputs = [
+          pkgs.nodejs
+          pkgs.pnpm.configHook
+        ];
+
+        dontBuild = true;
+
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/share/ultraviolet
+          cp -r . $out/share/ultraviolet
+          runHook postInstall
+        '';
       };
+    in
+      {
+      options.services.ultraviolet = {
+        enable = mkEnableOption "Ultraviolet Web Proxy Service";
 
-      npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        port = mkOption {
+          type = types.port;
+          default = 8080;
+          description = "Port for the Ultraviolet service to listen on.";
+        };
 
-      dontNpmBuild = true;
+        bindAddress = mkOption {
+          type = types.str;
+          default = "0.0.0.0";
+          description = "IP address for the Ultraviolet service to bind to.";
+        };
 
-      installPhase = ''
-      runHook preInstall
-      mkdir -p $out/share/ultraviolet
-      cp -r . $out/share/ultraviolet
-      runHook postInstall
-      '';
-    };
-  in
-    {
-    options.services.ultraviolet = {
-      enable = mkEnableOption "Ultraviolet Web Proxy Service";
+        user = mkOption {
+          type = types.str;
+          default = "ultraviolet";
+          description = "User account under which Ultraviolet runs.";
+        };
 
-      port = mkOption {
-        type = types.port;
-        default = 8080;
-        description = "Port for the Ultraviolet service to listen on.";
-      };
-
-      bindAddress = mkOption {
-        type = types.str;
-        default = "0.0.0.0";
-        description = "IP address for the Ultraviolet service to bind to.";
-      };
-
-      user = mkOption {
-        type = types.str;
-        default = "ultraviolet";
-        description = "User account under which Ultraviolet runs.";
-      };
-
-      group = mkOption {
-        type = types.str;
-        default = "ultraviolet";
-        description = "Group under which Ultraviolet runs.";
-      };
-    };
-
-    config = mkIf cfg.enable {
-
-      # Dedicated unprivileged user and group
-      users.users = mkIf (cfg.user == "ultraviolet") {
-        ultraviolet = {
-          isSystemUser = true;
-          group = cfg.group;
-          description = "Ultraviolet Proxy service daemon";
+        group = mkOption {
+          type = types.str;
+          default = "ultraviolet";
+          description = "Group under which Ultraviolet runs.";
         };
       };
 
-      users.groups = mkIf (cfg.group == "ultraviolet") {
-        ultraviolet = {};
-      };
+      config = mkIf cfg.enable {
 
-      # Systemd Service Unit
-      systemd.services.ultraviolet = {
-        description = "Ultraviolet Web Proxy Server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-
-        environment = {
-          PORT = toString cfg.port;
-          HOST = cfg.bindAddress;
+        # Dedicated unprivileged user and group
+        users.users = mkIf (cfg.user == "ultraviolet") {
+          ultraviolet = {
+            isSystemUser = true;
+            group = cfg.group;
+            description = "Ultraviolet Proxy service daemon";
+          };
         };
 
-        serviceConfig = {
-          ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/index.js";
-          WorkingDirectory = "${ultraviolet-app}/share/ultraviolet";
-          User = cfg.user;
-          Group = cfg.group;
-          Restart = "always";
-          RestartSec = "5s";
+        users.groups = mkIf (cfg.group == "ultraviolet") {
+          ultraviolet = {};
+        };
 
-          # Systemd Hardening & Security Isolation
-          CapabilityBoundingSet = "";
-          NoNewPrivileges = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          MemoryDenyWriteExecute = false; # Node.js V8 requires JIT memory mapping
+        # Systemd Service Unit
+        systemd.services.ultraviolet = {
+          description = "Ultraviolet Web Proxy Server";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+
+          environment = {
+            PORT = toString cfg.port;
+            HOST = cfg.bindAddress;
+          };
+
+          serviceConfig = {
+            ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/index.js";
+            WorkingDirectory = "${ultraviolet-app}/share/ultraviolet";
+            User = cfg.user;
+            Group = cfg.group;
+            Restart = "always";
+            RestartSec = "5s";
+
+            # Systemd Hardening & Security Isolation
+            CapabilityBoundingSet = "";
+            NoNewPrivileges = true;
+            ProtectSystem = "strict";
+            ProtectHome = true;
+            PrivateTmp = true;
+            PrivateDevices = true;
+            ProtectKernelTunables = true;
+            ProtectKernelModules = true;
+            ProtectControlGroups = true;
+            RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
+            RestrictNamespaces = true;
+            LockPersonality = true;
+            MemoryDenyWriteExecute = false; # Node.js V8 requires JIT memory mapping
+          };
         };
       };
     };
-  };
 }
