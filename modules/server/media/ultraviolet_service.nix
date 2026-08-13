@@ -26,6 +26,8 @@
         hash = "sha256-RppQehtcpHwpeJ0nq5nnA/mDM844yvdbiCqzRLXyELQ=";
       };
 
+      dontNpmBuild = true;
+
       installPhase = ''
         runHook preInstall
         mkdir -p $out/share/ultraviolet
