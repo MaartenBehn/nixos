@@ -2,7 +2,7 @@
   flake.modules.nixos.core = { config, lib, pkgs, ... }: with lib; let
     cfg = config.services.ultraviolet;
 
-    ultraviolet-app = pkgs.buildNpmPackage rec {
+    ultraviolet-app = pkgs.stdenv.mkDerivation rec {
       pname = "ultraviolet-app";
       version = "a1762248768730d06ffa5a652345aeef7126ab63";
 
@@ -19,7 +19,6 @@
         pkgs.pnpmConfigHook
       ];
 
-      # Offline cache hash for pnpm dependencies
       pnpmDeps = pkgs.fetchPnpmDeps {
         inherit pname version src;
         pnpm = pkgs.pnpm;
@@ -28,11 +27,11 @@
       };
 
       installPhase = ''
-          runHook preInstall
-          mkdir -p $out/share/ultraviolet
-          cp -r . $out/share/ultraviolet
-          runHook postInstall
-          '';
+        runHook preInstall
+        mkdir -p $out/share/ultraviolet
+        cp -r . $out/share/ultraviolet
+        runHook postInstall
+      '';
     };
   in
     {
