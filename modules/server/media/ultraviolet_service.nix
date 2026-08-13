@@ -23,7 +23,7 @@
       pnpmDeps = pkgs.fetchPnpmDeps {
         inherit pname version src;
         inherit pnpm;
-        fetcherVersion = 4;
+        fetcherVersion = 3;
         hash = pkgs.lib.fakeHash; # Replace with hash output on first build failure
       };
 
