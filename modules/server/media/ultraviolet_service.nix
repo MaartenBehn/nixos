@@ -14,7 +14,7 @@
       };
 
       nativeBuildInputs = [
-        pkgs.nodejs
+        pkgs.nodejs_24
         pkgs.pnpm
         pkgs.pnpmConfigHook
         pkgs.makeBinaryWrapper
@@ -42,8 +42,8 @@
 
         # Create a wrapper executable so 'nix run' or a systemd service can start it directly
         mkdir -p $out/bin
-        makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ultraviolet-app \
-        --add-flags "$out/share/ultraviolet/index.js" \
+        makeWrapper ${pkgs.nodejs_24}/bin/node $out/bin/ultraviolet-app \
+        --add-flags "$out/share/ultraviolet/src/index.js" \
         --chdir "$out/share/ultraviolet"
 
         runHook postInstall
@@ -106,8 +106,7 @@
         };
 
         serviceConfig = {
-          ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/src/index.js";
-          WorkingDirectory = "${ultraviolet-app}/share/ultraviolet";
+          ExecStart = "${ultraviolet-app}/bin/ultraviolet-app";
           User = cfg.user;
           Group = cfg.group;
           Restart = "always";
