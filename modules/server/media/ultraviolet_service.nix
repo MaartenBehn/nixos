@@ -15,7 +15,7 @@
 
         pnpmDeps = pkgs.pnpm.fetchDeps {
           inherit pname version src;
-          fetcherVersion = "2";
+          fetcherVersion = 2;
           hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fake hash first
         };   
 
