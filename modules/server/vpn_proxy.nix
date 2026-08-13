@@ -97,7 +97,7 @@ PersistentKeepalive = 25
           "10.1.0.2/32"        
           "fd00:11::2/128"
         ];
-        listenPort = 51821;
+        listenPort = 51822;
         privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
         mtu = 1380;
 
@@ -114,7 +114,7 @@ PersistentKeepalive = 25
 
       local_wg = {
         ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
-        listenPort = 51822;
+        listenPort = 51823;
         privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
 
         peers = [

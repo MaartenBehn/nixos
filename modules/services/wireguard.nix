@@ -32,7 +32,7 @@
           {
             # asus
             publicKey = "nX/bkTRB30KdpeDsKlw9ZjQhVSd7hGLzbnVM9exwyF4=";
-            endpoint = "192.168.0.117:51821";
+            endpoint = "192.168.0.117:51823";
             allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
             persistentKeepalive = 25;
           }

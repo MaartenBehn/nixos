@@ -18,7 +18,7 @@
         [Interface]
         PrivateKey = ${config.sops.placeholder."wireguard/fritz_behns_asus_borg/asus/private_key"}
         Address = 192.168.178.202/24,fdf5:5527:63fc::202/64
-        ListenPort = 51823
+        ListenPort = 51821
         DNS = 192.168.178.1,fdf5:5527:63fc::9a9b:cbff:feba:47e9
 
         [Peer]
