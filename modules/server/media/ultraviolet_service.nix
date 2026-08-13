@@ -90,7 +90,7 @@
         };
 
         serviceConfig = {
-          ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/index.js";
+          ExecStart = "${pkgs.nodejs}/bin/node ${ultraviolet-app}/share/ultraviolet/src/index.js";
           WorkingDirectory = "${ultraviolet-app}/share/ultraviolet";
           User = cfg.user;
           Group = cfg.group;
