@@ -13,9 +13,13 @@
         hash = "sha256-bQGRc8jsiX/Nn1Ol54YCXSD6qNieoDwVeBTazhSmlDM=";
       };
 
+      postUnpack = ''
+        ls -la ${src}
+      '';
+
       postPatch = ''
-        ${pkgs.pnpm}/bin/pnpm import
-        '';
+        ${pkgs.pnpm}/bin/pnpm --dir ${src} import
+      '';
 
       npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
