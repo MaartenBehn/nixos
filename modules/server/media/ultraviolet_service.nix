@@ -4,7 +4,7 @@
 
     ultraviolet-app = pkgs.stdenv.mkDerivation rec {
       pname = "ultraviolet-app";
-      version = "a1762248768730d06ffa5a652345aeef7126ab63";
+      version = "46750821262cba54b4bd67b0fb096914daefee51";
 
       src = pkgs.fetchFromGitHub {
         owner = "titaniumnetwork-dev";
