@@ -13,17 +13,17 @@
         hash = "sha256-bQGRc8jsiX/Nn1Ol54YCXSD6qNieoDwVeBTazhSmlDM=";
       };
 
-      postUnpack = ''
-        ls -la ${src}
-      '';
+      nativeBuildInputs = [
+        pkgs.nodejs
+        pkgs.pnpm_9
+        pkgs.pnpm_9.configHook
+      ];
 
-      postPatch = ''
-        ${pkgs.pnpm}/bin/pnpm --dir ${src} import
-      '';
-
-      npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-
-      dontNpmBuild = true;
+      # Offline cache hash for pnpm dependencies
+      pnpmDeps = pkgs.pnpm_9.fetchDeps {
+        inherit pname version src;
+        hash = pkgs.lib.fakeHash; # Replace with hash output on first build failure
+      };
 
       installPhase = ''
           runHook preInstall
