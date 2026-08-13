@@ -22,7 +22,7 @@
       # Offline cache hash for pnpm dependencies
       pnpmDeps = pkgs.fetchPnpmDeps {
         inherit pname version src;
-        inherit pnpm;
+        pnpm = pkgs.pnpm;
         fetcherVersion = 3;
         hash = pkgs.lib.fakeHash; # Replace with hash output on first build failure
       };
