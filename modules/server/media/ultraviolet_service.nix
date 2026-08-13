@@ -4,20 +4,17 @@
   let
     cfg = config.services.ultraviolet;
 
-    # Build the Ultraviolet app directly from the official TitaniumNetwork repository
     ultraviolet-app = pkgs.buildNpmPackage rec {
       pname = "ultraviolet-app";
-      version = "3.0.0"; # Pin or update to desired version/commit
+      version = "a1762248768730d06ffa5a652345aeef7126ab63";
 
       src = pkgs.fetchFromGitHub {
         owner = "titaniumnetwork-dev";
         repo = "Ultraviolet-App";
-        rev = "v${version}";
-        # Leave hash empty or set dummy hash first if changing version to let Nix output the correct SRI hash
+        rev = version;
         hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
       };
 
-      # npmDepsHash must match package-lock.json SRI hash from src repo
       npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
 
       dontNpmBuild = true;
