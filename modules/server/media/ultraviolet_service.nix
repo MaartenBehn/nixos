@@ -23,7 +23,7 @@
         inherit pname version src;
         pnpm = pkgs.pnpm;
         fetcherVersion = 3;
-        hash = pkgs.lib.fakeHash; # Replace with hash output on first build failure
+        hash = "sha256-RppQehtcpHwpeJ0nq5nnA/mDM844yvdbiCqzRLXyELQ=";
       };
 
       installPhase = ''
