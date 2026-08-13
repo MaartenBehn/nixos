@@ -83,7 +83,7 @@ PersistentKeepalive = 25
 
     networking.firewall = {
       trustedInterfaces = [ "tunnel_wg" "local_wg" ];
-      allowedUDPPorts = [ 51821 51822 ];
+      allowedUDPPorts = [ 51822 51823 ];
     };
 
     networking.wireguard.interfaces = {
