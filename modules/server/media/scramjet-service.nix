@@ -25,25 +25,6 @@
       doCheck = false;
     };
 
-    wasm-bindgen-cli_105 = pkgs.wasm-bindgen-cli.overrideAttrs (old: rec {
-      version = "0.2.105";
-      src = pkgs.fetchCrate {
-        pname = "wasm-bindgen-cli";
-        inherit version;
-        hash = "sha256-zLPFFgnqAWq5R2KkaTGAYqVQswfBEYm9x3OPjx8DJRY=";
-      };
-      
-      postUnpack = ''
-        # Generate Cargo.lock dynamically before cargoVendorDir is evaluated
-        eval "$cargoBuildHook"
-      '';
-
-      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-        inherit src;
-        hash = "sha256-2222222222222222222222222222222222222222222=";
-      };
-    });
-
     scramjetPackage = pkgs.stdenv.mkDerivation rec {
       pname = "scramjet";
       version = "v2.0.67-alpha.2";
@@ -61,7 +42,7 @@
         pnpm
         pnpmConfigHook
         cargo
-        wasm-bindgen-cli
+        wasm-bindgen
         binaryen
         wasm-snip
         bash
