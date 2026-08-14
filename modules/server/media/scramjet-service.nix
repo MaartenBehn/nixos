@@ -57,6 +57,8 @@
       buildPhase = ''
         runHook preBuild
 
+        echo $PATH
+
         # Fake the rustup "+nightly" wrapper so build.sh works without rustup installed
         mkdir -p bin-wrappers
         cat << 'EOF' > bin-wrappers/cargo
