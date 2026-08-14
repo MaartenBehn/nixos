@@ -2,7 +2,7 @@
   flake.modules.nixos.server = {
 
     services.scramjet = { 
-      enable = true;
+      enable = false;
       port = 8055;
     };
 
