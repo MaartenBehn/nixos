@@ -56,6 +56,7 @@
         hash = "sha256-Psbbx0IgaLv42bhxJcwbSXkCzbL3SM/kFd686XkbdqM=";
       };
 
+      # Intercept cargo +nightly calls
       postPatch = ''
         mkdir -p bin-wrappers
         cat << 'EOF' > bin-wrappers/cargo
