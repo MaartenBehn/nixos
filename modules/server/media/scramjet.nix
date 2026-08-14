@@ -6,7 +6,7 @@
       {
         nixpkgs.overlays = [
           (final: prev: {
-            wanderer = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.scramjet;
+            wanderer = inputs.nixpkgs-scramjet.legacyPackages.${prev.system}.scramjet;
           })
         ];
       }
