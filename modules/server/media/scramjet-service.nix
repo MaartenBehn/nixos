@@ -18,6 +18,7 @@
         pkgs.nodejs
         pkgs.pnpm
         pkgs.pnpmConfigHook
+        pkgs.cargo
       ];
 
       pnpmDeps = pkgs.pnpm.fetchDeps {
