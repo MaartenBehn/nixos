@@ -14,8 +14,9 @@
       };
 
       postUnpack = ''
-        # Generate Cargo.lock dynamically before cargoVendorDir is evaluated
-        eval "$cargoBuildHook"
+        pushd "$sourceRoot"
+        ${pkgs.cargo}/bin/cargo generate-lockfile
+        popd
       '';
 
       cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fakeHash or correct hash
