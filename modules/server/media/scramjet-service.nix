@@ -67,6 +67,11 @@
         exec cargo "$@"
         EOF
         chmod +x bin-wrappers/cargo
+
+        substituteInPlace packages/core/rewriter/wasm/build.sh \
+          --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="$(wasm-bindgen -V)"'
+          --replace-fail '-Z build-std=panic_abort,std' "" \
+          --replace-fail '-Z build-std-features=''${STD_FEATURES}' ""
       '';
 
       buildPhase = ''
@@ -74,9 +79,7 @@
 
         export PATH="$(pwd)/bin-wrappers:$PATH"
 
-        substituteInPlace packages/core/rewriter/wasm/build.sh \
-          --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="wasm-bindgen 0.2.108"'
-
+        
         export RELEASE=1
 
         pnpm --filter ./packages/core rewriter:build
