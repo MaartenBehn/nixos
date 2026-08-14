@@ -11,7 +11,7 @@
         repo = "scramjet";
         rev = version;
         fetchSubmodules = true;
-        hash = ""; 
+        hash = "sha256-oZeFxhoTfv5fj2IcWO/AG4UdrVroJXjWacflhF0ytdo="; 
       };
 
       nativeBuildInputs = [
