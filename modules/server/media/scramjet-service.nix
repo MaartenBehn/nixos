@@ -2,6 +2,19 @@
   flake.modules.nixos.core = { config, lib, pkgs, ... }: with lib; let
     cfg = config.services.scramjet;
 
+    wasm-bindgen-cli_105 = pkgs.wasm-bindgen-cli.overrideAttrs (old: rec {
+      version = "0.2.105";
+      src = pkgs.fetchCrate {
+        pname = "wasm-bindgen-cli";
+        inherit version;
+        hash = "sha256-1111111111111111111111111111111111111111111=";
+      };
+      cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+        inherit src;
+        hash = "sha256-2222222222222222222222222222222222222222222=";
+      };
+    });
+
     scramjetPackage = pkgs.stdenv.mkDerivation rec {
       pname = "scramjet";
       version = "v2.0.67-alpha.2";
@@ -14,11 +27,19 @@
         hash = "sha256-oZeFxhoTfv5fj2IcWO/AG4UdrVroJXjWacflhF0ytdo="; 
       };
 
-      nativeBuildInputs = [
-        pkgs.nodejs
-        pkgs.pnpm
-        pkgs.pnpmConfigHook
-        pkgs.cargo
+      nativeBuildInputs = with pkgs; [
+        nodejs
+        pnpm
+        pnpmConfigHook
+        rustc
+        cargo
+        rust-analyzer
+        wasm-bindgen-cli_105
+        binaryen
+        wasm-snip
+        bash
+        git
+        sed
       ];
 
       pnpmDeps = pkgs.pnpm.fetchDeps {
