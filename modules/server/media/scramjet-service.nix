@@ -64,7 +64,7 @@
         if [ "$1" = "+nightly" ]; then
         shift
         fi
-        exec ${pkgs.cargo}/bin/cargo "\$@"
+        exec ${pkgs.cargo}/bin/cargo "$@"
         EOF
         chmod +x bin-wrappers/cargo
 
