@@ -21,6 +21,11 @@
               description = "To set other locations as services.nginx.virtualHosts.*.locations";
               default = {};
             };
+
+            local_self_signed = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+            }; 
           };
         });
       };
@@ -45,7 +50,8 @@
           name = "${sub_domain}.${domain}";
           value = {
             enableACME = !local;
-            forceSSL   = !local;
+            forceSSL   = !local || svc.local_self_signed;
+            useACMEHost = lib.mkIf (local && svc.local_self_signed) "${domain}.local";
 
             listenAddresses = lib.mkIf local [ "10.1.0.2" ];
 
@@ -54,6 +60,16 @@
             } // svc.locations;
 
             serverAliases = [ "www.${sub_domain}.${domain}" ];
+          };
+        };
+
+      make_self_sign_cert = sub_domain: domain:
+        let svc = get_webservice sub_domain;
+          local = is_domain_local domain;
+        in {
+          name = "${sub_domain}.${domain}";
+          value = {
+            selfSigned = lib.mkIf (local && svc.local_self_signed) true; 
           };
         };
     in {
@@ -65,6 +81,13 @@
         )
       );
 
+      security.acme.certs = builtins.listToAttrs (
+        lib.lists.flatten (
+          builtins.map (sub_domain:
+            builtins.map (make_self_sign_cert sub_domain) (get_domains sub_domain)
+          ) (builtins.attrNames config.web_services)
+        )
+      );
     };
   };
 }

@@ -44,6 +44,7 @@
       root = {
         proxyPass = "http://192.168.15.1:4141/"; 
       };
+      local_self_signed = true;
     };
 
     web_services."wisp" = {
@@ -51,6 +52,7 @@
       root = {
         proxyPass = "http://192.168.15.1:4142/"; 
       };
+      local_self_signed = true;
     };
   };
 }
