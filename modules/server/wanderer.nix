@@ -2,29 +2,50 @@
   flake.modules.nixos.server = {config, ... }: {
 
     imports = [
-      inputs.wanderer.nixosModules.default
+      "${inputs.nixpkgs-wanderer}/nixos/modules/services/web-apps/wanderer.nix"
+
+      {
+        nixpkgs.overlays = [
+          (final: prev: {
+            wanderer = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.wanderer;
+            wanderer-db = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.wanderer-db;
+          })
+        ];
+      }
     ];
+
+    sops = { 
+      secrets = {
+        "meili_master_key" = { mode = "0444"; };
+        "wanderer_pb_encryption_key" = { mode = "0444"; };
+      };
+
+      templates."wanderer.env" = {
+        owner = "wanderer";
+        group = "wanderer";
+        content = ''
+          MEILI_MASTER_KEY=${config.sops.placeholder."meili_master_key"}
+          POCKETBASE_ENCRYPTION_KEY=${config.sops.placeholder."wanderer_pb_encryption_key"}
+        '';
+      };
+    };
     
     services.wanderer = {
       enable = true;
       port = 8003;
       origin = "https://wanderer.stroby.org";
-      data_dir = "/var/lib/wanderer";
+      dataDir = "/var/lib/wanderer";
+      environmentFile = config.sops.templates."wanderer.env".path;
 
       pocketbase = {
         port = 8004;
-        public_url = "http://wanderer-db.local";
+        publicUrl = "http://wanderer-db.local";
       };
 
       meilisearch = {
         enable = true;
         port = 7700;
-      };
-
-      sops = {
-        enable = true;
-        meili_key_field = "meili_master_key";
-        pocketbase_encryption_key_field = "wanderer_pb_encryption_key";
+        masterKeyFile = config.sops.secrets."meili_master_key".path; 
       };
     };
 

@@ -107,10 +107,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wanderer = { 
-      url = "github:MaartenBehn/wanderer-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs-wanderer.url = "github:MaartenBehn/nixpkgs/add-wanderer";
   };
   
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
