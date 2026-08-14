@@ -84,18 +84,12 @@
         } // cfg.environment;
 
         serviceConfig = {
-          # Depending on how their package.json is structured:
-          # If they define a "bin" field in package.json, Nix will create an executable:
-          # ExecStart = "${cfg.package}/bin/scramjet";
-          #
-          # If they don't, you must call node directly on the built index file:
           ExecStart = "${pkgs.nodejs}/bin/node ${cfg.package}/lib/node_modules/scramjet/dist/index.js";
 
           Restart = "always";
           RestartSec = "5s";
 
-          # --- Security Hardening (Optional but highly recommended) ---
-          DynamicUser = true; # Automatically creates a secure, temporary user
+          DynamicUser = true;           
           NoNewPrivileges = true;
           ProtectSystem = "strict";
           ProtectHome = true;
