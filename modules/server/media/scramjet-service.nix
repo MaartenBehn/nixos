@@ -59,6 +59,18 @@
       buildPhase = ''
         runHook preBuild
 
+        # Intercept `cargo +nightly` wrapper calls
+        mkdir -p bin-wrappers
+        cat << 'EOF' > bin-wrappers/cargo
+        #!/usr/bin/env bash
+        if [ "$1" = "+nightly" ]; then
+        shift
+        fi
+        exec cargo "$@"
+        EOF
+        chmod +x bin-wrappers/cargo
+
+
         substituteInPlace packages/core/rewriter/wasm/build.sh \
           --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="wasm-bindgen 0.2.108"'
 
