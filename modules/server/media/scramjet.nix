@@ -2,7 +2,7 @@
   flake.modules.nixos.server = {
 
     imports = [
-      "${inputs.nixpkgs-wanderer}/nixos/modules/services/web-apps/scramjet.nix"
+      "${inputs.nixpkgs-scramjet}/nixos/modules/services/web-apps/scramjet.nix"
       {
         nixpkgs.overlays = [
           (final: prev: {
