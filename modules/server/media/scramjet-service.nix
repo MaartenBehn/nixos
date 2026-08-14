@@ -2,6 +2,20 @@
   flake.modules.nixos.core = { config, lib, pkgs, ... }: with lib; let
     cfg = config.services.scramjet;
 
+    wasm-snip = pkgs.rustPlatform.buildRustPackage rec {
+      pname = "wasm-snip";
+      version = "0.4.0"; # Adjust if needed
+
+      src = fetchFromGitHub {
+        owner = "r58playz";
+        repo = "wasm-snip";
+        rev = "master";
+        hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fakeHash or correct hash
+      };
+
+      cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fakeHash or correct hash
+    };
+
     wasm-bindgen-cli_105 = pkgs.wasm-bindgen-cli.overrideAttrs (old: rec {
       version = "0.2.105";
       src = pkgs.fetchCrate {
@@ -50,6 +64,18 @@
 
       buildPhase = ''
         runHook preBuild
+
+        # Fake the rustup "+nightly" wrapper so build.sh works without rustup installed
+        mkdir -p bin-wrappers
+        cat << 'EOF' > bin-wrappers/cargo
+        #!/usr/bin/env bash
+        if [ "$1" = "+nightly" ]; then
+        shift
+        fi
+        exec cargo "$@"
+        EOF
+        chmod +x bin-wrappers/cargo
+        export PATH="$(pwd)/bin-wrappers:$PATH"
 
         export RELEASE=1
 
