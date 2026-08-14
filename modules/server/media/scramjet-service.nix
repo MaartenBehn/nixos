@@ -28,6 +28,12 @@
         inherit version;
         hash = "sha256-zLPFFgnqAWq5R2KkaTGAYqVQswfBEYm9x3OPjx8DJRY=";
       };
+      
+      postUnpack = ''
+        # Generate Cargo.lock dynamically before cargoVendorDir is evaluated
+        eval "$cargoBuildHook"
+      '';
+
       cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
         inherit src;
         hash = "sha256-2222222222222222222222222222222222222222222=";
