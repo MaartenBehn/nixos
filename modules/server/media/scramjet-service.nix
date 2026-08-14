@@ -6,7 +6,7 @@
       pname = "wasm-snip";
       version = "0.4.0"; # Adjust if needed
 
-      src = fetchFromGitHub {
+      src = pkgs.fetchFromGitHub {
         owner = "r58playz";
         repo = "wasm-snip";
         rev = "master";
