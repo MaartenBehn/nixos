@@ -16,6 +16,8 @@
       enable = true;
       demoPort = 4141;
       wispPort = 4142;
+      demoHost = "0.0.0.0";
+      wispHost = "0.0.0.0";
       wispUrl = "wss://wsip.local ";    
     };
 
