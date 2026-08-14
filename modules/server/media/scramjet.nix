@@ -1,9 +1,21 @@
-{
+{ inputs, ... }: {
   flake.modules.nixos.server = {
 
+    imports = [
+      "${inputs.nixpkgs-wanderer}/nixos/modules/services/web-apps/scramjet.nix"
+      {
+        nixpkgs.overlays = [
+          (final: prev: {
+            wanderer = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.scramjet;
+          })
+        ];
+      }
+    ];
+
     services.scramjet = { 
-      enable = false;
-      port = 8055;
+      demoPort = 4141;
+      wispPort = 4142;
+      wispUrl = "wss://wsip.local";    
     };
 
     systemd.services.scramjet.vpnConfinement = {
@@ -14,8 +26,12 @@
     vpnNamespaces.mullvad = {
       portMappings = [
         { 
-          from = 8055;
-          to = 8055;
+          from = 4141;
+          to = 4141;
+        }
+        { 
+          from = 4142;
+          to = 4142;
         }
       ];
     };
@@ -23,7 +39,14 @@
     web_services."scramjet" = {
       domains = "local";
       root = {
-        proxyPass = "http://192.168.15.1:8055/"; 
+        proxyPass = "http://192.168.15.1:4141/"; 
+      };
+    };
+
+    web_services."wisp" = {
+      domains = "local";
+      root = {
+        proxyPass = "http://192.168.15.1:4142/"; 
       };
     };
   };

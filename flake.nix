@@ -108,6 +108,8 @@
     };
 
     nixpkgs-wanderer.url = "github:MaartenBehn/nixpkgs/add-wanderer";
+
+    nixpkgs-scramjet.url = "github:MaartenBehn/nixpkgs/add-wanderer";
   };
   
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
