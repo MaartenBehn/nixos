@@ -18,7 +18,7 @@
       wispPort = 4142;
       demoHost = "0.0.0.0";
       wispHost = "0.0.0.0";
-      wispUrl = "wss://scramjet.local/wisp/";    
+      wispUrl = "ws://scramjet.local/wisp/";    
     };
 
     systemd.services.scramjet.vpnConfinement = {
