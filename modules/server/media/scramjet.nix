@@ -50,7 +50,8 @@
     web_services."wisp" = {
       domains = "local";
       root = {
-        proxyPass = "http://192.168.15.1:4142/"; 
+        proxyPass = "http://192.168.15.1:4142/";
+        proxyWebsockets = true;
       };
       local_self_signed = true;
     };
