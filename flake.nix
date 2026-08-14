@@ -102,8 +102,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sparkyfitness ={ 
+    sparkyfitness = { 
       url = "github:CodeWithCJ/SparkyFitness";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wanderer = { 
+      url = "github:MaartenBehn/wanderer-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -1,14 +1,31 @@
-{
+{ inputs, ... }: {
   flake.modules.nixos.server = {config, ... }: {
+
+    imports = [
+      inputs.wanderer.nixosModules.default
+    ];
     
     services.wanderer = {
       enable = true;
       port = 8003;
-      pbPort = 8004;
       origin = "https://wanderer.stroby.org";
-      publicPbUrl = "http://wanderer-db.local";
-      dataDir = "/var/lib/wanderer";
-      meiliKeySopsField = "meili_master_key";
+      data_dir = "/var/lib/wanderer";
+
+      pocketbase = {
+        port = 8004;
+        public_url = "http://wanderer-db.local";
+      };
+
+      meilisearch = {
+        enable = true;
+        port = 7700;
+      };
+
+      sops = {
+        enable = true;
+        meili_key_field = "meili_master_key";
+        pocketbase_encryption_key_field = "wanderer_pb_encryption_key";
+      };
     };
 
     web_services."wanderer" = {
