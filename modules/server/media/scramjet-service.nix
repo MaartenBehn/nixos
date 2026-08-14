@@ -53,7 +53,6 @@
         wasm-snip
         bash
         git
-        sed
       ];
 
       pnpmDeps = pkgs.pnpm.fetchDeps {
