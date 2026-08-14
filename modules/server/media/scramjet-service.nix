@@ -13,6 +13,11 @@
         hash = "sha256-oU2R7rHgf+uMymSwLXEaHXW9Agkemi3WcUuMrTy32uk="; # Set to fakeHash or correct hash
       };
 
+      postUnpack = ''
+        # Generate Cargo.lock dynamically before cargoVendorDir is evaluated
+        eval "$cargoBuildHook"
+      '';
+
       cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fakeHash or correct hash
     };
 
