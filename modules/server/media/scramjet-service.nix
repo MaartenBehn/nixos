@@ -56,10 +56,7 @@
         hash = "sha256-Psbbx0IgaLv42bhxJcwbSXkCzbL3SM/kFd686XkbdqM=";
       };
 
-      buildPhase = ''
-        runHook preBuild
-
-        # Intercept `cargo +nightly` wrapper calls
+      postPatch = ''
         mkdir -p bin-wrappers
         cat << 'EOF' > bin-wrappers/cargo
         #!/usr/bin/env bash
@@ -69,7 +66,12 @@
         exec cargo "$@"
         EOF
         chmod +x bin-wrappers/cargo
+      '';
 
+      buildPhase = ''
+        runHook preBuild
+
+        export PATH="$(pwd)/bin-wrappers:$PATH"
 
         substituteInPlace packages/core/rewriter/wasm/build.sh \
           --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="wasm-bindgen 0.2.108"'
