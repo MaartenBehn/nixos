@@ -4,7 +4,7 @@
 
     scramjetPackage = pkgs.stdenv.mkDerivation rec {
       pname = "scramjet";
-      version = "2.0.67-alpha.2";
+      version = "v2.0.67-alpha.2";
 
       src = pkgs.fetchFromGitHub {
         owner = "MercuryWorkshop";
