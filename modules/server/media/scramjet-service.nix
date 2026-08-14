@@ -46,6 +46,8 @@
         binaryen
         wasm-snip
         bash
+        which
+        gnused
       ];
 
       pnpmDeps = pkgs.pnpm.fetchDeps {
