@@ -60,7 +60,7 @@
       postPatch = ''
         mkdir -p bin-wrappers
         cat << 'EOF' > bin-wrappers/cargo
-        #!/usr/bin/env bash
+        #!${pkgs.bash}/bin/bash        
         if [ "$1" = "+nightly" ]; then
         shift
         fi
