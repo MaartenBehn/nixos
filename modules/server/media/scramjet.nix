@@ -20,7 +20,7 @@
       ];
     };
 
-    web_services."sonarr" = {
+    web_services."scramjet" = {
       domains = "local";
       root = {
         proxyPass = "http://192.168.15.1:8055/"; 
