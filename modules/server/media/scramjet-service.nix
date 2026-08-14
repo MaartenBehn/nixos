@@ -52,7 +52,6 @@
         binaryen
         wasm-snip
         bash
-        git
       ];
 
       pnpmDeps = pkgs.pnpm.fetchDeps {
