@@ -57,7 +57,7 @@
         pnpm
         pnpmConfigHook
         cargo
-        wasm-bindgen-cli_105
+        wasm-bindgen-cli
         binaryen
         wasm-snip
         bash
