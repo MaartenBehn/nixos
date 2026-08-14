@@ -21,7 +21,7 @@
       src = pkgs.fetchCrate {
         pname = "wasm-bindgen-cli";
         inherit version;
-        hash = "sha256-1111111111111111111111111111111111111111111=";
+        hash = "sha256-zLPFFgnqAWq5R2KkaTGAYqVQswfBEYm9x3OPjx8DJRY=";
       };
       cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
         inherit src;
@@ -45,9 +45,7 @@
         nodejs
         pnpm
         pnpmConfigHook
-        rustc
         cargo
-        rust-analyzer
         wasm-bindgen-cli_105
         binaryen
         wasm-snip
