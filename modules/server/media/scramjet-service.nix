@@ -9,7 +9,7 @@
         inherit version;
         hash = "sha256-1111111111111111111111111111111111111111111=";
       };
-      cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
         inherit src;
         hash = "sha256-2222222222222222222222222222222222222222222=";
       };
