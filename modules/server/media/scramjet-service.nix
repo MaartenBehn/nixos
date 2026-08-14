@@ -76,8 +76,7 @@
         runHook preBuild
 
         export PATH="$(pwd)/bin-wrappers:$PATH"
-
-        
+        export RUSTC_BOOTSTRAP=1
         export RELEASE=1
 
         pnpm --filter ./packages/core rewriter:build
