@@ -13,11 +13,9 @@
         hash = "sha256-oU2R7rHgf+uMymSwLXEaHXW9Agkemi3WcUuMrTy32uk=";
       };
 
-      postUnpack = ''
-        pushd "$sourceRoot"
-        ${pkgs.cargo}/bin/cargo generate-lockfile
-        popd
-      '';
+      cargoLock = {
+        lockFile = ./_wasm-snip-cargo.lock;
+      };
 
       cargoHash = "sha256-zcJ57hw1ZiAdIa4rhpbJq1vtlKgEtViTiiG2a57t/3w=";
     };
