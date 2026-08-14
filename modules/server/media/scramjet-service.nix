@@ -59,7 +59,8 @@
       buildPhase = ''
         runHook preBuild
 
-        echo $PATH
+        substituteInPlace packages/core/rewriter/wasm/build.sh \
+          --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="wasm-bindgen 0.2.108"'
 
         export RELEASE=1
 
