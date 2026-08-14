@@ -42,7 +42,7 @@
         pnpm
         pnpmConfigHook
         cargo
-        wasm-bindgen
+        wasm-bindgen-cli
         binaryen
         wasm-snip
         bash
@@ -58,18 +58,6 @@
         runHook preBuild
 
         echo $PATH
-
-        # Fake the rustup "+nightly" wrapper so build.sh works without rustup installed
-        mkdir -p bin-wrappers
-        cat << 'EOF' > bin-wrappers/cargo
-        #!/usr/bin/env bash
-        if [ "$1" = "+nightly" ]; then
-        shift
-        fi
-        exec cargo "$@"
-        EOF
-        chmod +x bin-wrappers/cargo
-        export PATH="$(pwd)/bin-wrappers:$PATH"
 
         export RELEASE=1
 
