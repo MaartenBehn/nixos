@@ -64,14 +64,12 @@
         if [ "$1" = "+nightly" ]; then
         shift
         fi
-        exec cargo "$@"
+        exec ${pkgs.cargo}/bin/cargo "\$@"
         EOF
         chmod +x bin-wrappers/cargo
 
         substituteInPlace packages/core/rewriter/wasm/build.sh \
           --replace-fail 'WBG="wasm-bindgen 0.2.105"' 'WBG="$(wasm-bindgen -V)"'
-          --replace-fail '-Z build-std=panic_abort,std' "" \
-          --replace-fail '-Z build-std-features=''${STD_FEATURES}' ""
       '';
 
       buildPhase = ''
