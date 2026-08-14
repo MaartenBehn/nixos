@@ -18,7 +18,7 @@
       wispPort = 4142;
       demoHost = "0.0.0.0";
       wispHost = "0.0.0.0";
-      wispUrl = "ws://scramjet.local/wisp/";    
+      wispUrl = "wss://scramjet.local/wisp/";    
     };
 
     systemd.services.scramjet.vpnConfinement = {
@@ -45,7 +45,7 @@
         proxyPass = "http://192.168.15.1:4141/"; 
       };
 
-      locations."/wisp/*" = {
+      locations."/wisp/" = {
         proxyPass = "http://192.168.15.1:4142/"; 
         proxyWebsockets = true;
       };
