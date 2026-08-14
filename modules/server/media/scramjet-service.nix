@@ -42,6 +42,8 @@
         pnpm
         pnpmConfigHook
         cargo
+        rustc
+        rust-std-wasm32
         wasm-bindgen-cli
         binaryen
         wasm-snip
