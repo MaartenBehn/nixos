@@ -51,6 +51,8 @@
       buildPhase = ''
         runHook preBuild
 
+        export RELEASE=1
+
         pnpm --filter ./packages/core rewriter:build
         pnpm --filter ./packages/core build
 
