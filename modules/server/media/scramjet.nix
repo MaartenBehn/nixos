@@ -13,6 +13,7 @@
     ];
 
     services.scramjet = { 
+      enable = true;
       demoPort = 4141;
       wispPort = 4142;
       wispUrl = "wss://wsip.local ";    
