@@ -49,9 +49,8 @@
         in {
           name = "${sub_domain}.${domain}";
           value = {
-            enableACME = !local;
+            enableACME = !local || svc.local_self_signed;
             forceSSL   = !local || svc.local_self_signed;
-            useACMEHost = lib.mkIf (local && svc.local_self_signed) "${domain}.local";
 
             listenAddresses = lib.mkIf local [ "10.1.0.2" ];
 
@@ -62,29 +61,11 @@
             serverAliases = [ "www.${sub_domain}.${domain}" ];
           };
         };
-
-      make_self_sign_cert = sub_domain: domain:
-        let svc = get_webservice sub_domain;
-          local = is_domain_local domain;
-        in {
-          name = "${sub_domain}.${domain}";
-          value = {
-            selfSigned = lib.mkIf (local && svc.local_self_signed) true; 
-          };
-        };
     in {
       services.nginx.virtualHosts = builtins.listToAttrs (
         lib.lists.flatten (
           builtins.map (sub_domain:
             builtins.map (make_vhost sub_domain) (get_domains sub_domain)
-          ) (builtins.attrNames config.web_services)
-        )
-      );
-
-      security.acme.certs = builtins.listToAttrs (
-        lib.lists.flatten (
-          builtins.map (sub_domain:
-            builtins.map (make_self_sign_cert sub_domain) (get_domains sub_domain)
           ) (builtins.attrNames config.web_services)
         )
       );
