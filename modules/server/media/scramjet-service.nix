@@ -10,7 +10,7 @@
         owner = "r58playz";
         repo = "wasm-snip";
         rev = "master";
-        hash = "sha256-oU2R7rHgf+uMymSwLXEaHXW9Agkemi3WcUuMrTy32uk="; # Set to fakeHash or correct hash
+        hash = "sha256-oU2R7rHgf+uMymSwLXEaHXW9Agkemi3WcUuMrTy32uk=";
       };
 
       postUnpack = ''
@@ -19,7 +19,7 @@
         popd
       '';
 
-      cargoHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Set to fakeHash or correct hash
+      cargoHash = "sha256-zcJ57hw1ZiAdIa4rhpbJq1vtlKgEtViTiiG2a57t/3w=";
     };
 
     wasm-bindgen-cli_105 = pkgs.wasm-bindgen-cli.overrideAttrs (old: rec {
