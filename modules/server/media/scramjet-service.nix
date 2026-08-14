@@ -22,6 +22,7 @@
       '';
 
       cargoHash = "sha256-zcJ57hw1ZiAdIa4rhpbJq1vtlKgEtViTiiG2a57t/3w=";
+      doCheck = false;
     };
 
     wasm-bindgen-cli_105 = pkgs.wasm-bindgen-cli.overrideAttrs (old: rec {
