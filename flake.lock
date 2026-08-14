@@ -1437,6 +1437,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-scramjet": {
+      "locked": {
+        "lastModified": 1786737497,
+        "narHash": "sha256-I0Crzm5gIHBPrZ0/inKDnsZhCHmnUfIQWeSY8+PXRZM=",
+        "owner": "MaartenBehn",
+        "repo": "nixpkgs",
+        "rev": "4ec568d6e8cae4921751a8c024a21ec928265162",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MaartenBehn",
+        "ref": "add-scramjet",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1741992157,
@@ -1961,6 +1977,7 @@
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-2405": "nixpkgs-2405",
         "nixpkgs-2505": "nixpkgs-2505",
+        "nixpkgs-scramjet": "nixpkgs-scramjet",
         "nixpkgs-unstable": "nixpkgs-unstable_2",
         "nixpkgs-wanderer": "nixpkgs-wanderer",
         "nixvim": "nixvim",
