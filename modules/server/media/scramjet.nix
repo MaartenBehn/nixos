@@ -1,6 +1,7 @@
 { inputs, ... }: {
   flake.modules.nixos.server = {
 
+    /*
     imports = [
       "${inputs.nixpkgs-scramjet}/nixos/modules/services/web-apps/scramjet.nix"
       {
@@ -52,6 +53,7 @@
 
       local_self_signed = true;
     };
+    */
   };
 }
 
