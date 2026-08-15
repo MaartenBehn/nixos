@@ -11,10 +11,6 @@
       no-dtls = true;
       extraConfig = ''
         user=nekouser:nekopass
-        listening-ip=10.1.0.2
-        listening-ip=10.2.0.1
-        relay-ip=10.1.0.2
-        relay-ip=10.2.0.1
       '';
     };
 
