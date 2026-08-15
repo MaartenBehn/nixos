@@ -12,14 +12,10 @@
           NEKO_ICELITE = "1";
         };
 
-        ports = [
-          "127.0.0.1:8044:8044"
-          "127.0.0.1:52000-52100:52000-52100/udp"
-        ];
-
         extraOptions = [
           "--shm-size=2g"
           "--cap-add=SYS_ADMIN"
+          "--network=host"
         ];
       };
 
