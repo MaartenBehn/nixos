@@ -1,6 +1,5 @@
 {
   flake.modules.nixos.server = { config, lib, pkgs, ... }: {
-
     services.coturn = {
       enable = true;
       realm = "neko.local";
@@ -12,7 +11,6 @@
       no-dtls = true;
       extraConfig = ''
         user=nekouser:nekopass
-        # bind on all interfaces so it's reachable both from your LAN and from inside the netns
       '';
     };
 
@@ -21,7 +19,7 @@
     networking.firewall.allowedUDPPortRanges = [
       { from = 49152; to = 49252; }
     ];
- 
+
     virtualisation.oci-containers.containers.neko = {
       image = "m1k1o/neko:firefox";
       autoStart = true;
@@ -29,20 +27,16 @@
         NEKO_DESKTOP_SCREEN = "1920x1080@30";
         NEKO_MEMBER_PROVIDER = "noauth";
         NEKO_WEBRTC_EPR = "52000-52100";
-        NEKO_WEBRTC_ICELITE = "1";
+        NEKO_WEBRTC_ICELITE = "0";
         NEKO_SERVER_BIND = "192.168.15.1:8044";
         NEKO_SERVER_PROXY = "true";
-        # Point clients at the host's real, reachable IP for the TURN relay.
-        # Replace with whatever address your Neko clients can actually route to.
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
-          {
-            urls = [ "turn:192.168.0.117:3478" ];
-            username = "nekouser";
-            credential = "nekopass";
-          }
+          { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
+        ];
+        NEKO_WEBRTC_ICESERVERS_BACKEND = builtins.toJSON [
+          { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];
       };
-      #environmentFiles = [ config.sops.secrets.neko-env.path ];
       extraOptions = [
         "--shm-size=2g"
         "--cap-add=SYS_ADMIN"
