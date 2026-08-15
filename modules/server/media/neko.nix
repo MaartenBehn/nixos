@@ -38,7 +38,7 @@
         # Replace with whatever address your Neko clients can actually route to.
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
           {
-            urls = [ "turn:neko.stroby.org/turn/" ];
+            urls = [ "turn:neko.local:3478" ];
             username = "nekouser";
             credential = "nekopass";
           }
@@ -62,14 +62,9 @@
     ] ++ (lib.range 52000 52100 |> map (p: { from = p; to = p; protocol = "udp"; }));
 
     web_services."neko" = {
-      domains = "all";
+      domains = "local";
       root = {
         proxyPass = "http://192.168.15.1:8044/";
-        proxyWebsockets = true;
-      };
-
-      locations."/turn/" = {
-        proxyPass = "http://127.0.0.1:3478/"; 
         proxyWebsockets = true;
       };
     };
