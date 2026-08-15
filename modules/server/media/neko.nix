@@ -10,6 +10,7 @@
           NEKO_PASSWORD_ADMIN = "changeme-admin-password";
           NEKO_EPR = "52000-52100"; # WebRTC UDP port range
           NEKO_ICELITE = "1";
+          NEKO_SERVER_BIND = ":8044";
         };
 
         extraOptions = [
