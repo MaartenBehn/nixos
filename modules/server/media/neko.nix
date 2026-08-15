@@ -66,6 +66,7 @@
       };
     };
 
+    /*
     virtualisation.oci-containers.containers.neko-public = {
       image = "m1k1o/neko:firefox";
       autoStart = true;
@@ -101,5 +102,6 @@
         proxyWebsockets = true;
       };
     };
+    */
   };
 }
