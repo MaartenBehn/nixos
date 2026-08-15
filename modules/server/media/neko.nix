@@ -1,27 +1,56 @@
 {
   flake.modules.nixos.server = { config, lib, pkgs, ... }: {
-      virtualisation.oci-containers.containers.neko = {
-        image = "m1k1o/neko:firefox";
-        autoStart = true;
 
-        environment = {
-          NEKO_SCREEN = "1920x1080@30";
-          NEKO_PASSWORD = "";
-          NEKO_PASSWORD_ADMIN = "";
-          NEKO_MEMBER_PROVIDER="noauth";
-          NEKO_EPR = "52000-52100";
-          NEKO_ICELITE = "1";
-          NEKO_SERVER_BIND = "192.168.15.1:8044";
-          NEKO_SERVER_PROXY = "true";
-          NEKO_WEBRTC_NAT1TO1 = "192.168.15.1";
-        };
+    # --- coturn: runs on normal host network, NOT VPN-confined ---
+    services.coturn = {
+      enable = true;
+      realm = "neko.local";
+      listening-port = 3478;
+      min-port = 49152;
+      max-port = 49252;
+      no-cli = true;
+      no-tls = true;
+      no-dtls = true;
+      extraConfig = ''
+        user=nekouser:nekopass
+        # bind on all interfaces so it's reachable both from your LAN and from inside the netns
+      '';
+    };
 
-        extraOptions = [
-          "--shm-size=2g"
-          "--cap-add=SYS_ADMIN"
-          "--network=host"
+    networking.firewall.allowedTCPPorts = [ 3478 ];
+    networking.firewall.allowedUDPPorts = [ 3478 ];
+    networking.firewall.allowedUDPPortRanges = [
+      { from = 49152; to = 49252; }
+    ];
+
+    # --- Neko: still confined to Mullvad netns, connects OUT to coturn on the host ---
+    virtualisation.oci-containers.containers.neko = {
+      image = "m1k1o/neko:firefox";
+      autoStart = true;
+      environment = {
+        NEKO_DESKTOP_SCREEN = "1920x1080@30";
+        NEKO_MEMBER_PROVIDER = "multiuser";
+        NEKO_WEBRTC_EPR = "52000-52100";
+        NEKO_WEBRTC_ICELITE = "1";
+        NEKO_SERVER_BIND = "192.168.15.1:8044";
+        NEKO_SERVER_PROXY = "true";
+        # Point clients at the host's real, reachable IP for the TURN relay.
+        # Replace with whatever address your Neko clients can actually route to.
+        NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
+          {
+            urls = [ "turn:YOUR_HOST_LAN_IP:3478" ];
+            username = "nekouser";
+            credential = "nekopass";
+          }
         ];
       };
+      environmentFiles = [ config.sops.secrets.neko-env.path ];
+      extraOptions = [
+        "--shm-size=2g"
+        "--cap-add=SYS_ADMIN"
+        "--network=host"
+      ];
+    };
 
     systemd.services."podman-neko".vpnConfinement = {
       enable = true;
@@ -35,12 +64,8 @@
     web_services."neko" = {
       domains = "local";
       root = {
-        proxyPass = "http://192.168.15.1:8044/"; 
+        proxyPass = "http://192.168.15.1:8044/";
         proxyWebsockets = true;
-        extraConfig = ''
-          proxy_read_timeout 180s;
-          proxy_send_timeout 180s;
-        '';
       };
     };
   };
