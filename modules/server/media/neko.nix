@@ -76,7 +76,7 @@
         NEKO_MEMBER_MULTIUSER_USER_PASSWORD="neko";
         NEKO_WEBRTC_EPR = "52100-52200";
         NEKO_WEBRTC_ICELITE = "0";
-        NEKO_SERVER_BIND = "127.0.0.1:8044";
+        NEKO_SERVER_BIND = "127.0.0.1:8045";
         NEKO_SERVER_PROXY = "true";
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
           { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
@@ -97,7 +97,7 @@
     web_services."neko-public" = {
       domains = "local";
       root = {
-        proxyPass = "http://127.0.0.1:8044/";
+        proxyPass = "http://127.0.0.1:8045/";
         proxyWebsockets = true;
       };
     };
