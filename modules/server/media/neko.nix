@@ -32,11 +32,11 @@
         NEKO_SERVER_PROXY = "true";
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
           { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
+          { urls = [ "turn:10.1.0.2:3478" ]; username = "nekouser"; credential = "nekopass"; }
           { urls = [ "turn:10.2.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];
         NEKO_WEBRTC_ICESERVERS_BACKEND = builtins.toJSON [
-          { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
-          { urls = [ "turn:10.2.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
+          { urls = [ "turn:127.0.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];      
       };
       extraOptions = [
