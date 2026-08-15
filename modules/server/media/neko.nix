@@ -11,7 +11,6 @@
       no-dtls = true;
       extraConfig = ''
         user=nekouser:nekopass
-        listening-ip=127.0.0.1
         listening-ip=192.168.0.117
         listening-ip=10.1.0.2
         listening-ip=10.2.0.1
@@ -40,7 +39,7 @@
           { urls = [ "turn:10.2.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];
         NEKO_WEBRTC_ICESERVERS_BACKEND = builtins.toJSON [
-          { urls = [ "turn:127.0.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
+          { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];      
       };
       extraOptions = [
