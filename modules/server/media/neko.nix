@@ -1,7 +1,6 @@
 {
   flake.modules.nixos.server = { config, lib, pkgs, ... }: {
 
-    # --- coturn: runs on normal host network, NOT VPN-confined ---
     services.coturn = {
       enable = true;
       realm = "neko.local";
@@ -23,13 +22,14 @@
       { from = 49152; to = 49252; }
     ];
 
+    
     # --- Neko: still confined to Mullvad netns, connects OUT to coturn on the host ---
     virtualisation.oci-containers.containers.neko = {
       image = "m1k1o/neko:firefox";
       autoStart = true;
       environment = {
         NEKO_DESKTOP_SCREEN = "1920x1080@30";
-        NEKO_MEMBER_PROVIDER = "multiuser";
+        NEKO_MEMBER_PROVIDER = "noauth";
         NEKO_WEBRTC_EPR = "52000-52100";
         NEKO_WEBRTC_ICELITE = "1";
         NEKO_SERVER_BIND = "192.168.15.1:8044";
@@ -38,13 +38,13 @@
         # Replace with whatever address your Neko clients can actually route to.
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
           {
-            urls = [ "turn:YOUR_HOST_LAN_IP:3478" ];
+            urls = [ "turn:neko.stroby.org/turn/" ];
             username = "nekouser";
             credential = "nekopass";
           }
         ];
       };
-      environmentFiles = [ config.sops.secrets.neko-env.path ];
+      #environmentFiles = [ config.sops.secrets.neko-env.path ];
       extraOptions = [
         "--shm-size=2g"
         "--cap-add=SYS_ADMIN"
@@ -62,9 +62,14 @@
     ] ++ (lib.range 52000 52100 |> map (p: { from = p; to = p; protocol = "udp"; }));
 
     web_services."neko" = {
-      domains = "local";
+      domains = "all";
       root = {
         proxyPass = "http://192.168.15.1:8044/";
+        proxyWebsockets = true;
+      };
+
+      locations."/turn/" = {
+        proxyPass = "http://127.0.0.1:3478/"; 
         proxyWebsockets = true;
       };
     };
