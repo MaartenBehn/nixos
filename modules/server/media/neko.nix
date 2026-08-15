@@ -21,9 +21,7 @@
     networking.firewall.allowedUDPPortRanges = [
       { from = 49152; to = 49252; }
     ];
-
-    
-    # --- Neko: still confined to Mullvad netns, connects OUT to coturn on the host ---
+ 
     virtualisation.oci-containers.containers.neko = {
       image = "m1k1o/neko:firefox";
       autoStart = true;
@@ -38,7 +36,7 @@
         # Replace with whatever address your Neko clients can actually route to.
         NEKO_WEBRTC_ICESERVERS_FRONTEND = builtins.toJSON [
           {
-            urls = [ "turn:neko.local:3478" ];
+            urls = [ "turn:192.168.0.117:3478" ];
             username = "nekouser";
             credential = "nekopass";
           }
