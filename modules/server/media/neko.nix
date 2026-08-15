@@ -32,7 +32,7 @@
       { from = 8044; to = 8044; }
     ] ++ (lib.range 52000 52100 |> map (p: { from = p; to = p; protocol = "udp"; }));
 
-    web_services."nenko" = {
+    web_services."neko" = {
       domains = "local";
       root = {
         proxyPass = "http://192.168.15.1:8044/"; 
