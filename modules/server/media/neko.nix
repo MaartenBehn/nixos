@@ -36,6 +36,7 @@
         proxyPass = "http://192.168.15.1:8044/"; 
         proxyWebsockets = true;
         extraConfig = ''
+          proxy_set_header Host $host;
           proxy_read_timeout 180s;
           proxy_send_timeout 180s;
         '';
