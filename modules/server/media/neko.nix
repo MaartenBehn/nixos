@@ -8,6 +8,7 @@
           NEKO_SCREEN = "1920x1080@30";
           NEKO_PASSWORD = "";
           NEKO_PASSWORD_ADMIN = "";
+          NEKO_MEMBER_PROVIDER="noauth";
           NEKO_EPR = "52000-52100";
           NEKO_ICELITE = "1";
           NEKO_SERVER_BIND = "192.168.15.1:8044";
