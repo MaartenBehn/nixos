@@ -41,12 +41,12 @@
         NEKO_WEBRTC_ICESERVERS_BACKEND = builtins.toJSON [
           { urls = [ "turn:192.168.0.117:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];     
-        NEKO_FILETRANSFER_ENABLED = true;
+        NEKO_FILETRANSFER_ENABLED = "true";
         NEKO_FILETRANSFER_DIR = "/home/neko/Downloads";
         NEKO_FILETRANSFER_REFRESH_INTERVAL = "30s";
-        NEKO_FILETRANSFER_USER_DOWNLOAD = true;
-        NEKO_FILETRANSFER_USER_UPLOAD = true;
-        NEKO_FILETRANSFER_USER_DELETE = true;
+        NEKO_FILETRANSFER_USER_DOWNLOAD = "true";
+        NEKO_FILETRANSFER_USER_UPLOAD = "true";
+        NEKO_FILETRANSFER_USER_DELETE = "true";
       };
       extraOptions = [
         "--shm-size=2g"
