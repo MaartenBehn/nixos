@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { config, ... }: {
+  flake.modules.nixos.server = { config, lib, ... }: {
     services.dnsmasq = {
       enable = true;
       settings = {
@@ -14,7 +14,7 @@
         local = map (domain: "/${domain}/") config.domains.local;
 
         # Resolve *.{domain} → VPN IP for every local domain
-        address = map (domain: "/.${domain}/10.1.0.2") config.domains.all;
+        address = lib.flatten (map (domain: [ "/.${domain}/10.1.0.2" "/.${domain}/10.2.0.1" ]) config.domains.all);
       };
     };
 
