@@ -5,6 +5,7 @@
       port = 5055;
     };
 
+    /*
     systemd.services.jellyseerr.vpnConfinement = {
       enable = true;
       vpnNamespace = "mullvad";
@@ -18,11 +19,12 @@
         }
       ];
     };
+    */
 
     web_services."seerr" = {
       domains = "local";
       root = {
-        proxyPass = "http://192.168.15.1:5055/"; 
+        proxyPass = "http://127.0.0.1:5055/"; 
       };
     };
   };
