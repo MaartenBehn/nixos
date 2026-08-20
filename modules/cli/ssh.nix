@@ -18,6 +18,11 @@
         user = "stroby";
       };
 
+      asus-private = {
+        hostname = "10.1.0.2"; 
+        user = "stroby";
+      };
+
       proxy = {
         hostname = "138.199.203.38";
         user = "root";
