@@ -131,7 +131,14 @@
         #  exit
         #fi
 
-        set-layout $(current-layout)
+        l = $(current-layout)
+
+        if [[ $l != "extend" ]]; then 
+          set-layout $l
+          exit 
+        fi
+
+        set-layout "home"
       '';
 
       initial_layout = get_layout config.layouts.initial;

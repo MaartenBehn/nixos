@@ -27,7 +27,7 @@
       #obs-studio
 
       #spotify
-      #signal-desktop
+      signal-desktop
       #obs-studio
       #telegram-desktop
       discord
