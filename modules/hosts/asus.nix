@@ -1,4 +1,8 @@
 { self, ... }: {
+  flake.modules.nixos.laptop = { modulesPath, lib, config, ... }: {
+    system = throw "Past in hardware config!";
+  };
+
   hosts.stroby-asus = {
     nixos.imports = with self.modules.nixos; [
       keep_on_with_closed_lid
