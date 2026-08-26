@@ -26,7 +26,7 @@
       private_local = {  
         privateKeyFile = config.sops.secrets."wireguard/private_local/laptop/private_key".path;
         address = [ "10.2.0.2/24" "fd00:12::2/64" ];
-        dns = [ "10.2.0.1" "fd00:12::1" ];
+        dns = [ "10.1.0.2" "fd00:11::2" ];
 
         peers = [
           {
