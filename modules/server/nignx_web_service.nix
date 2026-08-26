@@ -52,7 +52,7 @@
             enableACME = !local || svc.local_self_signed;
             forceSSL   = !local || svc.local_self_signed;
 
-            listenAddresses = lib.mkIf local [ "10.1.0.2" "10.2.0.1" "fd00:11::2" "fd00:12::1" ];
+            listenAddresses = lib.mkIf local [ "10.1.0.2" "10.2.0.1" "[fd00:11::2]" "[fd00:12::1]" ];
 
             locations = {
               "/" = svc.root;
