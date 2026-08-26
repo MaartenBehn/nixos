@@ -5,7 +5,7 @@
       settings = {
         interface = [ "tunnel_wg" "local_wg" ];
         bind-interfaces = true;
-        listen-address = [ "10.1.0.2" "10.2.0.1" ];
+        listen-address = [ "10.1.0.2" "10.2.0.1" "fd00:11::2" "fd00:12::1" ];
 
         domain-needed = true;
         bogus-priv = true;
@@ -15,8 +15,6 @@
 
         # Resolve *.{domain} → VPN IP for every local domain
         address = lib.flatten (map (domain: [ 
-          "/.${domain}/10.0.0.2" 
-          "/.${domain}/fd00:10::2" 
           "/.${domain}/10.1.0.2" 
           "/.${domain}/fd00:11::2" 
           "/.${domain}/10.2.0.1"
