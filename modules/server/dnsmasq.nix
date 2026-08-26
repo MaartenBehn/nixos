@@ -15,6 +15,8 @@
 
         # Resolve *.{domain} → VPN IP for every local domain
         address = lib.flatten (map (domain: [ 
+          "/.${domain}/10.0.0.2" 
+          "/.${domain}/fd00:10::2" 
           "/.${domain}/10.1.0.2" 
           "/.${domain}/fd00:11::2" 
           "/.${domain}/10.2.0.1"
