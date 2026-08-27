@@ -17,7 +17,7 @@ full topic: %prefix%/%topic%/
     services.mosquitto = {
       enable = true;
       listeners = [{
-        address = "127.0.0.1";
+        address = "0.0.0.0";
         port = 1883;
         users.stroby = {
           acl = [
