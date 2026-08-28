@@ -34,12 +34,27 @@
     # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;  
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware; 
+  };
+
+  flake.modules.nixos.asus_kernel_crashes = { pkgs, ... }: {
+    boot.kernelPackages = pkgs.linuxPackages_lts;
+
+    boot.kernel.sysctl = {
+      "kernel.panic" = 10;                   # Reboot 10 seconds after a panic
+      "kernel.panic_on_oops" = 1;            # Panic immediately on an oops
+      "kernel.hung_task_timeout_secs" = 120; # Trigger panic if a task hangs >2min
+    };
+
+    boot.extraModprobeConfig = ''
+      options iwlwifi power_save=0 uapsd_disable=1
+    '';
   };
 
   hosts.stroby-asus = {
     nixos.imports = with self.modules.nixos; [
       asus
+      asus_kernel_crashes
       keep_on_with_closed_lid
       battery
       battery-server-notifications
