@@ -49,6 +49,8 @@
     boot.extraModprobeConfig = ''
       options iwlwifi power_save=0 uapsd_disable=1
     '';
+
+    boot.loader.systemd-boot.memtest86.enable = true;
   };
 
   hosts.stroby-asus = {
