@@ -38,7 +38,7 @@
   };
 
   flake.modules.nixos.asus_kernel_crashes = { pkgs, ... }: {
-    boot.kernelPackages = pkgs.linuxPackages_lts;
+    boot.kernelPackages = pkgs.linuxPackages_hardened;
 
     boot.kernel.sysctl = {
       "kernel.panic" = 10;                   # Reboot 10 seconds after a panic
