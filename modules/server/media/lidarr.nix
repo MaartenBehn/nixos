@@ -60,6 +60,16 @@
         '';
       };
 
+      services.microsocks = {
+        enable = true;
+        ip = "192.168.15.1";          
+        port = 1080;
+
+        # user = "proxyuser";
+        # password = "proxypassword";
+      };
+      networking.firewall.allowedTCPPorts = [ 1080 ];
+
       vpnNamespaces.mullvad = {
         portMappings = [
           { 
