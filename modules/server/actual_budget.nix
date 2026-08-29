@@ -37,12 +37,12 @@
         yarn build:server
       '';
 
-        actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
+      actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
         cd /var/lib/actual-server/actual
         export ACTUAL_CONFIG_PATH=${configFileTest}
         export ACTUAL_DATA_DIR=${data_dir}
         yarn start:server
-        '';
+      '';
 
       nodejs = pkgs-unstable.pknodejs_22;
       yarn-berry = pkgs-unstable.yarn-berry_4.override { inherit nodejs; };
@@ -51,7 +51,7 @@
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
         repo = "actual";
-        rev = "a4a3c23d63fe8b284bfabf8a2702a14f88e767d8";
+        rev = "ebccb97d98e3046150603ac734583b54b2433a66";
         hash = "sha256-WRsw5Y8wcq8ee3iuYhBlpLATsTQC+NX2lV3OlVtOjAQ=";
       };
 
