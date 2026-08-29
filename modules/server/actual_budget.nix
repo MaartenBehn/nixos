@@ -56,7 +56,7 @@
       };
 
       actual-server-master = pkgs-unstable.actual-server.overrideAttrs (old: {
-        version = "fix_4";
+        version = "fix_5";
         src = actual_src; 
         srcs = [
           actual_src
