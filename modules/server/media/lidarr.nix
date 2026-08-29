@@ -32,10 +32,12 @@
       };
 
       systemd.services.lidarr = {
+        /*
         vpnConfinement = {
           enable = true;
           vpnNamespace = "mullvad";
         };
+        */
 
         # For youtube download plugin
         path = [
@@ -60,6 +62,7 @@
         '';
       };
 
+      /*
       services.microsocks = {
         enable = true;
         ip = "0.0.0.0";          
@@ -69,7 +72,10 @@
         # password = "proxypassword";
       };
       networking.firewall.allowedTCPPorts = [ 1080 ];
+      */
 
+      networking.firewall.allowedTCPPorts = [ 8686 ];
+      /*
       vpnNamespaces.mullvad = {
         portMappings = [
           { 
@@ -78,11 +84,12 @@
           }
         ];
       };
+      */
 
       web_services."lidarr" = {
         domains = "local";
         root = {
-          proxyPass = "http://192.168.15.1:8686/"; 
+          proxyPass = "http://127.0.0.1:8686/"; 
         };
       };
     };
