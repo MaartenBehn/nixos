@@ -22,31 +22,6 @@
           serverFiles = actual_server_folder + server_files_test;
         });
 
-      # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/by-name/ac/actual-server/package.nix
-      actual_enable_banking_init = pkgs.writeShellScriptBin "actual_enable_banking_init" ''
-        mkdir /var/lib/actual-server 
-        cd /var/lib/actual-server 
-        rm -rf actual/
-        git clone https://github.com/MaartenBehn/actual.git
-        cd actual
-        git checkout feature/enable-banking-integration
-        chmod +x ./bin/package-browser
-        chmod +x ./packages/desktop-client/bin/build-browser
-
-        yarn install
-        yarn build:server
-      '';
-
-      actual_enable_banking = pkgs.writeShellScriptBin "actual_enable_banking" ''
-        cd /var/lib/actual-server/actual
-        export ACTUAL_CONFIG_PATH=${configFileTest}
-        export ACTUAL_DATA_DIR=${data_dir}
-        yarn start:server
-      '';
-
-      nodejs = pkgs-unstable.pknodejs_22;
-      yarn-berry = pkgs-unstable.yarn-berry_4.override { inherit nodejs; };
-
       actual_src = pkgs-unstable.fetchFromGitHub {
         name = "actualbudget-actual-source";
         owner = "MaartenBehn";
@@ -112,43 +87,7 @@
 
       # Joining all services
       systemd_services = builtins.listToAttrs ([ 
-        /*
-{
-name = "actual-server-init";
-value = {
-path = with pkgs; [
-nodejs
-yarn-berry
-git
-bash
-actual_enable_banking_init
-];
-script = "actual_enable_banking_init";
-
-serviceConfig = {
-User = "actual";
-};
-};
-}
-{
-name = "actual-server-test";
-value = {
-path = with pkgs; [
-yarn-berry
-bash
-actual_enable_banking
-];
-script = "actual_enable_banking";
-wantedBy = [ "multi-user.target" ];
-after = [ "network.target" ];
-
-serviceConfig = {
-User = "actual";
-};
-};
-}
-*/
-        {
+         {
           name = "actual-server";
           value = {
             environment = {
@@ -157,7 +96,7 @@ User = "actual";
               DEBUG = "*";
             };
 
-            path = [ actual-server-master ];
+            path = [ pkgs-unstable.actual-server ];
             script = "actual-server --config ${configFile}";
             wantedBy = [ "multi-user.target" ];
             wants = [ "network.target" ];
@@ -171,8 +110,6 @@ User = "actual";
       ] ++ backup_jobs_systemd_services_config_names); 
 
     in {
-      #systemd.services.actual-server = ;
-
       users.groups.actual = {};
       users.users.actual = {
         isNormalUser = true;
