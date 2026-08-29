@@ -48,7 +48,7 @@
           tubifarryZip = pkgs.fetchurl {
             url = "https://github.com/TypNull/Tubifarry/releases/download/v2.2.0.4/Tubifarry-v2.2.0.4.net8.0.zip";
             # Calculate hash with: nix-prefetch-url https://github.com/TypNull/Tubifarry/releases/download/v2.2.0.4/Tubifarry-v2.2.0.4.net8.0.zip
-            hash = "";
+            hash = "sha256-FLFdQfIiVoT3PYaEKufM5AyXhgDdOk8UZ/zc1r8BW8o=";
           };
         in ''
           TARGET_DIR="/var/lib/lidarr/plugins/TypNull/Tubifarry"
