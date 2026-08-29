@@ -62,13 +62,12 @@
       battery-server-notifications
       server
       cli
-      cli-full
       postgres
     ];
 
     homeManager.imports = with self.modules.homeManager; [
       cli
-      cli-full
+      yt-dlp
     ];
   };
 }

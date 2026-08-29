@@ -10,24 +10,21 @@
 
   flake.modules.nixos.cli-full = { pkgs, lib, ... }: {
     documentation.nixos.enable = lib.mkForce true;
-    documentation.man.generateCaches = lib.mkForce true;
+    #documentation.man.generateCaches = lib.mkForce true;
   };  
 
   flake.modules.homeManager.cli-full = { pkgs, lib, ... }: {
-    programs.man.generateCaches = lib.mkForce true;
+    #programs.man.generateCaches = lib.mkForce true;
     home.packages = (with pkgs; [    
-      man-pages     
       bat
     ]);
 
     home.sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p --color=always'";
     };
 
     programs.tealdeer = {
       enable = true;
-
-      autoUpdate = true;
 
       settings = {
         updates = {
@@ -39,5 +36,9 @@
         };
       };
     };
+
+    home.activation.updateTealdeerCache = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD ${pkgs.tealdeer}/bin/tldr --update || true
+    '';
   };
 }
