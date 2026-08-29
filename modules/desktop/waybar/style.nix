@@ -68,21 +68,26 @@
       }
 
       #tray {
-        margin-left: 15px;
-        margin-right: 15px;
+        margin-right: 10px;
+        margin-left: 10px;
         color: ${text_color};
       }
       #tray menu {
         background: ${background_1};
-        border: 1px solid ${border_color};
         padding: 8px;
       }
       #tray menuitem {
       }
 
       #memory, #cpu, #battery, #disk, #pulseaudio, #custom-gpu {
-        margin-right: 20px;
+        margin-right: 10px;
+        margin-left: 10px;
         color: ${text_color};
+      }
+
+      #custom-vpn {
+        margin-right: 5px;
+        margin-left: 5px;
       }
 
       #custom-scrolling {

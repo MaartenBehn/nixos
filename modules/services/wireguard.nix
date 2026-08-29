@@ -71,6 +71,27 @@
           sudo systemctl start "$SERVICE"
         fi
       ''
-    ) (builtins.attrNames config.networking.wg-quick.interfaces);  
+    ) (builtins.attrNames config.networking.wg-quick.interfaces); 
+
+    # Allow user to stop and start vpns without sudo
+    security.sudo.extraRules = [
+      {
+        users = [ config.username ];        
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/systemctl start wg-quick-*";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/run/current-system/sw/bin/systemctl stop wg-quick-*";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/run/current-system/sw/bin/systemctl restart wg-quick-*";
+            options = [ "NOPASSWD" ];
+          }
+        ];      
+      }
+    ];
   };
 }

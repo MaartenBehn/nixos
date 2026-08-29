@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = { pkgs, config, ... }:
+  flake.modules.homeManager.hyprland = { pkgs, config, osConfig, lib, ... }:
     let
       custom = {
         font = "JetBrains Mono";
@@ -71,11 +71,60 @@
             | round' | head -n 1; 
         '';
 
+        interface_names = builtins.attrNames osConfig.networking.wg-quick.interfaces;
+        none_and_interface_names = ["none"] ++ interface_names;
+        to_quoted_string = s: builtins.concatStringsSep " " (map (x: "\"${x}\"") s);
+        interface_names_string = to_quoted_string interface_names;
+        none_and_interface_names_string = to_quoted_string none_and_interface_names;
+
+        vpn_status = pkgs.writeShellScriptBin "vpn_status" ''
+          ACTIVE=""
+          
+          for iface in ${interface_names_string}; do
+            if systemctl is-active --quiet "wg-quick-$iface.service"; then
+              ACTIVE="$iface"
+              break
+            fi
+          done
+
+          if [ -z "$ACTIVE" ]; then
+            echo '{"text": "󰦞 ", "alt": "off", "tooltip": "VPN: Disconnected", "class": "disconnected"}'
+          else
+            echo "{\"text\": \"$ACTIVE\", \"alt\": \"$ACTIVE\", \"tooltip\": \"VPN Active: $ACTIVE\", \"class\": \"connected\"}"
+          fi
+        '';
+        vpn_cycle = pkgs.writeShellScriptBin "vpn_cycle" ''
+          ACTIVE="none"
+
+          for iface in ${interface_names_string}; do
+            if systemctl is-active --quiet "wg-quick-$iface.service"; then
+              ACTIVE="$iface"
+              sudo systemctl stop "wg-quick-$iface.service"
+              break
+            fi
+          done
+
+          CYCLE_ORDER=( ${none_and_interface_names_string} )
+          NEXT="none"
+          for i in "''${!CYCLE_ORDER[@]}"; do
+            if [[ "''${CYCLE_ORDER[$i]}" == "$ACTIVE" ]]; then
+              NEXT_INDEX=$(( (i + 1) % ''${#CYCLE_ORDER[@]} ))
+              NEXT="''${CYCLE_ORDER[$NEXT_INDEX]}"
+              break
+            fi
+          done
+
+          if [ "$NEXT" != "none" ]; then
+            sudo systemctl start "wg-quick-$NEXT.service"
+          fi
+        '';
     in {
       home.packages = (with pkgs; [
         jq
         socat
         scrolling_output
+        vpn_cycle
+        vpn_status
       ]);
 
       programs.waybar.settings.mainBar = with custom; {
@@ -100,6 +149,7 @@
           "custom/gpu"
           "pulseaudio"
           "battery"
+          "custom/vpn"
           "bluetooth"
           "tray"
           "clock"
@@ -127,12 +177,6 @@
           persistent-workspaces = {
           };
         };
-        bluetooth = {
-          format = "<span foreground='${blue}'>󰂯</span>";
-          interval = 2;
-          on-click = "hyprctl dispatch exec 'blueberry'";
-        };
-
         cpu = {
           format = "<span foreground='${green}'> </span> {usage}%";
           interval = 2;
@@ -190,6 +234,44 @@
           tooltip = true;
           tooltip-format = "{time}";
         };
+        bluetooth = {
+          format = "<span foreground='${blue}'>󰂯</span>";
+          interval = 2;
+          on-click = "hyprctl dispatch exec 'blueberry'";
+        };
+        "custom/vpn" = let
+          colorMap = {
+            "private" = green;
+            "private_local" = cyan;
+            "fritz_behns" = orange;
+          };
+
+          interfaces = builtins.attrNames osConfig.networking.wg-quick.interfaces;
+
+          formatIcons = {
+            "off" = "<span foreground='${border_color}'>󰦞</span>";
+          } // (builtins.listToAttrs (map (name: {
+              name = name;
+              value = "<span foreground='${colorMap.${name} or yellow}'>󰖂</span>";
+            }) interfaces));
+
+          menuItems = [ "1) disconnect" ] ++ (lib.imap1 (i: name: "${toString (i + 1)}) ${name}") interfaces);
+          menuText = builtins.concatStringsSep "\\n" menuItems;
+
+          # Build shell case logic dynamically:
+          # 1) for status check/stop all; 2..N) invoke the respective ${name}_vpn script
+          caseBranches = [ "1) vpn_cycle ;; # (or use systemctl stop directly)" ] ++ (lib.imap1 (i: name: "${toString (i + 1)}) ${name}_vpn ;;") interfaces);
+          caseText = builtins.concatStringsSep " " caseBranches;
+
+        in {
+          #exec = "vpn_status";
+          return-type = "json";
+          interval = 1;
+          #on-click = "vpn_cycle";
+          exec = "vpn_status 2>> /tmp/waybar_vpn.log";
+          on-click = "vpn_cycle >> /tmp/waybar_vpn.log 2>&1";
+          #on-click = "hyprctl dispatch exec '${config.home.sessionVariables.terminal} -e \"echo -e \\\"${menuText}\\\"; read -p \\\"Select interface: \\\" opt; case \\$opt in ${caseText} esac\"'";
+        };      
         "custom/launcher" = {
           format = "";
           on-click = "rofi -show drun";

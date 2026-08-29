@@ -4,14 +4,14 @@
       nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild" ''
         cd /home/$USER/nixos/
         git add --all
-        sudo nixos-rebuild switch --flake . --impure 
+        sudo nixos-rebuild switch --flake . --impure
         cd -
       '';
 
       nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pull" ''
         cd /home/$USER/nixos/
         git pull
-        sudo nixos-rebuild switch --flake . --impure 
+        sudo nixos-rebuild switch --flake . --impure
         cd -
       '';
 
