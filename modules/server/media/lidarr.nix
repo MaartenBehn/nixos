@@ -62,7 +62,7 @@
 
       services.microsocks = {
         enable = true;
-        ip = "192.168.15.1";          
+        ip = "0.0.0.0";          
         port = 1080;
 
         # user = "proxyuser";
