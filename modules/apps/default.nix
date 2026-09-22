@@ -6,7 +6,7 @@
     ]);
   };
 
-  flake.modules.homeManager.apps = { pkgs, ... }: {
+  flake.modules.homeManager.apps = { pkgs, pkgs-unstable, ... }: {
     home.packages = (with pkgs; [
       # default apps 
       mpv                               # simple video player
@@ -24,16 +24,17 @@
       obsidian
 
       webcamoid
-      #obs-studio
+      obs-studio
 
       #spotify
-      signal-desktop
+      pkgs-unstable.signal-desktop
       #obs-studio
       #telegram-desktop
       discord
 
       #filezilla        
-      gimp                              # image editing
+      gimp                               # image editing
+      kdePackages.kdenlive
       #pitivi                            # video editing
       #audacity                          # Audio editing
       blender                          # 3d modling software

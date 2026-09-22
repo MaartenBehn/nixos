@@ -14,18 +14,80 @@
       batteryIcons = "regular"; # Which battery icons to use (*regular*, symbolic, solaar)
       extraArgs = ""; # Extra arguments to pass to solaar on startup
     };
+
+    systemd.user.services.ydotoold = {
+      description = "ydotool daemon";
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.ydotool}/bin/ydotoold";
+        Restart = "always";
+      };
+    };
   };
 
-  flake.modules.homeManager.solaar = { lib, config, ... }: 
+
+  flake.modules.homeManager.solaar = { lib, pkgs, config, ... }: 
     let 
       writableFile = path: text: (
         lib.hm.dag.entryAfter [ "linkGeneration" ] # bash
         ''
-      rm -f "${path}"
-      mkdir -p "$(dirname "${path}")"
-      echo "${text}" > ${path}
+        rm -f "${path}"
+        mkdir -p "$(dirname "${path}")"
+        echo "${text}" > ${path}
       '');
-    in { 
+
+      wallJumpScript = pkgs.writeShellScriptBin "rw-walljump" ''
+        STATE_FILE="/tmp/rw_walljump.lock"
+
+        if [ -f "$STATE_FILE" ]; then
+          rm -f "$STATE_FILE"
+          exit 0
+        fi
+
+        touch "$STATE_FILE"
+        trap 'rm -f "$STATE_FILE"' EXIT
+
+        # ydotool key codes: Space = 57, Left = 105, Right = 106
+        KEY_SPACE="57"
+        KEY_LEFT="30"
+        KEY_RIGHT="32"
+
+        while [ -f "$STATE_FILE" ]; do
+          # Jump Left
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_SPACE}:1"
+          sleep 0.01
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_LEFT}:1"
+          sleep 0.01
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_SPACE}:0"
+          
+          [ ! -f "$STATE_FILE" ] && break
+          sleep 0.3
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_LEFT}:0"
+          
+          [ ! -f "$STATE_FILE" ] && break
+
+          # Jump Right
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_SPACE}:1"
+          sleep 0.01
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_RIGHT}:1"
+          sleep 0.01
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_SPACE}:0"
+          
+          [ ! -f "$STATE_FILE" ] && break
+          sleep 0.3
+          ${pkgs.ydotool}/bin/ydotool key "''${KEY_RIGHT}:0"
+        done
+
+        # Ensure all keys are released on toggle exit
+        ${pkgs.ydotool}/bin/ydotool key "''${KEY_SPACE}:0" "''${KEY_LEFT}:0" "''${KEY_RIGHT}:0"
+      '';
+
+    in {
+      home.packages = [
+        pkgs.ydotool
+        wallJumpScript
+      ];
+
       home.activation = {
         write_solaar_config = (writableFile "/home/${config.username}/.config/solaar/config.yaml" ''
 - 1.1.13
@@ -72,9 +134,7 @@
 ...
 ---
 - Key: [Left Tilt, pressed]
-- KeyPress:
-  - o
-  - click
+- Execute: ${wallJumpScript}/bin/rw-walljump
 ...
 ---
 - Key: [Right Tilt, pressed]
