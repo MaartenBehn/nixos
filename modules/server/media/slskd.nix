@@ -30,6 +30,8 @@ SLSKD_PASSWORD=SoulSeek+240803
               "[movies_1]/media/videos_data/movies"
               "[shows_1]/media/videos_data/shows"
               "[music_0]/media/music"
+              "[audiobooks_0]/media/audiobooks"
+              "[books_0]/media/books"
             ]; 
           };
 

@@ -21,7 +21,7 @@
       #libreoffice
       onlyoffice-desktopeditors
       pdfarranger
-      obsidian
+      pkgs-unstable.obsidian
 
       webcamoid
       obs-studio
