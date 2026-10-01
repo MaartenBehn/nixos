@@ -2,7 +2,7 @@
   flake.modules.nixos.serve_cache = { config, ... }: {
     nix.settings = {
       substituters = [
-        "https://cache.local"
+        "http://cache.local"
         "https://cache.stroby.org"
       ];
 
