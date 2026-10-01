@@ -13,7 +13,7 @@ in {
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVE2gNS9GmUx3VdDGP7Gnwv9L6WsZ/+dBrmQVulp7u/"
       ];
     };
-    users.groups.remotebuild = lib.mkIf config.remote_build {};
+    users.groups.remote_build = lib.mkIf config.remote_build {};
     nix.settings.trusted-users = lib.mkIf config.remote_build [ "remote_build" ];
 
 
