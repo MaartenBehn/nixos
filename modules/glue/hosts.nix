@@ -55,14 +55,21 @@
 
     modules.homeManager.core = {
       options = {
+
         host = lib.mkOption {
           type = lib.types.str;
         };
+
         system_type = lib.mkOption {
           type = lib.types.str;
         };
+
         local_ip = lib.mkOption {
           type = lib.types.str;
+        };
+
+        remote_build = lib.mkOption {
+          type = lib.types.bool;
         };
       };
     };
@@ -113,7 +120,8 @@
               home-manager.extraSpecialArgs = args;
               host = hostname;
               system_type = options.system; 
-              local_ip = options.local_ip; 
+              inherit (options) local_ip;
+              inherit (options) remote_build;
             }
             self.modules.nixos.core
             options.nixos

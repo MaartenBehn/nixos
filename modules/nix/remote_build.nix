@@ -1,7 +1,9 @@
 { config, ... }: let 
   global_config = config;
 in {
-  flake.modules.nixos.core = { pkgs, config, lib, ... }: lib.mkIf {
+  flake.modules.nixos.core = { pkgs, config, lib, ... }: 
+    if config.remote_build then {
+    
     users.users.remotebuild = {
       isSystemUser = true;
       group = "remote_build";
@@ -15,9 +17,9 @@ in {
     users.groups.remotebuild = {};
 
     nix.settings.trusted-users = [ "remote_build" ];
-  };
 
-  flake.modules.nixos.core = { pkgs, config, ... }: {
+  } else {} // {
+
     sops.secrets."remote_build/private_key" = {
       path = "/root/.ssh/remote_build";
     };
@@ -25,26 +27,16 @@ in {
     nix.distributedBuilds = true;
     nix.settings.builders-use-substitutes = true;
 
-    nix.buildMachines = [
-      {
-        hostName = "remote_build@asus";
+    nix.buildMachines = builtins.map (hostname: let 
+        host = global_config.hosts."${hostname}";
+      in {
+        hostName = "remote_build@${host.local_ip}";
         sshUser = "remote_build";
         sshKey = "/root/.ssh/remote_build";
-        system = pkgs.stdenv.hostPlatform.system;
+        system = host.system;
         supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
-      }
-    ];
-  };
-
-  flake.modules.homeManager.core = { config, ... } : {
-    programs.ssh.matchBlocks = {
-      "remote_build@asus" = {
-        hostname = global_config.hosts."asus".local_ip; 
-        user = "remote_build";
-        
-        identityFile = "${config.home.homeDirectory}/.ssh/remote_build";
-        identitiesOnly = true;
-      };
-    };
+      }) 
+      (builtins.filter (hostname: hostname != config.host && global_config.hosts."${hostname}".remote_build)
+       builtins.attrNames global_config.hosts);
   };
 }
