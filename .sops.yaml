@@ -1,5 +1,6 @@
 keys:
   - &primary age1jj43lhpl64dwvqlrp0ag0gycjqkxmaah7sj3cphsn7ujlpp8z95qvqs49p
+  - &desktop age1juqyha54kepe0nss0uae24taec3n4709ndc8csw32zazksw39cms36ar0r
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
