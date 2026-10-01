@@ -189,7 +189,7 @@
       };
 
       config = {
-        layouts = if config.host == "stroby-laptop" then {
+        layouts = if config.host == "laptop" then {
           initial = "home";
 
           layouts = {

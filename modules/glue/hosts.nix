@@ -8,11 +8,6 @@
             default = "x86_64-linux";
           };
 
-          args = lib.mkOption {
-            type = lib.types.attrs;
-            default = {};
-          };
-
           nixos = lib.mkOption {
             type = lib.types.attrs;
             default = {};
@@ -21,6 +16,10 @@
           homeManager = lib.mkOption {
             type = lib.types.attrs;
             default = {};
+          };
+
+          local_ip = lib.mkOption {
+            type = lib.types.str;
           };
         };
       });
@@ -36,6 +35,9 @@
         system_type = lib.mkOption {
           type = lib.types.str;
         };
+        local_ip = lib.mkOption {
+          type = lib.types.str;
+        };
       };
     };
 
@@ -45,6 +47,9 @@
           type = lib.types.str;
         };
         system_type = lib.mkOption {
+          type = lib.types.str;
+        };
+        local_ip = lib.mkOption {
           type = lib.types.str;
         };
       };
@@ -84,11 +89,11 @@
           inherit pkgs-2405;
           inherit pkgs-2505;
           inherit pkgs-unstable;
-        }; 
+        };
       in
         inputs.nixpkgs.lib.nixosSystem {
-          inherit (options) system;
           inherit pkgs;
+          inherit (options) system;
 
           specialArgs = args;
           modules = [
@@ -96,6 +101,7 @@
               home-manager.extraSpecialArgs = args;
               host = hostname;
               system_type = options.system; 
+              local_ip = options.local_ip; 
             }
             self.modules.nixos.core
             options.nixos

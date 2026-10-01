@@ -53,7 +53,7 @@
     boot.loader.systemd-boot.memtest86.enable = true;
   };
 
-  hosts.stroby-asus = {
+  hosts.asus = {
     nixos.imports = with self.modules.nixos; [
       asus
       asus_kernel_crashes
@@ -69,5 +69,7 @@
       cli
       yt-dlp
     ];
+
+    local_ip = "192.168.0.97";
   };
 }

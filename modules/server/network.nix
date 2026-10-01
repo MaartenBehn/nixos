@@ -1,6 +1,10 @@
 {
-  flake.modules.nixos.server = { config, ... }: {
-    networking = {
+  flake.modules.nixos.server = { config, lib, ... }: {
+    options.server_ip = lib.mkOption {
+      type = lib.types.string;
+    };
+
+    config.networking = {
       firewall.enable = true;
    
       networkmanager.enable = true;

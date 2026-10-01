@@ -37,6 +37,7 @@ in {
             username = config.username;
             host = config.host;
             system_type = config.system_type;
+            local_ip = config.local_ip;
           }
           self.modules.homeManager.core or {}
           global_config.hosts."${config.host}".homeManager

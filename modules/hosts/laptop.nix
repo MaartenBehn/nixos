@@ -36,7 +36,7 @@
   };
 
 
-  hosts.stroby-laptop = {
+  hosts.laptop = {
     nixos.imports = with self.modules.nixos; [
         laptop
         framework

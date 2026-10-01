@@ -1,4 +1,6 @@
-{
+{ config, ... }: let 
+  global_config = config;
+in {
   flake.modules.homeManager.cli.programs.ssh = { 
     enable = true;
     enableDefaultConfig = false;
@@ -14,7 +16,7 @@
 
       asus = {
         #hostname = "192.168.178.169"; # Fritz-Behns
-        hostname = "192.168.0.117"; # WG 
+        hostname = global_config.hosts."asus".local_ip; 
         user = "stroby";
       };
 
