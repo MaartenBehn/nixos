@@ -71,5 +71,6 @@
     ];
 
     local_ip = "192.168.0.97";
+    remote_build = true;
   };
 }

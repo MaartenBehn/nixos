@@ -21,6 +21,11 @@
           local_ip = lib.mkOption {
             type = lib.types.str;
           };
+
+          remote_build = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+          };
         };
       });
     };
@@ -29,14 +34,21 @@
   config.flake = {
     modules.nixos.core = {
       options = {
+        
         host = lib.mkOption {
           type = lib.types.str;
         };
+        
         system_type = lib.mkOption {
           type = lib.types.str;
         };
+        
         local_ip = lib.mkOption {
           type = lib.types.str;
+        };
+
+        remote_build = lib.mkOption {
+          type = lib.types.bool;
         };
       };
     };
