@@ -2,12 +2,11 @@
   flake.modules.nixos.serve_cache = { config, ... }: {
     nix.settings = {
       substituters = [
-        "http://cache.local"
         "https://cache.stroby.org"
       ];
 
       trusted-public-keys = [
-        "asus-stroby:d2r+MIkxb07Gu7OHRNN79ioz83AxBXFK3gvs6OQnRdw="
+        "cache.stroby.org:ymFjFI7oUzWh7ath5CbIHLF/w/qvwsaBhtp7/WgUC/I="
       ];
     }; 
   };
