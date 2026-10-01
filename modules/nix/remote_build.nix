@@ -3,7 +3,7 @@
 in {
   flake.modules.nixos.core = { pkgs, config, lib, ... }: {
     
-    users.users.remotebuild = lib.mkIf config.remote_build {
+    users.users.remote_build = lib.mkIf config.remote_build {
       isSystemUser = true;
       group = "remote_build";
       useDefaultShell = true;
@@ -27,7 +27,7 @@ in {
     nix.buildMachines = builtins.map (hostname: let 
         host = global_config.hosts."${hostname}";
       in {
-        hostName = "remote_build@${host.local_ip}";
+        hostName = "${host.local_ip}";
         sshUser = "remote_build";
         sshKey = "/root/.ssh/remote_build";
         system = host.system;
