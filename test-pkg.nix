@@ -3,8 +3,8 @@
 pkgs.stdenv.mkDerivation {
   name = "cache-test-pkg-0.1.0";
   
-  # A unique dummy source so its output hash doesn't exist anywhere online
-  src = builtins.toFile "test-source.txt" "cache-test-unique-payload-${toString builtins.currentTime}";
+  # Static payload ensures the Nix store path hash remains identical across builds
+  src = builtins.toFile "test-source.txt" "cache-test-static-payload-v1";
 
   dontUnpack = true;
 
