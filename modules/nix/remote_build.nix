@@ -1,24 +1,21 @@
 { config, ... }: let 
   global_config = config;
 in {
-  flake.modules.nixos.core = { pkgs, config, lib, ... }: 
-    if config.remote_build then {
+  flake.modules.nixos.core = { pkgs, config, lib, ... }: {
     
-    users.users.remotebuild = {
+    users.users.remotebuild = lib.mkIf config.remote_build {
       isSystemUser = true;
       group = "remote_build";
       useDefaultShell = true;
+      createHome = false;
 
       openssh.authorizedKeys.keys = [ 
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVE2gNS9GmUx3VdDGP7Gnwv9L6WsZ/+dBrmQVulp7u/"
       ];
     };
+    users.groups.remotebuild = lib.mkIf config.remote_build {};
+    nix.settings.trusted-users = lib.mkIf config.remote_build [ "remote_build" ];
 
-    users.groups.remotebuild = {};
-
-    nix.settings.trusted-users = [ "remote_build" ];
-
-  } else {} // {
 
     sops.secrets."remote_build/private_key" = {
       path = "/root/.ssh/remote_build";
@@ -37,6 +34,6 @@ in {
         supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
       }) 
       (builtins.filter (hostname: hostname != config.host && global_config.hosts."${hostname}".remote_build)
-       builtins.attrNames global_config.hosts);
+       (builtins.attrNames global_config.hosts));
   };
 }

@@ -36,8 +36,6 @@ let
   ];
 in {
   hosts.wsl = {
-    args = args;
-
     nixos = {
       imports = old-imports ++ 
         (with self.modules.nixos; [
