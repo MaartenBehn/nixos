@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.stdenv.mkDerivation {
-  name = "cache-test-pkg-0.1.0";
+  name = "cache-test-pkg-0.2.0";
   
   # Static payload ensures the Nix store path hash remains identical across builds
   src = builtins.toFile "test-source.txt" "cache-test-static-payload-v1";
