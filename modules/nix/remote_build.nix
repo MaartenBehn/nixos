@@ -10,7 +10,7 @@ in {
       createHome = false;
 
       openssh.authorizedKeys.keys = [ 
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVE2gNS9GmUx3VdDGP7Gnwv9L6WsZ/+dBrmQVulp7u/"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVE2gNS9GmUx3VdDGP7Gnwv9L6WsZ/+dBrmQVulp7u/ root@nixos"
       ];
     };
     users.groups.remote_build = lib.mkIf config.remote_build {};
