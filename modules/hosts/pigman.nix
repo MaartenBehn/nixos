@@ -41,10 +41,7 @@
         networking_vpn
         cli
         cli-full
-        hyprland
-        apps-minimal
         nvidia
-        solaar
         server_base
         server_ssh
         server_ollama
@@ -56,9 +53,6 @@
         solaar
         cli
         cli-full
-        hyprland
-        apps-minimal
-        solaar
       ];
 
       home.sessionVariables.terminal = "kitty";
