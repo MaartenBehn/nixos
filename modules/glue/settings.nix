@@ -59,9 +59,8 @@ in {
         } // (inherit_settings options); 
       };
     in settings // {
-        imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-        home-manager.users.${config.username}.imports = [
+        
+        config.home-manager.users.${config.username}.imports = [
           settings 
           {
             inherit (config) username;
