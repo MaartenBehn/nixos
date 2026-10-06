@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { config, lib, ... }: {
+  flake.modules.nixos.server_base = { config, lib, ... }: {
     options.server_ip = lib.mkOption {
       type = lib.types.string;
     };
