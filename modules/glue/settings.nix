@@ -1,4 +1,4 @@
-{ inputs, lib, config, ... }: let 
+{ lib, config, ... }: let 
   setting_options = {
     username = lib.mkOption {
       type = lib.types.str;

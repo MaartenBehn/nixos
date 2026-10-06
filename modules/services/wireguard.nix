@@ -59,6 +59,23 @@ in {
         ];
         autostart = false;
       };
+
+      pigman = {  
+        privateKeyFile = config.sops.secrets."wireguard/private_local/laptop/private_key".path;
+        address = [ "10.2.0.2/24" "fd00:12::2/64" ];
+        dns = [ "10.1.0.2" "fd00:11::2" ];
+
+        peers = [
+          {
+            # asus
+            publicKey = "nX/bkTRB30KdpeDsKlw9ZjQhVSd7hGLzbnVM9exwyF4=";
+            endpoint = "${global_config.hosts."pigman".local_ip}:51823";
+            allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
+            persistentKeepalive = 25;
+          }
+        ];
+        autostart = false;
+      };
     };
 
     environment.systemPackages = map (name:

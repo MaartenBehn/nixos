@@ -74,7 +74,7 @@ PersistentKeepalive = 25
 */
 
 {
-  flake.modules.nixos.server = { config, ... }: {
+  flake.modules.nixos.asus = { config, ... }: {
 
     sops.secrets = {
       "wireguard/tunnel/asus/private_key" = {};
@@ -112,6 +112,41 @@ PersistentKeepalive = 25
         ];
       };
 
+      local_wg = {
+        ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
+        listenPort = 51823;
+        privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
+
+        peers = [
+          {
+            # laptop
+            publicKey = "rcFazibB7nshttMzpY8TIgGHgwFuXkky8+E/zG4knS8=";
+            allowedIPs = [ "10.2.0.2/32" "fd00:12::2/128" ];
+            persistentKeepalive = 25;
+          }
+          {
+            # phone
+            publicKey = "MkVmp26gVpD+weCXVRGpcF0B6z6V5lkjmZzfuxDCRn4=";
+            allowedIPs = [ "10.2.0.3/32" "fd00:12::3/128" ];
+            persistentKeepalive = 25;
+          }
+        ];
+      };
+    };
+  };
+
+   flake.modules.nixos.pigman = { config, ... }: {
+
+    sops.secrets = {
+      "wireguard/private_local/asus/private_key" = {};
+    };
+
+    networking.firewall = {
+      trustedInterfaces = [ "local_wg" ];
+      allowedUDPPorts = [ 51823 ];
+    };
+
+    networking.wireguard.interfaces = {
       local_wg = {
         ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
         listenPort = 51823;
