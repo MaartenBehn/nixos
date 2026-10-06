@@ -62,7 +62,7 @@
     };
 
     local_ip = "192.168.0.8";
-    public_domains = [ ]; 
-    local_domains = [ "local" ];
+    domains.public = [ ]; 
+    domains.local = [ "local" ];
   };
 }
