@@ -33,13 +33,6 @@ in {
         };
 
         home-manager.users."${config.username}".imports = [
-          {
-            inherit (config) username;
-            inherit (config) host;
-            inherit (config) system_type;
-            inherit (config) local_ip;
-            inherit (config) remote_build;
-          }
           self.modules.homeManager.core or {}
           global_config.hosts."${config.host}".homeManager
         ];

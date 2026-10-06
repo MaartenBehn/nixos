@@ -1,6 +1,7 @@
 {
   flake.modules.nixos.core = { lib, config, ... }: {
     options = {
+      
       web_services = lib.mkOption {
         type = lib.types.attrsOf (lib.types.submodule {
           options = {
@@ -32,7 +33,6 @@
     };
 
     config = let
-
       get_webservice = sub_domain: builtins.getAttr sub_domain config.web_services;
 
       get_domains = sub_domain:

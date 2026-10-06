@@ -72,6 +72,8 @@
     ];
 
     local_ip = "192.168.0.97";
+    public_domains = [ "stroby.org" "stroby.duckdns.org" "stroby.ipv64.de" ]; 
+    local_domains = [ "local" ];
     remote_build = true;
   };
 }

@@ -15,7 +15,6 @@ in {
       };
 
       asus = {
-        #hostname = "192.168.178.169"; # Fritz-Behns
         hostname = global_config.hosts."asus".local_ip; 
         user = "stroby";
       };
@@ -36,7 +35,7 @@ in {
       };
 
       pigman = {
-        hostname = "192.168.0.8";
+        hostname = global_config.hosts."pigman".local_ip; 
         user = "stroby";
       };
     }; 

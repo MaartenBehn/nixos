@@ -1,4 +1,26 @@
-{ inputs, lib, self, config, ... }: {
+{ inputs, lib, self, config, ... }: let 
+  setting_options = {
+    local_ip = lib.mkOption {
+      type = lib.types.str;
+    };
+
+    domains.public = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+    };
+
+    domains.local = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "local" ];
+    };
+
+    remote_build = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+  };
+
+in {
   options = {
     hosts = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule {
@@ -18,60 +40,27 @@
             default = {};
           };
 
-          local_ip = lib.mkOption {
-            type = lib.types.str;
-          };
-
-          remote_build = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-          };
-        };
+        } // setting_options;
       });
     };
   };
 
-  config.flake = {
-    modules.nixos.core = {
-      options = {
-        
-        host = lib.mkOption {
-          type = lib.types.str;
-        };
-        
-        system_type = lib.mkOption {
-          type = lib.types.str;
-        };
-        
-        local_ip = lib.mkOption {
-          type = lib.types.str;
-        };
+  config.flake = let 
+    config_setting_options = {
 
-        remote_build = lib.mkOption {
-          type = lib.types.bool;
-        };
+      host = lib.mkOption {
+        type = lib.types.str;
       };
-    };
 
-    modules.homeManager.core = {
-      options = {
-
-        host = lib.mkOption {
-          type = lib.types.str;
-        };
-
-        system_type = lib.mkOption {
-          type = lib.types.str;
-        };
-
-        local_ip = lib.mkOption {
-          type = lib.types.str;
-        };
-
-        remote_build = lib.mkOption {
-          type = lib.types.bool;
-        };
+      system_type = lib.mkOption {
+        type = lib.types.str;
       };
+
+    } // setting_options;
+
+    in {
+      modules.nixos.core.options = config_setting_options;
+      modules.homeManager.core = config_setting_options;
     };
 
     nixosConfigurations = lib.mapAttrs (hostname: options:
