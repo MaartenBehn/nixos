@@ -10,8 +10,10 @@
         providers = {
           ollama = {
             __inherited_from = "openai";
-            endpoint = "http://ollama.local";
-            model = "qwen2.5-coder:7b"; 
+            endpoint = "http://ollama.local/v1";
+            model = "qwen2.5-coder:7b";
+
+            api_key_name = "";
 
             extra_request_body = {
               options = {
