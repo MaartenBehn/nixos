@@ -1,8 +1,20 @@
 {
-  flake.modules.nixos.server_ollama = {
+  flake.modules.nixos.server_ollama = { pkgs, ... }: {
     zramSwap = {
       enable = true;
       memoryPercent = 50; # Creates ~2GB compressed swap in RAM
+    };
+
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+
+      # Ensures Vulkan driver ICDs are generated system-wide
+      extraPackages = with pkgs; [
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
+      ];
     };
 
     services.ollama = {
