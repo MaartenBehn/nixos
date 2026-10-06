@@ -7,7 +7,7 @@
 
     services.ollama = {
       enable = true;
-      acceleration = "cuda";       
+      acceleration = "vulkan";       
       loadModels = [ ];
 
       environmentVariables = {
