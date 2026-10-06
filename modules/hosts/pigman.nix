@@ -44,6 +44,7 @@
         apps-minimal
         solaar
         ssh_server
+        fix_tpm2 
       ];
 
     homeManager = {
