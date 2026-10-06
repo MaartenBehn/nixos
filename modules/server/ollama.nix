@@ -46,7 +46,7 @@
     web_services."ollama" = {
       domains = "all";
       root = {
-        proxyPass = "http://127.0.0.1:11434/"; 
+        proxyPass = "http://127.0.0.1:11434"; 
         proxyWebsockets = true;    
 
         extraConfig = ''
@@ -72,4 +72,3 @@
     };
   };
 }
-

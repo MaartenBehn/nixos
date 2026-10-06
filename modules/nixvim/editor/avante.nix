@@ -4,18 +4,19 @@
       enable = true;
 
       settings = {
-        provider = "gemini";
-        auto_suggestion_provider = "gemini";
+        provider = "ollama";
+        auto_suggestion_provider = "ollama";
 
         providers = {
           ollama = {
+            __inherited_from = "openai";
             endpoint = "http://ollama.local";
             model = "qwen2.5-coder:7b"; 
 
             extra_request_body = {
               options = {
-                num_ctx = 4096;               
-                temperature = 0.2;            
+                num_ctx = 16384;               
+                temperature = 0.0;            
               };
             };
           };
@@ -27,14 +28,5 @@
         };
       };  
     };
-
-    extraConfigLuaPre = ''
-      local secret_path = "/run/secrets/avante_nvim/gemini_api_key"
-      local f = io.open(secret_path, "r")
-      if f then
-        vim.env.GEMINI_API_KEY = f:read("*l"):gsub("%s+", "")
-        f:close()
-      end
-    '';
   };
 }
