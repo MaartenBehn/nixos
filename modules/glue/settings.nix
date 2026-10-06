@@ -50,21 +50,21 @@ in {
 
   config.flake = {
 
-    modules.nixos = lib.mapAttrs (hostname: options: {
-      options = config_setting_options;
-      config = {
-        host = hostname;
-        system_type = options.system;
-      } // (inherit_settings options);
-    }) config.hosts;
-
-    modules.homeManager = lib.mapAttrs (hostname: options: { config, ... }: {
-      options = config_setting_options;
-      config = {
-        inherit (config) username;
-        inherit (config) host;
-        inherit (config) system_type;
-      } // (inherit_settings options);
-    }) config.hosts;
+    modules.nixos = lib.mapAttrs (hostname: options: { config, ... }: let
+      settings = {
+        options = config_setting_options;
+        config = {
+          host = hostname;
+          system_type = options.system;
+        } // (inherit_settings options); 
+      };
+    in settings // {
+        home-manager.users.${config.username}.imports = [
+          settings 
+          {
+            inherit (config) username;
+          }
+        ];
+      }) config.hosts;
   };
 }
