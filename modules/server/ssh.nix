@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = {
+  flake.modules.nixos.ssh_server = {
     services.openssh = {
       enable = true;
       # require public key authentication for better security

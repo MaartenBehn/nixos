@@ -63,6 +63,7 @@
       server
       cli
       postgres
+      ssh_server
     ];
 
     homeManager.imports = with self.modules.homeManager; [

@@ -39,20 +39,21 @@
         networking
         networking_vpn
         cli
-      #cli-full
-      #hyprland
-      #apps-minimal
-      #solaar
+        cli-full
+        hyprland
+        apps-minimal
+        solaar
+        ssh_server
       ];
 
     homeManager = {
       imports = with self.modules.homeManager; [
         solaar
         cli
-      #cli-full
-      #hyprland
-      #apps-minimal
-      #solaar
+        cli-full
+        hyprland
+        apps-minimal
+        solaar
       ];
 
       home.sessionVariables.terminal = "kitty";

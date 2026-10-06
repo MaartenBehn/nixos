@@ -34,6 +34,11 @@ in {
         hostname = "192.168.178.28";
         user = "root";
       };
+
+      pigman = {
+        hostname = "192.168.0.8";
+        user = "stroby";
+      };
     }; 
   };
 }
