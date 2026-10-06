@@ -9,7 +9,7 @@
 
         providers = {
           ollama = {
-            endpoint = "http://127.0.0.1:11434";
+            endpoint = "http://ollama.local";
             model = "qwen2.5-coder:7b"; 
 
             extra_request_body = {
@@ -19,11 +19,11 @@
               };
             };
           };
-          gemini = {
+          /*gemini = {
             model = "gemini-3.5-flash-lite"; 
             temperature = 0;
             max_tokens = 8192;        
-          };
+          };*/
         };
       };  
     };
