@@ -2,7 +2,6 @@
   flake.modules.nixos.nvidia = { config, ... }: {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.graphics.enable = true;
     hardware.nvidia = {
 
       # Modesetting is required.

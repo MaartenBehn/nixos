@@ -1,5 +1,4 @@
 {
-  /*
   nixvimConfig = {
     plugins.avante = {
       enable = true;
@@ -11,7 +10,7 @@
         providers = {
           ollama = {
             endpoint = "http://127.0.0.1:11434";
-            model = "deepseek-coder:1.3b"; 
+            model = "qwen2.5-coder:7b"; 
 
             extra_request_body = {
               options = {
@@ -38,5 +37,4 @@
       end
     '';
   };
-  */
 }
