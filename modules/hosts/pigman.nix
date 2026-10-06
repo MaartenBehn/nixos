@@ -50,7 +50,6 @@
 
     homeManager = {
       imports = with self.modules.homeManager; [
-        solaar
         cli
         cli-full
       ];
