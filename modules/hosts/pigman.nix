@@ -41,6 +41,7 @@
         cli-full
         hyprland
         apps-minimal
+        nvidia
         solaar
         server_base
         server_ssh
