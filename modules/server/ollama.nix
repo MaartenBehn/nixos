@@ -24,8 +24,6 @@
 
       environmentVariables = {
         LD_LIBRARY_PATH = "/run/opengl-driver/lib:${config.hardware.nvidia.package}/lib";
-        OLLAMA_CONTEXT_LENGTH = "2048";
-        OLLAMA_GPU_OVERHEAD = "524288000";
         OLLAMA_FLASH_ATTENTION = "0";
         OLLAMA_MAX_LOADED_MODELS = "1";
         OLLAMA_NUM_PARALLEL = "1";
