@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server_ollama = { pkgs, ... }: {
+  flake.modules.nixos.server_ollama = { pkgs, config, ... }: {
     zramSwap = {
       enable = true;
       memoryPercent = 50; # Creates ~2GB compressed swap in RAM
@@ -23,6 +23,7 @@
       loadModels = [ ];
 
       environmentVariables = {
+        VK_DRIVER_FILES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         OLLAMA_FLASH_ATTENTION = "0";
         OLLAMA_MAX_LOADED_MODELS = "1";
         OLLAMA_NUM_PARALLEL = "1";
