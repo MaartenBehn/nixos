@@ -1,26 +1,4 @@
-{ inputs, lib, self, config, ... }: let 
-  setting_options = {
-    local_ip = lib.mkOption {
-      type = lib.types.str;
-    };
-
-    domains.public = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [];
-    };
-
-    domains.local = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ "local" ];
-    };
-
-    remote_build = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-  };
-
-in {
+{ inputs, lib, self, config, ... }: {
   options = {
     hosts = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule {
@@ -39,30 +17,12 @@ in {
             type = lib.types.attrs;
             default = {};
           };
-
-        } // setting_options;
+        };
       });
     };
   };
 
-  config.flake = let 
-    config_setting_options = {
-
-      host = lib.mkOption {
-        type = lib.types.str;
-      };
-
-      system_type = lib.mkOption {
-        type = lib.types.str;
-      };
-
-    } // setting_options;
-
-    in {
-      modules.nixos.core.options = config_setting_options;
-      modules.homeManager.core = config_setting_options;
-    };
-
+  config.flake = {
     nixosConfigurations = lib.mapAttrs (hostname: options:
       let
         pkgs = import inputs.nixpkgs {
