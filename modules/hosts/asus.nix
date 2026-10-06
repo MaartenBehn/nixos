@@ -61,9 +61,10 @@
       battery
       battery-server-notifications
       server
+      server_base
+      server_ssh
       cli
       postgres
-      ssh_server
     ];
 
     homeManager.imports = with self.modules.homeManager; [

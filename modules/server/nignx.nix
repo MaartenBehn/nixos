@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { lib, config, ... }:
+  flake.modules.nixos.server_base = { lib, config, ... }:
   {
     options = {
       domains.public = lib.mkOption {

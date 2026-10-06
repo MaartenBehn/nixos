@@ -43,7 +43,9 @@
         hyprland
         apps-minimal
         solaar
-        ssh_server
+        server_base
+        server_ssh
+        server_ollama
         fix_tpm2 
       ];
 
