@@ -17,7 +17,7 @@
         address = lib.flatten (map (domain: [ 
           "/.${domain}/10.1.0.2" 
           "/.${domain}/fd00:11::2" 
-        ]) config.domains.public ++ config.domains.local);
+        ]) (config.domains.public ++ config.domains.local));
       };
     };
 
@@ -44,7 +44,7 @@
         address = lib.flatten (map (domain: [ 
           "/.${domain}/10.2.0.1" 
           "/.${domain}/fd00:12::1" 
-        ]) config.domains.public ++ config.domains.local);
+        ]) (config.domains.public ++ config.domains.local));
       };
     };
 
