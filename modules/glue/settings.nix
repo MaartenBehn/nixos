@@ -1,4 +1,4 @@
-{ lib, config, ... }: let 
+{ inputs, lib, config, ... }: let 
   setting_options = {
     username = lib.mkOption {
       type = lib.types.str;
@@ -59,6 +59,8 @@ in {
         } // (inherit_settings options); 
       };
     in settings // {
+        imports = [ inputs.home-manager.nixosModules.home-manager ];
+
         home-manager.users.${config.username}.imports = [
           settings 
           {
