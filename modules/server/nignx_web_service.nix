@@ -39,7 +39,7 @@
         let svc = get_webservice sub_domain;
         in if svc.domains == "local"  then config.domains.local
         else if svc.domains == "public" then config.domains.public
-        else config.domains.all;
+        else config.domains.local ++ config.domains.public;
 
       is_domain_local = domain: builtins.elem domain config.domains.local;
 
