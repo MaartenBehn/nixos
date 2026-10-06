@@ -58,7 +58,7 @@ in {
       } // (inherit_settings options);
     }) config.hosts;
 
-    modules.homeManager = lib.mapAttrs (hostname: options: {
+    modules.homeManager = lib.mapAttrs (hostname: options: { config, ... }: {
       options = config_setting_options;
       config = {
         inherit (config) username;
