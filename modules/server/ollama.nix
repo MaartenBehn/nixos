@@ -11,6 +11,7 @@
       loadModels = [ ];
 
       environmentVariables = {
+        VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         OLLAMA_MAX_LOADED_MODELS = "1";
         OLLAMA_NUM_PARALLEL = "1";
         OLLAMA_KEEP_ALIVE = "5m"; # Unloads model after 5m of inactivity to free RAM
