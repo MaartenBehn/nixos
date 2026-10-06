@@ -23,6 +23,7 @@
       loadModels = [ ];
 
       environmentVariables = {
+        VK_DRIVER_FILES = "${config.hardware.nvidia.package}/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         LD_LIBRARY_PATH = "/run/opengl-driver/lib:${config.hardware.nvidia.package}/lib";
         OLLAMA_FLASH_ATTENTION = "0";
         OLLAMA_MAX_LOADED_MODELS = "1";
