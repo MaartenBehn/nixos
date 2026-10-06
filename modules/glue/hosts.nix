@@ -73,6 +73,7 @@
               inherit (options) remote_build;
             }
             self.modules.nixos.core
+            self.modules.nixos.${hostname}
             options.nixos
           ];
         }) 

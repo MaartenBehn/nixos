@@ -35,10 +35,8 @@
     hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 
-
   hosts.laptop = {
     nixos.imports = with self.modules.nixos; [
-        laptop
         framework
         fix_tpm2
         networking

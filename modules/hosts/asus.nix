@@ -55,7 +55,6 @@
 
   hosts.asus = {
     nixos.imports = with self.modules.nixos; [
-      asus
       asus_kernel_crashes
       keep_on_with_closed_lid
       battery

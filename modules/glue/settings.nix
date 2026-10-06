@@ -1,5 +1,10 @@
-{ inputs, lib, self, config, ... }: let 
+{ lib, config, ... }: let 
   setting_options = {
+    username = lib.mkOption {
+      type = lib.types.str;
+      default = "stroby";
+    };
+
     local_ip = lib.mkOption {
       type = lib.types.str;
     };
@@ -44,26 +49,22 @@ in {
   };
 
   config.flake = {
-    modules.nixos.core.options = config_setting_options;
-    modules.homeManager.core = config_setting_options;
 
-    nixosConfigurations = lib.mapAttrs (hostname: options: inputs.nixpkgs.lib.nixosSystem {
-      modules = [
-        ({
-          host = hostname;
-          system_type = options.system;
-        } // (inherit_settings options))
-      ];
+    modules.nixos = lib.mapAttrs (hostname: options: {
+      options = config_setting_options;
+      config = {
+        host = hostname;
+        system_type = options.system;
+      } // (inherit_settings options);
     }) config.hosts;
 
-    nixos.core = { config, ... }: {
-      home-manager.users."${config.username}".imports = [
-        ({
-          inherit (config) username;
-          inherit (config) host;
-          inherit (config) system_type;
-        } // (inherit_settings config))
-      ];
-    };
+    modules.homeManager = lib.mapAttrs (hostname: options: {
+      options = config_setting_options;
+      config = {
+        inherit (config) username;
+        inherit (config) host;
+        inherit (config) system_type;
+      } // (inherit_settings options);
+    }) config.hosts;
   };
 }

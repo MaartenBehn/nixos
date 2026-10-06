@@ -35,7 +35,6 @@
 
   hosts.pigman = {
     nixos.imports = with self.modules.nixos; [
-        pigman
         networking
         networking_vpn
         cli

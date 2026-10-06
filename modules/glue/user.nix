@@ -2,41 +2,24 @@
 let
   global_config = config;
 in {
-  config.flake.modules = {
-    homeManager.core = {
-      options = {
-        username = lib.mkOption {
-          type = lib.types.str;
-        };
-      };
+  flake.modules.nixos.core = { config, ... }: {
+
+    users.users."${config.username}" = {
+      isNormalUser = true;
+
+      extraGroups = [
+        "wheel"
+
+        # Move
+        "media"
+        "nginx"
+      ];
     };
 
-    nixos.core = { config, ... }: {
-      options = {
-        username = lib.mkOption {
-          type = lib.types.str;
-          default = "stroby";
-        };
-      };
-
-      config = {
-        users.users."${config.username}" = {
-          isNormalUser = true;
-
-          extraGroups = [
-            "wheel"
-
-            # Move
-            "media"
-            "nginx"
-          ];
-        };
-
-        home-manager.users."${config.username}".imports = [
-          self.modules.homeManager.core or {}
-          global_config.hosts."${config.host}".homeManager
-        ];
-      };
-    };
+    home-manager.users.${config.username}.imports = [
+      self.modules.homeManager.core or {}
+      self.modules.homeManager.${config.host} or {}
+      global_config.hosts.${config.host}.homeManager
+    ];
   };
 }
