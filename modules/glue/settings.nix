@@ -49,9 +49,8 @@ in {
   };
 
   config.flake = {
-    modules.nixos = { 
-      core.options = config_setting_options; 
-    } // (lib.mapAttrs (hostname: options: { config, ... }: let
+
+    modules.nixos = builtins.concatAttrs (lib.mapAttrsToList (hostname: options: let
       settings = {
         options = config_setting_options;
         config = {
@@ -59,14 +58,16 @@ in {
           system_type = options.system;
         } // (inherit_settings options); 
       };
-    in settings // {
-        
+    in {
+      "${hostname}_nixos_settings" = settings;
+      "${hostname}_homeManager_settings" = { config, ... }: { 
         config.home-manager.users.${config.username}.imports = [
           settings 
           {
             inherit (config) username;
           }
         ];
-      }) config.hosts);
+      };
+    }) config.hosts);
   };
 }
