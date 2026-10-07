@@ -50,6 +50,9 @@ in {
 
   config.flake = {
 
+    # We have to split the setting in ${hostname}_nixos_settings and ${hostname}_homeManager_settings 
+    # bcause we need config for ${hostname}_homeManager_settings but ${hostname}_nixos_settings but the setting need to be
+    # direct sets fo the settings propergate into other modules like core or server
     modules.nixos = lib.mergeAttrsList (lib.mapAttrsToList (hostname: options: let
       settings = {
         options = config_setting_options;
