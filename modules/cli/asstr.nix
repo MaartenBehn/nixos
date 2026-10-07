@@ -10,9 +10,11 @@ let
       # Configuration
       set BASE_URL "https://www.asstr-mirror.org/files/Collections/"
       set DEST_DIR "/media/stories/asstr/Collections"
+      set FAILED_LOG "$DEST_DIR/failed_uris.txt"
 
-      # Ensure base destination directory exists
+      # Ensure base destination directory and failed log file exist
       mkdir -p "$DEST_DIR"
+      touch "$FAILED_LOG"
 
       echo "=== Starting Download ==="
 
@@ -34,10 +36,11 @@ let
           set LOCAL_PATH "$DEST_DIR/$REL_PATH"
           set LOCAL_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_PATH")
 
-          # Instantly create directory and placeholder file
+          # Instantly create directory, placeholder file, and record to log
           mkdir -p "$LOCAL_DIR"
           touch "$LOCAL_PATH"
-          echo "[PLACEHOLDER CREATED] $REL_PATH" >&2
+          echo "$REL_PATH" >> "$FAILED_LOG"
+          echo "[PLACEHOLDER CREATED & LOGGED] $REL_PATH" >&2
         end
 
       echo "=== Done ==="
