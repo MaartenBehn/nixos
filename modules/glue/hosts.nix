@@ -67,10 +67,6 @@
           modules = [
             {
               home-manager.extraSpecialArgs = args;
-              host = hostname;
-              system_type = options.system; 
-              inherit (options) local_ip;
-              inherit (options) remote_build;
             }
             self.modules.nixos.core
             self.modules.nixos.${hostname}
