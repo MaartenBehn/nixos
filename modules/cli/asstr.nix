@@ -1,23 +1,18 @@
 let 
-  mkDownloader = pkgs: pkgs.writeShellApplication {
+  mkDownloader = pkgs: pkgs.writeTextFile {
     name = "asstr-downloader";
+    destination = "/bin/asstr-downloader";
+    executable = true;
 
-    runtimeInputs = with pkgs; [
-      curl
-      gnugrep
-      coreutils
-      wget
-    ];
-
+    # Fish shell with required CLI tools in PATH
     text = ''
-      # Exit on unexpected errors or undefined variables
-      set -euo pipefail
+      #!${pkgs.fish}/bin/fish
 
       # Configuration
-      BASE_URL="https://www.asstr-mirror.org/files/Collections/"
-      DEST_DIR="/media/stories/asstr"
-      FAILED_LOG="$DEST_DIR/failed_uris.txt"
-      WAIT_SEC=0.2
+      set BASE_URL "https://www.asstr-mirror.org/files/Collections/"
+      set DEST_DIR "/media/stories/asstr"
+      set FAILED_LOG "$DEST_DIR/failed_uris.txt"
+      set WAIT_SEC 0.2
 
       # Ensure destination directory and log file exist
       mkdir -p "$DEST_DIR"
@@ -25,47 +20,47 @@ let
 
       echo "=== Discovering Paths with Wget Spider ==="
       
-      # Temporary file to store wget output
-      WGET_SPIDER_LOG=$(mktemp)
-      trap 'rm -f "$WGET_SPIDER_LOG"' EXIT
+      # Create temporary file for wget output
+      set WGET_SPIDER_LOG (mktemp)
 
-      # Discover all recursive paths without downloading the content
-      wget --spider -r -np -nH --cut-dirs=1 \
+      # Discover recursive paths without downloading content
+      ${pkgs.wget}/bin/wget --spider -r -np -nH --cut-dirs=1 \
         -R "*.zip,*.ZIP,index.html*" \
         -o "$WGET_SPIDER_LOG" \
-        "$BASE_URL" || true
+        "$BASE_URL"
       
-      echo "Found ''${#WGET_SPIDER_LOG[@]} uris."
+      echo "Found "(count $WGET_SPIDER_LOG)" uris."
 
       echo "=== Extracting target URLs ==="
 
-      # Parse absolute URLs logged by wget spider
-      mapfile -t ALL_URLS < <(
-        grep -oP 'https://[^\s]+' "$WGET_SPIDER_LOG" | \
-        grep -vE '\.zip$|\.ZIP$|index\.html|/\?|/$' | \
-        sort -u || true
-      )
+      # Extract absolute URLs into Fish list
+      set ALL_URLS (${pkgs.gnugrep}/bin/grep -oP 'https://[^\s]+' "$WGET_SPIDER_LOG" | \
+        ${pkgs.gnugrep}/bin/grep -vE '\.zip$|\.ZIP$|index\.html|/\?|/$' | \
+        ${pkgs.coreutils}/bin/sort -u)
 
-      echo "Found ''${#ALL_URLS[@]} target files."
+      # Clean up temp file
+      rm -f "$WGET_SPIDER_LOG"
+
+      echo "Found "(count $ALL_URLS)" target files."
 
       # Loop through discovered URLs
-      for FILE_URL in "''${ALL_URLS[@]}"; do
-        # Derive relative local path from absolute URL
-        REL_PATH="''${FILE_URL#"$BASE_URL"}"
-        LOCAL_PATH="''${DEST_DIR}/''${REL_PATH}"
-        LOCAL_DIR=$(dirname "$LOCAL_PATH")
+      for FILE_URL in $ALL_URLS
+        # Derive relative local path by stripping BASE_URL prefix
+        set REL_PATH (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$FILE_URL")
+        set LOCAL_PATH "$DEST_DIR/$REL_PATH"
+        set LOCAL_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_PATH")
 
         # Step A: Skip if logged in failed_uris.txt
-        if grep -qFx "$FILE_URL" "$FAILED_LOG"; then
+        if ${pkgs.gnugrep}/bin/grep -qFx "$FILE_URL" "$FAILED_LOG"
           echo "[SKIPPED - FAILED PREVIOUSLY] $REL_PATH"
           continue
-        fi
+        end
 
         # Step B: Skip if already downloaded (and non-empty)
-        if [[ -s "$LOCAL_PATH" ]]; then
+        if test -s "$LOCAL_PATH"
           echo "[SKIPPED - EXISTS] $REL_PATH"
           continue
-        fi
+        end
 
         # Ensure destination directory structure exists locally
         mkdir -p "$LOCAL_DIR"
@@ -73,7 +68,7 @@ let
         echo -n "[DOWNLOADING] $REL_PATH ... "
 
         # Step C: Download via curl
-        if curl --fail --silent --show-error --location --output "$LOCAL_PATH" "$FILE_URL"; then
+        if ${pkgs.curl}/bin/curl --fail --silent --show-error --location --output "$LOCAL_PATH" "$FILE_URL"
           echo "OK"
         else
           echo "FAILED"
@@ -81,10 +76,10 @@ let
           echo "$FILE_URL" >> "$FAILED_LOG"
           # Delete failed/incomplete download artifact
           rm -f "$LOCAL_PATH"
-        fi
+        end
 
-        sleep "$WAIT_SEC"
-      done
+        sleep $WAIT_SEC
+      end
 
       echo "=== Process Finished ==="
     '';
