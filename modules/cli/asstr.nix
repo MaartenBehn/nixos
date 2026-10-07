@@ -27,7 +27,8 @@ let
         -P "$DEST_DIR" \
         -o /dev/stdout \
         "$BASE_URL" | ${pkgs.coreutils}/bin/tee /dev/stderr | ${pkgs.gnugrep}/bin/grep --line-buffered -oP "(?=.*(?:ERROR|failed))https://\S+" | while read -l RAW_URL
-          set CLEAN_URL (string trim --right --chars="]" "$RAW_URL")
+          # Using \x5d for ']' to keep Fish and Nix parser happy
+          set CLEAN_URL (string trim --right --chars="\x5d\x3e)\x22\x27" "$RAW_URL")
           set REL_PATH (string replace "$BASE_URL" "" "$CLEAN_URL")
           
           set LOCAL_PATH "$DEST_DIR/$REL_PATH"
