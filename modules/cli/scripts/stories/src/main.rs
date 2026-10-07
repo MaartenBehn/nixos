@@ -1,14 +1,13 @@
 use scraper::{Html, Selector};
 use sha2::{Digest, Sha256};
 use std::collections::HashSet;
-use std::fs;
 use std::env;
+use std::fs;
 use std::path::Path;
 use walkdir::WalkDir;
 
-/// Extracts story content by targeting standard WordPress HTML structure
-/// and removing non-content nodes (scripts, navigation, forms, etc.).
-fn extract_story_text(html_content: &str) -> Option<String> {
+/// Extracts story content and the main title from standard WordPress HTML structures.
+fn extract_story_data(html_content: &str) -> Option<(String, String)> {
     let document = Html::parse_document(html_content);
 
     // Standard WordPress main content containers in order of priority
@@ -26,12 +25,33 @@ fn extract_story_text(html_content: &str) -> Option<String> {
 
     let element = selected_element?;
 
-    // Unwanted elements to exclude during text gathering
-    let unwanted_tags = ["script", "style", "nav", "footer", "form", "header", "aside"];
+    // 1. Extract Title: Look for standard WordPress title tags or fallback to h1
+    let title_selectors = [
+        "h1.entry-title",
+        "h1.post-title",
+        ".entry-header h1",
+        "article h1",
+        "h1",
+    ];
 
+    let mut extracted_title = None;
+    for title_sel_str in &title_selectors {
+        if let Ok(selector) = Selector::parse(title_sel_str) {
+            if let Some(title_elem) = document.select(&selector).next() {
+                let title_text: String = title_elem.text().collect::<Vec<_>>().join(" ");
+                let trimmed = title_text.trim();
+                if !trimmed.is_empty() {
+                    extracted_title = Some(trimmed.to_string());
+                    break;
+                }
+            }
+        }
+    }
+
+    // 2. Extract Body Content
+    let unwanted_tags = ["script", "style", "nav", "footer", "form", "header", "aside"];
     let mut text_parts = Vec::new();
 
-    // Traverse descendants and exclude any inside unwanted tags
     for node in element.descendants() {
         if let Some(text_node) = node.value().as_text() {
             let is_unwanted = node.ancestors().any(|ancestor| {
@@ -57,8 +77,24 @@ fn extract_story_text(html_content: &str) -> Option<String> {
     if text_parts.is_empty() {
         None
     } else {
-        Some(text_parts.join("\n\n"))
+        let story_text = text_parts.join("\n\n");
+        let title = extracted_title.unwrap_or_default();
+        Some((title, story_text))
     }
+}
+
+/// Sanitizes a string so it can be safely used as a filename.
+fn sanitize_filename(title: &str) -> String {
+    title
+        .chars()
+        .map(|c| match c {
+            'a'..='z' | 'A'..='Z' | '0'..='9' | '-' | '_' | ' ' => c,
+            _ => '_',
+        })
+        .collect::<String>()
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 
 /// Normalizes whitespace and casing, then generates a SHA-256 hash.
@@ -92,7 +128,7 @@ fn process_wordpress_dump(
 
         if path.is_file() && path.file_name().and_then(|s| s.to_str()) == Some("index.html") {
             if let Ok(html_content) = fs::read_to_string(path) {
-                if let Some(story_text) = extract_story_text(&html_content) {
+                if let Some((extracted_title, story_text)) = extract_story_data(&html_content) {
                     if story_text.len() < min_char_length {
                         continue;
                     }
@@ -105,19 +141,24 @@ fn process_wordpress_dump(
                     }
 
                     seen_hashes.insert(text_hash);
-                    saved_count += 1;
 
-                    // Derive file name from the parent directory name
-                    let folder_name = path
-                        .parent()
-                        .and_then(|p| p.file_name())
-                        .and_then(|s| s.to_str())
-                        .unwrap_or("story");
+                    // Determine base filename: use extracted title or fallback to parent directory name
+                    let raw_name = if !extracted_title.is_empty() {
+                        extracted_title
+                    } else {
+                        path.parent()
+                            .and_then(|p| p.file_name())
+                            .and_then(|s| s.to_str())
+                            .unwrap_or("story")
+                            .to_string()
+                    };
 
-                    let output_filename = format!("{}_{}.txt", folder_name, saved_count);
+                    let safe_filename = sanitize_filename(&raw_name);
+                    let output_filename = format!("{}.txt", safe_filename);
                     let output_file_path = output_dir.join(output_filename);
 
                     fs::write(output_file_path, story_text)?;
+                    saved_count += 1;
                 }
             }
         }
@@ -132,8 +173,14 @@ fn process_wordpress_dump(
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
-    let source = args.get(1).map(|s| s.as_str()).unwrap_or("/media/stories/dave_potter/raw");
-    let output = args.get(2).map(|s| s.as_str()).unwrap_or("/media/stories/dave_potter/stories");    
+    let source = args
+        .get(1)
+        .map(|s| s.as_str())
+        .unwrap_or("/media/stories/dave_potter/raw");
+    let output = args
+        .get(2)
+        .map(|s| s.as_str())
+        .unwrap_or("/media/stories/dave_potter/stories");
     let min_character_length = 150;
 
     process_wordpress_dump(Path::new(source), Path::new(output), min_character_length)?;
