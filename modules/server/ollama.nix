@@ -29,7 +29,8 @@
         OLLAMA_NUM_PARALLEL = "1";
         OLLAMA_KEEP_ALIVE = "5m"; # Unloads model after 5m of inactivity to free RAM
         OLLAMA_CONTEXT_LENGTH="16384";
-        OLLAMA_GPU_OVERHEAD = "524288000";
+        OLLAMA_GPU_OVERHEAD = "250000000";
+        OLLAMA_DEBUG = "1";
       };
     };
 
