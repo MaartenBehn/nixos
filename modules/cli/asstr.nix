@@ -6,6 +6,7 @@ let
       curl
       gnugrep
       coreutils
+      wget
     ];
 
     text = ''
@@ -22,63 +23,69 @@ let
       mkdir -p "$DEST_DIR"
       touch "$FAILED_LOG"
 
-      echo "=== Processing HTML Index for Download Targets ==="
+      echo "=== Discovering Paths with Wget Spider ==="
+      
+      # Temporary file to store wget output
+      WGET_SPIDER_LOG=$(mktemp)
+      trap 'rm -f "$WGET_SPIDER_LOG"' EXIT
 
-      # 1. Fetch directory index structure and extract target file relative paths
-      # Excludes .zip, .ZIP, and html files
-      mapfile -t ALL_FILES < <(
-      curl -sSL "$BASE_URL" | \
-      grep -oP 'href="\K[^"]+' | \
-      grep -vE '\.zip$|\.ZIP$|index\.html|^\?|^/' || true
+      # Discover all recursive paths without downloading the content
+      wget --spider -r -np -nH --cut-dirs=1 \
+        -R "*.zip,*.ZIP,index.html*" \
+        -o "$WGET_SPIDER_LOG" \
+        "$BASE_URL" || true
+
+      echo "=== Extracting target URLs ==="
+
+      # Parse absolute URLs logged by wget spider
+      mapfile -t ALL_URLS < <(
+        grep -oP 'https://[^\s]+' "$WGET_SPIDER_LOG" | \
+        grep -vE '\.zip$|\.ZIP$|index\.html|/\?|/$' | \
+        sort -u || true
       )
 
-      echo "Found ''${#ALL_FILES[@]} potential items."
+      echo "Found ''${#ALL_URLS[@]} target files."
 
-      # 2. Loop through each file path
-      for REL_PATH in "''${ALL_FILES[@]}"; do
-      # Skip directory links ending with a slash
-      if [[ "$REL_PATH" == */ ]]; then
-      continue
-      fi
+      # Loop through discovered URLs
+      for FILE_URL in "''${ALL_URLS[@]}"; do
+        # Derive relative local path from absolute URL
+        REL_PATH="''${FILE_URL#"$BASE_URL"}"
+        LOCAL_PATH="''${DEST_DIR}/''${REL_PATH}"
+        LOCAL_DIR=$(dirname "$LOCAL_PATH")
 
-      FILE_URL="''${BASE_URL}''${REL_PATH}"
-      LOCAL_PATH="''${DEST_DIR}/''${REL_PATH}"
-      LOCAL_DIR=$(dirname "$LOCAL_PATH")
+        # Step A: Skip if logged in failed_uris.txt
+        if grep -qFx "$FILE_URL" "$FAILED_LOG"; then
+          echo "[SKIPPED - FAILED PREVIOUSLY] $REL_PATH"
+          continue
+        fi
 
-      # Step A: Skip if already logged as failed
-      if grep -qFx "$FILE_URL" "$FAILED_LOG"; then
-      echo "[SKIPPED - FAILED PREVIOUSLY] $REL_PATH"
-      continue
-      fi
+        # Step B: Skip if already downloaded (and non-empty)
+        if [[ -s "$LOCAL_PATH" ]]; then
+          echo "[SKIPPED - EXISTS] $REL_PATH"
+          continue
+        fi
 
-      # Step B: Skip if already successfully downloaded (and non-empty)
-      if [[ -s "$LOCAL_PATH" ]]; then
-      echo "[SKIPPED - EXISTS] $REL_PATH"
-      continue
-      fi
+        # Ensure destination directory structure exists locally
+        mkdir -p "$LOCAL_DIR"
 
-      # Ensure destination directory exists locally
-      mkdir -p "$LOCAL_DIR"
+        echo -n "[DOWNLOADING] $REL_PATH ... "
 
-      echo -n "[DOWNLOADING] $REL_PATH ... "
+        # Step C: Download via curl
+        if curl --fail --silent --show-error --location --output "$LOCAL_PATH" "$FILE_URL"; then
+          echo "OK"
+        else
+          echo "FAILED"
+          # Log failed URL to master skip log
+          echo "$FILE_URL" >> "$FAILED_LOG"
+          # Delete failed/incomplete download artifact
+          rm -f "$LOCAL_PATH"
+        fi
 
-      # Step C: Attempt download via curl
-      if curl --fail --silent --show-error --location --output "$LOCAL_PATH" "$FILE_URL"; then
-      echo "OK"
-      else
-      echo "FAILED"
-      # Log failed URL if not already present
-      echo "$FILE_URL" >> "$FAILED_LOG"
-      # Clean up incomplete zero-byte download if created
-      rm -f "$LOCAL_PATH"
-      fi
-
-      # Polite rate limiting delay
-      sleep "$WAIT_SEC"
+        sleep "$WAIT_SEC"
       done
 
       echo "=== Process Finished ==="
-      '';
+    '';
   };
 in {
   perSystem = { system, pkgs, ... }: {
