@@ -14,6 +14,7 @@
       fd
       ripgrep                           # grep replacement
       dust                              # better du 
+      tmux
     ]);
 
     home.shellAliases = {
@@ -43,7 +44,6 @@
       python313Packages.markitdown
 
       lego
-      tmux
     ]);
   };
 }
