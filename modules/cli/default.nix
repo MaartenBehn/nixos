@@ -43,6 +43,7 @@
       python313Packages.markitdown
 
       lego
+      tmux
     ]);
   };
 }

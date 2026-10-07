@@ -62,7 +62,7 @@
   };
 
   flake.modules.homeManager.cli = { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
+    home.packages = with pkgs; [
       kitty.terminfo
     ];
   };
