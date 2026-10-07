@@ -29,6 +29,7 @@
         OLLAMA_NUM_PARALLEL = "1";
         OLLAMA_KEEP_ALIVE = "5m"; # Unloads model after 5m of inactivity to free RAM
         OLLAMA_CONTEXT_LENGTH="16384";
+        OLLAMA_NUM_BATCH = "256";
       };
     };
 

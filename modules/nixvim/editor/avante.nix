@@ -12,7 +12,7 @@
           ollama = {
             __inherited_from = "openai";
             endpoint = "http://ollama.local/v1";
-            model = "qwen2.5-coder:7b";
+            model = "hermes3:8b-llama3.1-q3_K_M";
 
             api_key_name = "";
 
@@ -22,12 +22,6 @@
                 temperature = 0.0;            
               };
             };
-
-            system_prompt = ''
-You are an AI coding assistant in Neovim.
-CRITICAL: Do NOT attempt to invoke `read_todos`, `write_todos`, or `think` tools unless explicitly requested by the user.
-Output code edits directly without intermediary planning tool calls.
-'';
           };
           /*gemini = {
             model = "gemini-3.5-flash-lite"; 
