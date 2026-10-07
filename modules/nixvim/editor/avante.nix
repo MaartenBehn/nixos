@@ -7,6 +7,7 @@
         provider = "ollama";
         auto_suggestion_provider = "ollama";
 
+       
         providers = {
           ollama = {
             __inherited_from = "openai";
@@ -21,6 +22,12 @@
                 temperature = 0.0;            
               };
             };
+
+            system_prompt = ''
+You are an AI coding assistant in Neovim.
+CRITICAL: Do NOT attempt to invoke `read_todos`, `write_todos`, or `think` tools unless explicitly requested by the user.
+Output code edits directly without intermediary planning tool calls.
+'';
           };
           /*gemini = {
             model = "gemini-3.5-flash-lite"; 
