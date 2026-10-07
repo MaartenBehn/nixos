@@ -4,7 +4,6 @@ let
     destination = "/bin/asstr-downloader";
     executable = true;
 
-    # Fish shell with required CLI tools in PATH
     text = ''
       #!${pkgs.fish}/bin/fish
 
@@ -14,74 +13,83 @@ let
       set FAILED_LOG "$DEST_DIR/failed_uris.txt"
       set WAIT_SEC 0.2
 
-      # Ensure destination directory and log file exist
+      # Ensure base directories exist
       mkdir -p "$DEST_DIR"
       touch "$FAILED_LOG"
 
-      echo "=== Discovering Paths with Wget Spider ==="
-      
-      # Create temporary file for wget output
-      set WGET_SPIDER_LOG (mktemp)
+      # In-memory queue of subdirectories to scan
+      set DIR_QUEUE "$BASE_URL"
 
-      # Discover recursive paths without downloading content
-      ${pkgs.wget}/bin/wget --spider -r -np -nH --cut-dirs=1 \
-        -R "*.zip,*.ZIP,index.html*" \
-        -o "$WGET_SPIDER_LOG" \
-        "$BASE_URL"
-      
-      echo "Found "(count $WGET_SPIDER_LOG)" uris."
+      echo "=== Starting Clean Recursive Crawl & Download ==="
 
-      echo "=== Extracting target URLs ==="
+      while test (count $DIR_QUEUE) -gt 0
+        # Pop the first directory from queue
+        set CURRENT_DIR $DIR_QUEUE[1]
+        set -e DIR_QUEUE[1]
 
-      # Extract absolute URLs into Fish list
-      set ALL_URLS (${pkgs.gnugrep}/bin/grep -oP 'https://[^\s]+' "$WGET_SPIDER_LOG" | \
-        ${pkgs.gnugrep}/bin/grep -vE '\.zip$|\.ZIP$|index\.html|/\?|/$' | \
-        ${pkgs.coreutils}/bin/sort -u)
+        set REL_DIR (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$CURRENT_DIR")
+        echo "[CRAWLING DIRECTORY] /$REL_DIR"
 
-      # Clean up temp file
-      rm -f "$WGET_SPIDER_LOG"
+        # Fetch index HTML exactly ONCE into memory
+        set INDEX_HTML (${pkgs.curl}/bin/curl -sSL "$CURRENT_DIR")
 
-      echo "Found "(count $ALL_URLS)" target files."
+        # Parse all href links from HTML index
+        set HREF_LINKS (${pkgs.fish}/bin/string match -r -a 'href="([^"]+)"' "$INDEX_HTML" | ${pkgs.fish}/bin/string replace -r 'href="([^"]+)"' '$1')
 
-      # Loop through discovered URLs
-      for FILE_URL in $ALL_URLS
-        # Derive relative local path by stripping BASE_URL prefix
-        set REL_PATH (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$FILE_URL")
-        set LOCAL_PATH "$DEST_DIR/$REL_PATH"
-        set LOCAL_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_PATH")
+        for LINK in $HREF_LINKS
+          # Skip parent/query links, index pages, and rejected extensions
+          if ${pkgs.fish}/bin/string match -q -r '^\?|^/|index\.html|\.zip$|\.ZIP$' "$LINK"
+            continue
+          end
 
-        # Step A: Skip if logged in failed_uris.txt
-        if ${pkgs.gnugrep}/bin/grep -qFx "$FILE_URL" "$FAILED_LOG"
-          echo "[SKIPPED - FAILED PREVIOUSLY] $REL_PATH"
-          continue
+          set FULL_URL "$CURRENT_DIR$LINK"
+
+          # 1. If it's a subdirectory, append to queue to scan later
+          if ${pkgs.fish}/bin/string match -q -r '/$' "$LINK"
+            if not contains "$FULL_URL" $DIR_QUEUE
+              set -a DIR_QUEUE "$FULL_URL"
+            end
+            continue
+          end
+
+          # 2. It's a file: Calculate local destination path
+          set REL_FILE_PATH (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$FULL_URL")
+          set LOCAL_FILE_PATH "$DEST_DIR/$REL_FILE_PATH"
+          set LOCAL_TARGET_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_FILE_PATH")
+
+          # --- CHECK 1: Skip if previously failed ---
+          if ${pkgs.gnugrep}/bin/grep -qFx "$FULL_URL" "$FAILED_LOG"
+            echo "  [SKIPPED - FAILED PREVIOUSLY] $REL_FILE_PATH"
+            continue
+          end
+
+          # --- CHECK 2: Skip if already downloaded ---
+          if test -s "$LOCAL_FILE_PATH"
+            echo "  [SKIPPED - EXISTS] $REL_FILE_PATH"
+            continue
+          end
+
+          # Prepare local directory
+          mkdir -p "$LOCAL_TARGET_DIR"
+
+          echo -n "  [DOWNLOADING] $REL_FILE_PATH ... "
+
+          # Download target file
+          if ${pkgs.curl}/bin/curl --fail --silent --show-error --location --output "$LOCAL_FILE_PATH" "$FULL_URL"
+            echo "OK"
+          else
+            echo "FAILED"
+            # Append failed URI to master blacklist
+            echo "$FULL_URL" >> "$FAILED_LOG"
+            # Ensure no partial or 0-byte file remains
+            rm -f "$LOCAL_FILE_PATH"
+          end
+
+          sleep $WAIT_SEC
         end
-
-        # Step B: Skip if already downloaded (and non-empty)
-        if test -s "$LOCAL_PATH"
-          echo "[SKIPPED - EXISTS] $REL_PATH"
-          continue
-        end
-
-        # Ensure destination directory structure exists locally
-        mkdir -p "$LOCAL_DIR"
-
-        echo -n "[DOWNLOADING] $REL_PATH ... "
-
-        # Step C: Download via curl
-        if ${pkgs.curl}/bin/curl --fail --silent --show-error --location --output "$LOCAL_PATH" "$FILE_URL"
-          echo "OK"
-        else
-          echo "FAILED"
-          # Log failed URL to master skip log
-          echo "$FILE_URL" >> "$FAILED_LOG"
-          # Delete failed/incomplete download artifact
-          rm -f "$LOCAL_PATH"
-        end
-
-        sleep $WAIT_SEC
       end
 
-      echo "=== Process Finished ==="
+      echo "=== Crawl and Download Complete ==="
     '';
   };
 in {
