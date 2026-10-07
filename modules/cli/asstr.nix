@@ -34,6 +34,8 @@ let
         -R "*.zip,*.ZIP,index.html*" \
         -o "$WGET_SPIDER_LOG" \
         "$BASE_URL" || true
+      
+      echo "Found ''${#WGET_SPIDER_LOG[@]} uris."
 
       echo "=== Extracting target URLs ==="
 
