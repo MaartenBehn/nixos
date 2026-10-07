@@ -9,7 +9,7 @@ let
 
       # Configuration
       set BASE_URL "https://www.asstr-mirror.org/files/Collections/"
-      set DEST_DIR "/media/stories/asstr"
+      set DEST_DIR "/media/stories/asstr/Collections"
 
       # Ensure base destination directory exists
       mkdir -p "$DEST_DIR"
