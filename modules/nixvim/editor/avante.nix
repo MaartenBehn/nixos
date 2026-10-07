@@ -12,7 +12,7 @@
           ollama = {
             __inherited_from = "openai";
             endpoint = "http://ollama.local/v1";
-            model = "hermes3:8b-llama3.1-q3_K_M";
+            model = "qwen2.5-coder:32b-instruct-q2_K";
 
             api_key_name = "";
 

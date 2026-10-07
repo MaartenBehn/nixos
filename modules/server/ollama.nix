@@ -66,9 +66,10 @@
         proxyWebsockets = true;    
 
         extraConfig = ''
-          proxy_read_timeout 300s;
-          proxy_connect_timeout 300s;
-          proxy_send_timeout 300s;
+          proxy_read_timeout 1800s;
+          proxy_connect_timeout 1800s;
+          proxy_send_timeout 1800s;
+          send_timeout 1800s;
         '';
       };
     };
