@@ -27,25 +27,26 @@ let
         set CURRENT_DIR $DIR_QUEUE[1]
         set -e DIR_QUEUE[1]
 
-        set REL_DIR (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$CURRENT_DIR")
+        # Built-in Fish 'string' usage (no path prefix)
+        set REL_DIR (string replace "$BASE_URL" "" "$CURRENT_DIR")
         echo "[CRAWLING DIRECTORY] /$REL_DIR"
 
         # Fetch index HTML exactly ONCE into memory
         set INDEX_HTML (${pkgs.curl}/bin/curl -sSL "$CURRENT_DIR")
 
         # Parse all href links from HTML index
-        set HREF_LINKS (${pkgs.fish}/bin/string match -r -a 'href="([^"]+)"' "$INDEX_HTML" | ${pkgs.fish}/bin/string replace -r 'href="([^"]+)"' '$1')
+        set HREF_LINKS (string match -r -a 'href="([^"]+)"' "$INDEX_HTML" | string replace -r 'href="([^"]+)"' '$1')
 
         for LINK in $HREF_LINKS
           # Skip parent/query links, index pages, and rejected extensions
-          if ${pkgs.fish}/bin/string match -q -r '^\?|^/|index\.html|\.zip$|\.ZIP$' "$LINK"
+          if string match -q -r '^\?|^/|index\.html|\.zip$|\.ZIP$' "$LINK"
             continue
           end
 
           set FULL_URL "$CURRENT_DIR$LINK"
 
           # 1. If it's a subdirectory, append to queue to scan later
-          if ${pkgs.fish}/bin/string match -q -r '/$' "$LINK"
+          if string match -q -r '/$' "$LINK"
             if not contains "$FULL_URL" $DIR_QUEUE
               set -a DIR_QUEUE "$FULL_URL"
             end
@@ -53,7 +54,7 @@ let
           end
 
           # 2. It's a file: Calculate local destination path
-          set REL_FILE_PATH (${pkgs.fish}/bin/string replace "$BASE_URL" "" "$FULL_URL")
+          set REL_FILE_PATH (string replace "$BASE_URL" "" "$FULL_URL")
           set LOCAL_FILE_PATH "$DEST_DIR/$REL_FILE_PATH"
           set LOCAL_TARGET_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_FILE_PATH")
 
