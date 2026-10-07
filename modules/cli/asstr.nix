@@ -16,7 +16,8 @@ let
 
       echo "=== Starting Download ==="
 
-      # Single grep pass extracting valid URLs directly from error/failure log lines
+      # - Single grep call matching lines containing ERROR/failed and extracting clean URLs
+      # - PCRE pattern uses [^] '">] to exclude closing brackets/quotes without nested backslashes
       ${pkgs.wget2}/bin/wget2 \
         --max-threads=2 \
         --wait=0.2 \
@@ -26,8 +27,8 @@ let
         -R "*.zip,*.ZIP,index.html*" \
         -P "$DEST_DIR" \
         -o /dev/stdout \
-        "$BASE_URL" | ${pkgs.coreutils}/bin/tee /dev/stderr | ${pkgs.gnugrep}/bin/grep --line-buffered -oP '(?=.*?(ERROR|failed))https://[^\s"'\''>''\]]+' | while read -l RAW_URL
-          set CLEAN_URL (string replace -r '[\]\)"'\''\>]+$' "" "$RAW_URL")
+        "$BASE_URL" | ${pkgs.coreutils}/bin/tee /dev/stderr | ${pkgs.gnugrep}/bin/grep --line-buffered -oP '(?=.*(?:ERROR|failed))https://[^] '\''">]+' | while read -l RAW_URL
+          set CLEAN_URL (string replace -r '[]\)\>]+$' "" "$RAW_URL")
           set REL_PATH (string replace "$BASE_URL" "" "$CLEAN_URL")
           
           set LOCAL_PATH "$DEST_DIR/$REL_PATH"
