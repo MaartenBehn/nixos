@@ -6,13 +6,12 @@
       settings = {
         provider = "ollama";
         auto_suggestion_provider = "ollama";
-
-       
+ 
         providers = {
           ollama = {
             __inherited_from = "openai";
             endpoint = "http://ollama.local/v1";
-            model = "qwen2.5-coder:32b-instruct-q2_K";
+            model = "qwen2.5-coder:14b-instruct-q4_K_M";
 
             api_key_name = "";
 

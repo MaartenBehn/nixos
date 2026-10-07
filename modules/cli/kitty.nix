@@ -60,4 +60,10 @@
       };
     };
   };
+
+  flake.modules.homeManager.cli = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      kitty.terminfo
+    ];
+  };
 }
