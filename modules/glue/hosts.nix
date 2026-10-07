@@ -68,8 +68,8 @@
             {
               home-manager.extraSpecialArgs = args;
             }
-            self.modules.nixos.core
             self.modules.nixos.${hostname}
+            self.modules.nixos.core
             options.nixos
           ];
         }) 
