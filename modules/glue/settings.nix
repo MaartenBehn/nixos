@@ -50,7 +50,7 @@ in {
 
   config.flake = {
 
-    modules.nixos = lib.concatAttrs (lib.mapAttrsToList (hostname: options: let
+    modules.nixos = lib.mergeAttrsList (lib.mapAttrsToList (hostname: options: let
       settings = {
         options = config_setting_options;
         config = {
