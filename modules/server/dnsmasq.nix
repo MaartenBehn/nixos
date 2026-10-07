@@ -49,7 +49,7 @@ in {
         ++ lib.flatten (map (domain: [ 
           "/.${domain}/${global_config.hosts.asus.local_ip}" 
         ]) (global_config.hosts.asus.domains.public));
-
+      };
     };
 
     services.resolved.extraConfig = ''
