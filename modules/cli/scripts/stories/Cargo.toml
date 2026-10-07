@@ -1,5 +1,5 @@
 [package]
-name = "story_extractor"
+name = "story-extractor"
 version = "0.1.0"
 edition = "2021"
 
