@@ -88,9 +88,10 @@ fn sanitize_filename(title: &str) -> String {
     title
         .chars()
         .map(|c| match c {
-            'a'..='z' | 'A'..='Z' | '0'..='9' | '-' | '_' | ' ' => c,
-            _ => '_',
+            'a'..='z' | 'A'..='Z' | '0'..='9' | '-' | '_' | ' ' => Some(c),
+            _ => None,
         })
+        .flatten()
         .collect::<String>()
         .split_whitespace()
         .collect::<Vec<_>>()
