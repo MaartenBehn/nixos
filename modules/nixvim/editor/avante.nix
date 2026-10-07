@@ -5,7 +5,6 @@
 
       settings = {
         provider = "ollama";
-        auto_suggestion_provider = "ollama-fast";
  
         providers = {
           ollama = {

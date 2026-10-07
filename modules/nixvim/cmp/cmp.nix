@@ -44,6 +44,9 @@
               name = "luasnip"; # snippets
               keywordLength = 3;
             }
+            {
+              name = "cmp_ai"; 
+            }
           ];
 
           window = {

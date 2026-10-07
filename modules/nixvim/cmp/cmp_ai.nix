@@ -1,33 +1,34 @@
 {
-  /*
   nixvimConfig.plugins = {
     cmp-ai = {
       enable = true;
       settings = {
         provider = "Ollama";
+        log_errors = true;
 
         provider_options = {
-          model = "qwen2.5-coder:1.5b-base";
-          endpoint = "http://127.0.0.1:11434";
+          model = "qwen2.5-coder:1.5b";
+          base_url = "http://ollama.local/api/generate";
 
           prompt.__raw = "function(lines_before, lines_after) return lines_before end";
           suffix.__raw = "function(lines_after) return lines_after end";
         };
 
-        run_on_every_keystroke = false;
-        max_lines = 30;       
+        run_on_every_keystroke = true;
+        max_lines = 30;      
+        notify = true;
+        notify_callback.__raw = "function(msg) vim.notify(msg)end";
 
         options = {
-          temperature = 0.0; # 0.0 forces the absolute most deterministic/accurate code choice
-          max_tokens = 40;   # Keeps completions to 1-3 lines max (perfect for immediate popup suggestions)
+          temperature = 0.0;          
+          num_predict = 40;
           stop = [
-            "```"
+            "<fim prefix>"
+            "<fim suffix>"
+            "<fim middle>"
+            "<|endoftext|>"
             "\n\n"
-            "Note:"
-            "Explanation:"
-            "Here is"
-            "<｜begin▁of▁sentence｜>"
-          ];
+          ];        
         };      
       };
     };
@@ -50,5 +51,4 @@
       };
     };
   };
-  */
 }
