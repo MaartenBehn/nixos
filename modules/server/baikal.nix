@@ -44,6 +44,6 @@
           "www.baikal.${domain}"
         ];
       };
-    }) (config.domains.all));
+    }) (config.domains.public));
   };
 }
