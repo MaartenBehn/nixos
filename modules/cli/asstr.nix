@@ -16,15 +16,14 @@ let
 
       echo "=== Starting Download ==="
 
-      # -o /dev/stdout outputs the log stream
-      # tee /dev/stderr prints all log output directly to terminal while piping downstream
+      # --cut-dirs=2 strips both 'files' and 'Collections' from the path
+      # Removed --protocol-directories to prevent the extra 'https/' folder
       ${pkgs.wget2}/bin/wget2 \
         --max-threads=2 \
         --wait=0.2 \
         --random-wait \
         -r -np -nH -nc \
-        --cut-dirs=1 \
-        --protocol-directories \
+        --cut-dirs=2 \
         -R "*.zip,*.ZIP,index.html*" \
         -P "$DEST_DIR" \
         -o /dev/stdout \
@@ -33,7 +32,7 @@ let
           set LOCAL_PATH "$DEST_DIR/$REL_PATH"
           set LOCAL_DIR (${pkgs.coreutils}/bin/dirname "$LOCAL_PATH")
 
-          # Instantly create directory and placeholder file
+          # Instantly create directory and placeholder file matching the new layout
           mkdir -p "$LOCAL_DIR"
           touch "$LOCAL_PATH"
           echo "[PLACEHOLDER CREATED] $REL_PATH" >&2
