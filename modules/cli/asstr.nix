@@ -17,7 +17,7 @@ let
       echo "=== Starting Download ==="
 
       # Stream wget's log output directly into a processing pipeline
-      ${pkgs.wget}/bin/wget \
+      ${pkgs.wget2}/bin/wget2 \
         --max-threads=2 \
         --wait=0.2 \
         --random-wait \
