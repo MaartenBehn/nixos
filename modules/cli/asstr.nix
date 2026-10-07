@@ -35,7 +35,7 @@ let
           # Instantly create directory and placeholder file matching the new layout
           mkdir -p "$LOCAL_DIR"
           touch "$LOCAL_PATH"
-          echo "[PLACEHOLDER CREATED] $REL_PATH" >&2
+          echo "[PLACEHOLDER CREATED] $LOCAL_PATH" >&2
         end
 
       echo "=== Done ==="
