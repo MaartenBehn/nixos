@@ -1,5 +1,4 @@
 {
-  /*
   flake.modules.nixos.server = { pkgs, config, ... }: let 
     valid_check = pkgs.writeShellScriptBin "valid_check" ''
       if [ ! -d "/srv/AudioMuse-AI" ]; then
@@ -91,5 +90,4 @@
       };
     };
   };
-  */
 }
