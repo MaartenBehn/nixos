@@ -1,5 +1,4 @@
 {
-  /*
   flake.modules.nixos.server = { pkgs, ... }:
   {
     users.users.stroby.extraGroups = [ "docker" ];
@@ -9,5 +8,4 @@
       lazydocker
     ];
   };
-  */
 }
