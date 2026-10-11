@@ -1,6 +1,15 @@
 { config, ... }: let 
   global_config = config;
 in {
+  flake.modules.homeManager.core = {
+    programs.ssh = {
+      extraConfig = ''
+        Host *
+          StrictHostKeyChecking accept-new
+      '';
+    };
+  };
+
   flake.modules.homeManager.cli.programs.ssh = { 
     enable = true;
     enableDefaultConfig = false;
