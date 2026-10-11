@@ -75,5 +75,8 @@
 
       home.sessionVariables.terminal = "kitty";
     };
+
+    local_ip = "192.168.0.30";
+    remote_build = true;
   };
 }
