@@ -26,6 +26,8 @@
         cd /home/$USER/nixos/
         git pull
         sudo nixos-rebuild switch --flake . --impure --log-format internal-json |& nom --json
+
+
         cd -
       '';
 
