@@ -1,7 +1,38 @@
 { config, ... }: let 
   global_config = config;
 in {
-  flake.modules.nixos.core = { pkgs, config, lib, ... }: {
+  flake.modules.nixos.core = { pkgs, config, lib, ... }: let 
+    remote_hosts = lib.filterAttrs (name: host: name != config.host && (host.remote_build.enable or false)) global_config.hosts;
+
+    update_builders = pkgs.writeShellScript "update-active-builders" ''
+      active_builders=""
+
+      check_worker() {
+        local ip="$1"
+        local system="$2"
+        local maxJobs="$3"
+        local speedFactor="$4"
+        local features="$5"
+
+        # Check port 22 with a 1-second timeout
+        if ${pkgs.netcat}/bin/nc -z -w 1 "$ip" 22 >/dev/null 2>&1; then
+          local spec="ssh://remote_build@$ip?ssh-key=/root/.ssh/remote_build $system - $maxJobs $speedFactor $features"
+          if [ -z "$active_builders" ]; then
+            active_builders="$spec"
+          else
+            active_builders="$active_builders;$spec"
+          fi
+        fi
+      }
+
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: host: ''
+        check_worker "${host.local_ip}" "${host.system}" "${toString host.remote_build.maxJobs}" "${toString host.remote_build.speedFactor}" "${lib.concatStringsSep "," host.remote_build.supportedFeatures}"
+      '') remote_hosts)}
+
+      mkdir -p /run/nix
+      echo "$active_builders" > /run/nix/active_builders
+    '';
+  in {
     
     users.users.remote_build = lib.mkIf config.remote_build.enable {
       isSystemUser = true;
@@ -16,7 +47,6 @@ in {
     users.groups.remote_build = lib.mkIf config.remote_build.enable {};
     nix.settings.trusted-users = lib.mkIf config.remote_build.enable [ "remote_build" ];
 
-
     sops.secrets."remote_build/private_key" = {
       path = "/root/.ssh/remote_build";
     };
@@ -24,18 +54,26 @@ in {
     nix.distributedBuilds = true;
     nix.settings.builders-use-substitutes = true;
 
-    nix.buildMachines = builtins.map (hostname: let 
-        host = global_config.hosts."${hostname}";
-      in {
-        hostName = "${host.local_ip}";
-        sshUser = "remote_build";
-        sshKey = "/root/.ssh/remote_build";
-        system = host.system;
-        supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
-        maxJobs = host.remote_build.maxJobs;
-        speedFactor = host.remote_build.speedFactor;
-      }) 
-      (builtins.filter (hostname: hostname != config.host && global_config.hosts."${hostname}".remote_build.enable)
-       (builtins.attrNames global_config.hosts));
+    nix.extraOptions = ''
+      builders = @/run/nix/active_builders
+    '';
+
+    system.activationScripts.updateBuilders = {
+      text = "${update_builders}";
+    };
+
+    systemd.services.update-active-builders = {
+      description = "Update active Nix remote builders";
+      script = "${update_builders}";
+      serviceConfig.Type = "oneshot";
+    };
+
+    systemd.timers.update-active-builders = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "30s";
+        OnUnitActiveSec = "5min";
+      };
+    };
   };
 }
