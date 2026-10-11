@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs, ... }:
+  flake.modules.nixos.docker = { pkgs, ... }:
   {
     users.users.stroby.extraGroups = [ "docker" ];
     virtualisation.docker.enable = true;
