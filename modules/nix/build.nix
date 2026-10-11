@@ -39,6 +39,8 @@
       home.packages = with pkgs; [
         nix-rebuild 
         nix-rebuild-pull
+        nix-rebuild-pretty
+        nix-rebuild-pretty-pull
         nix-update
         nh
         nix-prefetch-github
