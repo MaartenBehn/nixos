@@ -18,14 +18,14 @@
       nix-rebuild-pretty = pkgs.writeShellScriptBin "nix-rebuild-pretty" ''
         cd /home/$USER/nixos/
         git add --all
-        nh os switch . -- --quiet --impure 
+        sudo nixos-rebuild switch --flake . --impure --log-format internal-json -v |& nom --json
         cd -
       '';
 
       nix-rebuild-pretty-pull = pkgs.writeShellScriptBin "nix-rebuild-pretty-pull" ''
         cd /home/$USER/nixos/
         git pull
-        nh os switch . -- --quiet --impure 
+        sudo nixos-rebuild switch --flake . --impure --log-format internal-json -v |& nom --json
         cd -
       '';
 
@@ -43,6 +43,7 @@
         nix-rebuild-pretty-pull
         nix-update
         nh
+        nom
         nix-prefetch-github
         nix-weather
 
