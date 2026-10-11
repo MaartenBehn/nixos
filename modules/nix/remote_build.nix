@@ -16,7 +16,8 @@ in {
 
         # Check port 22 with a 1-second timeout
         if ${pkgs.netcat}/bin/nc -z -w 1 "$ip" 22 >/dev/null 2>&1; then
-          local spec="ssh://remote_build@$ip?ssh-key=/root/.ssh/remote_build $system $maxJobs $speedFactor $features"
+          # Clean layout: URI | System | IdentityFile | MaxJobs | SpeedFactor | Features
+          local spec="ssh://remote_build@$ip $system /root/.ssh/remote_build $maxJobs $speedFactor $features"
           if [ -z "$active_builders" ]; then
             active_builders="$spec"
           else
@@ -31,8 +32,8 @@ in {
 
       mkdir -p /run/nix
       echo "$active_builders" > /run/nix/active_builders
-    '';
-  in {
+    '';  
+    in {
     
     users.users.remote_build = lib.mkIf config.remote_build.enable {
       isSystemUser = true;
