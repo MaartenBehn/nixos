@@ -4,10 +4,6 @@
       inputs.audiomuse.nixosModules.audiomuse-ai
     ];
 
-    overlays = [
-      inputs.audiomuse.overlays.cpu
-    ];
-
     services.audiomuse-ai = {
       enable = true;
 
