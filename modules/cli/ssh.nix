@@ -1,7 +1,7 @@
 { config, ... }: let 
   global_config = config;
 in {
-  flake.modules.homeManager.core = {
+  flake.modules.nixos.core = {
     programs.ssh = {
       extraConfig = ''
         Host *
