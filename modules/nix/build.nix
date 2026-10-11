@@ -43,7 +43,7 @@
         nix-rebuild-pretty-pull
         nix-update
         nh
-        nom
+        nix-output-monitor
         nix-prefetch-github
         nix-weather
 
