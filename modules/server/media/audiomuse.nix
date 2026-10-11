@@ -12,7 +12,7 @@
 
       musicDir = "/media/music";
 
-      workers = 8;
+      workers.count = 8;
     };
 
     web_services = {
