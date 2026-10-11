@@ -1,6 +1,6 @@
 {
+  /*
   nixvimConfig = {
-    /*
     plugins.avante = {
       enable = true;
 
@@ -36,14 +36,14 @@
               };
             };
           };
-          /*gemini = {
+          gemini = {
             model = "gemini-3.5-flash-lite"; 
             temperature = 0;
             max_tokens = 8192;        
-          };*/
+          };
         };
-      };  
+      }; 
     };
-    */
   };
+  */
 }
