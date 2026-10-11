@@ -78,6 +78,10 @@
     };
 
     local_ip = "192.168.0.30";
-    remote_build = true;
+    remote_build = {
+      enable = true;
+      maxJobs = 16;
+      speedFactor = 3;
+    };
   };
 }

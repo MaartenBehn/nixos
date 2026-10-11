@@ -60,5 +60,10 @@
     local_ip = "192.168.0.8";
     domains.public = [ ]; 
     domains.local = [ "local" ];
+    remote_build = {
+      enable = true;
+      maxJobs = 16;
+      speedFactor = 2;
+    };
   };
 }

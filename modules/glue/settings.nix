@@ -19,9 +19,21 @@
       default = [ "local" ];
     };
 
-    remote_build = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
+    remote_build = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
+
+      speedFactor = lib.mkOption {
+        type = lib.types.int;
+        default = 1;
+      };
+
+      maxJobs = lib.mkOption {
+        type = lib.types.int;
+        default = 1;
+      }; 
     };
   };
 

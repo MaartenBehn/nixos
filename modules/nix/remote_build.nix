@@ -32,8 +32,10 @@ in {
         sshKey = "/root/.ssh/remote_build";
         system = host.system;
         supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
+        maxJobs = host.maxJobs;
+        speedFactor = host.speedFactor;
       }) 
-      (builtins.filter (hostname: hostname != config.host && global_config.hosts."${hostname}".remote_build)
+      (builtins.filter (hostname: hostname != config.host && global_config.hosts."${hostname}".remote_build.enable)
        (builtins.attrNames global_config.hosts));
   };
 }
