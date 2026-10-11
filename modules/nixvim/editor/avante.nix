@@ -1,5 +1,6 @@
 {
   nixvimConfig = {
+    /*
     plugins.avante = {
       enable = true;
 
@@ -43,5 +44,6 @@
         };
       };  
     };
+    */
   };
 }
