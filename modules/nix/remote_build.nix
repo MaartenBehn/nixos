@@ -13,8 +13,8 @@ in {
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGRprPuaJEC+YVOPhWv793MSXW+8FNgVBPLWumJFd97 root@nixos"
       ];
     };
-    users.groups.remote_build = lib.mkIf config.remote_build {};
-    nix.settings.trusted-users = lib.mkIf config.remote_build [ "remote_build" ];
+    users.groups.remote_build = lib.mkIf config.remote_build.enable {};
+    nix.settings.trusted-users = lib.mkIf config.remote_build.enable [ "remote_build" ];
 
 
     sops.secrets."remote_build/private_key" = {
