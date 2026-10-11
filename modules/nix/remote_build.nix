@@ -16,7 +16,7 @@ in {
 
         # Check port 22 with a 1-second timeout
         if ${pkgs.netcat}/bin/nc -z -w 1 "$ip" 22 >/dev/null 2>&1; then
-          local spec="ssh://remote_build@$ip?ssh-key=/root/.ssh/remote_build $system - $maxJobs $speedFactor $features"
+          local spec="ssh://remote_build@$ip?ssh-key=/root/.ssh/remote_build $system $maxJobs $speedFactor $features"
           if [ -z "$active_builders" ]; then
             active_builders="$spec"
           else
