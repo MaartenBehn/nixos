@@ -1,7 +1,7 @@
 { inputs, ... }: {
   flake.modules.nixos.server = { pkgs, config, ... }: {
     imports = [
-      inputs.audiomuse.nixosModules
+      inputs.audiomuse.nixosModules.audiomuse-ai
     ];
 
     services.audiomuse-ai = {
