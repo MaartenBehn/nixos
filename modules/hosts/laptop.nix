@@ -83,5 +83,10 @@
       maxJobs = 1;
       speedFactor = 3;
     };
+
+    cores = {
+      big-parallel = 8;
+      base = 16;
+    };
   };
 }

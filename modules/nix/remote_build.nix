@@ -78,6 +78,6 @@ in {
       };
     };
     
-    nix.settings.cores = 4;
+    nix.settings.cores = config.cores.big-parallel;
   };
 }

@@ -40,6 +40,18 @@
         default = [ "kvm" "big-parallel" "nixos-test" ];
       };
     };
+
+    cores = {
+      big-parallel = lib.mkOption {
+        type = lib.types.int;
+        default = 4;
+      };
+
+      base = lib.mkOption {
+        type = lib.types.int;
+        default = 0;
+      };
+    };
   };
 
   config_setting_options = {
