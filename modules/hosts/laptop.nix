@@ -80,7 +80,7 @@
     local_ip = "192.168.0.30";
     remote_build = {
       enable = true;
-      maxJobs = 2;
+      maxJobs = 1;
       speedFactor = 3;
     };
   };

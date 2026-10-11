@@ -34,7 +34,9 @@
     # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware; 
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+    nix.settings.max-jobs = 1;
   };
 
   flake.modules.nixos.asus_kernel_crashes = { pkgs, ... }: {
@@ -76,7 +78,7 @@
     domains.local = [ "local" ];
     remote_build = {
       enable = true;
-      maxJobs = 2;
+      maxJobs = 1;
       speedFactor = 1;
     };
   };

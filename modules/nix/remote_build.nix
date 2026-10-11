@@ -47,7 +47,7 @@ in {
     };
     users.groups.remote_build = lib.mkIf config.remote_build.enable {};
     nix.settings.trusted-users = lib.mkIf config.remote_build.enable [ "remote_build" ];
-    nix.settings.max-jobs = lib.mkIf config.remote_build.enable config.remote_build.maxJobs;
+    
 
     sops.secrets."remote_build/private_key" = {
       path = "/root/.ssh/remote_build";
