@@ -4,6 +4,10 @@
       inputs.audiomuse.nixosModules.audiomuse-ai
     ];
 
+    overlays = [
+      inputs.audiomuse.overlays.default
+    ];
+
     services.audiomuse-ai = {
       enable = true;
 
