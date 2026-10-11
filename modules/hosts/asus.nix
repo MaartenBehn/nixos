@@ -78,7 +78,7 @@
     domains.local = [ "local" ];
     remote_build = {
       enable = true;
-      maxJobs = 8;
+      maxJobs = 1;
       speedFactor = 1;
     };
   };
