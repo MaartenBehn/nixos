@@ -76,5 +76,7 @@ in {
         OnUnitActiveSec = "5min";
       };
     };
+
+    nix.settings.max-jobs = config.remote_build.maxJobs;
   };
 }
