@@ -77,6 +77,7 @@ in {
         OnUnitActiveSec = "5min";
       };
     };
-
+    
+    nix.settings.cores = 4;
   };
 }

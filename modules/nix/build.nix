@@ -18,14 +18,14 @@
       nix-rebuild-pretty = pkgs.writeShellScriptBin "nix-rebuild-pretty" ''
         cd /home/$USER/nixos/
         git add --all
-        nh os switch . --quiet --impure --keep-going
+        nh os switch --quiet --impure --keep-going .
         cd -
       '';
 
       nix-rebuild-pretty-pull = pkgs.writeShellScriptBin "nix-rebuild-pretty-pull" ''
         cd /home/$USER/nixos/
         git pull
-        nh os switch . --quiet --impure --keep-going
+        nh os switch --quiet --impure --keep-going .
         cd -
       '';
 
