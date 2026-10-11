@@ -4,30 +4,28 @@
       nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild" ''
         cd /home/$USER/nixos/
         git add --all
-        sudo nixos-rebuild switch --flake . --impure
+        sudo nixos-rebuild switch --flake . --impure --log-format internal-json |& nom --json
         cd -
       '';
 
       nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pull" ''
         cd /home/$USER/nixos/
         git pull
-        sudo nixos-rebuild switch --flake . --impure
+        sudo nixos-rebuild switch --flake . --impure --log-format internal-json |& nom --json
         cd -
       '';
 
       nix-rebuild-pretty = pkgs.writeShellScriptBin "nix-rebuild-pretty" ''
         cd /home/$USER/nixos/
         git add --all
-        sudo nixos-rebuild switch --flake . --impure --log-format internal-json |& nom --json
+        nh os switch . --quiet --impure
         cd -
       '';
 
       nix-rebuild-pretty-pull = pkgs.writeShellScriptBin "nix-rebuild-pretty-pull" ''
         cd /home/$USER/nixos/
         git pull
-        sudo nixos-rebuild switch --flake . --impure --log-format internal-json |& nom --json
-
-
+        nh os switch . --quiet --impure
         cd -
       '';
 
