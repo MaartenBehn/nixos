@@ -33,7 +33,12 @@
       maxJobs = lib.mkOption {
         type = lib.types.int;
         default = 1;
-      }; 
+      };
+
+      supportedFeatures = lib.mkOption {
+        type = lib.types.listOf lib.types.str; 
+        default = [ "kvm" "big-parallel" "nixos-test" ];
+      };
     };
   };
 
