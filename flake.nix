@@ -112,7 +112,7 @@
 
     audiomuse = { 
       url = "github:MaartenBehn/audiomuse-ai-nix";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
   

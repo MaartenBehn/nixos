@@ -1,14 +1,14 @@
 {
   flake.modules.homeManager.core = { pkgs, ...}: 
     let
-      nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild-pretty" ''
+      nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild" ''
         cd /home/$USER/nixos/
         git add --all
         nh os switch --quiet --impure --keep-going .
         cd -
       '';
 
-      nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pretty-pull" ''
+      nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pull" ''
         cd /home/$USER/nixos/
         git pull
         nh os switch --quiet --impure --keep-going .
