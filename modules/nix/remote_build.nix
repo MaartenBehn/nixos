@@ -3,7 +3,7 @@
 in {
   flake.modules.nixos.core = { pkgs, config, lib, ... }: {
     
-    users.users.remote_build = lib.mkIf config.remote_build {
+    users.users.remote_build = lib.mkIf config.remote_build.enable {
       isSystemUser = true;
       group = "remote_build";
       useDefaultShell = true;
