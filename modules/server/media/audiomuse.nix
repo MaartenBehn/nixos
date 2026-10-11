@@ -5,7 +5,7 @@
     ];
 
     overlays = [
-      inputs.audiomuse.overlays.default
+      inputs.audiomuse.overlays.cpu
     ];
 
     services.audiomuse-ai = {
