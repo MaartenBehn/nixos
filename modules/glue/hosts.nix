@@ -36,23 +36,19 @@
               "docker-28.5.2"
             ];
           };
-          overlays = [ inputs.audiomuse.overlays.cpu ];
         }; 
 
         pkgs-2405 = import inputs.nixpkgs-2405 {
           inherit (options) system;
           config.allowUnfree = true;
-          overlays = [ inputs.audiomuse.overlays.cpu ];
         };
         pkgs-2505 = import inputs.nixpkgs-2505 {
           inherit (options) system;
           config.allowUnfree = true;
-          overlays = [ inputs.audiomuse.overlays.cpu ];
         };
         pkgs-unstable = import inputs.nixpkgs-unstable {
           inherit (options) system;
           config.allowUnfree = true;
-          overlays = [ inputs.audiomuse.overlays.cpu ];
         };
 
         args = { 

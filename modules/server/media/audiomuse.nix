@@ -1,11 +1,20 @@
 { inputs, ... }: {
-  flake.modules.nixos.server = { pkgs, config, ... }: {
+  flake.modules.nixos.server = { pkgs, config, ... }: let
+    audiomuse-pkgs = import inputs.nixpkgs {
+          system = config.system_type;
+          overlays = [ inputs.audiomuse.overlays.cpu ];
+        }; 
+
+    in {
     imports = [
       inputs.audiomuse.nixosModules.audiomuse-ai
     ];
 
     services.audiomuse-ai = {
       enable = true;
+
+      package = audiomuse-pkgs.audiomuse-ai;
+      modelsPackage = audiomuse-pkgs.audiomuse-ai-models;
 
       port = 8055;
       host = "127.0.0.1";
