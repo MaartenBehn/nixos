@@ -4,7 +4,7 @@
       inputs.audiomuse.nixosModules
     ];
 
-    services.audiomuse = {
+    services.audiomuse-ai = {
       enable = true;
 
       port = 8055;
