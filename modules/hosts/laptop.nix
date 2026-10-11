@@ -58,6 +58,7 @@
         #algo_trading
         games
         solaar
+        server_ssh
       ];
 
     homeManager = {
