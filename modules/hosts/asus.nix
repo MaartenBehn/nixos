@@ -35,8 +35,6 @@
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-    nix.settings.max-jobs = 1;
   };
 
   flake.modules.nixos.asus_kernel_crashes = { pkgs, ... }: {
@@ -80,6 +78,7 @@
       enable = true;
       maxJobs = 1;
       speedFactor = 1;
+      supportedFeatures = [ "kvm" "nixos-test" ];
     };
 
     cores = {

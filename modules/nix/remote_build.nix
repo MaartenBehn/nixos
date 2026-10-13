@@ -79,5 +79,6 @@ in {
     };
     
     nix.settings.cores = config.cores.big-parallel;
+    nix.settings.max-jobs = 1;
   };
 }

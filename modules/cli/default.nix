@@ -25,7 +25,7 @@
     };
   };
 
-  flake.modules.homeManager.cli-full = { pkgs, ... }: {
+  flake.modules.homeManager.cli-full = { pkgs, pkgs-unstable, ... }: {
     home.packages = (with pkgs; [ 
       ## CLI utility
       ffmpeg
