@@ -10,6 +10,17 @@
       inputs.audiomuse.nixosModules.audiomuse-ai
     ];
 
+    sops.secrets."audiomuse/jellyfin_user_id" = { owner = "audiomuse"; };
+    sops.secrets."audiomuse/jellyfin_token" = { owner = "audiomuse"; };
+    
+    sops.templates."audiomuse.env" = {
+      content = ''
+        JELLYFIN_USER_ID=${config.sops.placeholder."audiomuse/jellyfin_user_id"}
+        JELLYFIN_TOKEN=${config.sops.placeholder."audiomuse/jellyfin_token"}
+      '';
+      owner = "audiomuse";
+    };
+
     services.audiomuse-ai = {
       enable = true;
 
@@ -22,6 +33,13 @@
       musicDir = "/media/music";
 
       workers.count = 8;
+
+      mediaServer.jellyfin = {
+        enable = true;
+        url = "http://127.0.0.1:8096"; 
+      };
+
+      environmentFile = config.sops.templates."audiomuse.env".path; 
     };
 
     web_services = {
