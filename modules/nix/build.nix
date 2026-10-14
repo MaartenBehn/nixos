@@ -4,14 +4,21 @@
       nix-rebuild = pkgs.writeShellScriptBin "nix-rebuild" ''
         cd /home/$USER/nixos/
         git add --all
-        nh os switch --quiet --impure --keep-going .
+        nh os switch --quiet --impure --keep-going . "$@"
         cd -
       '';
 
       nix-rebuild-pull = pkgs.writeShellScriptBin "nix-rebuild-pull" ''
         cd /home/$USER/nixos/
         git pull
-        nh os switch --quiet --impure --keep-going .
+        nh os switch --quiet --impure --keep-going . "$@"
+        cd -
+      '';
+
+      nix-rebuild-local = pkgs.writeShellScriptBin "nix-rebuild-local" ''
+        cd /home/$USER/nixos/
+        git add --all
+        nh os switch --quiet --impure --keep-going --builders "" . "$@"
         cd -
       '';
 
@@ -25,6 +32,7 @@
       home.packages = with pkgs; [
         nix-rebuild 
         nix-rebuild-pull
+        nix-rebuild-local
         nix-update
         nh
         nix-output-monitor
