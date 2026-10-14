@@ -16,7 +16,7 @@
       package = audiomuse-pkgs.audiomuse-ai;
       modelsPackage = audiomuse-pkgs.audiomuse-ai-models;
 
-      port = 8055;
+      port = 8000;
       host = "127.0.0.1";
 
       musicDir = "/media/music";
@@ -28,7 +28,7 @@
       "audiomuse" = {
         domains = "local";
         root = {
-          proxyPass = "http://172.17.0.1:8055/";
+          proxyPass = "http://172.17.0.1:8000/";
           proxyWebsockets = true;
         };
       };
