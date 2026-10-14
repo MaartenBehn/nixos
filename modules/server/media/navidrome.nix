@@ -12,7 +12,7 @@
         EnableSharing = true;
       };
 
-      Plugins = with pkgs.navidromePlugins; [
+      plugins = with pkgs.navidromePlugins; [
         audiomuseai
         #listenbrainz-daily-playlist
         lyrics-plugin
