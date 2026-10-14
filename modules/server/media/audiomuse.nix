@@ -28,7 +28,7 @@
       "audiomuse" = {
         domains = "local";
         root = {
-          proxyPass = "http://172.17.0.1:8000/";
+          proxyPass = "http://127.0.0.1:8000/";
           proxyWebsockets = true;
         };
       };
