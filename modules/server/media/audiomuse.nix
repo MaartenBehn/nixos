@@ -13,7 +13,7 @@
     services.audiomuse-ai = {
       enable = true;
 
-      package = audiomuse-pkgs.audiomuse-ai-cpu;
+      package = audiomuse-pkgs.audiomuse-ai;
       modelsPackage = audiomuse-pkgs.audiomuse-ai-models;
 
       port = 8055;
