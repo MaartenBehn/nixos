@@ -1,7 +1,10 @@
 {
-  flake.modules.nixos.server = { pkgs, ... }: {
+  flake.modules.nixos.server = { pkgs-unstable, ... }: {
     services.navidrome = {
       enable = true;
+  
+      services.navidrome.package = pkgs-unstable.navidrome;
+
       settings = {
         MusicFolder = "/media/music";
         Address = "127.0.0.1";
@@ -9,7 +12,7 @@
         EnableSharing = true;
       };
 
-      plugins = with pkgs.navidromePlugins; [
+      Plugins = with pkgs-unstable.navidromePlugins; [
         audiomuseai
         #listenbrainz-daily-playlist
         lyrics-plugin
