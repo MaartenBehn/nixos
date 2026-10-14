@@ -36,7 +36,8 @@
 
       mediaServer.jellyfin = {
         enable = true;
-        url = "http://127.0.0.1:8096"; 
+        url = "http://127.0.0.1:8096";
+        libaries = [ "Music" ];
       };
 
       environmentFile = config.sops.templates."audiomuse.env".path; 
