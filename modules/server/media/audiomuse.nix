@@ -40,6 +40,8 @@
         libaries = [ "Music" ];
       };
 
+      auth.enable = false;
+
       environmentFile = config.sops.templates."audiomuse.env".path; 
     };
 
