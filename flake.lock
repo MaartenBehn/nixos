@@ -82,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791991437,
-        "narHash": "sha256-1Y98yN6K/9LnfZjjmTBb9zwXs1DqF6CA6zMHQB1E8eE=",
+        "lastModified": 1791991620,
+        "narHash": "sha256-iY9mJZc9RdWUjxDaz2Zzmg8kQCvGmRXsLclwHejQt+0=",
         "owner": "MaartenBehn",
         "repo": "audiomuse-ai-nix",
-        "rev": "dfcea52e73c1d91748759ea25fb49a7c1ef258fe",
+        "rev": "fe005c3b07068a397bec1d993c0d3f14a53510e1",
         "type": "github"
       },
       "original": {
