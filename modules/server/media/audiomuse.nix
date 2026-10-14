@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  flake.modules.nixos.server_ = { pkgs, config, ... }: let
+  flake.modules.nixos.server = { pkgs, config, ... }: let
     audiomuse-pkgs = import inputs.nixpkgs-unstable {
           system = config.system_type;
           overlays = [ inputs.audiomuse.overlays.cpu ];
