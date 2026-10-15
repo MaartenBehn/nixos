@@ -39,17 +39,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    # https://github.com/Frost-Phoenix/nixos-config/blob/main/flake.nix
-    nur.url = "github:nix-community/NUR";
-    
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     hyprland-plugins = {
@@ -57,30 +46,9 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    hyprmag.url = "github:SIMULATAN/hyprmag";
-
-    hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
-    spicetify-nix = {
-      url = "github:gerg-l/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
-    yazi-plugins = {
-      url = "github:yazi-rs/plugins";
-      flake = false;
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
     zig.url = "github:mitchellh/zig-overlay";
-
-    nvf.url = "github:notashelf/nvf";
 
     solaar = {
       url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz"; # For latest stable version
@@ -108,10 +76,8 @@
 
     nixpkgs-wanderer.url = "github:charludo/nixpkgs/init-wanderer";
 
-    nixpkgs-scramjet.url = "github:MaartenBehn/nixpkgs/add-scramjet";
-
     audiomuse = { 
-      url = "github:MaartenBehn/audiomuse-ai-nix";
+      url = "path:/home/stroby/dev/audiomuse-ai-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

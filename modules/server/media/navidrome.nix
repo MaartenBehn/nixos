@@ -20,9 +20,9 @@
     users.groups.media.members = [ "navidrome" ];
 
     web_services."navidrome" = {
-      domains = "local";
+      domains = "all";
       root = {
-        proxyPass = "http://127.0.0.1:5055/"; 
+        proxyPass = "http://127.0.0.1:4533/"; 
       };
     };
   };
