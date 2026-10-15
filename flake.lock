@@ -61,8 +61,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1792099178,
-        "narHash": "sha256-pCrELZzfg7a4CHCm9KYXdQEthkAPxkmGNzwkIURvATc=",
+        "lastModified": 1792105069,
+        "narHash": "sha256-kiGnkEotG3VETXSQRpmUOhxHbWLFQ286cTvCO0/vAwg=",
         "path": "/home/stroby/dev/audiomuse-ai-nix",
         "type": "path"
       },
@@ -900,22 +900,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-2405": {
-      "locked": {
-        "lastModified": 1735651292,
-        "narHash": "sha256-YLbzcBtYo1/FEzFsB3AnM16qFc6fWPMIoOuSoDwvg9g=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "0da3c44a9460a26d2025ec3ed2ec60a895eb1114",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "release-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-2505": {
       "locked": {
         "lastModified": 1768649915,
@@ -1203,7 +1187,6 @@
         "nix-minecraft": "nix-minecraft",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-2405": "nixpkgs-2405",
         "nixpkgs-2505": "nixpkgs-2505",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixpkgs-wanderer": "nixpkgs-wanderer",

@@ -3,6 +3,10 @@
     services.navidrome = {
       enable = true;
 
+      package = pkgs.navidrome.overrideAttrs (oldAttrs: {
+        doCheck = false;
+      });
+
       settings = {
         MusicFolder = "/media/music";
         Address = "127.0.0.1";
@@ -11,7 +15,20 @@
       };
 
       plugins = with pkgs.navidromePlugins; [
-        #audiomuseai
+        (audiomuseai.overrideAttrs (oldAttrs: {
+          env = (oldAttrs.env or {}) // {
+            GOOS = "wasip1";
+            GOARCH = "wasm";
+          };
+
+          buildPhase = ''
+            runHook preBuild
+            go build \
+              -buildmode=c-shared \
+              -o $GOPATH/bin/plugin.wasm .
+            runHook postBuild
+          '';
+        }))        
         #listenbrainz-daily-playlist
         #lyrics-plugin
       ];

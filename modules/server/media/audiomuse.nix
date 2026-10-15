@@ -3,6 +3,7 @@
     audiomuse-pkgs = import inputs.nixpkgs-unstable {
           system = config.system_type;
           overlays = [ inputs.audiomuse.overlays.cpu ];
+          config.allowUnsupportedSystem = true;
         }; 
 
     in {
@@ -44,6 +45,13 @@
 
       environmentFile = config.sops.templates."audiomuse.env".path; 
     };
+
+    #services.navidrome = {
+    #  plugins = [
+    #     audiomuse-pkgs.navidromePlugins.audiomuse-ai
+    #  ];
+    #};
+
 
     web_services = {
       "audiomuse" = {

@@ -38,10 +38,6 @@
           };
         }; 
 
-        pkgs-2405 = import inputs.nixpkgs-2405 {
-          inherit (options) system;
-          config.allowUnfree = true;
-        };
         pkgs-2505 = import inputs.nixpkgs-2505 {
           inherit (options) system;
           config.allowUnfree = true;
@@ -54,7 +50,6 @@
         args = { 
           inherit (options) system;
           inherit inputs;
-          inherit pkgs-2405;
           inherit pkgs-2505;
           inherit pkgs-unstable;
         };

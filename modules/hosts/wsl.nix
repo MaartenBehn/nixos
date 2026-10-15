@@ -3,10 +3,6 @@ let
   system = "x86_64-linux";
   nix-version = "25.11";
 
-  pkgs-2405 = import inputs.nixpkgs-2405 {
-    inherit system;
-    config.allowUnfree = true;
-  };
   pkgs-2505 = import inputs.nixpkgs-2505 {
     inherit system;
     config.allowUnfree = true;
@@ -20,7 +16,6 @@ let
     inherit nix-version;
     inherit system;
     inherit inputs;
-    inherit pkgs-2405;
     inherit pkgs-2505;
     inherit pkgs-unstable;  
     host = "wsl";
