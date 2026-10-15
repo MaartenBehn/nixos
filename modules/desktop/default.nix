@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager.hyprland = { pkgs, config, ... }: {
     home.packages = (with pkgs; [
+      hyprland
       wl-clipboard                      # clipboard utils for wayland (wl-copy, wl-paste)
       pavucontrol                       # pulseaudio volume controle (GUI)
       swappy                            # snapshot editing tool
@@ -8,7 +9,7 @@
 
       killall
 
-      swww
+      awww
       #inputs.hypr-contrib.packages.${config.system_type}.grimblast
       grimblast
       hyprpicker
@@ -24,7 +25,7 @@
 
       networkmanagerapplet
       seahorse
-      blueberry
+      blueman
       btop
       poweralertd                       # Battery notifications
     ]);

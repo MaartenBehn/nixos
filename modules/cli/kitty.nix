@@ -19,17 +19,10 @@
       themeFile = "gruvbox-dark-hard";
 
       font = {
-        name = "JetBrains Mono";
+        name = "JetBrainsMono Nerd Font";
         size = 12;
       };
-
-      extraConfig = ''
-      font_features JetBrainsMono-Regular +ss01 +ss02 +ss04
-      font_features JetBrainsMono-Bold +ss01 +ss02 +ss04
-      font_features JetBrainsMono-Italic +ss01 +ss02 +ss04
-      font_features JetBrainsMono-Light +ss01 +ss02 +ss04
-      '';
-
+     
       settings = {
         confirm_os_window_close = 0;
         background_opacity = (if config.wayland.windowManager.hyprland.enable then "0.66" else "1.0");
@@ -52,6 +45,7 @@
         inactive_tab_background = "#3C3836";
       };
 
+      
       keybindings = {
         "ctrl+shift+c" = "copy_to_clipboard";
         "ctrl+shift+v" = "paste_from_clipboard";

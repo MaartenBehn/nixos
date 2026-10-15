@@ -38,8 +38,6 @@
   };
 
   flake.modules.nixos.asus_kernel_crashes = { pkgs, ... }: {
-    boot.kernelPackages = pkgs.linuxPackages_hardened;
-
     boot.kernel.sysctl = {
       "kernel.panic" = 10;                   # Reboot 10 seconds after a panic
       "kernel.panic_on_oops" = 1;            # Panic immediately on an oops
@@ -74,16 +72,15 @@
     local_ip = "192.168.0.97";
     domains.public = [ "stroby.org" "stroby.duckdns.org" "stroby.ipv64.de" ]; 
     domains.local = [ "local" ];
-    remote_build = {
-      enable = true;
+    build = {
+      remote = true;
       maxJobs = 1;
       speedFactor = 1;
       supportedFeatures = [ "kvm" "nixos-test" ];
-    };
-
-    cores = {
-      big-parallel = 2;
-      base = 8;
+      cores = {
+        big-parallel = 2;
+        base = 8;
+      };
     };
   };
 }

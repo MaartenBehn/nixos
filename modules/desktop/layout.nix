@@ -3,26 +3,40 @@
     let
       layout_names = builtins.attrNames config.layouts.layouts;
       layout_names_text = lib.strings.concatStringsSep ", " layout_names;
-
       get_layout = n: config.layouts.layouts."${n}";
-      monitor_commands = n: lib.strings.concatLines (builtins.map (m: "hyprctl keyword monitor ${m}") (get_layout n).monitors);
-      workspace_commands = n: lib.strings.concatLines (builtins.map (w: "hyprctl keyword workspace ${w}") (get_layout n).workspaces);
+
+      # ---------- Lua generation ----------
+      monitor_lua = m:
+        if m.disabled then
+          ''hl.monitor({ output = "${m.output}", disabled = true })''
+        else
+          ''hl.monitor({ output = "${m.output}", mode = "${m.mode}", position = "${m.position}", scale = ${toString m.scale}${lib.optionalString (m.mirror != null) '', mirror = "${m.mirror}"''} })'';
+
+      workspace_lua = w:
+        ''hl.workspace_rule({ workspace = "${w.workspace}"${lib.optionalString (w.monitor != null) '', monitor = "${w.monitor}"''}${lib.optionalString w.default '', default = true''} })'';
+
+      layout_lua = n:
+        let l = get_layout n; in
+        lib.strings.concatStringsSep "\n"
+          ((builtins.map monitor_lua l.monitors) ++ (builtins.map workspace_lua l.workspaces));
+
+      # ---------- scripts ----------
       extra_command = n: (get_layout n).command;
       leave_command = n: (get_layout n).leave_command;
 
       if_statments = lib.strings.concatLines (builtins.map (n: ''
-        if [ "$1" == "${n}" ]; then 
-          ${monitor_commands n}
-          ${workspace_commands n}
+        if [ "$1" == "${n}" ]; then
+          hyprctl eval '${layout_lua n}'
           ${extra_command n}
         fi
       '') layout_names);
 
-      levae_if_statments = lib.strings.concatLines (builtins.map (n: if (leave_command n) != "" then ''
-        if [ "$layout" == "${n}" ]; then 
-          ${leave_command n}
-        fi
-      '' else "") layout_names);
+      levae_if_statments = lib.strings.concatLines (builtins.map (n:
+        if (leave_command n) != "" then ''
+          if [ "$layout" == "${n}" ]; then
+            ${leave_command n}
+          fi
+        '' else "") layout_names);
 
       set-monitors = pkgs.writeShellScriptBin "set-monitors" ''
         if [ $# -eq 0 ]; then
@@ -38,8 +52,8 @@
 
       set-monitors-present = pkgs.writeShellScriptBin "set-monitors-present" ''
         if [ $# -eq 0 ]; then
-        echo "Must give main monitor as arg"
-        exit
+          echo "Must give main monitor as arg"
+          exit
         fi
 
         other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | .[]')
@@ -47,28 +61,28 @@
         tail=$(printf "%s\n" "$other" | tail -n +2)
         echo "Selcted present monitor: $first"
 
-        hyprctl keyword monitor $first,highres,auto,1
-        hyprctl keyword monitor $1,highres,auto,1,mirror,$first
+        hyprctl eval "hl.monitor({ output = \"$first\", mode = \"highres\", position = \"auto\", scale = 1 })"
+        hyprctl eval "hl.monitor({ output = \"$1\", mode = \"highres\", position = \"auto\", scale = 1, mirror = \"$first\" })"
 
         while IFS= read -r line; do
-        [ -z "$line" ] && continue
-        echo "Also mirroring: $line"
-        hyprctl keyword monitor $line,highres,auto,1,mirror,$first
+          [ -z "$line" ] && continue
+          echo "Also mirroring: $line"
+          hyprctl eval "hl.monitor({ output = \"$line\", mode = \"highres\", position = \"auto\", scale = 1, mirror = \"$first\" })"
         done <<< "$tail"
       '';
 
       disable-other-monitors = pkgs.writeShellScriptBin "disable-other-monitors" ''
         if [ $# -eq 0 ]; then
-        echo "Must give main monitor as arg"
-        exit
+          echo "Must give main monitor as arg"
+          exit
         fi
 
         other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | .[]')
 
         while IFS= read -r line; do
-        [ -z "$line" ] && continue
-        echo "Disabling: $line"
-        hyprctl keyword monitor $line,disable
+          [ -z "$line" ] && continue
+          echo "Disabling: $line"
+          hyprctl eval "hl.monitor({ output = \"$line\", disabled = true })"
         done <<< "$other"
       '';
 
@@ -76,23 +90,24 @@
         monitors=$(hyprctl monitors all -j | jq -r '.[].name')
 
         while IFS= read -r line; do
-        [ -z "$line" ] && continue
-        echo "Disabling: $line"
-        hyprctl keyword monitor $line,disable
+          [ -z "$line" ] && continue
+          echo "Disabling: $line"
+          hyprctl eval "hl.monitor({ output = \"$line\", disabled = true })"
         done <<< "$monitors"
       '';
 
       set-other-monitors-auto = pkgs.writeShellScriptBin "set-other-monitors-auto" ''
         if [ $# -eq 0 ]; then
-        echo "Must give main monitor as arg"
-        exit
+          echo "Must give main monitor as arg"
+          exit
         fi
 
         other=$(hyprctl monitors all -j | jq -r --arg main "$1" '[.[].name] | map(select(. != $main)) | .[]')
 
         while IFS= read -r line; do
-        echo "Auto: $line"
-        hyprctl keyword monitor $line,highres,auto,1
+          [ -z "$line" ] && continue
+          echo "Auto: $line"
+          hyprctl eval "hl.monitor({ output = \"$line\", mode = \"highres\", position = \"auto\", scale = 1 })"
         done <<< "$other"
       '';
 
@@ -101,10 +116,10 @@
         cd ~/.config/layout/
         if [ ! -f "current_layout" ]; then
           echo "${config.layouts.initial}"
-        else 
+        else
           cat current_layout
         fi
-        '';
+      '';
 
       set-layout = pkgs.writeShellScriptBin "set-layout" ''
         if [ $# -eq 0 ]; then
@@ -122,192 +137,187 @@
         cd ~/.config/layout/
         echo "$1" > "current_layout"
       '';
-      
+
       guess-layout = pkgs.writeShellScriptBin "guess-layout" ''
-        #network="$(nmcli -c no)"
+        l=$(current-layout)
 
-        #if [[ $network == *"DLR Gastzugang"* ]]; then
-        #  set-layout "dlr"
-        #  exit
-        #fi
-
-        l = $(current-layout)
-
-        if [[ $l != "extend" ]]; then 
+        if [[ $l != "extend" ]]; then
           set-layout $l
-          exit 
+          exit
         fi
 
         set-layout "home"
       '';
 
+      # ---------- option types ----------
+      monitorType = lib.types.submodule {
+        options = {
+          output = lib.mkOption {
+            type = lib.types.str;
+            description = "Output name (empty string matches any monitor)";
+          };
+          mode = lib.mkOption { type = lib.types.str; default = "highres"; };
+          position = lib.mkOption { type = lib.types.str; default = "auto"; };
+          scale = lib.mkOption { type = lib.types.number; default = 1; };
+          mirror = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; };
+          disabled = lib.mkOption { type = lib.types.bool; default = false; };
+        };
+      };
+
+      workspaceType = lib.types.submodule {
+        options = {
+          workspace = lib.mkOption {
+            type = lib.types.str;
+            description = "Workspace selector, e.g. \"1\" or \"r[2-3]\"";
+          };
+          monitor = lib.mkOption { type = lib.types.nullOr lib.types.str; default = null; };
+          default = lib.mkOption { type = lib.types.bool; default = false; };
+        };
+      };
+
       initial_layout = get_layout config.layouts.initial;
     in {
-      options = {
-        layouts = lib.mkOption {
-          type = lib.types.submodule {
-            options = {
-
-              layouts = lib.mkOption {
-                type = lib.types.attrsOf (lib.types.submodule {
-                  options = {
-                    monitors = lib.mkOption {
-                      type = lib.types.listOf(lib.types.str);
-                      description = "Monitor Settings";
-                      default = [];
-                    };
-
-                    workspaces = lib.mkOption {
-                      type = lib.types.listOf(lib.types.str);
-                      description = "Monitor Workspace Settings";
-                      default = [];
-                    };
-
-                    command = lib.mkOption {
-                      type = lib.types.str;
-                      description = "Command to run when swicting to layout";
-                      default = "";
-                    };
-
-                    leave_command = lib.mkOption {
-                      type = lib.types.str;
-                      description = "Command to run when leaving the layout";
-                      default = "";
-                    };
+      options.layouts = lib.mkOption {
+        type = lib.types.submodule {
+          options = {
+            layouts = lib.mkOption {
+              type = lib.types.attrsOf (lib.types.submodule {
+                options = {
+                  monitors = lib.mkOption {
+                    type = lib.types.listOf monitorType;
+                    description = "Monitor settings";
+                    default = [];
                   };
-                });
-              };
+                  workspaces = lib.mkOption {
+                    type = lib.types.listOf workspaceType;
+                    description = "Workspace rules";
+                    default = [];
+                  };
+                  command = lib.mkOption {
+                    type = lib.types.str;
+                    description = "Command to run when switching to layout";
+                    default = "";
+                  };
+                  leave_command = lib.mkOption {
+                    type = lib.types.str;
+                    description = "Command to run when leaving the layout";
+                    default = "";
+                  };
+                };
+              });
+            };
 
-              initial = lib.mkOption {
-                type = lib.types.str;
-                description = "Default layout";
-                default = "home";
-              };
+            initial = lib.mkOption {
+              type = lib.types.str;
+              description = "Default layout";
+              default = "home";
             };
           };
         };
       };
 
       config = {
-        layouts = if config.host == "laptop" then {
-          initial = "home";
+        layouts =
+          if config.host == "laptop" then
+            let
+              edp = { output = "eDP-1"; mode = "preferred"; position = "0x0"; };
+            in {
+              initial = "home";
 
-          layouts = {
-            none = {
+              layouts = {
+                none = {
+                  monitors = [ edp ];
+                  workspaces = [
+                    { workspace = "1"; monitor = "eDP-1"; default = true; }
+                    { workspace = "r[2-3]"; monitor = "eDP-1"; }
+                  ];
+                  command = "disable-other-monitors eDP-1";
+                };
+
+                extend = {
+                  monitors = [
+                    edp
+                    { output = ""; }
+                  ];
+                  workspaces = [
+                    { workspace = "1"; monitor = "eDP-1"; default = true; }
+                  ];
+                  command = "set-other-monitors-auto eDP-1";
+                };
+
+                home = {
+                  monitors = [
+                    edp
+                    { output = "DP-5"; mode = "preferred"; position = "-1920x0"; }
+                    { output = "DP-6"; mode = "preferred"; position = "-3840x0"; }
+                    { output = "DP-7"; mode = "preferred"; position = "-1920x0"; }
+                    { output = "DP-8"; mode = "preferred"; position = "-3840x0"; }
+                  ];
+                  workspaces = [
+                    { workspace = "1"; monitor = "eDP-1"; default = true; }
+                    { workspace = "r[2-3]"; monitor = "eDP-1"; }
+
+                    { workspace = "4"; monitor = "DP-5"; default = true; }
+                    { workspace = "r[5-6]"; monitor = "DP-5"; }
+                    { workspace = "4"; monitor = "DP-7"; default = true; }
+                    { workspace = "r[5-6]"; monitor = "DP-7"; }
+                    { workspace = "7"; monitor = "DP-6"; default = true; }
+                    { workspace = "r[8-9]"; monitor = "DP-6"; }
+                    { workspace = "7"; monitor = "DP-8"; default = true; }
+                    { workspace = "r[8-9]"; monitor = "DP-8"; }
+                  ];
+                };
+
+                behns = {
+                  monitors = [
+                    edp
+                    { output = "DP-3"; mode = "preferred"; position = "-2560x0"; scale = 1.5; }
+                  ];
+                  workspaces = [
+                    { workspace = "1"; monitor = "eDP-1"; default = true; }
+                  ];
+                };
+
+                mirror = {
+                  monitors = [ edp ] ++ (builtins.map (i: {
+                    output = "DP-${toString i}";
+                    mirror = "eDP-1";
+                  }) (lib.range 1 11));
+                  leave_command = "disable-all-monitors";
+                };
+
+                present = {
+                  command = "set-monitors-present eDP-1";
+                  leave_command = "disable-all-monitors";
+                };
+              };
+            }
+          else {
+            initial = "home";
+
+            layouts.home = {
               monitors = [
-                "eDP-1,2256x1504,0x0,1"
+                { output = "HDMI-A-1"; mode = "preferred"; position = "0x0"; }
+                { output = "HDMI-A-2"; mode = "preferred"; position = "1920x0"; }
               ];
-
               workspaces = [
-                "1, monitor:eDP-1, default:true" 
-                "r[2-3], monitor:eDP-1"
-              ];
+                { workspace = "1"; monitor = "HDMI-A-1"; default = true; }
+                { workspace = "2"; monitor = "HDMI-A-1"; }
+                { workspace = "3"; monitor = "HDMI-A-1"; }
 
-              command = "disable-other-monitors eDP-1";
-            };
-
-            extend = {
-              monitors = [
-                "eDP-1,2256x1504,0x0,1"
-                ",highres,auto,1"
-              ];
-
-              workspaces = [
-                "1, monitor:eDP-1, default:true" 
-              ];
-
-              command = "set-other-monitors-auto eDP-1";
-            }; 
-
-            home = {
-              monitors = [
-                "eDP-1,2256x1504,0x0,1"
-                "DP-5,1920x1080,-1920x0,1"
-                "DP-6,1920x1080,-3840x0,1"
-                "DP-7,1920x1080,-1920x0,1"
-                "DP-8,1920x1080,-3840x0,1"
-              ];
-
-              workspaces = [
-                "1, monitor:eDP-1, default:true" 
-                "r[2-3], monitor:eDP-1"
-
-                "4, monitor:DP-5, default:true"
-                "r[5-6], monitor:DP-5"
-                "4, monitor:DP-7, default:true"
-                "r[5-6], monitor:DP-7"
-                "7, monitor:DP-6, default:true"
-                "r[8-9], monitor:DP-6"
-                "7, monitor:DP-8, default:true"
-                "r[8-9], monitor:DP-8"
-              ];
-            };
-
-            behns = {
-              monitors = [
-                "eDP-1,2256x1504,0x0,1"
-                "DP-3,3840x2160,-2560x0,1.5"
-              ];
-
-              workspaces = [
-                "1, monitor:eDP-1, default:true" 
-              ];
-            }; 
-              
-              
-            mirror = {
-              monitors = [
-                "eDP-1,2256x1504,0x0,1"
-                "DP-1,highres,auto,1,mirror,eDP-1"
-                "DP-2,highres,auto,1,mirror,eDP-1"
-                "DP-3,highres,auto,1,mirror,eDP-1"
-                "DP-4,highres,auto,1,mirror,eDP-1"
-                "DP-5,highres,auto,1,mirror,eDP-1"
-                "DP-6,highres,auto,1,mirror,eDP-1"
-                "DP-7,highres,auto,1,mirror,eDP-1"
-                "DP-8,highres,auto,1,mirror,eDP-1"
-                "DP-9,highres,auto,1,mirror,eDP-1"
-                "DP-10,highres,auto,1,mirror,eDP-1"
-                "DP-11,highres,auto,1,mirror,eDP-1"
-              ];
-
-              leave_command = "disable-all-monitors";
-            };
-
-            present = {
-              command = "set-monitors-present eDP-1";
-              leave_command = "disable-all-monitors";
-            };
-          };
-        } else {
-          initial = "home";
-
-          layouts = {
-            home = {
-              monitors = [
-                "HDMI-A-1,1920x1080,0x0,1"
-                "HDMI-A-2,1920x1080,1920x0,1"
-              ];
-
-              workspaces = [
-                "1, monitor:HDMI-A-1, default:true"
-                "2, monitor:HDMI-A-1"
-                "3, monitor:HDMI-A-1"
-
-                "4, monitor:HDMI-A-2, default:true"
-                "5, monitor:HDMI-A-2"
-                "6, monitor:HDMI-A-2"
+                { workspace = "4"; monitor = "HDMI-A-2"; default = true; }
+                { workspace = "5"; monitor = "HDMI-A-2"; }
+                { workspace = "6"; monitor = "HDMI-A-2"; }
               ];
             };
           };
-        };
 
-        wayland.windowManager.hyprland.settings = {
-          workspace = initial_layout.workspaces;
-          monitor = initial_layout.monitors;
-        };
+        #wayland.windowManager.hyprland.extraConfig = ''
+        #  -- initial layout: ${config.layouts.initial}
+        #  ${layout_lua config.layouts.initial}
+        #'';
 
-        home.packages = [ 
+        home.packages = [
           current-layout
           set-layout
           set-monitors

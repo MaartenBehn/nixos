@@ -1,88 +1,85 @@
 {
   flake.modules.homeManager.hyprland = {
-    wayland.windowManager.hyprland.settings = {
-      general = {
-        border_size = 2;
-        "col.active_border" = "rgb(98971A) rgb(CC241D) 45deg";
-        "col.inactive_border" = "0x00000000";
-        # border_part_of_window = false;
-        #no_border_on_floating = false;
-        gaps_in = 3;
-        gaps_out = 4;
-      };
+    wayland.windowManager.hyprland.extraConfig = #lua
+      ''
+      -- general
+      hl.config({
+        general = {
+          border_size = 2,
+          gaps_in = 3,
+          gaps_out = 4,
+          col = {
+            active_border = { colors = { "rgb(98971A)", "rgb(CC241D)" }, angle = 45 },
+            inactive_border = "0x00000000",
+          },
+        },
+      })
 
-      windowrule = [
-        # No gaps when only
-        "match:float 0, match:workspace w[t1], border_size 0, rounding 0"
-        "match:float 0, match:workspace w[tg1], border_size 0, rounding 0"
-        "match:float 0, match:workspace f[1], border_size 0, rounding 0"
-      ];
+      -- no gaps, borders or rounding when a workspace has only one window
+      for _, selector in ipairs({ "w[t1]", "w[tg1]", "f[1]" }) do
+        hl.workspace_rule({ workspace = selector, gaps_out = 0, gaps_in = 0 })
+        hl.window_rule({
+          match = { float = false, workspace = selector },
+          border_size = 0,
+          rounding = 0,
+        })
+      end
 
-      workspace = [
-        # No gaps when only
-        "w[t1], gapsout:0, gapsin:0"
-        "w[tg1], gapsout:0, gapsin:0"
-        "f[1], gapsout:0, gapsin:0"
-      ];
+      -- decoration
+      hl.config({
+        decoration = {
+          rounding = 0,
+          -- active_opacity = 0.90,
+          -- inactive_opacity = 0.90,
+          -- fullscreen_opacity = 1.0,
 
-      decoration = {
-        rounding = 0;
-        # active_opacity = 0.90;
-        # inactive_opacity = 0.90;
-        # fullscreen_opacity = 1.0;
+          blur = {
+            enabled = true,
+            size = 3,
+            passes = 2,
+            brightness = 1,
+            contrast = 1.4,
+            ignore_opacity = true,
+            noise = 0,
+            new_optimizations = true,
+            xray = true,
+          },
 
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 2;
-          brightness = 1;
-          contrast = 1.4;
-          ignore_opacity = true;
-          noise = 0;
-          new_optimizations = true;
-          xray = true;
-        };
+          shadow = {
+            enabled = true,
+            offset = "0 2",
+            range = 20,
+            render_power = 3,
+            color = "rgba(00000055)",
+          },
+        },
+      })
 
-        shadow = {
-          enabled = true;
+      -- animations
+      hl.config({ animations = { enabled = true } })
 
-          #ignore_window = true;
-          offset = "0 2";
-          range = 20;
-          render_power = 3;
-          color = "rgba(00000055)";
-        };
-      };
+      hl.curve("fluent_decel", { type = "bezier", points = { { 0, 0.2 }, { 0.4, 1 } } })
+      hl.curve("easeOutCirc", { type = "bezier", points = { { 0, 0.55 }, { 0.45, 1 } } })
+      hl.curve("easeOutCubic", { type = "bezier", points = { { 0.33, 1 }, { 0.68, 1 } } })
+      hl.curve("fade_curve", { type = "bezier", points = { { 0, 0.55 }, { 0.45, 1 } } })
 
-      animations = {
-        enabled = true;
+      -- windows
+      hl.animation({ leaf = "windowsIn", enabled = false, speed = 4, bezier = "easeOutCubic", style = "popin 20%" })
+      hl.animation({ leaf = "windowsOut", enabled = false, speed = 4, bezier = "fluent_decel", style = "popin 80%" })
+      hl.animation({ leaf = "windowsMove", enabled = true, speed = 2, bezier = "fluent_decel", style = "slide" })
 
-        bezier = [
-          "fluent_decel, 0, 0.2, 0.4, 1"
-          "easeOutCirc, 0, 0.55, 0.45, 1"
-          "easeOutCubic, 0.33, 1, 0.68, 1"
-          "fade_curve, 0, 0.55, 0.45, 1"
-        ];
+      -- fade
+      hl.animation({ leaf = "fadeIn", enabled = true, speed = 3, bezier = "fade_curve" })
+      hl.animation({ leaf = "fadeOut", enabled = true, speed = 3, bezier = "fade_curve" })
+      hl.animation({ leaf = "fadeSwitch", enabled = false, speed = 1, bezier = "easeOutCirc" })
+      hl.animation({ leaf = "fadeShadow", enabled = true, speed = 10, bezier = "easeOutCirc" })
+      hl.animation({ leaf = "fadeDim", enabled = true, speed = 4, bezier = "fluent_decel" })
 
-        animation = [
-          # name, enable, speed, curve, style
+      -- workspaces (styles: slide, slidevert, fade, slidefade, slidefadevert)
+      hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "easeOutCubic", style = "fade" })
 
-          # Windows
-          "windowsIn,   0, 4, easeOutCubic,  popin 20%" # window open
-          "windowsOut,  0, 4, fluent_decel,  popin 80%" # window close.
-          "windowsMove, 1, 2, fluent_decel, slide" # everything in between, moving, dragging, resizing.
-
-          # Fade
-          "fadeIn,      1, 3,   fade_curve" # fade in (open) -> layers and windows
-          "fadeOut,     1, 3,   fade_curve" # fade out (close) -> layers and windows
-          "fadeSwitch,  0, 1,   easeOutCirc" # fade on changing activewindow and its opacity
-          "fadeShadow,  1, 10,  easeOutCirc" # fade on changing activewindow for shadows
-          "fadeDim,     1, 4,   fluent_decel" # the easing of the dimming of inactive windows
-          # "border,      1, 2.7, easeOutCirc"  # for animating the border's color switch speed
-          # "borderangle, 1, 30,  fluent_decel, once" # for animating the border's gradient angle - styles: once (default), loop
-          "workspaces,  1, 4,   easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
-        ];
-      };
-    };
+      -- hl.animation({ leaf = "border", enabled = true, speed = 2.7, bezier = "easeOutCirc" })
+      -- hl.animation({ leaf = "borderangle", enabled = true, speed = 30, bezier = "fluent_decel", style = "once" })
+    '';
   };
 }

@@ -106,7 +106,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-wanderer.url = "github:MaartenBehn/nixpkgs/add-wanderer";
+    nixpkgs-wanderer.url = "github:charludo/nixpkgs/init-wanderer";
 
     nixpkgs-scramjet.url = "github:MaartenBehn/nixpkgs/add-scramjet";
 

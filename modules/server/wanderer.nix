@@ -8,59 +8,48 @@
         nixpkgs.overlays = [
           (final: prev: {
             wanderer = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.wanderer;
-            wanderer-db = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.wanderer-db;
+            wanderer-web = inputs.nixpkgs-wanderer.legacyPackages.${prev.system}.wanderer-web;
           })
         ];
       }
     ];
 
-    sops = { 
-      secrets = {
-        "meili_master_key" = { mode = "0444"; };
-        "wanderer_pb_encryption_key" = { mode = "0444"; };
+    sops.secrets = {
+      "meili_master_key" = { mode = "0444"; };
+      "wanderer/pb_encryption_key" = { mode = "0444"; };
+      "wanderer/proxy_secret" = { mode = "0444"; };
+    };
+
+    services.meilisearch.masterKeyFile = config.sops.secrets."meili_master_key".path;
+
+    services.wanderer = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 8003;
+      openFirewall = false;
+      
+      pocketbase = {
+        host = "127.0.0.1";
+        port = 8004;
       };
 
-      templates."wanderer.env" = {
-        owner = "wanderer";
-        group = "wanderer";
-        content = ''
-          MEILI_MASTER_KEY=${config.sops.placeholder."meili_master_key"}
-          POCKETBASE_ENCRYPTION_KEY=${config.sops.placeholder."wanderer_pb_encryption_key"}
-        '';
+      meilisearch.enable = true;
+
+      settings = {
+        ORIGIN = "https://wanderer.stroby.org";
+        PUBLIC_DISABLE_SIGNUP = false;
+        PUBLIC_PRIVATE_INSTANCE = false;
+      };
+      secrets = {
+        POCKETBASE_ENCRYPTION_KEY = config.sops.secrets."wanderer/pb_encryption_key".path;
+        POCKETBASE_PROXY_SECRET = config.sops.secrets."wanderer/proxy_secret".path;
       };
     };
     
-    services.wanderer = {
-      enable = true;
-      port = 8003;
-      origin = "https://wanderer.stroby.org";
-      dataDir = "/var/lib/wanderer";
-      environmentFile = config.sops.templates."wanderer.env".path;
-
-      pocketbase = {
-        port = 8004;
-        publicUrl = "http://wanderer-db.local";
-      };
-
-      meilisearch = {
-        enable = true;
-        port = 7700;
-        masterKeyFile = config.sops.secrets."meili_master_key".path; 
-      };
-    };
-
     web_services."wanderer" = {
       domains = "all";
       root = {
-        proxyPass = "http://127.0.0.1:8003";
-        proxyWebsockets = true;    
-      };
-    };
-
-    web_services."wanderer-db" = {
-      domains = "local";
-      root = {
-        proxyPass = "http://127.0.0.1:8004";
+        proxyPass = "http://127.0.0.1:${toString config.services.wanderer.port}";
         proxyWebsockets = true;    
       };
     };

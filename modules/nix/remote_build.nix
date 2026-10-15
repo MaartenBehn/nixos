@@ -27,7 +27,7 @@ in {
       }
 
       ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: host: ''
-        check_worker "${host.local_ip}" "${host.system}" "${toString host.remote_build.maxJobs}" "${toString host.remote_build.speedFactor}" "${lib.concatStringsSep "," host.remote_build.supportedFeatures}"
+        check_worker "${host.local_ip}" "${host.system}" "${toString host.build.maxJobs}" "${toString host.build.speedFactor}" "${lib.concatStringsSep "," host.build.supportedFeatures}"
       '') remote_hosts)}
 
       mkdir -p /run/nix
@@ -35,7 +35,7 @@ in {
     '';  
     in {
     
-    users.users.remote_build = lib.mkIf config.remote_build.enable {
+    users.users.remote_build = lib.mkIf config.build.remote {
       isSystemUser = true;
       group = "remote_build";
       useDefaultShell = true;
@@ -45,8 +45,8 @@ in {
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGRprPuaJEC+YVOPhWv793MSXW+8FNgVBPLWumJFd97 root@nixos"
       ];
     };
-    users.groups.remote_build = lib.mkIf config.remote_build.enable {};
-    nix.settings.trusted-users = lib.mkIf config.remote_build.enable [ "remote_build" ];
+    users.groups.remote_build = lib.mkIf config.build.remote {};
+    nix.settings.trusted-users = lib.mkIf config.build.remote [ "remote_build" ];
     
 
     sops.secrets."remote_build/private_key" = {
@@ -78,7 +78,7 @@ in {
       };
     };
     
-    nix.settings.cores = config.cores.base;
-    nix.settings.max-jobs = 1;
+    nix.settings.cores = config.build.cores.base;
+    nix.settings.max-jobs = config.build.maxJobs;
   };
 }

@@ -36,7 +36,7 @@
 
     home.packages = (with pkgs; [
       winetricks
-      wineWowPackages.wayland
+      wineWow64Packages.wayland
     ] ++ builtins.map make_wine wine_apps);
   };
 }

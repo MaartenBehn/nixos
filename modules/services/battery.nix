@@ -57,14 +57,12 @@
       '';
     in {
 
-      wayland.windowManager.hyprland = {
-        settings = {
-          exec-once = [ 
-            "sleep 0.6 && battery_monitor"
-          ];
-        };
-      };
-
+      wayland.windowManager.hyprland.extraConfig = #lua
+      ''
+        hl.on("hyprland.start", function()
+          hl.exec_cmd("sleep 0.6 && battery_monitor")
+        end)
+      '';
       home.packages = (with pkgs; [ 
         battery_monitor
       ]);

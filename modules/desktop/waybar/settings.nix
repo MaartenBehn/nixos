@@ -139,7 +139,6 @@
         modules-left = [
           "custom/launcher"
           "hyprland/workspaces"
-          "custom/tmux"
           "custom/scrolling"
         ];
         modules-center = [ ];
@@ -180,18 +179,18 @@
         cpu = {
           format = "<span foreground='${green}'> </span> {usage}%";
           interval = 2;
-          on-click = "hyprctl dispatch exec '${config.home.sessionVariables.terminal} -e btop'";
+          on-click = ''hyprctl dispatch "hl.dsp.exec_cmd('${config.home.sessionVariables.terminal} -e btop')"'';
         };
         memory = {
           format = "<span foreground='${cyan}'> </span> {}%";
           interval = 2;
-          on-click = "hyprctl dispatch exec '${config.home.sessionVariables.terminal} -e btop'";
+          on-click = ''hyprctl dispatch "hl.dsp.exec_cmd('${config.home.sessionVariables.terminal} -e btop')"'';
         };
         disk = {
           # path = "/";
           format = "<span foreground='${orange}'>󰋊 </span> {percentage_used}%";
           interval = 60;
-          on-click = "hyprctl dispatch exec '${config.home.sessionVariables.terminal} -e btop'";
+          on-click = ''hyprctl dispatch "hl.dsp.exec_cmd('${config.home.sessionVariables.terminal} -e btop')"'';
         };
         network = {
           format-wifi = "<span foreground='${magenta}'> </span> {signalStrength}%";
@@ -237,7 +236,7 @@
         bluetooth = {
           format = "<span foreground='${blue}'>󰂯</span>";
           interval = 2;
-          on-click = "hyprctl dispatch exec 'blueberry'";
+          on-click = ''hyprctl dispatch "hl.dsp.exec_cmd('blueman-manager')"'';
         };
         "custom/vpn" = let
           colorMap = {
@@ -307,7 +306,7 @@
           exec = "${gpu_usage}/bin/gpu_usage";
           interval = 5;
           format = "<span foreground=\"#AF8ED6\">󰹑 </span> {}%";
-          on-click = "hyprctl dispatch exec ${config.home.sessionVariables.terminal} -e nvtop'";
+          on-click = ''hyprctl dispatch "hl.dsp.exec_cmd('${config.home.sessionVariables.terminal} -e nvtop')"'';
         };
       };
     };

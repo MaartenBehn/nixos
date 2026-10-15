@@ -6,7 +6,7 @@
         indent.enable = true;
         highlight.enable = true;
       };
-      folding = true;
+      folding.enable = true;
       nixvimInjections = true;
       grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
         bash

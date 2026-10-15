@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.audio = { pkgs, ... }: {
+  flake.modules.nixos.hyprland = { pkgs, ... }: {
     # Audio
     #services.pulseaudio.enable = false;
 

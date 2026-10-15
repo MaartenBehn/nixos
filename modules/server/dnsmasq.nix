@@ -22,10 +22,6 @@ in {
         ]) (config.domains.public ++ config.domains.local));
       };
     };
-
-    services.resolved.extraConfig = ''
-      DNSStubListener=no
-    '';
   };
 
   flake.modules.nixos.pigman = { config, lib, ... }: {

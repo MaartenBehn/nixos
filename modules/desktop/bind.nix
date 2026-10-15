@@ -1,77 +1,77 @@
 {
   flake.modules.homeManager.hyprland = { pkgs, ... }: {
-    wayland.windowManager.hyprland.settings = {
-      bind = [
-        # show keybinds list
-        "$mainMod, F1, exec, show-keybinds"
+    wayland.windowManager.hyprland.extraConfig = #lua
+    ''
+      local mainMod = "SUPER"
 
-        # keybindings
-        "$mainMod, Q, killactive,"
-        "$mainMod, F, fullscreen, 0"
-        "$mainMod SHIFT, F, togglefloating"
-        "$mainMod, T, exec, toggle_oppacity"
+      local function exec(cmd)
+        return hl.dsp.exec_cmd(cmd)
+      end
 
-        # System shortcuts
-        "$mainMod, Escape, exec, hyprlock"
-        "$mainMod SHIFT, Escape, exec, power-menu"
-        "$mainMod, D, exec, rofi -show drun || pkill rofi"
-        "$mainMod SHIFT, B, exec, toggle_waybar"
-        "$mainMod, W, exec, wallpaper-picker"
-        "$mainMod, N, exec, swaync-client -t -sw"
+      -- show keybinds list
+      hl.bind(mainMod .. " + F1", exec("show-keybinds"))
 
-        # Programm shortcuts
-        "$mainMod, Space, exec, kitty -d $(hyprcwd)"
-        "$mainMod, B, exec, firefox"
-        "$mainMod, O, exec, obsidian"
-        "$mainMod SHIFT, E, exec, kitty -d $(hyprcwd) -e yazi"
-        "$mainMod, E, exec, nemo"
-        "$mainMod, M, exec, thunderbird"
-        "$mainMod SHIFT, V, exec, open_vim_cheat_sheet"
+      -- keybindings
+      hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+      hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+      hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+      hl.bind(mainMod .. " + T", exec("toggle_oppacity"))
 
-        # Other shortcuts
-        "$mainMod, C, exec, hyprpicker -a"
-        "$mainMod, Z, exec, woomer-current"
+      -- System shortcuts
+      hl.bind(mainMod .. " + Escape", exec("hyprlock"))
+      hl.bind(mainMod .. " + SHIFT + Escape", exec("power-menu"))
+      hl.bind(mainMod .. " + D", exec("rofi -show drun || pkill rofi"))
+      hl.bind(mainMod .. " + SHIFT + B", exec("toggle_waybar"))
+      hl.bind(mainMod .. " + W", exec("wallpaper-picker"))
+      hl.bind(mainMod .. " + N", exec("swaync-client -t -sw"))
 
-        # screenshot
-        ",Print, exec, screenshot --copy"
-        "$mainMod, Print, exec, screenshot --md-copy"
+      -- Program shortcuts
+      hl.bind(mainMod .. " + Space", exec("kitty -d $(hyprcwd)"))
+      hl.bind(mainMod .. " + B", exec("firefox"))
+      hl.bind(mainMod .. " + O", exec("obsidian"))
+      hl.bind(mainMod .. " + SHIFT + E", exec("kitty -d $(hyprcwd) -e yazi"))
+      hl.bind(mainMod .. " + E", exec("nemo"))
+      hl.bind(mainMod .. " + M", exec("thunderbird"))
+      hl.bind(mainMod .. " + SHIFT + V", exec("open_vim_cheat_sheet"))
 
+      -- Other shortcuts
+      hl.bind(mainMod .. " + C", exec("hyprpicker -a"))
+      hl.bind(mainMod .. " + Z", exec("woomer-current"))
 
-        # media and volume controls
-        # ",XF86AudioMute,exec, pamixer -t"
-        ",XF86AudioPlay,exec, playerctl play-pause"
-        ",XF86AudioNext,exec, playerctl next"
-        ",XF86AudioPrev,exec, playerctl previous"
-        ",XF86AudioStop,exec, playerctl stop"
+      -- screenshot
+      hl.bind("Print", exec("screenshot --copy"))
+      hl.bind(mainMod .. " + Print", exec("screenshot --md-copy"))
 
-        "$mainMod, mouse_down, workspace, e-1"
-        "$mainMod, mouse_up, workspace, e+1"
+      -- media controls
+      -- hl.bind("XF86AudioMute", exec("pamixer -t"))
+      hl.bind("XF86AudioPlay", exec("playerctl play-pause"))
+      hl.bind("XF86AudioNext", exec("playerctl next"))
+      hl.bind("XF86AudioPrev", exec("playerctl previous"))
+      hl.bind("XF86AudioStop", exec("playerctl stop"))
 
-        # clipboard manager
-        "$mainMod, V, exec, cliphist list | rofi -dmenu -theme-str 'window {width: 50%;} listview {columns: 1;}' | cliphist decode | wl-copy"
-      ];
+      -- workspace scrolling
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e-1" }))
+      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e+1" }))
 
-      # # binds active in lockscreen
-      # bindl = [
-      #   # laptop brigthness
-      #   ",XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-      #   ",XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-      #   "$mainMod, XF86MonBrightnessUp, exec, brightnessctl set 100%+"
-      #   "$mainMod, XF86MonBrightnessDown, exec, brightnessctl set 100%-"
-      # ];
+      -- clipboard manager
+      hl.bind(
+        mainMod .. " + V",
+        exec("cliphist list | rofi -dmenu -theme-str 'window {width: 50%;} listview {columns: 1;}' | cliphist decode | wl-copy")
+      )
 
-      # # binds that repeat when held
-      # binde = [
-      #   ",XF86AudioRaiseVolume,exec, pamixer -i 2"
-      #   ",XF86AudioLowerVolume,exec, pamixer -d 2"
-      # ];
+      -- locked binds (previously commented out)
+      -- hl.bind("XF86MonBrightnessUp", exec("brightnessctl set 5%+"), { locked = true })
+      -- hl.bind("XF86MonBrightnessDown", exec("brightnessctl set 5%-"), { locked = true })
+      -- hl.bind(mainMod .. " + XF86MonBrightnessUp", exec("brightnessctl set 100%+"), { locked = true })
+      -- hl.bind(mainMod .. " + XF86MonBrightnessDown", exec("brightnessctl set 100%-"), { locked = true })
 
-      # mouse binding
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
+      -- repeating binds (previously commented out)
+      -- hl.bind("XF86AudioRaiseVolume", exec("pamixer -i 2"), { repeating = true })
+      -- hl.bind("XF86AudioLowerVolume", exec("pamixer -d 2"), { repeating = true })
 
-    };
+      -- mouse bindings
+      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+    '';
   };
 }

@@ -33,10 +33,10 @@
       gui:
         border: single
       git:
-        pagers: 
+        diffRenderers: 
           - delta:
             colorArg: "always"
-            pager: "delta --paging=never"
+            command: "delta --paging=never"
     '';
 
     home.packages = with pkgs; [ 

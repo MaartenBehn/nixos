@@ -1221,16 +1221,16 @@
     },
     "nixpkgs-wanderer": {
       "locked": {
-        "lastModified": 1786723462,
-        "narHash": "sha256-v+0Cqq1e7VbhsKQWnQlhwT+raN+doRMUcsOAlC7JHng=",
-        "owner": "MaartenBehn",
+        "lastModified": 1792075713,
+        "narHash": "sha256-4GUhvDFR0vK8uu+5ulBkCgEditCb4hrjaUo9dalh8Vo=",
+        "owner": "charludo",
         "repo": "nixpkgs",
-        "rev": "961b33e0f30ceee0525e4516e79695ccbea9e69a",
+        "rev": "5ee1df56ce3d0cfa996b0489b14c9d6dd9d48c68",
         "type": "github"
       },
       "original": {
-        "owner": "MaartenBehn",
-        "ref": "add-wanderer",
+        "owner": "charludo",
+        "ref": "init-wanderer",
         "repo": "nixpkgs",
         "type": "github"
       }

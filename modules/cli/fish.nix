@@ -6,17 +6,8 @@
 
   flake.modules.homeManager.cli = { pkgs, config, ... }: {
     home.packages = with pkgs; [
-      # shell env programms
-      #fish
-      fishPlugins.done
-      fishPlugins.fzf-fish
-      fishPlugins.forgit
-      fishPlugins.hydro
-      fishPlugins.grc
       grc
       dwt1-shell-color-scripts
-
-      # used in config
       killall
       git
     ];
@@ -24,8 +15,26 @@
     programs.fish = {
       enable = true;
 
+      plugins = [
+        { name = "done"; src = pkgs.fishPlugins.done.src; }
+        { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+        { name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
+        { name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
+        { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      ];
+
+      shellAliases = {
+        myip = "curl http://ipecho.net/plain; echo";
+        vpn-uni = "sudo openconnect -b -u behn --authgroup=Tunnel-Uni-Bremen vpn.uni-bremen.de";
+        vpn-kill = "sudo killall openconnect";
+        uni-vpn = "vpn-uni";
+        kill-vpn = "vpn-kill";
+        rev-tether = "gnirehtet run";
+        kill-all-background-jobs = "kill -SIGKILL (jobs -lg)";
+      };
+
       interactiveShellInit = ''
-      set fish_greeting # Disable greeting
+        set fish_greeting # Disable greeting
 
         ${if config.wayland.windowManager.hyprland.enable then ''
         if test -z "$WAYLAND_DISPLAY" -a (tty) = "/dev/tty1" 
@@ -33,29 +42,13 @@
         end
         '' else ""}
 
-      function fish_title
-        set -q argv[1]; or set argv fish
-        echo $argv[1];
-      end
-
-      alias myip="curl http://ipecho.net/plain; echo";
-
-      alias vpn-uni="sudo openconnect -b -u behn --authgroup=Tunnel-Uni-Bremen vpn.uni-bremen.de";
-      alias vpn-kill="sudo killall openconnect";
-
-      alias uni-vpn="vpn-uni";
-      alias kill-vpn="vpn-kill";
-
-      alias rev-tether="gnirehtet run";
-
-      alias kill-all-background-jobs="kill -SIGKILL (jobs -lg)"
-
-      alias link-ropelab-db="ssh -L 5432:127.0.0.1:5432 ropelab@betelgeuse.uberspace.de"
-
-      alias minecraft_log_server_lisa="journalctl -u  minecraft-server-lisa-server.service"
-
-      starship init fish | source
+        function fish_title
+          set -q argv[1]; or set argv fish
+          echo $argv[1];
+        end
+      '' + ''
+        # Keep starship at the very bottom so it doesn't interfere with core initializations
+        starship init fish | source
       '';
-    };   
-  };
-}
+    };    
+  };}

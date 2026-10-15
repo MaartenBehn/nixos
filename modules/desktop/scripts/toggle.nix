@@ -8,13 +8,7 @@
           hyprctl keyword decoration:blur:enabled true > /dev/null
         fi
       '';
-
-      toggle_float = pkgs.writeShellScriptBin "toggle_float" ''
-        hyprctl dispatch togglefloating
-        hyprctl dispatch resizeactive exact 1111 700
-        hyprctl dispatch centerwindow
-      '';
-
+      
       toggle_oppacity = pkgs.writeShellScriptBin "toggle_oppacity" ''
         if hyprctl getoption decoration:active_opacity | grep "float: 1" > /dev/null; then
           hyprctl keyword decoration:active_opacity 0.90 > /dev/null
@@ -38,7 +32,6 @@
     in {
       home.packages = (with pkgs; [
         toggle_blur
-        toggle_float
         toggle_oppacity
         toggle_waybar
       ]);

@@ -19,8 +19,8 @@
       default = [ "local" ];
     };
 
-    remote_build = {
-      enable = lib.mkOption {
+    build = {
+      remote = lib.mkOption {
         type = lib.types.bool;
         default = false;
       };
@@ -39,18 +39,19 @@
         type = lib.types.listOf lib.types.str; 
         default = [ "kvm" "big-parallel" "nixos-test" ];
       };
-    };
 
-    cores = {
-      big-parallel = lib.mkOption {
-        type = lib.types.int;
-        default = 4;
+      cores = {
+        big-parallel = lib.mkOption {
+          type = lib.types.int;
+          default = 4;
+        };
+
+        base = lib.mkOption {
+          type = lib.types.int;
+          default = 0;
+        };
       };
 
-      base = lib.mkOption {
-        type = lib.types.int;
-        default = 0;
-      };
     };
   };
 

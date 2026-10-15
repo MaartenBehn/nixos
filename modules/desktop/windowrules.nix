@@ -1,87 +1,115 @@
 {
   flake.modules.homeManager.hyprland = {
-    wayland.windowManager.hyprland.settings = {
-      windowrule = [
-        # System 
-        "match:title ^(rofi)$, pin on"
-        "match:title ^(waypaper)$, pin on, float on"
+    wayland.windowManager.hyprland.extraConfig = #lua
+      ''
+      -- System
+      hl.window_rule({ match = { title = "^(rofi)$" }, pin = true })
+      hl.window_rule({ match = { title = "^(waypaper)$" }, pin = true, float = true })
 
-        # Task Bar Programms
-        "match:class ^(nm-connection-editor)$, float on, move (monitor_w*0.4) (monitor_h*0.4)"
+      -- Task bar programs
+      hl.window_rule({
+        match = { class = "^(nm-connection-editor)$" },
+        float = true,
+        move = { "monitor_w*0.4", "monitor_h*0.4" },
+      })
 
-        "match:title ^(Mullvad VPN)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
+      hl.window_rule({
+        match = { title = "^(Mullvad VPN)$" },
+        move = { "monitor_w-window_w-10", "monitor_h-window_h-40" },
+      })
 
-        "match:title ^(Bluetooth)$, float on"
-        "match:title ^(Bluetooth)$, move (monitor_w-window_w-10) (monitor_h-window_h-40)"
+      hl.window_rule({
+        match = { title = "^(Bluetooth)$" },
+        float = true,
+        move = { "monitor_w-window_w-10", "monitor_h-window_h-40" },
+      })
 
-        "match:class org.pulseaudio.pavucontrol, float on, size (monitor_w*0.4) (monitor_h*0.4), move (monitor_w-monitor_w*0.4-10) (monitor_h-monitor_h*0.4-40)"
+      hl.window_rule({
+        match = { class = "org.pulseaudio.pavucontrol" },
+        float = true,
+        size = { "monitor_w*0.4", "monitor_h*0.4" },
+        move = { "monitor_w-monitor_w*0.4-10", "monitor_h-monitor_h*0.4-40" },
+      })
 
-        # Overlays
-        "match:title ^(Picture-in-Picture)$, float on, opacity 1.0 override 1.0 override, pin on"
-        "match:title ^(Firefox — Sharing Indicator)$, float on, move 0 0"
+      -- Overlays
+      hl.window_rule({
+        match = { title = "^(Picture-in-Picture)$" },
+        float = true,
+        pin = true,
+        opacity = "1.0 override 1.0 override",
+      })
+      hl.window_rule({
+        match = { title = "^(Firefox — Sharing Indicator)$" },
+        float = true,
+        move = { "0", "0" },
+      })
 
-        # Sharing popup
-        "match:title ^(Select what to share)$, float on"
-        "match:class ^(xwaylandvideobridge)$, opacity 0.0 override, no_anim on, no_initial_focus on, max_size 1 1, no_blur on"
+      -- Sharing popup
+      hl.window_rule({ match = { title = "^(Select what to share)$" }, float = true })
+      hl.window_rule({
+        match = { class = "^(xwaylandvideobridge)$" },
+        opacity = "0.0 override",
+        no_anim = true,
+        no_initial_focus = true,
+        max_size = { 1, 1 },
+        no_blur = true,
+      })
 
-        # Bitwarden Popup
-        # "float, title:(.*)(Bitwarden)(.*)"
-        # Not possible as the inital Window is Firefox
+      -- File popups (by class)
+      for _, class in ipairs({
+        "file_progress", "confirm", "dialog", "download",
+        "notification", "error", "confirmreset",
+      }) do
+        hl.window_rule({ match = { class = "^(" .. class .. ")$" }, float = true })
+      end
 
-        # File Popups
-        "match:class ^(file_progress)$, float on"
-        "match:class ^(confirm)$, float on"
-        "match:class ^(dialog)$, float on"
-        "match:class ^(download)$, float on"
-        "match:class ^(notification)$, float on"
-        "match:class ^(error)$, float on"
-        "match:class ^(confirmreset)$, float on"
+      -- File popups (by title)
+      for _, title in ipairs({
+        "branchdialog", "Confirm to replace files",
+        "File Operation Progress", "Save As",
+      }) do
+        hl.window_rule({ match = { title = "^(" .. title .. ")$" }, float = true })
+      end
 
-        "match:title ^(Open File)$, float on, size <(monitor_w*0.9) <(monitor_h*0.9)"
-        "match:title ^(File Upload)$, float on, size <(monitor_w*0.9) <(monitor_h*0.9)"
+      for _, title in ipairs({ "Open File", "File Upload" }) do
+        hl.window_rule({
+          match = { title = "^(" .. title .. ")$" },
+          float = true,
+          size = { "<(monitor_w*0.9)", "<(monitor_h*0.9)" },
+        })
+      end
 
-        "match:title ^(branchdialog)$, float on"
-        "match:title ^(Confirm to replace files)$, float on"
-        "match:title ^(File Operation Progress)$, float on"
-        "match:title ^(Save As)$, float on" 
+      -- Programs
+      hl.window_rule({ match = { class = "^(firefox)$" }, idle_inhibit = "always" })
 
-        # Remove context menu transparency in chromium based apps
-        #"match:class ^()$, match:title ^()$, opaque on, no_shadow on, no_blur on"
+      hl.window_rule({ match = { title = "^(imv)$" }, float = true })
+      hl.window_rule({ match = { title = "^(.*imv.*)$" }, opacity = "1.0 override 1.0 override" })
 
-        # Programms 
-        "match:class ^(firefox)$, idle_inhibit always"
-        "match:title ^(imv)$, float on"
-        "match:title ^(.*imv.*)$, opacity 1.0 override 1.0 override"
+      hl.window_rule({ match = { title = "^(mpv)$" }, float = true, idle_inhibit = "always" })
+      hl.window_rule({ match = { title = "^(.*mpv.*)$" }, opacity = "1.0 override 1.0 override" })
 
-        "match:title ^(mpv)$, float on, idle_inhibit always"
-        "match:title ^(.*mpv.*)$, opacity 1.0 override 1.0 override"
+      hl.window_rule({
+        match = { title = "^(Aseprite)$" },
+        tile = true,
+        opacity = "1.0 override 1.0 override",
+      })
 
-        "match:title ^(Aseprite)$, tile on, opacity 1.0 override 1.0 override"
+      hl.window_rule({
+        match = { class = "^(Unity)$" },
+        opacity = "1.0 override 1.0 override",
+        idle_inhibit = "always",
+      })
 
-        "match:class ^(Unity)$, opacity 1.0 override 1.0 override, idle_inhibit always"
+      hl.window_rule({ match = { class = "^(blender)$" }, float = false })
 
-        "match:class ^(blender)$, float off"
+      -- Other
+      hl.window_rule({ match = { title = "^(audacious)$" }, float = true })
+      hl.window_rule({ match = { title = "^(Viewnior)$" }, float = true })
+      hl.window_rule({ match = { title = "^(neovide)$" }, tile = true })
+      hl.window_rule({ match = { title = "^(udiskie)$" }, float = true })
 
-        # Other ?
-        "match:title ^(audacious)$, float on"
-
-        "match:title ^(Viewnior)$, float on" 
-        "match:title ^(neovide)$, tile on"
-        "match:title ^(udiskie)$, float on"
-
-        #"float,class:^(zenity)$"
-        #"size 850 500,class:^(zenity)$"
-        #"size 725 330,class:^(SoundWireServer)$"
-        #"float,class:^(org.gnome.FileRoller)$"
-        #"float,class:^(SoundWireServer)$"
-        #"float,class:^(.sameboy-wrapped)$"  
-      ];
-
-      extraConfig = " 
-        xwayland {
-          force_zero_scaling = true
-        }
-      ";
-    };
+      -- xwayland
+      hl.config({ xwayland = { force_zero_scaling = true } })
+    '';
   };
 }

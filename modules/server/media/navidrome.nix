@@ -2,8 +2,6 @@
   flake.modules.nixos.server = { pkgs, ... }: {
     services.navidrome = {
       enable = true;
-  
-      services.navidrome.package = pkgs.navidrome;
 
       settings = {
         MusicFolder = "/media/music";
@@ -13,15 +11,15 @@
       };
 
       plugins = with pkgs.navidromePlugins; [
-        audiomuseai
+        #audiomuseai
         #listenbrainz-daily-playlist
-        lyrics-plugin
+        #lyrics-plugin
       ];
     };
 
     users.groups.media.members = [ "navidrome" ];
 
-    web_services."seerr" = {
+    web_services."navidrome" = {
       domains = "local";
       root = {
         proxyPass = "http://127.0.0.1:5055/"; 

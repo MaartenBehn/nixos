@@ -78,15 +78,16 @@
     };
 
     local_ip = "192.168.0.30";
-    remote_build = {
-      enable = true;
-      maxJobs = 1;
+    build = {
+      remote = true;
+      maxJobs = 5;
       speedFactor = 3;
+      supportedFeatures = [ "kvm" "nixos-test" "big-parallel" ];
+      cores = {
+        big-parallel = 12;
+        base = 16;
+      };
     };
 
-    cores = {
-      big-parallel = 8;
-      base = 16;
-    };
   };
 }

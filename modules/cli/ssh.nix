@@ -13,7 +13,7 @@ in {
   flake.modules.homeManager.cli.programs.ssh = { 
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       ropelab = {
         hostname = "betelgeuse.uberspace.de";
         user = "ropelab";

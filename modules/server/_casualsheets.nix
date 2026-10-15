@@ -125,7 +125,7 @@ in
         xclip
         lazygit
         lldb
-        nodePackages.prettier
+        prettier
         terraform
         cargo
         rustc

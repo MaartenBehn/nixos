@@ -60,15 +60,15 @@
     local_ip = "192.168.0.8";
     domains.public = [ ]; 
     domains.local = [ "local" ];
-    remote_build = {
-      enable = true;
-      maxJobs = 1;
+    build = {
+      remote = true;
+      maxJobs = 3;
       speedFactor = 2;
-    };
-
-    cores = {
-      big-parallel = 6;
-      base = 12;
+      supportedFeatures = [ "kvm" "nixos-test" "big-parallel" ];
+      cores = {
+        big-parallel = 6;
+        base = 12;
+      };
     };
   };
 }

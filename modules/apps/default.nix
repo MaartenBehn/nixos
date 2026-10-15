@@ -51,7 +51,7 @@
       #webull-desktop
 
       zoom-us
-      prismlauncher
+      #prismlauncher
     ]);
   };
 }
