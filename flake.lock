@@ -61,14 +61,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1792165422,
-        "narHash": "sha256-eh8qfCvbwMA6Elat36l3HVJRsiFSh1Bm9oXLwoSggcY=",
-        "path": "/home/stroby/dev/audiomuse-ai-nix",
-        "type": "path"
+        "lastModified": 1792397761,
+        "narHash": "sha256-4Fk4kPX/t44QJmv73f1oR7hPcPBQaPiper8QD2B/3kY=",
+        "owner": "MaartenBehn",
+        "repo": "audiomuse-ai-nix",
+        "rev": "bc1538ef2fd50723373f866c20c04585abccf9d8",
+        "type": "github"
       },
       "original": {
-        "path": "/home/stroby/dev/audiomuse-ai-nix",
-        "type": "path"
+        "owner": "MaartenBehn",
+        "repo": "audiomuse-ai-nix",
+        "type": "github"
       }
     },
     "crane": {

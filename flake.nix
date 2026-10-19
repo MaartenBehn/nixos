@@ -76,7 +76,8 @@
     nixpkgs-wanderer.url = "github:charludo/nixpkgs/init-wanderer";
 
     audiomuse = { 
-      url = "path:/home/stroby/dev/audiomuse-ai-nix";
+      #url = "path:/home/stroby/dev/audiomuse-ai-nix";
+      url = "github:MaartenBehn/audiomuse-ai-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
