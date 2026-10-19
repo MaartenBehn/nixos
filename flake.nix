@@ -77,7 +77,7 @@
 
     audiomuse = { 
       url = "path:/home/stroby/dev/audiomuse-ai-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agy-nix = {

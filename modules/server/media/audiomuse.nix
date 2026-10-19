@@ -33,25 +33,17 @@
 
       musicDir = "/media/music";
 
-      workers.count = 8;
+      workers.count = 1;
 
-      mediaServer.jellyfin = {
-        enable = true;
-        url = "http://127.0.0.1:8096";
-        libaries = [ "Music" ];
+      environmentFile = config.sops.templates."audiomuse.env".path;
+
+      extraEnvironment = {
+        MEDIASERVER_TYPE = "jellyfin";
+        JELLYFIN_URL = "http://127.0.0.1:8096";
+        AUTH_ENABLED = "false"; 
+        FLASK_BUILTIN_HTTPS = "false";
       };
-
-      auth.enable = false;
-
-      environmentFile = config.sops.templates."audiomuse.env".path; 
     };
-
-    #services.navidrome = {
-    #  plugins = [
-    #     audiomuse-pkgs.navidromePlugins.audiomuse-ai
-    #  ];
-    #};
-
 
     web_services = {
       "audiomuse" = {

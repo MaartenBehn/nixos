@@ -67,10 +67,11 @@
     homeManager.imports = with self.modules.homeManager; [
       cli
       yt-dlp
+      server
     ];
 
     local_ip = "192.168.0.97";
-    domains.public = [ "stroby.org" "stroby.duckdns.org" "stroby.ipv64.de" ]; 
+    domains.public = [ "stroby.org" ]; 
     domains.local = [ "local" ];
     build = {
       remote = true;

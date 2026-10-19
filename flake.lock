@@ -57,12 +57,12 @@
     "audiomuse": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1792105069,
-        "narHash": "sha256-kiGnkEotG3VETXSQRpmUOhxHbWLFQ286cTvCO0/vAwg=",
+        "lastModified": 1792165422,
+        "narHash": "sha256-eh8qfCvbwMA6Elat36l3HVJRsiFSh1Bm9oXLwoSggcY=",
         "path": "/home/stroby/dev/audiomuse-ai-nix",
         "type": "path"
       },

@@ -1,24 +1,16 @@
 {
-  essentia-extractor,
-  keyfinder-cli,
   music-dir,
   cache-dir,
   playlist-dir,
-  essentia-extractor-SVM-models-dir ? "${cache-dir}/svm_models",
   ...
 }:
 {
   directory = music-dir;
   library = "${cache-dir}/library.db";
 
-  art_filename = "thumbnail";
-  per_disc_numbering = true; # For better alignment with lidarr's format
+  art_filename = "cover";
 
   plugins = [
-    # Re-arrange paths to account for the outsized number of album
-    # artists with names starting with "the"
-    "the"
-
     # Use m3u playlists
     #"playlist"
 
@@ -44,31 +36,22 @@
     # Interact with the listenbrainz service
     #"listenbrainz"
 
-    # Detect the musical key of a track from its audio data and
-    # store it in the initial_key field of the beets database.
-    #
-    # Could be really cool to use this:
-    #  - To add key metadata to all files
-    #  - To Build smart playlists by BPM + Key
-    #"keyfinder"
-
-    # If you tag your music using MusicBrainz, you’ll have tracks
-    # in your library like “Tellin’ Me Things” by the artist
-    # “Blakroc feat. RZA”. If you prefer to tag this as “Tellin’
-    # Me Things feat. RZA” by “Blakroc”, then this plugin is for
-    # you.
-    "ftintitle"
-
     # Retrieves album art images from various sources on the Web
     # and stores them as image files
     "fetchart"
+
+    "lyrics"
 
     # Finds and lists duplicate tracks or albums in your
     # collection
     "duplicates"
 
-    # Find matches using Discogs
-    #"discogs"
+    # identification
+    "musicbrainz"
+    "discogs"
+    "fromfilename"
+    #"beatport"
+
 
     # Submit fingerprints to acoustid for easier identification in
     # the future.
@@ -76,12 +59,12 @@
     "chroma"
 
     # Check for missing and corrupt files
-    #"badfiles"
+    "badfiles"
 
     # Obtain low and high level musical information from your songs
     # (bpm, danceability, etc).
     #"xtractor"
-    "autobpm"
+    #"autobpm"
 
     # Useful template fields to customize your path formats in a more
     # lidarr way
@@ -92,128 +75,19 @@
 
     "info"
 
-    #"moodswriter"
-
-    "musicbrainz"
-    "discogs"
-
-    #"beatport"
-    "fromfilename"
-
     "fish"
     "edit"
 
-    "badfiles"
+    "unimported"
   ];
-
-  keyfinder = {
-    bin = "${keyfinder-cli}/bin/keyfinder-cli";
-  };
-
-  musicbrainz = {
-    data_source_mismatch_penalty = 0.2;
-    external_ids = {
-      discogs = true;
-      spotify = true;
-      bandcamp = true;
-      beatport = true;
-      deezer = true;
-      tidal = true;
-    };
-  };
-  discogs = {
-    data_source_mismatch_penalty = 0.3;
-    user_token = "VLbHHdRPoocqxRnlSrhthdbWqJEMLqbYyhdMIXkt";
-  };
-
-  xtractor = {
-    essentia_extractor = "${essentia-extractor}";
-    output_path = "${cache-dir}/xtractor-extraction-data";
-    extractor_profile = {
-      highlevel = {
-        svm_models =
-          map (model: "${essentia-extractor-SVM-models-dir}/${model}")
-            [
-              "danceability.history"
-              "gender.history"
-              "genre_rosamerica.history"
-              "mood_acoustic.history"
-              "mood_aggressive.history"
-              "mood_electronic.history"
-              "mood_happy.history"
-              "mood_sad.history"
-              "mood_party.history"
-              "mood_relaxed.history"
-              "voice_instrumental.history"
-              "moods_mirex.history"
-            ];
-      };
-    };
-  };
-
-  types = {
-    
-  };
-
-  ui = {
-    color = true;
-    terminal_width = 140;
-  };
-
-  badfiles = {
-    #check_on_import = true;
-  };
-
-  permissions = {
-    file = "777";
-    dir = "777";
-  };
-
-  importfeeds = {
-    relative_to = music-dir;
-    playlist_dir = playlist-dir;
-    absolute_path = false;
-    formats = [
-      "m3u"
-      "echo"
-    ];
-    m3u_name = "${playlist-dir}/just-in.m3u";
-  };
-
-  smartplaylist = {
-    relative_to = music-dir;
-    playlist_dir = playlist-dir;
-    forward_slash = false;
-    playlists = [
-      # TODO: Build some amazing playlists here
-      # https://beets.readthedocs.io/en/stable/plugins/smartplaylist.html
-      {
-        name = "all.m3u";
-        query = "";
-      }
-      {
-        name = "turnbeutel.m3u";
-        query = "";
-      }
-    ];
-  };
-
-  playlist = {
-    relative_to = music-dir;
-    playlist_dir = playlist-dir;
-    auto = false;
-    forward_slash = false;
-  };
- 
-  paths = {
-    # For better alignment with lidarr's format
-    default = "%the{$releasegroupartist}/$lidarralbum ($year)/%if{$audiodisctotal,$disc - }$\{track}. $title";
-  };
 
   import = {
     move = false;
     copy = false;
-    write = false;
+    hardlink = true;
+    write = true;
+    autotag = true;
+    threaded = false;
 
     resume = true;
     incremental = true;
@@ -238,5 +112,70 @@
     #  user should be prompted for the action each time. The default
     #  is ask.
     duplicate_action = "skip";
+  };
+
+  unimported = {
+    ignore_extensions = "jpg png";
+    ignore_subdirectories = "NonMusic data temp";
+  };
+
+  fetchart = {
+    auto = true;
+    minwidth = 500;
+    maxwidth = 1200;
+    enforce_ratio = true;
+    sources = [
+      "filesystem"
+      "coverart"
+      "itunes"
+      "amazon"
+      "albumart"
+    ];
+  };
+
+  lyrics = {
+    auto = true;
+    sources = [
+      "lrclib"
+      "lrcmux"
+    ];
+    synced = true;
+    fallback = "";
+  };
+
+  permissions = {
+    file = "770";
+    dir = "770";
+  };
+
+  musicbrainz = {
+    ratelimit = 1;
+    data_source_mismatch_penalty = 0.2;
+    external_ids = {
+      discogs = true;
+      spotify = true;
+      bandcamp = true;
+      beatport = true;
+      deezer = true;
+      tidal = true;
+    };
+  };
+
+  discogs = {
+    data_source_mismatch_penalty = 0.3;
+    user_token = "VLbHHdRPoocqxRnlSrhthdbWqJEMLqbYyhdMIXkt";
+  };
+
+  types = {
+    
+  };
+
+  ui = {
+    color = true;
+    terminal_width = 140;
+  };
+
+  badfiles = {
+    #check_on_import = true;
   };
 }

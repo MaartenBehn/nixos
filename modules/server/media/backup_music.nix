@@ -7,7 +7,7 @@
       group = "media";
       paths = "/media/music/Ellie Minibot"; 
       repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/ellie_minibot_music";
-      startAt = "month";
+      startAt = "monthly";
     };
 
     systemd.services.borgbackup-job-fritz_behns_music_ellie_minibot = {
