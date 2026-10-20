@@ -26,6 +26,19 @@
           username = "stroby"; # Optional if username is not mail
           host = "web.smjg.org";
         }
+        {
+          mail = "maarten.behn@student.kit.edu";
+          name = "Maarten Behn";
+          username = "ugzqt@student.kit.edu";
+          imap = { # Override imap and smtp config
+            host = "imap.kit.edu";
+            port = 993; 
+          };
+          smtp = {
+            host = "smtp.kit.edu";
+            port = 465;
+          };
+        }
       ];
     in
       {
@@ -76,11 +89,11 @@
               address = config.mail;
               userName = if (builtins.hasAttr "username" config) then config.username else config.mail;
 
-              imap = {
+              imap = if (builtins.hasAttr "imap" config) then config.imap else {
                 host = config.host;
                 port = 993;
               };         
-              smtp = {
+              smtp = if (builtins.hasAttr "smtp" config) then config.smtp else {
                 host = config.host;
                 port = 465; 
               };
