@@ -149,7 +149,6 @@
           "pulseaudio"
           "battery"
           "custom/vpn"
-          "bluetooth"
           "tray"
           "clock"
           "custom/notification"

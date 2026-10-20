@@ -106,7 +106,7 @@ PersistentKeepalive = 25
             # proxy
             publicKey = "DpmJigVkK0f+wK7PRWymhxouBAIrqrVdArpMdPTuOkk=";
             endpoint = "138.199.203.38:51820";
-            allowedIPs = [ "10.0.0.0/24" "10.1.0.0/24" "fd00:10::/64" "fd00:11::/64" config.local_ip ];
+            allowedIPs = [ "10.0.0.0/24" "10.1.0.0/24" "fd00:10::/64" "fd00:11::/64" ];
             persistentKeepalive = 25;
           }
         ];
