@@ -29,6 +29,13 @@
         cd -
       '';
 
+      nix-rebuild-asus-private = pkgs.writeShellScriptBin "nix-rebuild-asus-private" ''
+        cd /home/$USER/nixos/
+        git add --all
+        nh os switch -H asus --target-host asus-private --quiet --impure --keep-going . "$@"
+        cd -
+      '';
+
       nix-update = pkgs.writeShellScriptBin "nix-update" ''
         cd /home/$USER/nixos/ 
         git add --all 
@@ -41,6 +48,7 @@
         nix-rebuild-pull
         nix-rebuild-local
         nix-rebuild-asus
+        nix-rebuild-asus-private
         nix-update
         nh
         nix-output-monitor

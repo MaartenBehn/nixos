@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs, config, ... }: 
+  flake.modules.nixos.server_off = { pkgs, config, ... }: 
   let 
     cloud_domain = "cloud.stroby.org";
     default_borg_settings = import ./_borg_settings.nix { inherit config; };

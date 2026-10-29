@@ -54,7 +54,7 @@
       group = "media";
       paths = "/media/videos_data/ShibariStudy";
       repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
-      startAt = "month";
+      startAt = "*-*-* 01:30";
     };
   };
 }

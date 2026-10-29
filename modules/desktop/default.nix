@@ -28,6 +28,7 @@
       blueman
       btop
       poweralertd                       # Battery notifications
+      brightnessctl                     # Brightness
     ]);
   };
 }

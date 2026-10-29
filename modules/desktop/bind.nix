@@ -49,6 +49,11 @@
       hl.bind("XF86AudioPrev", exec("playerctl previous"))
       hl.bind("XF86AudioStop", exec("playerctl stop"))
 
+      hl.bind("XF86MonBrightnessUp", exec("brightnessctl -e -d intel_backlight set +5%"))
+      hl.bind("XF86MonBrightnessDown", exec("brightnessctl -e -d intel_backlight set 5%-"))
+      hl.bind("SHIFT + XF86MonBrightnessUp", exec("brightnessctl -e -d intel_backlight set +1%"))
+      hl.bind("SHIFT + XF86MonBrightnessDown", exec("brightnessctl -e -d intel_backlight set 1%-"))
+
       -- workspace scrolling
       hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e-1" }))
       hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e+1" }))

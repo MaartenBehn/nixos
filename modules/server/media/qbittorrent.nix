@@ -64,8 +64,8 @@
           [BitTorrent]
           Session\DefaultSavePath=/media/videos/shows
           Session\ExcludedFileNames=
-          Session\Interface=wg0
-          Session\InterfaceName=wg0
+          Session\Interface=mullvad0
+          Session\InterfaceName=mullvad0
           Session\Port=11429
           Session\QueueingSystemEnabled=false
           Session\SSL\Port=64215

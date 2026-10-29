@@ -12,6 +12,8 @@
         Address = "127.0.0.1";
         Port = 4533;
         EnableSharing = true;
+        CoverArtPriority = "cover.*, folder.*, front.*, embedded";
+        EnableMediaFileCoverArt = false;
       };
 
       plugins = with pkgs.navidromePlugins; [

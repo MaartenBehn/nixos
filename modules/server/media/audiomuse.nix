@@ -22,6 +22,8 @@
       owner = "audiomuse";
     };
 
+    users.groups.media.members = [ "audiomuse" ];
+
     services.audiomuse-ai = {
       enable = true;
 
@@ -43,7 +45,13 @@
         AUTH_ENABLED = "false"; 
         FLASK_BUILTIN_HTTPS = "false";
       };
+
+      plugins = {
+        enable = true;
+        port = 8001;
+      };
     };
+    systemd.services.audiomuse-ai.serviceConfig.SupplementaryGroups = [ "media" ];
 
     web_services = {
       "audiomuse" = {

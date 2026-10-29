@@ -1,6 +1,11 @@
 {
-  flake.modules.nixos.cli-full = { config, ... }: {
+  flake.modules.nixos.cli-full = { config, pkgs, ... }: {
     sops.secrets."borg_passphrase" = { owner = config.username; };
+   
+    programs.fuse.enable = true;
+    programs.fuse.userAllowOther = true;
+
+    users.users.${config.username}.extraGroups = [ "fuse" ];
   };
 
   flake.modules.homeManager.cli-full = { pkgs, lib, ... }: 
@@ -138,4 +143,6 @@
         borg_import
       ] ++ scripts);
     };
+
+
 }

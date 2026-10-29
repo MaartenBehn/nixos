@@ -79,12 +79,13 @@
     "edit"
 
     "unimported"
+    "mood"
   ];
 
   import = {
     move = false;
-    copy = false;
-    hardlink = true;
+    copy = true;
+    hardlink = false;
     write = true;
     autotag = true;
     threaded = false;
@@ -103,7 +104,7 @@
     # session when there is no recommendation. Useful when you are
     # only interested in processing medium and strong
     # recommendations interactively.
-    none_rec_action = "skip";
+    none_rec_action = "ask";
 
     #  Controls how duplicates are treated in import task. “skip”
     #  means that new item(album or track) will be skipped; “keep”
@@ -112,6 +113,12 @@
     #  user should be prompted for the action each time. The default
     #  is ask.
     duplicate_action = "skip";
+  };
+
+  paths = {
+    default = "$albumartist/$album%aunique{}/$track $title";
+    singleton = "$albumartist/%if{$album,$album,$title}/$track $title";
+    comp = "Compilations/$album%aunique{}/$track $title";
   };
 
   unimported = {
