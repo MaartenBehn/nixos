@@ -62,14 +62,17 @@
           FileLogger\Path=/.local/share/qBittorrent/logs
 
           [BitTorrent]
-          Session\DefaultSavePath=/media/videos/shows
+          Session\DefaultSavePath=/media/downloads
           Session\ExcludedFileNames=
           Session\Interface=mullvad0
           Session\InterfaceName=mullvad0
           Session\Port=11429
           Session\QueueingSystemEnabled=false
           Session\SSL\Port=64215
+          Session\TempPath=/media/downloads/temp
+          Session\TempPathEnabled=true
           Session\UseAlternativeGlobalSpeedLimit=false
+          Session\UseCategoryPathsInManualMode=true
 
           [Core]
           AutoDeleteAddedTorrentFile=Never
@@ -93,7 +96,7 @@
           WebUI\Port=8083
           WebUI\ReverseProxySupportEnabled=true
           WebUI\SessionTimeout=0
-          WebUI\TrustedReverseProxiesList="qbittorrent.local"
+          WebUI\TrustedReverseProxiesList=qbittorrent.local
           WebUI\Username=stroby
 
           [RSS]
