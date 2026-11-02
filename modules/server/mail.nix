@@ -1,11 +1,14 @@
 {
+  my.secrets.server."mail_admin_password" = { 
+    bitwarden = { name = "Mail Admin"; field = "password"; };
+    owner = "maddy"; 
+  };
+
   flake.modules.nixos.server = { config, options, pkgs, ... }: 
   let 
     main_domain = "stroby.org";
   in {
-
-    sops.secrets."mail/admin/pw" = { owner = "maddy"; };
-
+    
     services.maddy = {
       enable = true;
       openFirewall = true;
@@ -14,7 +17,7 @@
         "admin@${main_domain}"
       ];
       ensureCredentials = {
-        "admin@${main_domain}".passwordFile = config.sops.secrets."mail/admin/pw".path;
+        "admin@${main_domain}".passwordFile = config.my.secrets."mail_admin_password".path;
       };
 
       tls = {

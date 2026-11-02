@@ -1,6 +1,10 @@
 {
+  my.secrets.cli-full."borg_passphrase" = {
+    bitwarden = { name = "Borg"; field = "password"; };
+    owner = "stroby"; 
+  };
+
   flake.modules.nixos.cli-full = { config, pkgs, ... }: {
-    sops.secrets."borg_passphrase" = { owner = config.username; };
    
     programs.fuse.enable = true;
     programs.fuse.userAllowOther = true;

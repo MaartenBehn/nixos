@@ -52,22 +52,19 @@
   };
 
   hosts.asus = {
-    nixos.imports = with self.modules.nixos; [
-      asus_kernel_crashes
-      keep_on_with_closed_lid
-      battery
-      battery-server-notifications
-      server
-      server_base
-      server_ssh
-      cli
-      postgres
-    ];
-
-    homeManager.imports = with self.modules.homeManager; [
-      cli
-      yt-dlp
-      server
+    modules = [
+      "core"
+      "asus"
+      "asus_kernel_crashes"
+      "keep_on_with_closed_lid"
+      "battery"
+      "battery-server-notifications"
+      "server"
+      "server_base"
+      "server_ssh"
+      "cli"
+      "postgres"
+      "yt-dlp"
     ];
 
     local_ip = "192.168.0.97";

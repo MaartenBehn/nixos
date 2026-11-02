@@ -1,6 +1,18 @@
 { config, ... }: let 
   global_config = config;
 in {
+  my.secrets.laptop."laptop_stroby_ssh_private_key" = {
+    bitwarden = { name = "Laptop"; field = "private_key"; };
+    path = "/home/stroby/.ssh/id_ed25519";
+    owner = "stroby";
+  };
+
+  my.secrets.laptop."laptop_stroby_ssh_key_public_key" = {
+    bitwarden = { name = "Laptop"; field = "public_key"; };
+    path = "/home/stroby/.ssh/id_ed25519.pub";
+    owner = "stroby";
+  };
+
   flake.modules.nixos.core = {
     programs.ssh = {
       extraConfig = ''

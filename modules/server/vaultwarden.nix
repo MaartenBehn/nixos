@@ -1,4 +1,21 @@
 {
+  my.secrets.server = {
+    "vaultwarden_admin_token" = { 
+      bitwarden = { name = "Vaultwarden"; field = "admin_token"; };
+      owner = "vaultwarden"; 
+    };
+
+    vaultwarden_smtp_pw = { 
+      bitwarden = { name = "Mail Admin"; field = "password"; };
+      owner = "vaultwarden"; 
+    };
+
+    vaultwarden_mail_pw = { 
+      bitwarden = { name = "Mail Admin"; field = "password"; };
+      owner = "maddy"; 
+    };
+  };
+
   flake.modules.nixos.server = { config, pkgs, lib, ... }: let 
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
     borg_settings = default_borg_settings // {
@@ -7,25 +24,13 @@
       exclude = [ "**/icon_cache/**" "**/tmp/**" ];
     };
   in {
-
-    sops.secrets."vaultwarden/admin_token" = { owner = "vaultwarden"; };
-
-    sops.secrets.vaultwarden_smtp_pw = { 
-      owner = "vaultwarden"; 
-      key = "mail/vaultwarden/pw";
-    };
-
+    
     sops.templates."vaultwarden.env" = {
       content = ''
-      ADMIN_TOKEN='${config.sops.placeholder."vaultwarden/admin_token"}'
+      ADMIN_TOKEN='${config.sops.placeholder."vaultwarden_admin_token"}'
       SMTP_PASSWORD='${config.sops.placeholder.vaultwarden_smtp_pw}'
       '';
       owner = "vaultwarden";
-    };
-
-    sops.secrets.vaultwarden_mail_pw = { 
-      owner = "maddy"; 
-      key = "mail/vaultwarden/pw";
     };
 
     services.maddy = {
@@ -33,7 +38,7 @@
         "vaultwarden@${config.services.maddy.primaryDomain}"
       ];
       ensureCredentials = {
-        "vaultwarden@${config.services.maddy.primaryDomain}".passwordFile = config.sops.secrets.vaultwarden_mail_pw.path;
+        "vaultwarden@${config.services.maddy.primaryDomain}".passwordFile = config.my.secrets.vaultwarden_mail_pw.path;
       };
     };
 

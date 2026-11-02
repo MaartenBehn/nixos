@@ -1,4 +1,17 @@
 {
+  my.secrets.server= {
+    "wireguard_fritz_behns_borg_asus_private_key" = { 
+      bitwarden = { name = "Wireguard Fritz Behns Borg Asus"; field = "private_key"; };
+      owner = "root"; 
+    };
+
+    "wireguard_fritz_behns_borg_asus_preshared_key" = { 
+      bitwarden = { name = "Wireguard Fritz Behns Borg Asus"; field = "preshared_key"; };
+      owner = "root"; 
+    };
+  };
+
+
   flake.modules.nixos.server = { inputs, config, pkgs, ... }: 
   let 
     check_fritz_vpn = pkgs.writeShellScriptBin "check_fritz_vpn" ''
@@ -9,21 +22,18 @@
     imports = [
       inputs.vpn-confinement.nixosModules.default
     ];
-
-    sops.secrets."wireguard/fritz_behns_asus_borg/asus/private_key" = { owner = "root"; };
-    sops.secrets."wireguard/fritz_behns_asus_borg/asus/preshared_key" = { owner = "root"; };
-
+    
     sops.templates."wireguard/fritz_behns_asus_borg.conf" = {
       content = ''
         [Interface]
-        PrivateKey = ${config.sops.placeholder."wireguard/fritz_behns_asus_borg/asus/private_key"}
+        PrivateKey = ${config.sops.placeholder."wireguard_fritz_behns_borg_asus_private_key"}
         Address = 192.168.178.202/24,fdf5:5527:63fc::202/64
         ListenPort = 51821
         DNS = 192.168.178.1,fdf5:5527:63fc::9a9b:cbff:feba:47e9
 
         [Peer]
         PublicKey = mrcEyPu/E0HKqmpazQRj7baIKHnqAKic4SuT6DI59BQ=
-        PresharedKey = ${config.sops.placeholder."wireguard/fritz_behns_asus_borg/asus/preshared_key"}
+        PresharedKey = ${config.sops.placeholder."wireguard_fritz_behns_borg_asus_preshared_key"}
         AllowedIPs = 192.168.178.0/24,0.0.0.0/0,fdf5:5527:63fc::/64,::/0
         Endpoint = u73237za9dqn7w2w.myfritz.net:53021
         PersistentKeepalive = 25

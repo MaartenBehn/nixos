@@ -1,6 +1,11 @@
 { config, ... }: let 
   global_config = config;
 in {
+  my.secrets.core."remote_build_private_key" = {
+    bitwarden = { name = "Remote Build"; field = "private_key"; };
+    path = "/root/.ssh/remote_build";
+  };
+
   flake.modules.nixos.core = { pkgs, config, lib, ... }: let 
     remote_hosts = lib.filterAttrs (name: host: name != config.host && (host.remote_build.enable or false)) global_config.hosts;
 
@@ -41,18 +46,13 @@ in {
       useDefaultShell = true;
       createHome = false;
 
-      openssh.authorizedKeys.keys = [ 
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGRprPuaJEC+YVOPhWv793MSXW+8FNgVBPLWumJFd97 root@nixos"
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPOxQgAfy9F0E+B3ofIvIdWzZdB6VuXzOn4NEDWSaVnF remote_build@nixos"
       ];
     };
     users.groups.remote_build = lib.mkIf config.build.remote {};
     nix.settings.trusted-users = lib.mkIf config.build.remote [ "remote_build" ];
     
-
-    sops.secrets."remote_build/private_key" = {
-      path = "/root/.ssh/remote_build";
-    };
-
     nix.distributedBuilds = true;
     nix.settings.builders-use-substitutes = true;
 

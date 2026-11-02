@@ -17,8 +17,9 @@
       };
     };
 
-    flake.modules.nixos.cli-full = { config, ... }: {
-      sops.secrets."avante_nvim/gemini_api_key" = { owner = config.username; };
+    my.secrets.cli-full_."avante_nvim_gemini_api_key" = { 
+      bitwarden = { name = "Gemini"; field = "API Key"; };
+      owner = "stroby"; 
     };
 
     flake.modules.homeManager.cli = { system, pkgs, ... }: {

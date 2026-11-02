@@ -1,13 +1,15 @@
 {
+  my.secrets.server_off."nextcloud_admin_password" = { 
+    bitwarden = { name = "NextCloud Admin"; field = "password"; };
+    owner = "nextcloud";  
+  };
+
   flake.modules.nixos.server_off = { pkgs, config, ... }: 
   let 
     cloud_domain = "cloud.stroby.org";
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
   in {
-    sops.secrets."nextcloud/adminpass" = { 
-      owner = "nextcloud";  
-    };
-
+    
     users.groups.notes.members = [ "nextcloud" "www-data" ];
 
     services.nextcloud = {
@@ -29,7 +31,7 @@
       config = {
         dbtype = "pgsql";
         adminuser = "admin";
-        adminpassFile = config.sops.secrets."nextcloud/adminpass".path;
+        adminpassFile = config.my.secrets."nextcloud_admin_password".path;
       };
 
       hostName = cloud_domain;

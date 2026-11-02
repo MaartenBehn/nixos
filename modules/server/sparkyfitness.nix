@@ -1,4 +1,23 @@
 { inputs, ... }: {
+  my.secrets.server = {
+    "sparkyfitness_db_password" = { 
+      bitwarden = { name = "sparkyfitness"; field = "db_password"; };
+      owner = "sparkyfitness";  
+    };
+    "sparkyfitness_app_db_password" = { 
+      bitwarden = { name = "sparkyfitness"; field = "app_db_password"; };
+      owner = "sparkyfitness";  
+    };
+    "sparkyfitness_encryption_key" = { 
+      bitwarden = { name = "sparkyfitness"; field = "encryption_key"; };
+      owner = "sparkyfitness";  
+    };
+    "sparkyfitness_auth_secret" = { 
+      bitwarden = { name = "sparkyfitness"; field = "auth_secret"; };
+      owner = "sparkyfitness";  
+    };
+  };
+
   flake.modules.nixos.server = { config, pkgs, ... }: let
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
   in {
@@ -6,14 +25,20 @@
       inputs.sparkyfitness.nixosModules.sparkyfitness
     ];
 
-    sops.secrets."sparkyfitness.env" = { 
-      owner = "sparkyfitness";  
-    };
+    sops.templates."sparkyfitness.env" = {
+      content = ''
+        SPARKY_FITNESS_DB_PASSWORD=${config.sops.placeholder."sparkyfitness_db_password"}
+        SPARKY_FITNESS_APP_DB_PASSWORD=${config.sops.placeholder."sparkyfitness_app_db_password"}
+        SPARKY_FITNESS_API_ENCRYPTION_KEY=${config.sops.placeholder."sparkyfitness_encryption_key"}
+        BETTER_AUTH_SECRET=${config.sops.placeholder."sparkyfitness_auth_secret"}
+      '';
+      owner = "sparkyfitness";
+    }; 
 
     services.sparkyfitness = {
       enable = true;
       frontendUrl = "https://fitness.stroby.org";
-      environmentFile = config.sops.secrets."sparkyfitness.env".path;
+      environmentFile = config.sops.templates."sparkyfitness.env".path;
       port = 8002;
       database.package = pkgs.postgresql_17;
       nginx = {

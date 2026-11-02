@@ -1,13 +1,13 @@
 {
-  flake.modules.nixos.server = { config, ... }: {
-    sops.secrets."serve/asus/private_key" = {
-      mode = "0400";
-      owner = "root";
-    };
+  my.secrets.server."serve_asus_private_key" = {
+    bitwarden = { name = "Serve Asus"; field = "private_key"; };
+  };
 
+  flake.modules.nixos.server = { config, ... }: {
+    
     services.nix-serve = {
       enable = true;
-      secretKeyFile = config.sops.secrets."serve/asus/private_key".path;
+      secretKeyFile = config.my.secrets."serve_asus_private_key".path;
       bindAddress = "127.0.0.1";
       port = 5000;
     }; 

@@ -8,14 +8,9 @@
             default = "x86_64-linux";
           };
 
-          nixos = lib.mkOption {
-            type = lib.types.attrs;
-            default = {};
-          };
-
-          homeManager = lib.mkOption {
-            type = lib.types.attrs;
-            default = {};
+          modules = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [];
           };
         };
       });
@@ -65,10 +60,7 @@
             }
             self.modules.nixos."${hostname}_nixos_settings"
             self.modules.nixos."${hostname}_homeManager_settings"
-            self.modules.nixos."${hostname}"
-            self.modules.nixos.core
-            options.nixos
-          ];
+          ] ++ builtins.map (name: self.modules.nixos.${name} or {}) options.modules; 
         }) 
       config.hosts;
   };

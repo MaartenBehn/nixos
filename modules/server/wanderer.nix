@@ -1,4 +1,19 @@
 { inputs, ... }: {
+  my.secrets.server = {
+    "meili_master_key" = { 
+      bitwarden = { name = "Melisearch"; field = "Master Key"; };
+      mode = "0444"; 
+    };
+    "wanderer_pb_encryption_key" = { 
+      bitwarden = { name = "Wanderer"; field = "pb_encryption_key"; };
+      mode = "0444"; 
+    };
+    "wanderer_proxy_secret" = { 
+      bitwarden = { name = "Wanderer"; field = "proxy_secret"; };
+      mode = "0444"; 
+    };
+  };
+
   flake.modules.nixos.server = {config, ... }: {
 
     imports = [
@@ -13,14 +28,8 @@
         ];
       }
     ];
-
-    sops.secrets = {
-      "meili_master_key" = { mode = "0444"; };
-      "wanderer/pb_encryption_key" = { mode = "0444"; };
-      "wanderer/proxy_secret" = { mode = "0444"; };
-    };
-
-    services.meilisearch.masterKeyFile = config.sops.secrets."meili_master_key".path;
+    
+    services.meilisearch.masterKeyFile = config.my.secrets."meili_master_key".path;
 
     services.wanderer = {
       enable = true;
@@ -42,8 +51,8 @@
         PUBLIC_POCKETBASE_URL = "http://wanderer-db.local";
       };
       secrets = {
-        POCKETBASE_ENCRYPTION_KEY = config.sops.secrets."wanderer/pb_encryption_key".path;
-        POCKETBASE_PROXY_SECRET = config.sops.secrets."wanderer/proxy_secret".path;
+        POCKETBASE_ENCRYPTION_KEY = config.my.secrets."wanderer_pb_encryption_key".path;
+        POCKETBASE_PROXY_SECRET = config.my.secrets."wanderer_proxy_secret".path;
       };
     };
 

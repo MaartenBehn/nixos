@@ -74,12 +74,19 @@ PersistentKeepalive = 25
 */
 
 {
-  flake.modules.nixos.asus = { config, ... }: {
-
-    sops.secrets = {
-      "wireguard/tunnel/asus/private_key" = {};
-      "wireguard/private_local/asus/private_key" = {};
+  my.secrets.asus = {
+    "wireguard_tunnel_asus_private_key" = { 
+      bitwarden = { name = "Wireguard Tunnel Asus"; field = "private_key";  };
+      owner = "root"; 
     };
+
+    "wireguard_private_local_asus_private_key" = { 
+      bitwarden = { name = "Wireguard Private Local Asus"; field = "private_key";  };
+      owner = "root"; 
+    };
+  };
+
+  flake.modules.nixos.asus = { config, ... }: {
 
     networking.firewall = {
       trustedInterfaces = [ "tunnel_wg" "local_wg" ];
@@ -98,7 +105,7 @@ PersistentKeepalive = 25
           "fd00:11::2/128"
         ];
         listenPort = 51822;
-        privateKeyFile = config.sops.secrets."wireguard/tunnel/asus/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_tunnel_asus_private_key".path;
         mtu = 1380;
 
         peers = [
@@ -115,7 +122,7 @@ PersistentKeepalive = 25
       local_wg = {
         ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
         listenPort = 51823;
-        privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_private_local_asus_private_key".path;
 
         peers = [
           {
@@ -135,11 +142,13 @@ PersistentKeepalive = 25
     };
   };
 
-   flake.modules.nixos.pigman = { config, ... }: {
-
-    sops.secrets = {
-      "wireguard/private_local/asus/private_key" = {};
+  my.secrets.pigman = {
+    "wireguard_private_local_asus_private_key" = { 
+      bitwarden = { name = "Wireguard Private Local Asus"; field = "private_key";  };
     };
+  };
+
+  flake.modules.nixos.pigman = { config, ... }: {
 
     networking.firewall = {
       trustedInterfaces = [ "local_wg" ];
@@ -150,7 +159,7 @@ PersistentKeepalive = 25
       local_wg = {
         ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
         listenPort = 51823;
-        privateKeyFile = config.sops.secrets."wireguard/private_local/asus/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_private_local_asus_private_key".path;
 
         peers = [
           {

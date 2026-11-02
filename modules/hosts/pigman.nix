@@ -35,27 +35,24 @@
     boot.kernelPackages = pkgs.linuxPackages_6_12;
   };
 
+  flake.modules.homeManager.pigman = {
+    home.sessionVariables.terminal = "kitty";
+  };
+
   hosts.pigman = {
-    nixos.imports = with self.modules.nixos; [
-        networking
-        networking_vpn
-        cli
-        cli-full
-        nvidia
-        server_base
-        server_ssh
-        server_ollama
-        fix_tpm2 
-      ];
-
-    homeManager = {
-      imports = with self.modules.homeManager; [
-        cli
-        cli-full
-      ];
-
-      home.sessionVariables.terminal = "kitty";
-    };
+    modules = [
+      "core"
+      "laptop"
+      "networking"
+      "networking_vpn"
+      "cli"
+      "cli-full"
+      "nvidia"
+      "server_base"
+      "server_ssh"
+      "server_ollama"
+      "fix_tpm2" 
+    ];
 
     local_ip = "192.168.0.8";
     domains.public = [ ]; 

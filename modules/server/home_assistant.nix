@@ -1,4 +1,8 @@
 {
+  my.secrets.server."home_assistant_token" = { 
+    bitwarden = { name = "Home Assistant"; field = "key"; };
+  };
+
   flake.modules.nixos.server = { pkgs, ... }:
   let
     find_hub_scanner = pkgs.writeTextFile {
@@ -22,7 +26,7 @@
       log = logging.getLogger("findhub")
 
       HA_URL        = os.environ.get("HA_URL", "http://localhost:8123")
-      HA_TOKEN_FILE = os.environ.get("HA_TOKEN_FILE", "/run/secrets/ha_token")
+      HA_TOKEN_FILE = os.environ.get("HA_TOKEN_FILE", "/run/secrets/home_assistant_token")
       SCAN_SECONDS  = int(os.environ.get("SCAN_SECONDS", "10"))
       SEEN_WINDOW   = int(os.environ.get("SEEN_WINDOW", "60"))
       LOOP_INTERVAL = int(os.environ.get("LOOP_INTERVAL", "15"))
@@ -161,7 +165,6 @@
       };
     };
 
-    sops.secrets."home_assistant/token" = { owner = "root"; };
 
     systemd.services.findhub-scanner = {
       description = "Find Hub BLE presence scanner";
@@ -171,7 +174,7 @@
 
       environment = {
         HA_URL        = "http://localhost:8123";
-        HA_TOKEN_FILE = "/run/secrets/home_assistant/token";
+        HA_TOKEN_FILE = "/run/secrets/home_assistant_token";
         SCAN_SECONDS  = "20";
         SEEN_WINDOW   = "400";
         LOOP_INTERVAL = "200";

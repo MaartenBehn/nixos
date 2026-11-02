@@ -1,15 +1,30 @@
 { config, ... }: let
   global_config = config;
 in {
-  flake.modules.nixos.networking_vpn = { config, lib, pkgs, ... }: {
-    sops.secrets."wireguard/private/laptop/private_key" = { owner = config.username; };
-    sops.secrets."wireguard/private_local/laptop/private_key" = { owner = config.username; };
-    sops.secrets."wireguard/fritz_behns_stroby/laptop/private_key" = { owner = config.username; };
-    sops.secrets."wireguard/fritz_behns_stroby/laptop/preshared_key" = { owner = config.username; };
+  my.secrets.networking_vpn = {
+    "wireguard_private_laptop_private_key" = { 
+      bitwarden = { name = "Wireguard Private Laptop"; field = "private_key";  };
+      owner = "stroby"; 
+    };
+    "wireguard_private_local_laptop_private_key" = { 
+      bitwarden = { name = "Wireguard Private Local Laptop"; field = "private_key";  };
+      owner = "stroby"; 
+    };
+    "wireguard_fritz_behns_stroby_laptop_private_key" = { 
+      bitwarden = { name = "Wireguard Fritz Behns Stroby Laptop"; field = "private_key";  };
+      owner = "stroby"; 
+    };
+    "wireguard_fritz_behns_stroby_laptop_preshared_key" = { 
+      bitwarden = { name = "Wireguard Fritz Behns Stroby Laptop"; field = "private_key";  };
+      owner = "stroby"; 
+    };
+  };
 
+  flake.modules.nixos.networking_vpn = { config, lib, pkgs, ... }: {
+     
     networking.wg-quick.interfaces = {
       private = {  
-        privateKeyFile = config.sops.secrets."wireguard/private/laptop/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_private_laptop_private_key".path;
         address = [ "10.1.0.3/24" "fd00:11::3/64" ];
         dns = [ "10.1.0.2" "fd00:11::2" ];
 
@@ -26,7 +41,7 @@ in {
       };
 
       private_local = {  
-        privateKeyFile = config.sops.secrets."wireguard/private_local/laptop/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_private_local_laptop_private_key".path;
         address = [ "10.2.0.2/24" "fd00:12::2/64" ];
         dns = [ "10.1.0.2" "fd00:11::2" ];
 
@@ -43,7 +58,7 @@ in {
       };
 
       fritz_behns = {  
-        privateKeyFile = config.sops.secrets."wireguard/fritz_behns_stroby/laptop/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_fritz_behns_stroby_laptop_private_key".path;
         address = [ "192.168.178.201/24" ];
         listenPort = 51820;
         dns = [ "192.168.178.1" "fritz.box" ];
@@ -51,7 +66,7 @@ in {
         peers = [
           {
             publicKey = "mrcEyPu/E0HKqmpazQRj7baIKHnqAKic4SuT6DI59BQ=";
-            presharedKeyFile = config.sops.secrets."wireguard/fritz_behns_stroby/laptop/preshared_key".path;
+            presharedKeyFile = config.my.secrets."wireguard_fritz_behns_stroby_laptop_preshared_key".path;
             endpoint = "u73237za9dqn7w2w.myfritz.net:53021";
             allowedIPs = [ "192.168.178.0/24" "0.0.0.0/0" ];
             persistentKeepalive = 25;
@@ -61,7 +76,7 @@ in {
       };
 
       pigman = {  
-        privateKeyFile = config.sops.secrets."wireguard/private_local/laptop/private_key".path;
+        privateKeyFile = config.my.secrets."wireguard_private_local_laptop_private_key".path;
         address = [ "10.2.0.2/24" "fd00:12::2/64" ];
         dns = [ "10.2.0.1" "fd00:12::1" ];
 

@@ -30,6 +30,7 @@ let
     }
   ];
 in {
+  /*
   hosts.wsl = {
     nixos = {
       imports = old-imports ++ 
@@ -58,4 +59,5 @@ in {
       home.sessionVariables.terminal = "kitty";
     };
   };
+  */
 }

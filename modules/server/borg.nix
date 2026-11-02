@@ -1,4 +1,9 @@
 {
+  my.secrets.server."borg_server_passphrase" = {
+    bitwarden = { name = "Borg"; field = "password"; };
+    owner = "borg"; 
+  };
+ 
   flake.modules.nixos.server = { 
     # Important: 
     # To read files from an other group the group has the specified in the config 
@@ -10,11 +15,6 @@
 
     users.users.borg = {
       isNormalUser = true;
-    };
-
-    sops.secrets."borg_server_passphrase" = { 
-      key = "borg_passphrase";
-      owner = "borg"; 
     };
   };
 

@@ -7,6 +7,7 @@
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
   };
 
+  /*
   hosts.iso = {
     nixos = {
       imports = with self.modules.nixos; [
@@ -40,4 +41,5 @@
   perSystem = { self', pkgs, ... }: {
     packages.iso = self.nixosConfigurations.iso.config.system.build.isoImage;
   };
+  */
 }

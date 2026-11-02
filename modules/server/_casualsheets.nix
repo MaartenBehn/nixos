@@ -116,7 +116,7 @@ in
     };
 
     flake.modules.nixos.cli-full = { config, ... }: {
-      sops.secrets."avante_nvim/gemini_api_key" = { owner = config.username; };
+      sops.secrets."avante_nvim_gemini_api_key" = { owner = config.username; };
     };
 
     flake.modules.homeManager.cli = { system, pkgs, ... }: {

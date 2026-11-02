@@ -1,17 +1,20 @@
 {
+  my.secrets.server."wireguard_mullvad_asus_private_key" = { 
+    bitwarden = { name = "Wireguard Mullvad Asus"; field = "private_key"; };
+    owner = "root"; 
+  };
+
   flake.modules.nixos.server = { inputs, config, ... }: { 
 
     imports = [
       inputs.vpn-confinement.nixosModules.default
     ];
-
-    sops.secrets."wireguard/mullvad/asus/private_key" = { owner = "root"; };
-
+    
     sops.templates."wireguard/mullvad.conf" = {
       content = ''
         [Interface]
         # Device: Proper Eagle
-        PrivateKey = ${config.sops.placeholder."wireguard/mullvad/asus/private_key"}
+        PrivateKey = ${config.sops.placeholder."wireguard_mullvad_asus_private_key"}
         Address = 10.71.6.130/32,fc00:bbbb:bbbb:bb01::8:681/128
         ListenPort = 51820
         DNS = 10.64.0.1
