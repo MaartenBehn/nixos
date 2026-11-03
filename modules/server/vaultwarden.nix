@@ -6,12 +6,12 @@
     };
 
     vaultwarden_smtp_pw = { 
-      bitwarden = { name = "Mail Admin"; field = "password"; };
+      bitwarden = { name = "Mail Vaultwarden"; field = "password"; };
       owner = "vaultwarden"; 
     };
 
     vaultwarden_mail_pw = { 
-      bitwarden = { name = "Mail Admin"; field = "password"; };
+      bitwarden = { name = "Mail Vaultwarden"; field = "password"; };
       owner = "maddy"; 
     };
   };
@@ -59,14 +59,14 @@
         # thus without transport encryption.
         # If you use an external mail server, follow:
         #   https://github.com/dani-garcia/vaultwarden/wiki/SMTP-configuration
-        SMTP_HOST = "127.0.0.1";
-        SMTP_PORT = 25;
-        SMTP_SECURITY = "off";
+        SMTP_HOST = "${config.services.maddy.primaryDomain}";
+        SMTP_PORT = 587;
+        SMTP_SECURITY = "starttls";
 
-        SMTP_USERNAME = "vaultwarden@stroby.org";
+        SMTP_USERNAME = "vaultwarden@${config.services.maddy.primaryDomain}";
 
-        SMTP_FROM = "vaultwarden@stroby.org";
-        SMTP_FROM_NAME = "Vaultwarden server";
+        SMTP_FROM = "vaultwarden@${config.services.maddy.primaryDomain}";
+        SMTP_FROM_NAME = "Vaultwarden";
       };
     };
 

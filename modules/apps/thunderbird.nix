@@ -33,11 +33,24 @@
           imap = { # Override imap and smtp config
             host = "imap.kit.edu";
             port = 993; 
+            tls.enable = true;
           };
           smtp = {
             host = "smtp.kit.edu";
-            port = 465;
+            port = 587;
+            tls.enable = true;
+            tls.useStartTls = true;
           };
+        }
+        {
+          mail = "admin@mail.stroby.org";
+          name = "Stroby";
+          host = "mail.stroby.org";
+        }
+        {
+          mail = "vaultwarden@mail.stroby.org";
+          name = "Vaultwarden";
+          host = "mail.stroby.org";
         }
       ];
     in

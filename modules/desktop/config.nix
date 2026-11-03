@@ -1,5 +1,9 @@
 {
   flake.modules.nixos.hyprland = {
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
     programs.dconf.enable = true;
     services.getty.autologinUser = "stroby";
   };

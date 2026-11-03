@@ -36,14 +36,14 @@ PostUp = sysctl -w net.ipv6.conf.all.forwarding=1
 PostUp = iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
 PostUp = ip6tables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
 
-PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 10.0.0.2
-PostUp = ip6tables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination [fd00:10::2]
+PostUp = iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443,25,587,143,993,465 -j DNAT --to-destination 10.0.0.2
+PostUp = ip6tables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443,25,587,143,993,465 -j DNAT --to-destination [fd00:10::2]
 
 PostDown = iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE || true
 PostDown = ip6tables -t nat -D POSTROUTING -o wg0 -j MASQUERADE || true
 
-PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 10.0.0.2 || true
-PostDown = ip6tables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination [fd00:10::2] || true
+PostDown = iptables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 80,443,25,587,143,993,465 -j DNAT --to-destination 10.0.0.2 || true
+PostDown = ip6tables -t nat -D PREROUTING -i eth0 -p tcp -m multiport --dports 80,443,25,587,143,993,465 -j DNAT --to-destination [fd00:10::2] || true
 
 # asus
 [Peer]
