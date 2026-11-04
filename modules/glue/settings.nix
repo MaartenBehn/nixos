@@ -10,13 +10,13 @@
     };
 
     domains.public = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [];
+      type = lib.types.nullOr lib.types.str;
+      default = null;
     };
 
     domains.local = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ "local" ];
+      type = lib.types.nullOr lib.types.str;
+      default = null;
     };
 
     build = {

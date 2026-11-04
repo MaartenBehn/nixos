@@ -1,7 +1,7 @@
 {
-  flake.modules.nixos.server = {
-    services.nginx.virtualHosts."stroby.org" = {
-      enableACME = true;
+  flake.modules.nixos.server = { config, ... }: {
+    services.nginx.virtualHosts.${config.domains.public} = {
+      useACMEHost = config.domains.public;
       forceSSL = true;
       locations."= /" = {
         extraConfig = ''
@@ -16,7 +16,7 @@
       };
 
       serverAliases = [
-        "www.stroby.org"
+        "www.${config.domains.public}"
       ];
     };
   };

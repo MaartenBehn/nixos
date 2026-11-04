@@ -22,11 +22,6 @@
               description = "To set other locations as services.nginx.virtualHosts.*.locations";
               default = {};
             };
-
-            local_self_signed = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-            }; 
           };
         });
       };
@@ -37,11 +32,13 @@
 
       get_domains = sub_domain:
         let svc = get_webservice sub_domain;
-        in if svc.domains == "local"  then config.domains.local
-        else if svc.domains == "public" then config.domains.public
-        else (config.domains.local ++ config.domains.public);
+            loc = lib.optional (config.domains.local != null) config.domains.local;
+            pub = lib.optional (config.domains.public != null) config.domains.public;
+        in if svc.domains == "local"  then loc
+        else if svc.domains == "public" then pub
+        else (loc ++ pub);
 
-      is_domain_local = domain: builtins.elem domain config.domains.local;
+      is_domain_local = domain: domain == config.domains.local;
 
       make_vhost = sub_domain: domain:
         let svc = get_webservice sub_domain;
@@ -49,16 +46,14 @@
         in {
           name = "${sub_domain}.${domain}";
           value = {
-            enableACME = !local || svc.local_self_signed;
-            forceSSL   = !local || svc.local_self_signed;
+            useACMEHost = lib.mkIf (config.domains.public != null) config.domains.public;
+            forceSSL = config.domains.public != null;
 
             listenAddresses = lib.mkIf local [ "10.1.0.2" "10.2.0.1" "[fd00:11::2]" "[fd00:12::1]" ];
 
             locations = {
               "/" = svc.root;
             } // svc.locations;
-
-            serverAliases = [ "www.${sub_domain}.${domain}" ];
           };
         };
     in {

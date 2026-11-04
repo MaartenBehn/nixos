@@ -1,11 +1,6 @@
 {
   flake.modules.nixos.server_base = { lib, config, ... }:
     {
-      security.acme = {
-        acceptTerms = true;
-        defaults.email = "maarten.behn@gmail.com";
-      };
-
       # Open http and https ports
       networking.firewall.allowedTCPPorts = [
         80

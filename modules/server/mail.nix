@@ -9,15 +9,12 @@
     owner = "maddy";
   };
 
-  my.secrets.server.acme_cloudflare_api = { 
-    bitwarden = { name = "Cloudflare"; field = "asus_acme_token"; };
-  };
-
-
   flake.modules.nixos.server = { config, options, pkgs, ... }: 
     let 
-      main_domain = "mail.stroby.org";
+      main_domain = "mail.${config.domains.public}";
     in {
+
+      users.users.maddy.extraGroups = [ "acme" ];
 
       services.maddy = {
         enable = true;
@@ -33,8 +30,8 @@
         tls = {
           loader = "file";
           certificates = [{
-            keyPath = "/var/lib/maddy/certs/key.pem";
-            certPath = "/var/lib/maddy/certs/cert.pem";
+            keyPath = "/var/lib/acme/${config.domains.public}/key.pem";
+            certPath = "/var/lib/acme/${config.domains.public}/fullchain.pem";
           }];
         };
 
@@ -77,27 +74,11 @@
         
       systemd.services.maddy.serviceConfig.EnvironmentFile = config.sops.templates."maddy.env".path;
 
-      security.acme = {
-        acceptTerms = true;
-        certs."mail.stroby.org" = {
-          dnsProvider = "cloudflare";
-          email = "maarten.behn@gmail.com";
-          environmentFile = config.sops.templates."acme.env".path;
-          postRun = "mkdir -p /var/lib/maddy/certs && cp cert.pem /var/lib/maddy/certs/cert.pem && cp key.pem /var/lib/maddy/certs/key.pem && chown -R maddy:maddy /var/lib/maddy/certs";
-        };
-      };
-
       sops.templates."maddy.env" = {
         content = ''
           MADDY_BREVO_SMTP_PASSWORD=${config.sops.placeholder."maddy_brevo_smtp_password"}
         '';
         owner = "maddy";
-      };
-
-      sops.templates."acme.env" = {
-        content = ''
-          CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.acme_cloudflare_api}
-        '';
       };
 
       networking.firewall.allowedTCPPorts = [ 25 587 143 993 465 ];
@@ -106,13 +87,13 @@
         enable = true;
         settings = {
           service_addr = ":1323";
-          domain = "autoconfig.stroby.org";
+          domain = "autoconfig.${config.domains.public}";
           imap = {
-            server = "mail.stroby.org";
+            server = main_domain;
             port = 993;
           };
           smtp = {
-            server = "mail.stroby.org";
+            server = main_domain;
             port = 587;
           };
         };

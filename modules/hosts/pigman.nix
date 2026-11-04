@@ -55,8 +55,8 @@
     ];
 
     local_ip = "192.168.0.8";
-    domains.public = [ ]; 
-    domains.local = [ "local" ];
+    domains.public = null; 
+    domains.local = "local";
     build = {
       remote = true;
       maxJobs = 3;

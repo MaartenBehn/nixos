@@ -68,8 +68,8 @@
     ];
 
     local_ip = "192.168.0.97";
-    domains.public = [ "stroby.org" ]; 
-    domains.local = [ "local" ];
+    domains.public = "stroby.org"; 
+    domains.local = "local.stroby.org";
     build = {
       remote = true;
       maxJobs = 1;
