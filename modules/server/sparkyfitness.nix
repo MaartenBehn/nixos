@@ -37,17 +37,17 @@
 
     services.sparkyfitness = {
       enable = true;
-      frontendUrl = "https://fitness.stroby.org";
+      frontendUrl = "https://fitness.${config.domains.public}";
       environmentFile = config.sops.templates."sparkyfitness.env".path;
       port = 8002;
       database.package = pkgs.postgresql_17;
       nginx = {
         enable = true;
-        virtualHost = "fitness.stroby.org";
+        virtualHost = "fitness.${config.domains.public}";
       };
     };
 
-    services.nginx.virtualHosts."fitness.stroby.org" = {
+    services.nginx.virtualHosts."fitness.${config.domains.public}" = {
       useACMEHost = config.domains.public;
       forceSSL = true;
 

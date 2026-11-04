@@ -17,6 +17,7 @@
           extraDomainNames = wildcard_domains;
           dnsProvider = "cloudflare";
           environmentFile = config.sops.templates."acme.env".path;
+          dnsResolver = "1.1.1.1:53";
           group = "acme";
         };
       };

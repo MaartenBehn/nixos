@@ -43,6 +43,7 @@
       make_vhost = sub_domain: domain:
         let svc = get_webservice sub_domain;
           local = is_domain_local domain;
+          is_all = svc.domains == "all";
         in {
           name = "${sub_domain}.${domain}";
           value = {
@@ -50,6 +51,10 @@
             forceSSL = config.domains.public != null;
 
             listenAddresses = lib.mkIf local [ "10.1.0.2" "10.2.0.1" "[fd00:11::2]" "[fd00:12::1]" ];
+
+            # Only for services marked "all" (available both locally and publicly):
+            # allow accessing via the public domain name over the VPN IP too!
+            serverAliases = lib.optional (local && is_all && config.domains.public != null) "${sub_domain}.${config.domains.public}";
 
             locations = {
               "/" = svc.root;
