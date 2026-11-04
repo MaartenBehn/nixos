@@ -48,7 +48,7 @@
     };
 
     services.nginx.virtualHosts."fitness.stroby.org" = {
-      enableACME = true;
+      useACMEHost = config.domains.public;
       forceSSL = true;
 
       extraConfig = ''
