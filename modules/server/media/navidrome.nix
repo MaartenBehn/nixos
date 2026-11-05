@@ -1,11 +1,26 @@
 {
-  flake.modules.nixos.server = { pkgs, ... }: {
+  flake.modules.nixos.server = { pkgs, config, ... }: {
+    
+    sops.templates."navidrome.env" = {
+        content = ''
+          ND_PLUGINS_ENABLED=true
+          ND_PLUGINS_AUTORELOAD=true
+          ND_AGENTS=audiomuseai
+          ND_DEVARTISTINFOTIMETOLIVE=1s        
+        '';
+        owner = "navidrome";
+      };
+      #ND_AGENTS=audiomuseai,lastfm
+
+
     services.navidrome = {
       enable = true;
 
       package = pkgs.navidrome.overrideAttrs (oldAttrs: {
         doCheck = false;
       });
+
+      environmentFile = config.sops.templates."navidrome.env".path;
 
       settings = {
         MusicFolder = "/media/music";
