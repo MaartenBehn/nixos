@@ -1,10 +1,10 @@
 {
-  my.secrets.server_off."nextcloud_admin_password" = { 
+  my.secrets.server."nextcloud_admin_password" = { 
     bitwarden = { name = "NextCloud Admin"; field = "password"; };
     owner = "nextcloud";  
   };
 
-  flake.modules.nixos.server_off = { pkgs, config, ... }: 
+  flake.modules.nixos.server = { pkgs, config, ... }: 
   let 
     cloud_domain = "cloud.stroby.org";
     default_borg_settings = import ./_borg_settings.nix { inherit config; };
@@ -52,7 +52,7 @@
     services.nginx.virtualHosts = {
       "${cloud_domain}" = {
         forceSSL = true;
-        enableACME = true;
+        useACMEHost = config.domains.public;
       };
     };
 

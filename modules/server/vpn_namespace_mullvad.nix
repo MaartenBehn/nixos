@@ -41,6 +41,16 @@
       # UNLESS it originated from the host's loopback interface (lo).
       iptables -I FORWARD -o mullvad-br ! -i lo -j DROP
     '';
+
+    systemd.services."mullvad" = {
+      preStart = ''
+      # Purge any lingering network namespace and associated veth interfaces from previous runs
+      ip netns del mullvad 2>/dev/null || true
+      for iface in $(ip link show | grep -oE '[^[:space:]]+-mullvad|[[:space:]]veth[[:alnum:]_-]*'); do
+        ip link delete "$iface" 2>/dev/null || true
+      done
+      '';
+    };
   };
 }
 

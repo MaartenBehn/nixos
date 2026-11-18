@@ -14,6 +14,7 @@
     home.packages = with pkgs; [
       secretspec
       bitwarden-cli
+      bitwarden-desktop
     ];
 
     home.file = {  

@@ -62,8 +62,12 @@
           FileLogger\Path=/.local/share/qBittorrent/logs
 
           [BitTorrent]
+          Session\AlternativeGlobalDLSpeedLimit=1000
+          Session\AlternativeGlobalUPSpeedLimit=1000
           Session\DefaultSavePath=/media/downloads
           Session\ExcludedFileNames=
+          Session\GlobalDLSpeedLimit=20000
+          Session\GlobalUPSpeedLimit=1000
           Session\Interface=mullvad0
           Session\InterfaceName=mullvad0
           Session\Port=11429
@@ -71,7 +75,7 @@
           Session\SSL\Port=64215
           Session\TempPath=/media/downloads/temp
           Session\TempPathEnabled=true
-          Session\UseAlternativeGlobalSpeedLimit=false
+          Session\UseAlternativeGlobalSpeedLimit=true
           Session\UseCategoryPathsInManualMode=true
 
           [Core]
@@ -104,7 +108,7 @@
           AutoDownloader\SmartEpisodeFilter=s(\\d+)e(\\d+), (\\d+)x(\\d+), "(\\d{4}[.\\-]\\d{1,2}[.\\-]\\d{1,2})", "(\\d{1,2}[.\\-]\\d{1,2}[.\\-]\\d{4})"
 
           [SearchEngines]
-          disabledEngines=torrentproject
+          disabledEngines=torrentproject        
         ''; 
         executable = false; 
       };

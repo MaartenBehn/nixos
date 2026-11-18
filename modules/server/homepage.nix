@@ -1,7 +1,7 @@
 { lib, ... }: let
   secrets = {
     "jellyfin_homepage_key" = { bitwarden = { name = "Jellyfin"; field = "homepage_key"; }; };
-    "seer_key" = { bitwarden = { name = "Seer"; field = "key"; }; };
+    "seer_key" = { bitwarden = { name = "Seerr"; field = "key"; }; };
     "qbittorrent_username" = { bitwarden = { name = "qbittorrent"; field = "username"; }; };
     "qbittorrent_password" = { bitwarden = { name = "qbittorrent"; field = "password";}; };
     "slskd_key" = { bitwarden = { name = "slskd"; field = "key"; }; };

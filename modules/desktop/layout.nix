@@ -248,10 +248,10 @@
                 home = {
                   monitors = [
                     edp
-                    { output = "DP-5"; mode = "preferred"; position = "-1920x0"; }
-                    { output = "DP-6"; mode = "preferred"; position = "-3840x0"; }
-                    { output = "DP-7"; mode = "preferred"; position = "-1920x0"; }
-                    { output = "DP-8"; mode = "preferred"; position = "-3840x0"; }
+                    { output = "DP-5"; mode = "highres"; position = "-1920x0"; }
+                    { output = "DP-6"; mode = "highres"; position = "-3840x0"; }
+                    { output = "DP-7"; mode = "highres"; position = "-1920x0"; }
+                    { output = "DP-8"; mode = "highres"; position = "-3840x0"; }
                   ];
                   workspaces = [
                     { workspace = "1"; monitor = "eDP-1"; default = true; }

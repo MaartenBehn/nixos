@@ -2,7 +2,7 @@
   flake.modules.nixos.server = { config, lib, pkgs, ... }: {
     services.coturn = {
       enable = true;
-      realm = "neko.local";
+      realm = "neko.local.stroby.org";
       listening-port = 3478;
       min-port = 49152;
       max-port = 49252;
@@ -11,6 +11,7 @@
       no-dtls = true;
       extraConfig = ''
         user=nekouser:nekopass
+        listening-ip=192.168.15.5
         listening-ip=${config.local_ip}
         listening-ip=10.1.0.2
         listening-ip=10.2.0.1
@@ -39,7 +40,7 @@
           { urls = [ "turn:10.2.0.1:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];
         NEKO_WEBRTC_ICESERVERS_BACKEND = builtins.toJSON [
-          { urls = [ "turn:${config.local_ip}:3478" ]; username = "nekouser"; credential = "nekopass"; }
+          { urls = [ "turn:192.168.15.5:3478" ]; username = "nekouser"; credential = "nekopass"; }
         ];     
         NEKO_FILETRANSFER_ENABLED = "true";
         NEKO_FILETRANSFER_DIR = "/home/neko/Downloads";
@@ -60,9 +61,14 @@
       vpnNamespace = "mullvad";
     };
 
-    vpnNamespaces.mullvad.portMappings = [
-      { from = 8044; to = 8044; }
-    ] ++ (lib.range 52000 52100 |> map (p: { from = p; to = p; protocol = "udp"; }));
+    vpnNamespaces.mullvad = {
+      allowedEgress = [ "192.168.15.5" ];
+
+      portMappings = [
+        { from = 8044; to = 8044; }
+        { from = 3478; to = 3478; }
+      ] ++ (lib.range 52000 52100 |> map (p: { from = p; to = p; protocol = "udp"; }));
+    };
 
     web_services."neko" = {
       domains = "local";

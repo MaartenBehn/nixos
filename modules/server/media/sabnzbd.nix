@@ -1,26 +1,24 @@
 {
-  flake.modules.nixos.server = { pkgs, ... }: {
-    users.users.sabnzbd = {
-      isNormalUser = true;
-      group = "media";
+  flake.modules.nixos.server = { pkgs, config, ... }: {
+    users.groups.media.members = [ "sabnzbd" ];
+
+    services.sabnzbd = {
+      enable = true;
+      configFile = null;
+      
+      settings = {
+        misc = {
+          host = "0.0.0.0";
+          port = 7979;
+          host_whitelist = "sabnzbd.${config.domains.local}";
+        }; 
+      };
     };
 
     systemd.services.sabnzbd = {
       vpnConfinement = {
         enable = true;
         vpnNamespace = "mullvad";
-      };
-
-      path = with pkgs; [
-        sabnzbd
-      ];
-      script = "sabnzbd -s 0.0.0.0:7979";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
-
-      serviceConfig = {
-        User = "sabnzbd";
       };
     };
 
