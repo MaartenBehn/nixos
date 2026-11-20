@@ -50,7 +50,7 @@
       "nvidia"
       "server_base"
       "server_ssh"
-      "server_ollama"
+      #"server_ollama"
       "fix_tpm2" 
     ];
 

@@ -47,12 +47,12 @@ in {
         enable = true;
         package = pkgs-unstable.homepage-dashboard;
         listenPort = 8085;
-        allowedHosts = "main.local,127.0.0.1:8085";
+        allowedHosts = "main.${config.domains.local},127.0.0.1:8085";
 
         settings = {
           title = "Stroby's Home Server";
           background = {
-            image = "http://main.local/wallpapers/forest_road.jpg";
+            image = "http://main.${config.domains.local}/wallpapers/forest_road.jpg";
             #blur = "sm";
           };
           cardBlur = "xs";
@@ -67,14 +67,14 @@ in {
             Media = [
               {
                 Jellyfin = {
-                  href = "https://media.stroby.org/";
+                  href = "https://media.${config.domains.public}/";
                   description = "Media Server";
 
                   # TODO: Create function for icon urls 
-                  icon = "http://main.local/icons/jellyfin.svg";
+                  icon = "https://main.${config.domains.local}/icons/jellyfin.svg";
                   widget = {
                     type = "jellyfin";
-                    url = "https://media.stroby.org/";
+                    url = "https://media.${config.domains.public}/";
                     key = "{{${to_var "jellyfin_homepage_key"}}}";
                     enableBlocks = true;
                     enableNowPlaying = true;
@@ -87,24 +87,24 @@ in {
               }
               {
                 Jellyseerr = {
-                  href = "http://seerr.local/";
+                  href = "https://seerr.${config.domains.local}/";
                   description = "Media Requester";
-                  icon = "http://main.local/icons/jellyseerr.png";
+                  icon = "https://main.${config.domains.local}/icons/jellyseerr.png";
                   widget = {
                     type = "jellyseerr";
-                    url = "http://seerr.local/";
+                    url = "https://seerr.${config.domains.local}/";
                     key = "{{${to_var "seer_key"}}}";
                   };
                 };
               }
               {
                 Qbittorrent = {
-                  href = "http://qbittorrent.local/";
+                  href = "https://qbittorrent.${config.domains.local}/";
                   description = "Torrent Downloader";
-                  icon = "http://main.local/icons/qbittorrent.svg";
+                  icon = "https://main.${config.domains.local}/icons/qbittorrent.svg";
                   widget = {
                     type = "qbittorrent";
-                    url = "http://qbittorrent.local/";
+                    url = "https://qbittorrent.${config.domains.local}/";
                     username = "{{${to_var "qbittorrent_username"}}}";
                     password = "{{${to_var "qbittorrent_password"}}}";
                     enableLeechProgress = true;
@@ -113,48 +113,48 @@ in {
               }
               {
                 Slskd = {
-                  href = "http://slskd.local/";
+                  href = "https://slskd.${config.domains.local}/";
                   description = "Usenet Downloader";
-                  icon = "http://main.local/icons/slskd.ico";
+                  icon = "https://main.${config.domains.local}/icons/slskd.ico";
                   widget = {
                     type = "slskd";
-                    url = "http://slskd.local/";
+                    url = "https://slskd.${config.domains.local}/";
                     key = "{{${to_var "slskd_key"}}}";
                   };
                 };
               }
               {
                 Prowlarr = {
-                  href = "http://prowlarr.local/";
+                  href = "https://prowlarr.${config.domains.local}/";
                   description = "Indexer Manager";
-                  icon = "http://main.local/icons/prowlarr.svg";
+                  icon = "https://main.${config.domains.local}/icons/prowlarr.svg";
                   widget = {
                     type = "prowlarr";
-                    url = "http://prowlarr.local/";
+                    url = "https://prowlarr.${config.domains.local}/";
                     key = "{{${to_var "prowlarr_key"}}}";
                   };
                 };
               }
               {
                 Sonarr = {
-                  href = "http://sonarr.local/";
+                  href = "https://sonarr.${config.domains.local}/";
                   description = "Show Search Engine";
-                  icon = "http://main.local/icons/sonarr.svg";
+                  icon = "https://main.${config.domains.local}/icons/sonarr.svg";
                   widget = {
                     type = "sonarr";
-                    url = "http://sonarr.local/";
+                    url = "https://sonarr.${config.domains.local}/";
                     key = "{{${to_var "sonarr_key"}}}";
                   };
                 };
               }
               {
                 Radarr = {
-                  href = "http://radarr.local/";
+                  href = "https://radarr.${config.domains.local}/";
                   description = "Movie Search Engine";
-                  icon = "http://main.local/icons/radarr.svg";
+                  icon = "https://main.${config.domains.local}/icons/radarr.svg";
                   widget = {
                     type = "radarr";
-                    url = "http://radarr.local/";
+                    url = "https://radarr.${config.domains.local}/";
                     key = "{{${to_var "radarr_key"}}}";
                     enableQueue = true;
                   };
@@ -162,28 +162,28 @@ in {
               }
               {
                 Lidarr = {
-                  href = "http://lidarr.local/";
+                  href = "https://lidarr.${config.domains.local}/";
                   description = "Music Search Engine";
-                  icon = "http://main.local/icons/lidarr.svg";
+                  icon = "https://main.${config.domains.local}/icons/lidarr.svg";
                   widget = {
                     type = "lidarr";
-                    url = "http://lidarr.local/";
+                    url = "https://lidarr.${config.domains.local}/";
                     key = "{{${to_var "lidarr_key"}}}";
                   };
                 };
               }
               {
                 Whisparr = {
-                  href = "http://whisparr.local/";
+                  href = "https://whisparr.${config.domains.local}/";
                   description = "Adult Search Engine";
-                  icon = "http://main.local/icons/whisparr.svg";
+                  icon = "https://main.${config.domains.local}/icons/whisparr.svg";
                 };
               }
               {
                 AudioMuse = {
-                  href = "http://audio_muse.local/";
+                  href = "https://audio_muse.${config.domains.local}/";
                   description = "Music Embedding Engine";
-                  icon = "http://main.local/icons/audiomuse.png";
+                  icon = "https://main.${config.domains.local}/icons/audiomuse.png";
                 };
               }
             ];
@@ -192,24 +192,24 @@ in {
             Home = [
               {
                 Fitness = {
-                  href = "https://fitness.stroby.org/";
+                  href = "https://fitness.${config.domains.public}/";
                   description = "Fitness and Nutrition Tracker";
-                  icon = "http://main.local/icons/sparkyfitness.webp";
+                  icon = "https://main.${config.domains.local}/icons/sparkyfitness.webp";
                   widget = {
                     type = "sparkyfitness";
-                    url = "https://fitness.stroby.org/";
+                    url = "https://fitness.${config.domains.public}/";
                     key = "{{${to_var "sparkyfitness_key"}}}";
                   };
                 }; 
               }
               {
                 HomeAssistant = {
-                  href = "http://home.local/";
+                  href = "https://home.${config.domains.local}/";
                   description = "Smart Home";
-                  icon = "http://main.local/icons/homeassistant.svg";
+                  icon = "https://main.${config.domains.local}/icons/homeassistant.svg";
                   widget = {
                     type = "homeassistant";
-                    url = "http://home.local/";
+                    url = "https://home.${config.domains.local}/";
                     key = "{{${to_var "home_assistant_key"}}}";
                     custom = [
                       {
@@ -226,19 +226,19 @@ in {
               }
               {
                 "Actual Budget" = {
-                  href = "http://budget.stroby.org";
+                  href = "https://budget.${config.domains.public}";
                   description = "Budgeting App";
-                  icon = "http://main.local/icons/actualbudget.svg";
+                  icon = "https://main.${config.domains.local}/icons/actualbudget.svg";
                 };
               }
               {
                 Immich = {
-                  href = "https://immich.stroby.org/";
+                  href = "https://immich.${config.domains.public}/";
                   description = "Fotos";
-                  icon = "http://main.local/icons/immich.ico";
+                  icon = "https://main.${config.domains.local}/icons/immich.ico";
                   widget = {
                     type = "immich";
-                    url = "https://immich.stroby.org/";
+                    url = "https://immich.${config.domains.public}/";
                     key = "{{${to_var "immich_key"}}}";
                     version = 2;
                   };
@@ -246,30 +246,30 @@ in {
               }
               {
                 Calendar = {
-                  href = "http://calendar.stroby.org";
+                  href = "https://calendar.${config.domains.public}";
                   description = "Calendar Web App";
-                  icon = "http://main.local/icons/mmdl.jpeg";
+                  icon = "https://main.${config.domains.local}/icons/mmdl.jpeg";
                 };
               }
               {
                 Baikal = {
-                  href = "http://baikal.stroby.org";
+                  href = "https://baikal.${config.domains.public}";
                   description = "Caldav Server";
-                  icon = "http://main.local/icons/baikal.svg";
+                  icon = "https://main.${config.domains.local}/icons/baikal.svg";
                 };
               }
               {
                 ntfy = {
-                  href = "http://ntfy.stroby.org";
+                  href = "https://ntfy.${config.domains.public}";
                   description = "Notification Server";
-                  icon = "http://main.local/icons/ntfy.svg";
+                  icon = "https://main.${config.domains.local}/icons/ntfy.svg";
                 };
               }
               {
                 Vaultwarden = {
-                  href = "http://vaultwarden.stroby.org";
+                  href = "https://vaultwarden.${config.domains.public}";
                   description = "Password Manager";
-                  icon = "http://main.local/icons/vaultwarden.svg";
+                  icon = "https://main.${config.domains.local}/icons/vaultwarden.svg";
                 };
               }
             ];
@@ -278,30 +278,30 @@ in {
             Data = [
               {
                 Notes = {
-                  href = "http://notes.stroby.org";
+                  href = "https://notes.${config.domains.public}";
                   description = "Uni Notes";
-                  icon = "http://main.local/icons/obsidian.svg";
+                  icon = "https://main.${config.domains.local}/icons/obsidian.svg";
                 };
               }
               {
                 FileBrowser = {
                   href = "https://files.stroby.org";
                   description = "Server Files";
-                  icon = "http://main.local/icons/filebrowser.png";
+                  icon = "https://main.${config.domains.local}/icons/filebrowser.png";
                 };
               }
               {
                 Syncthing = {
-                  href = "http://syncthing.local/";
+                  href = "https://syncthing.${config.domains.local}/";
                   description = "Notes syncing";
-                  icon = "http://main.local/icons/syncthing.svg";
+                  icon = "https://main.${config.domains.local}/icons/syncthing.svg";
                 };
               }
               {
                 NextCloud = {
                   href = "https://cloud.stroby.org/";
                   description = "Cloude Storage";
-                  icon = "http://main.local/icons/nextcloud.svg";
+                  icon = "https://main.${config.domains.local}/icons/nextcloud.svg";
                 };
               }
             ];

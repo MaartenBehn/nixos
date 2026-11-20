@@ -61,8 +61,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1793197651,
-        "narHash": "sha256-ufAt6YOGy1RvfGJjgcFLmaJcHBgcUl2f5phyQgFWoB8=",
+        "lastModified": 1794593027,
+        "narHash": "sha256-dTVyMJdeNOoy4Z4Ee+NdPxnXYzfL/y4Gofx2RIIkkes=",
         "path": "/home/stroby/dev/audiomuse-ai-nix",
         "type": "path"
       },

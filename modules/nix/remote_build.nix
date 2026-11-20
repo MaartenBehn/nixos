@@ -7,7 +7,7 @@ in {
   };
 
   flake.modules.nixos.core = { pkgs, config, lib, ... }: let 
-    remote_hosts = lib.filterAttrs (name: host: name != config.host && (host.remote_build.enable or false)) global_config.hosts;
+    remote_hosts = lib.filterAttrs (name: host: name != config.host && (host.build.remote or false)) global_config.hosts;
 
     update_builders = pkgs.writeShellScript "update-active-builders" ''
       active_builders=""
@@ -44,7 +44,8 @@ in {
       isSystemUser = true;
       group = "remote_build";
       useDefaultShell = true;
-      createHome = false;
+      home = "/var/lib/remote_build";
+      createHome = true;
 
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPOxQgAfy9F0E+B3ofIvIdWzZdB6VuXzOn4NEDWSaVnF remote_build@nixos"

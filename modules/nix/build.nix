@@ -36,6 +36,13 @@
         cd -
       '';
 
+      nix-rebuild-pigman = pkgs.writeShellScriptBin "nix-rebuild-pigman" ''
+        cd /home/$USER/nixos/
+        git add --all
+        nh os switch -H pigman --target-host pigman --quiet --impure --keep-going . "$@"
+        cd -
+      '';
+
       nix-update = pkgs.writeShellScriptBin "nix-update" ''
         cd /home/$USER/nixos/ 
         git add --all 
@@ -49,6 +56,7 @@
         nix-rebuild-local
         nix-rebuild-asus
         nix-rebuild-asus-private
+        nix-rebuild-pigman
         nix-update
         nh
         nix-output-monitor
