@@ -1,7 +1,12 @@
 {
-  flake.modules.nixos.nvidia = { config, ... }: {
-    # Load nvidia driver for Xorg and Wayland
+  flake.modules.nixos.nvidia = { config, pkgs, ... }: {
     services.xserver.videoDrivers = [ "nvidia" ];
+    
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+
     hardware.nvidia = {
 
       # Modesetting is required.
@@ -31,10 +36,19 @@
       nvidiaSettings = true;
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
       # Fix Minecraft flickering
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
+
+    hardware.graphics.extraPackages = with pkgs; [
+      libva
+      libvdpau-va-gl
+    ];
+
+    environment.systemPackages = with pkgs; [
+      libva-utils
+    ];
   };
 }

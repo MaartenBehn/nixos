@@ -33,6 +33,10 @@
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
     boot.kernelPackages = pkgs.linuxPackages_6_12;
+    hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
+    boot.loader.systemd-boot.configurationLimit = lib.mkForce 1;
+
   };
 
   flake.modules.homeManager.pigman = {
@@ -42,7 +46,7 @@
   hosts.pigman = {
     modules = [
       "core"
-      "laptop"
+      "pigman"
       "networking"
       "networking_vpn"
       "cli"
@@ -61,7 +65,7 @@
       remote = true;
       maxJobs = 3;
       speedFactor = 2;
-      supportedFeatures = [ "kvm" "nixos-test" "big-parallel" ];
+      supportedFeatures = [ "kvm" "nixos-test" "big-parallel" "nvidia-gpu" ];
       cores = {
         big-parallel = 6;
         base = 12;

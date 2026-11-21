@@ -78,8 +78,12 @@ in {
         OnUnitActiveSec = "5min";
       };
     };
-    
-    nix.settings.cores = config.build.cores.base;
-    nix.settings.max-jobs = config.build.maxJobs;
+   
+    nix.settings = {
+      cores = config.build.cores.base;
+      max-jobs = config.build.maxJobs;
+      system-features = config.build.supportedFeatures;
+      sandbox = false;
+    };
   };
 }

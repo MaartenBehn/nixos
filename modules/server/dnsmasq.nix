@@ -47,9 +47,5 @@ in {
         ]) asus_public);
       };
     };
-
-    services.resolved.extraConfig = ''
-      DNSStubListener=no
-    '';
   };
 }

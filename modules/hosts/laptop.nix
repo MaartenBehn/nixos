@@ -71,7 +71,7 @@
     local_ip = "192.168.0.30";
     build = {
       remote = true;
-      maxJobs = 5;
+      maxJobs = 1;
       speedFactor = 3;
       supportedFeatures = [ "kvm" "nixos-test" "big-parallel" ];
       cores = {
