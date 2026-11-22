@@ -1,4 +1,7 @@
 { inputs, ... }: {
+  
+  
+
   flake.modules.nixos.core = { config, ... }: {
     imports = [ 
       inputs.sops-nix.nixosModules.sops
@@ -8,8 +11,7 @@
     sops.defaultSopsFormat = "yaml";
 
     sops.age.sshKeyPaths = [
-      "/persistent/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key"
+      "/home/stroby/.ssh/id_ed25519"
     ];
   };
 

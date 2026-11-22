@@ -1,4 +1,17 @@
 { self, ... }: {
+
+  my.secrets.iso."iso_stroby_ssh_private_key" = {
+    bitwarden = { name = "Iso"; field = "private_key"; };
+    path = "/home/stroby/.ssh/id_ed25519";
+    owner = "stroby";
+  };
+
+  my.secrets.iso."iso_stroby_ssh_key_public_key" = {
+    bitwarden = { name = "Iso"; field = "public_key"; };
+    path = "/home/stroby/.ssh/id_ed25519.pub";
+    owner = "stroby";
+  };
+
   flake.modules.nixos.iso = { modulesPath, pkgs, lib, config, ... }: {
     imports = [
       "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"

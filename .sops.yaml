@@ -1,12 +1,14 @@
 keys:
   - &primary age1jj43lhpl64dwvqlrp0ag0gycjqkxmaah7sj3cphsn7ujlpp8z95qvqs49p
-  - &laptop  age1vas4p8d39c8v57c52dwjvezsnapuf9e4q4d90ac8cdj0ukj9pp8st9842k
-  - &pigman  age14yc3r3t6x0cv6jkknq97k2u52kttmz485xmyr3hyc6lz6dralaws3tsaxv
-  - &asus    age1r4jz668ztv6fyh4dm6a895ns2ddlt7zdcs42a2tugz5yekxlrypqr26zsm
+  - &laptop  age1htm64cvkpctpn4hd4275m74scr8vsjqy3e3k05zusq2ghx3us4wsd770qx
+  - &asus    age1292w6hz63eufzpeazu0xgdpvx52w9tjhxz03d08zaad60h067gxshj9x46
+  - &pigman  age1ykne6vnqh43ghcqu2uemt4a4aqdrant4tujpzr7gwk223pqv046qtvxvvv
+  - &iso     age12exckrtgcpxn7adpyrdyanwtylgpnkuwywkcm3zqv00rzm0k6s5s0hs5lf
 creation_rules:
   - key_groups:
     - age:
       - *primary
       - *laptop
-      - *pigman
       - *asus
+      - *pigman
+      - *iso

@@ -1,4 +1,17 @@
-{ self, inputs, ... }: {
+{ inputs, ... }: {
+
+  my.secrets.pigman."pigman_stroby_ssh_private_key" = {
+    bitwarden = { name = "Pigman"; field = "private_key"; };
+    path = "/home/stroby/.ssh/id_ed25519";
+    owner = "stroby";
+  };
+
+  my.secrets.pigman."pigman_stroby_ssh_key_public_key" = {
+    bitwarden = { name = "Pigman"; field = "public_key"; };
+    path = "/home/stroby/.ssh/id_ed25519.pub";
+    owner = "stroby";
+  };
+
   flake.modules.nixos.pigman = { modulesPath, lib, config, pkgs, ... }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
