@@ -32,9 +32,8 @@
       preset=''${3:-medium}
       allow_nvenc=''${4:-1}
       gop=''${5:-48}
-      pixfmt=''${6:-8}
-      keep_langs=''${7:-"eng ger deu jpn und"}
-      ext=''${8:-mkv}
+      keep_langs=''${6:-"eng ger deu jpn und"}
+      ext=''${7:-mkv}
 
       work=$(mktemp -d /tmp/media-stream.XXXXXX)
       mon_pid=""
@@ -86,7 +85,7 @@
         exec nix --extra-experimental-features "nix-command flakes" shell \
           nixpkgs#ffmpeg nixpkgs#jq \
           -c bash "$script_path" --in-shell "$script_path" \
-          "$crf" "$cq" "$preset" "$allow_nvenc" "$gop" "$pixfmt" "$keep_langs" "$ext"
+          "$crf" "$cq" "$preset" "$allow_nvenc" "$gop" "$keep_langs" "$ext"
       fi
 
       have_nvenc=0
@@ -96,7 +95,7 @@
 
       log "worker up: pid=$$ cpus=$(nproc) load=$(cut -d' ' -f1-3 /proc/loadavg) in_shell=$in_shell"
       log "ffmpeg: $(ffmpeg -version 2>/dev/null | sed -n 1p)"
-      log "settings: crf=$crf cq=$cq preset=$preset pixfmt=$pixfmt gop=$gop ext=$ext nvenc_allowed=$allow_nvenc nvenc_present=$have_nvenc"
+      log "settings: crf=$crf cq=$cq preset=$preset gop=$gop ext=$ext nvenc_allowed=$allow_nvenc nvenc_present=$have_nvenc"
       if command -v nvidia-smi >/dev/null 2>&1; then
         log "gpu: $(nvidia-smi --query-gpu=name,utilization.gpu,memory.used,memory.total --format=csv,noheader 2>/dev/null | paste -sd ';' - || echo unknown)"
       fi
@@ -160,14 +159,22 @@
 
       # ---- probe ---------------------------------------------------------
       if ! info=$(ffprobe -v error \
-        -show_entries format=duration:stream=index,codec_type,codec_name,width,height,channels:stream_tags=language \
+        -show_entries format=duration:stream=index,codec_type,codec_name,width,height,channels,color_primaries,color_transfer,color_space:stream_tags=language \
         -of json "$in_file" 2>"$enc_log"); then
         log "error: ffprobe failed on streamed input: $(<"$enc_log")"
         exit 1
       fi
 
       dur_ms=$(jq -r '((.format.duration // "0") | tonumber * 1000 | floor)' <<< "$info")
-      log "probe: duration=$((dur_ms / 1000))s video=$(jq -r '[.streams[] | select(.codec_type=="video")][0] | "\(.codec_name) \(.width)x\(.height)"' <<< "$info") audio_streams=$(jq '[.streams[] | select(.codec_type=="audio")] | length' <<< "$info") subtitle_streams=$(jq '[.streams[] | select(.codec_type=="subtitle")] | length' <<< "$info")"
+      read -r c_prim c_trc c_space < <(jq -r '
+        [.streams[] | select(.codec_type=="video")][0]
+        | [(.color_primaries // ""), (.color_transfer // ""), (.color_space // "")]
+        | @tsv' <<< "$info")
+
+      color_args=()
+      [[ -n $c_prim  && $c_prim  != "unknown" ]] && color_args+=(-color_primaries "$c_prim")
+      [[ -n $c_trc   && $c_trc   != "unknown" ]] && color_args+=(-color_trc "$c_trc")
+      [[ -n $c_space && $c_space != "unknown" ]] && color_args+=(-colorspace "$c_space")
 
       pick() {
         jq -r --arg t "$1" --arg k "$keep_langs" --argjson fb "$2" '
@@ -181,13 +188,14 @@
       map_args=(-map 0:v:0)
 
       n=0
-      while read -r idx codec _; do
+      while read -r idx codec ch; do
         [[ -n $idx ]] || continue
         map_args+=(-map "0:$idx")
         case $codec in
           dts|truehd|flac|pcm_*)
-            map_args+=("-c:a:$n" aac "-b:a:$n" 192k "-ac:a:$n" 2)
-            log "audio #$idx: $codec -> aac 192k stereo"
+            abitrate=$(( ch > 2 ? ch * 96 : 256 ))
+            map_args+=("-c:a:$n" aac "-b:a:$n" "''${abitrate}k" "-ac:a:$n" "$ch")
+            log "audio #$idx: $codec (''${ch}ch) -> aac ''${abitrate}k (''${ch}ch)"
             ;;
           *)
             map_args+=("-c:a:$n" copy)
@@ -217,36 +225,19 @@
         V=()
         case $enc in
           nvenc)
-            if (( pixfmt == 10 )); then
-              V=(
-                -c:v hevc_nvenc -preset p6 -tune hq -rc vbr -cq "$qual" -b:v 0
-                -profile:v main10 -pix_fmt p010le
-                -spatial-aq 1 -rc-lookahead 32
-                -g "$gop" -forced-idr 1 -no-scenecut 1 -strict_gop 1
-              )
-            else
-              V=(
-                -c:v hevc_nvenc -preset p6 -tune hq -rc vbr -cq "$qual" -b:v 0
-                -profile:v main -pix_fmt nv12
-                -spatial-aq 1 -rc-lookahead 32
-                -g "$gop" -forced-idr 1 -no-scenecut 1 -strict_gop 1
-              )
-            fi
+            V=(
+              -c:v hevc_nvenc -preset p6 -tune hq -rc vbr -cq "$qual" -b:v 0
+              -profile:v main10 -pix_fmt p010le
+              -spatial-aq 1 -rc-lookahead 32
+              -g "$gop"
+            )
             ;;
           x265)
-            if (( pixfmt == 10 )); then
-              V=(
-                -c:v libx265 -crf "$qual" -preset "$pre" -pix_fmt yuv420p10le
-                -g "$gop"
-                -x265-params "log-level=error:keyint=$gop:min-keyint=$gop:scenecut=0:open-gop=0:repeat-headers=1"
-              )
-            else
-              V=(
-                -c:v libx265 -crf "$qual" -preset "$pre" -pix_fmt yuv420p
-                -g "$gop"
-                -x265-params "log-level=error:keyint=$gop:min-keyint=$gop:scenecut=0:open-gop=0:repeat-headers=1"
-              )
-            fi
+            V=(
+              -c:v libx265 -crf "$qual" -preset "$pre" -pix_fmt yuv420p10le
+              -g "$gop"
+              -x265-params "log-level=error:keyint=$gop:min-keyint=24:open-gop=0"
+            )
             ;;
         esac
       }
@@ -255,7 +246,7 @@
         local enc=$1 qual=$2 rc=0 t_enc out_bytes
         rm -f "$out_file" "$enc_log" "$prog_file"
         set_v "$enc" "$qual" "$preset"
-        log "encoding with $enc (q=$qual, preset=$preset, pixfmt=$pixfmt)"
+        log "encoding with $enc (q=$qual, preset=$preset, 10-bit)"
         t_enc=$SECONDS
 
         monitor_encode "$prog_file" "$dur_ms" "$enc" "$t_enc" & mon_pid=$!
@@ -264,7 +255,7 @@
           -i "$in_file" \
           "''${map_args[@]}" \
           "''${V[@]}" \
-          -force_key_frames "expr:gte(t,n_forced*2)" \
+          "''${color_args[@]}" \
           -movflags +faststart \
           -f mp4 "$out_file" 2>"$enc_log" || rc=$?
         stop_monitor
@@ -279,7 +270,7 @@
           log "ffmpeg ($enc) stderr: $(tr '\n' ' ' < "$enc_log")"
         fi
         return 1
-      }
+      }      
 
       send_result() {
         local out_bytes
@@ -340,7 +331,7 @@
         UI=0
         UI_PID=""
         UI_LOG=""
-        MIN_BPS=4000000
+        MIN_BPS=8000000
         KEEP_LANGS="eng ger deu jpn und"
 
         # Run-wide state (set in run_command, inherited by worker subshells).
@@ -671,13 +662,11 @@
         backup_original() {
           local dest=$1 bak=$2 bak_tmp
           mkdir -p "$(dirname "$bak")"
-          if [[ -e $bak ]]; then
-            return 0
-          fi
-          bak_tmp=$(mktemp "$(dirname "$bak")/.bak.XXXXXX")
-          if ! cp -p "$dest" "$bak_tmp"; then
-            rm -f "$bak_tmp"
-            return 1
+          [[ -e $bak ]] && return 0
+          bak_tmp=$(mktemp -u "$(dirname "$bak")/.bak.XXXXXX")
+          # Hard link = zero-copy backup; fall back to a real copy across filesystems.
+          if ! ln -- "$dest" "$bak_tmp" 2>/dev/null; then
+            cp -p -- "$dest" "$bak_tmp" || { rm -f "$bak_tmp"; return 1; }
           fi
           mv -f "$bak_tmp" "$bak"
         }
@@ -743,7 +732,7 @@
 
         process_slot() {
           local target=$1 key=$2 slot=$3 crf=$4 cq=$5 preset=$6 cpu_only=$7
-          local rel src ext c br pix xfer fps gop pixfmt allow_nvenc
+          local rel src ext c br pix xfer fps gop allow_nvenc
           local dest final bak orig_size new_size probe_err
           local remote_args remote_cmd slot_failed=0
           local -a worker_args=()
@@ -793,10 +782,9 @@
 
             IFS=$'\t' read -r c br pix xfer fps < <(probe_video "$src")
             orig_size=$(stat -c %s "$src")
+            
             ext=''${rel##*.}
-            if [[ -z $ext ]]; then
-              ext="mkv"
-            fi
+            [[ -n $ext ]] || ext="mkv"
 
             gop=$(awk -v r="$fps" 'BEGIN {
               f = (r ~ /\// && split(r, a, "/") == 2 && a[2] > 0) ? a[1] / a[2] : (r + 0 > 0 ? r + 0 : 24);
@@ -804,29 +792,24 @@
               print (g < 12 ? 12 : g);
             }')
 
-            if [[ $pix == *10* || $pix == *12* || $xfer == "smpte2084" || $xfer == "arib-std-b67" ]]; then
-              pixfmt=10
-            else
-              pixfmt=8
-            fi
-
             dest="$src"
-            final="''${dest%.*}.mp4"
+            final="''${dest%.*}.mp4"            
             bak="$ROOT/backups/$rel"
             SLOT_TMP=$(mktemp "$(dirname "$dest")/.media-build.XXXXXX")
             SLOT_ERR_LOG=$(mktemp "$ACTIVE_RUN_DIR/ssh-err.XXXXXX")
 
             worker_args=(
               "$crf" "$cq" "$preset" "$allow_nvenc"
-              "$gop" "$pixfmt" "$KEEP_LANGS" "$ext"
+              "$gop" "$KEEP_LANGS" "$ext"
             )
+
             printf -v remote_args '%q ' "''${worker_args[@]}"
             remote_cmd="sf=\$(mktemp /tmp/media-worker.XXXXXX.sh) && printf '%s' '$WORKER_B64' | base64 -d > \"\$sf\" && exec bash \"\$sf\" \"\$sf\" $remote_args"
 
             acquire_transfer_lock "$target" "$slot" || break
 
             ev_stage upload
-            log "[$target#$slot] streaming $rel ($((orig_size / 1048576)) MiB, ''${pixfmt}-bit, gop=$gop)"
+            log "[$target#$slot] streaming $rel ($((orig_size / 1048576)) MiB, gop=$gop)"
 
             if ! stream_remote_encode "$src" "$SLOT_TMP" "$SLOT_ERR_LOG" "$remote_cmd" "$target" "$slot" "$orig_size"; then
               (( STOPPING == 0 )) || break

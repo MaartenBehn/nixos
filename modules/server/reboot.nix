@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server = { pkgs, ... }: {
+  flake.modules.nixos.server_off = { pkgs, ... }: {
     systemd.services.daily-reboot = {
       description = "Reboot the system daily at 6am";
       serviceConfig = {

@@ -63,7 +63,7 @@
     domains.local = "local";
     build = {
       remote = true;
-      maxJobs = 5;
+      maxJobs = 3;
       speedFactor = 2;
       supportedFeatures = [ "kvm" "nixos-test" "big-parallel" "nvidia-gpu" ];
       cores = {

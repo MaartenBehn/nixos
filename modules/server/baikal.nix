@@ -11,6 +11,7 @@
     services.nginx.virtualHosts."baikal.${config.domains.public}" = {
       useACMEHost = config.domains.public;
       forceSSL = true;
+      listenAddresses = [ "0.0.0.0" "10.1.0.2" "10.2.0.1" "[::]" "[fd00:11::2]" "[fd00:12::1]" ];
       root = "${config.services.baikal.package}/share/php/baikal/html";
       locations = {
         "/" = {

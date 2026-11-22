@@ -53,6 +53,7 @@
       "${cloud_domain}" = {
         forceSSL = true;
         useACMEHost = config.domains.public;
+        listenAddresses = [ "0.0.0.0" "10.1.0.2" "10.2.0.1" "[::]" "[fd00:11::2]" "[fd00:12::1]" ];
       };
     };
 
