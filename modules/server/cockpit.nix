@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.server_base = { lib, pkgs, ... }: {
+  flake.modules.nixos.server_base = { lib, pkgs, config, ... }: {
 
     services.cockpit = {
       enable = true;
@@ -7,7 +7,7 @@
       settings = {
         WebService = {
           AllowUnencrypted = true;
-          Origins = lib.mkForce "http://health.local";
+          Origins = lib.mkForce "http://health.${config.domains.local}";
         };
       };
     };

@@ -12,6 +12,12 @@
     owner = "stroby";
   };
 
+  flake.modules.nixos.core = {
+    users.users."stroby".openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBi3jcEu+fWpDcaRndwRZrg0LVtXSaCFhxcyS4AIHOOJ stroby@nixos"
+    ];
+  };
+
   flake.modules.nixos.iso = { modulesPath, pkgs, lib, config, ... }: {
     imports = [
       "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix"

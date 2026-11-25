@@ -11,8 +11,10 @@
     sops.defaultSopsFormat = "yaml";
 
     sops.age.sshKeyPaths = [
-      "/home/stroby/.ssh/id_ed25519"
+      "/home/${config.username}/.ssh/id_ed25519"
     ];
+
+    sops.age.keyFile = "/home/${config.username}/.config/sops/age/keys.txt";
   };
 
   flake.modules.homeManager.core = { pkgs, config, ... }: {

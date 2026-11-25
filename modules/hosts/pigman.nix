@@ -12,6 +12,12 @@
     owner = "stroby";
   };
 
+  flake.modules.nixos.core = {
+    users.users."stroby".openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsrf+xBWKIdaKHDmXVXREFWCw7TNNzHgGgCdYYsI08i stroby@nixos"
+    ];
+  };
+
   flake.modules.nixos.pigman = { modulesPath, lib, config, pkgs, ... }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
@@ -146,22 +152,6 @@
             file = "/etc/machine-id";
             inInitrd = true;
             how = "symlink";
-          }
-          {
-            file = "/etc/ssh/ssh_host_ed25519_key";
-            mode = "0600";
-          }
-          {
-            file = "/etc/ssh/ssh_host_ed25519_key.pub";
-            mode = "0644";
-          }
-          {
-            file = "/etc/ssh/ssh_host_rsa_key";
-            mode = "0600";
-          }
-          {
-            file = "/etc/ssh/ssh_host_rsa_key.pub";
-            mode = "0644";
           }
         ];
 

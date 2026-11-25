@@ -7,7 +7,6 @@
 
     home.shellAliases = { 
       find-drive="sudo fdisk -l";
-      nix-build-iso="cd /home/$USER/nixos/ && nix build .#nixosConfigurations.iso.config.system.build.isoImage && cd -";
     };
 
     programs.fish.functions = {

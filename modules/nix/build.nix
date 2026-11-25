@@ -43,6 +43,13 @@
         cd -
       '';
 
+      nix-build-iso = pkgs.writeShellScriptBin "nix-build-iso" ''
+        cd /home/$USER/nixos/
+        git add --all
+        nh os build-image -H iso --impure --keep-going --builders "" .
+        cd -
+      '';
+
       nix-update = pkgs.writeShellScriptBin "nix-update" ''
         cd /home/$USER/nixos/ 
         git add --all 
@@ -57,6 +64,7 @@
         nix-rebuild-asus
         nix-rebuild-asus-private
         nix-rebuild-pigman
+        nix-build-iso
         nix-update
         nh
         nix-output-monitor

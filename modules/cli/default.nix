@@ -44,6 +44,8 @@
       python313Packages.markitdown
 
       lego
+
+      claude-code
     ]);
   };
 }
