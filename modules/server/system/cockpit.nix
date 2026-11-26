@@ -7,9 +7,15 @@
       settings = {
         WebService = {
           AllowUnencrypted = true;
-          Origins = lib.mkForce "http://health.${config.domains.local}";
+          Origins = lib.mkForce "https://health.${config.domains.local}";
         };
       };
+      plugins = [ 
+        pkgs.cockpit-podman
+        pkgs.cockpit-machines
+        pkgs.cockpit-files
+        pkgs.cockpit-zfs
+      ];
     };
 
 

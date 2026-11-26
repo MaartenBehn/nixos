@@ -54,7 +54,7 @@
 
             # Only for services marked "all" (available both locally and publicly):
             # allow accessing via the public domain name over the VPN IP too!
-            serverAliases = lib.optional (local && is_all && config.domains.public != null) "${sub_domain}.${config.domains.public}";
+            # serverAliases = lib.optional (local && is_all && config.domains.public != null) "${sub_domain}.${config.domains.public}";
 
             locations = {
               "/" = svc.root;

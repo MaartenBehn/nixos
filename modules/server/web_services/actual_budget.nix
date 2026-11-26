@@ -40,7 +40,7 @@
       });
 
       # Backup
-      default_borg_settings = import ./_borg_settings.nix { inherit config; };
+      default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
 
       backup_names = [ 
         user_files

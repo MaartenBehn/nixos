@@ -15,7 +15,9 @@ in {
         local = [ "/${config.domains.public}/" ];
         address = lib.flatten (map (domain: [ 
           "/${domain}/10.1.0.2" 
+          "/${domain}/10.2.0.1" 
           "/${domain}/fd00:11::2" 
+          "/${domain}/fd00:12::1" 
         ]) [ config.domains.public ]);
       };
     };

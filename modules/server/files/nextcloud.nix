@@ -7,7 +7,7 @@
   flake.modules.nixos.server = { pkgs, config, ... }: 
   let 
     cloud_domain = "cloud.stroby.org";
-    default_borg_settings = import ./_borg_settings.nix { inherit config; };
+    default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
   in {
     
     users.groups.notes.members = [ "nextcloud" "www-data" ];

@@ -73,7 +73,7 @@
 
     boot.loader.systemd-boot.memtest86.enable = true;
   };
-
+  
   hosts.asus = {
     modules = [
       "core"

@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.server = { config, ... }: let
-    default_borg_settings = import ../_borg_settings.nix { inherit config; };
+    default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
   in {
 
     services.borgbackup.jobs.fritz_behns_music_ellie_minibot = default_borg_settings // {

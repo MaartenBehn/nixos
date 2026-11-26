@@ -120,7 +120,7 @@ PersistentKeepalive = 25
       };
 
       local_wg = {
-        ips = [ "10.2.0.1/24" "fd00:12::1/64" ];
+        ips = [ "10.2.0.1/32" "fd00:12::1/128" ];
         listenPort = 51823;
         privateKeyFile = config.my.secrets."wireguard_private_local_asus_private_key".path;
 

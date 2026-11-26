@@ -346,14 +346,14 @@ in {
 
         locations = {
           "/icons/" = {
-            alias = "${../../assets/icons}/";
+            alias = "${../../../assets/icons}/";
             extraConfig = ''
             allow all;
             expires 30d;
             '';
           };
           "/wallpapers/"  = {
-            alias = "${../../assets/wallpapers}/";
+            alias = "${../../../assets/wallpapers}/";
             extraConfig = ''
             allow all;
             expires 30d;

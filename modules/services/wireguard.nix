@@ -15,7 +15,7 @@ in {
       owner = "stroby"; 
     };
     "wireguard_fritz_behns_stroby_laptop_preshared_key" = { 
-      bitwarden = { name = "Wireguard Fritz Behns Stroby Laptop"; field = "private_key";  };
+      bitwarden = { name = "Wireguard Fritz Behns Stroby Laptop"; field = "preshared_key";  };
       owner = "stroby"; 
     };
   };
@@ -43,14 +43,14 @@ in {
       private_local = {  
         privateKeyFile = config.my.secrets."wireguard_private_local_laptop_private_key".path;
         address = [ "10.2.0.2/24" "fd00:12::2/64" ];
-        dns = [ "10.1.0.2" "fd00:11::2" ];
+        dns = [ "10.2.0.1" "fd00:12::1" ];
 
         peers = [
           {
             # asus
             publicKey = "nX/bkTRB30KdpeDsKlw9ZjQhVSd7hGLzbnVM9exwyF4=";
             endpoint = "${global_config.hosts."asus".local_ip}:51823";
-            allowedIPs = [ "10.1.0.0/24" "10.2.0.0/24" "fd00:11::/64" "fd00:12::/64" ];
+            allowedIPs = [ "10.2.0.0/24" "fd00:12::/64" ];
             persistentKeepalive = 25;
           }
         ];

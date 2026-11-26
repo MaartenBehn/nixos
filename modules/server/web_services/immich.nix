@@ -1,12 +1,29 @@
 {
+  my.secrets.server = { 
+    immich_mail_pw = { 
+      bitwarden = { name = "Immich"; field = "mail_password"; };
+      owner = "maddy"; 
+    };
+  };
+ 
+
   flake.modules.nixos.server = { config, pkgs, ... }: 
   let
-    default_borg_settings = import ./_borg_settings.nix { inherit config; };
+    default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
     fix_permissions = pkgs.writeShellScriptBin "fix_permissions" ''
       chmod -R 750 /var/lib/immich 
     ''; 
 
   in {
+    services.maddy = {
+      ensureAccounts = [
+        "immich@${config.services.maddy.primaryDomain}"
+      ];
+      ensureCredentials = {
+        "immich@${config.services.maddy.primaryDomain}".passwordFile = config.my.secrets.immich_mail_pw.path;
+      };
+    };
+
     services.postgresql.ensureUsers = [ 
       { 
         name = "immich";

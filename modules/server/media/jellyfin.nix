@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.server = { config, ... }: let 
-    default_borg_settings = import ../_borg_settings.nix { inherit config; };
+    default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
   in {
 
     # Media Folders: 
@@ -52,7 +52,7 @@
 
     services.borgbackup.jobs.fritz_behns_shibari_study = default_borg_settings // {
       group = "media";
-      paths = "/media/videos_data/ShibariStudy";
+      paths = "/media/videos_data/shibari_study";
       repo = "ssh://Stroby@192.168.178.39/volume1/BackUp/asus_server/study";
       startAt = "*-*-* 01:30";
     };

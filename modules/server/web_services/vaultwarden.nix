@@ -6,18 +6,18 @@
     };
 
     vaultwarden_smtp_pw = { 
-      bitwarden = { name = "Mail Vaultwarden"; field = "password"; };
+      bitwarden = { name = "Vaultwarden"; field = "mail_password"; };
       owner = "vaultwarden"; 
     };
 
     vaultwarden_mail_pw = { 
-      bitwarden = { name = "Mail Vaultwarden"; field = "password"; };
+      bitwarden = { name = "Vaultwarden"; field = "mail_password"; };
       owner = "maddy"; 
     };
   };
 
   flake.modules.nixos.server = { config, pkgs, lib, ... }: let 
-    default_borg_settings = import ./_borg_settings.nix { inherit config; };
+    default_borg_settings = import ../system/_borg_settings.nix { inherit config; };
     borg_settings = default_borg_settings // {
       group = "vaultwarden";
       paths = [ "/var/lib/vaultwarden" "/var/local/vaultwarden" ];
